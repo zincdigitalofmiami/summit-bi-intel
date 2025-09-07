@@ -1,0 +1,108 @@
+extends layout/layout
+
+block vars
+  - title = 'Mailbox Read Page'
+  - bodyClass = 'mailbox-read-page'
+
+block container
+  +PageHeader('Mail')
+  .flex.items-center.text-xs.text-gray-500.mb-8(class='gap-x-[11px]')
+    .flex.items-center.gap-x-1
+      img(src='assets/images/icons/icon-home-2.svg', alt='home icon')
+      a.capitalize(href='index.html') Home
+    img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+    span.capitalize.text-color-brands Inbox
+  .grid.grid-cols-1.gap-6(class='xl:grid-cols-[287px_1fr]')
+    .flex.flex-col.flex-1.w-full(class='gap-[27px] lg:flex-row xl:flex-col')
+      +BaseWrapper.rounded-2xl.pb-5.px-7.h-fit(class='pt-[35px] lg:flex-1 xl:flex-none')
+        button.btn.flex.items-center.normal-case.bg-color-brands.h-auto.border-neutral-bg.rounded-lg.gap-x-3.border-4.w-full(
+          class='hover:border-[#B2A7FF] hover:bg-color-brands dark:border-dark-neutral-bg dark:hover:border-[#B2A7FF] py-[10px] mb-[30px]'
+        )
+          img(src='assets/images/icons/icon-message-edit.svg', alt='message edit icon')
+          span.text-white.font-semibold.leading-4(class='text-[14px]') New Category
+        .flex.flex-col.pb-5.border-b.border-neutral.mb-5(class='dark:border-dark-neutral-border')
+          +FolderItem('Inbox', '2568', 'assets/images/icons/icon-inbox.svg')
+          +FolderItem('Starred', '986', 'assets/images/icons/icon-starred.svg')
+          +FolderItem('Snoozed', '2235', 'assets/images/icons/icon-snooze.svg')
+          +FolderItem('Important', '256', 'assets/images/icons/icon-lightning.svg')
+          +FolderItem('Sent', '124','assets/images/icons/icon-send-2.svg')
+          +FolderItem('Social', '15', 'assets/images/icons/icon-social.svg')
+          +FolderItem('Trash', '365', 'assets/images/icons/icon-trash.svg')
+          +FolderItem('Setting', '546', 'assets/images/icons/icon-setting.svg')
+        .flex.flex-col
+          +FolderItem('Team', '2325').filter-green
+          +FolderItem('My Work', '1158').filter-state
+          +FolderItem('Private', '1356').filter-orange
+          +FolderItem('Sent', '2563').filter-pink
+      +BaseWrapper.rounded-2xl.pb-7.px-7.h-fit(class='pt-[21px]')
+        span.text-gray-500.leading-4.font-semibold.border-b.border-neutral.block(
+          class='dark:text-gray-dark-500 text-[14px] pb-[14px] dark:border-dark-neutral-border mb-[18px]'
+        ) Meet now
+        .grid.grid-cols-4.justify-items-center(class='gap-y-[18px] gap-x-[14px]')
+          +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+          +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+          +UserActiveItem('assets/images/seller-avatar-3.png', true, activeColor, 'Afrim')
+          +UserActiveItem('assets/images/seller-avatar-4.png', false, activeColor, 'Eduar')
+          +UserActiveItem('assets/images/seller-avatar-5.png', true, 'orange', 'Saleh')
+          +UserActiveItem('assets/images/seller-avatar-6.png', false, activeColor, 'Edilson')
+          +UserActiveItem('assets/images/seller-avatar-1.png', false, activeColor, 'Afrim')
+          +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, 'Eduar')
+    +Card.flex-1(class='px-[28px] pt-[33px] pb-[38px]')
+      .flex.items-center.justify-between.flex-col(class='mb-[30px] gap-[15px] lg:flex-row')
+        .flex.items-center.flex-wrap.w-full.justify-between(class='gap-[15px] lg:w-fit')
+          +IconButton
+            +LoginIcon
+          +IconButton
+            +SaveIcon
+          +IconButton
+            +DirectboxDefaultIcon
+          +IconButton
+            +DirectInboxIcon
+          +IconButton
+            +ClockIcon
+          +IconButton
+            +TrashIcon
+        .flex.items-center.gap-4.justify-center.flex-1(class='md:justify-end')
+          p.text-gray-500.text-right(class='text-[10.5px] leading-[17px] dark:text-gray-dark-500') 1-50
+            span.pl-1 of 12,568
+          .flex.items-center
+            a.w-4.h-4.overflow-hidden(href='#') 
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-left.svg', alt='arrow left icon')
+            a.w-4.h-4.overflow-hidden(href='#') 
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+          .p-3.border.rounded-lg.border-neutral(class='dark:border-dark-neutral-border')
+            img(src='assets/images/icons/icon-element-3.svg', alt='element 3 icon')
+      +Divider(class='mb-[42px]')
+      div(class='mb-[42px]') 
+        .flex.items-start.flex-wrap(class='gap-[15px] mb-[22px]')
+          p.text-header-6.font-semibold.text-dark-neutral-border(class='dark:text-gray-400') How to be approve on Envato?
+          +MailboxTag
+          +MailboxTag('Important')
+        .flex.items-end.justify-between.flex-wrap.gap-4
+          .flex.items-center.gap-3
+            .relative.w-10.h-10
+              img.w-full.h-full.object-cover.rounded-full(src='assets/images/seller-avatar-1.png', alt='avatar')
+              .absolute.rounded-full.border.border-neutral-bg.bg-green.bottom-0.w-2.h-2.right-1
+            +SellerSales('Azumi Rose', 'on 2022/02/17 at 11:21 pm', 'mb-[7px]').flex-1
+          .flex.items-center(class='gap-[14px]')
+            +ReplyIcon
+            +StarIcon
+            +MoreIcon
+            +PrinterIcon
+      p.text-gray-1100(class='text-[14px] leading-[22px] dark:text-gray-dark-1100 mb-[30px]') Hi Bob, <br/>
+        | <br/>
+        | Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. <br/>
+        | <br/>
+        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis libero vitae leo eleifend vulputate. Pellentesque luctus dictum nibh, ac vestibulum augue semper sed. Maecenas vel cursus ligula. Ut volutpat libero nisl. Fusce scelerisque nisi vitae velit porta, id sagittis orci rutrum. Donec mattis sapien quis aliquam porttitor. Donec faucibus orci sit amet felis mollis, et placerat arcu fringilla. In hac habitasse platea dictumst. <br/>
+        | <br/>
+        | Best regards, <br/>
+        | Azumi Rose <br/>
+        | <br/>
+      +Divider(class='mb-[30px]')
+      .flex.flex-col.items-center(class='gap-[25px] mb-[58px]')
+        +MailboxReadItem
+        +MailboxReadItem('assets/images/seller-avatar-3.png', 'Albert Flores', desc)
+        +MailboxReadItem('assets/images/seller-avatar-4.png', 'Hannah Nguyen', desc)
+      .grid.items-start.grid-cols-1(class='lg:grid-cols-[1fr_32%] xl:grid-cols-[1fr_36%] gap-[25px]')
+        +MailboxSend.order-last(class='lg:order-first') 
+        +AddBoxItem('Schedule', 'Status:', 'Visibility:', 'Schedule:', 'Draft', 'Publish', 'Immediately', 'Save Darft', 'Publish')

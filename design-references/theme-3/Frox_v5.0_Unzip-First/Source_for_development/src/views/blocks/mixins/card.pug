@@ -1,0 +1,179 @@
+mixin Card
+  .rounded-2xl.border.border-neutral.bg-neutral-bg(class='dark:border-dark-neutral-border dark:bg-dark-neutral-bg')&attributes(attributes)
+    if block
+      block
+
+mixin StaticCard(title, total, percent, bgColor='bg-green')
+  +Card.py-4.flex-1(class='px-[19px]')&attributes(attributes)
+    .flex.items-center.justify-between.mb-4
+      p.text-desc.text-gray-500(class='dark:text-gray-dark-500')= title
+      +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+        img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+    .flex.items-center.justify-between(class='mb-[2px]')
+      .flex.items-center.gap-2
+        .w-8.h-8.rounded-lg.grid.place-items-center(class=bgColor)
+          img(src='assets/images/icons/icon-bag-happy.svg', alt='')
+        p.text-btn-label.font-bold.text-gray-1100(class='dark:text-gray-dark-1100')= total
+      .flex.items-center(class='gap-[7px]')
+        img(src='assets/images/icons/icon-export-green.svg', alt='')
+        span.text-green.text-subtitle.font-medium= percent
+    p.text-right.text-gray-400(class='dark:text-gray-dark-400 text-[11px] leading-[16px]') Compared to Jan 2022
+
+mixin PerformanceCard
+  +Card&attributes(attributes)
+    .flex.items-center.justify-between.px-6(class='py-[18px]')
+      p.text-subtitle-semibold.font-semibold.text-gray-1100(class='dark:text-gray-dark-1100') Sales Performance
+      .flex.items-center.gap-4.text-desc
+        p.text-gray-400(class='dark:text-gray-dark-400') Today’s
+        p.text-color-brands Monthly
+        p.text-gray-400(class='dark:text-gray-dark-400') Yearly
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-4(
+          class='ml-[10px]'
+        )
+          img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+    .w-full.bg-neutral(class='h-[1px] mb-[19px] dark:bg-dark-neutral-border')
+    .px-6(class='py-[18px]')
+      +Chart('performance', 'max-h-[400px]')
+      //- img.w-full.h-full.object-cover(src='assets/images/chart-image-1.png', alt='Sales Performance Chart')
+
+mixin CardHeaderWithToggle(title='Best Sellers')
+  .flex.items-center.justify-between&attributes(attributes)
+    p.text-subtitle-semibold.font-semibold.text-gray-1100(class='dark:text-gray-dark-1100')= title
+    +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+      img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+
+mixin CardHeaderWithToggleSm(title='Best Sellers')
+  div&attributes(attributes) 
+    .flex.items-center.justify-between(class='mb-[10px]')
+      p.text-normal.font-semibold.text-gray-500(class='dark:text-gray-dark-500')= title
+      .flex.items-center
+        if block
+          block
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4 
+          img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+
+mixin ProjectCard(stat='25%', colorStats='orange', tag='High', tagColor="text-orange")
+  .rounded-lg.border.border-neutral.relative(class='p-[15px] dark:border-dark-neutral-border')&attributes(attributes)
+    .flex.items-center.justify-between(class='mb-[10px]')
+      .flex.items-center.gap-3
+        +Radical(colorStats, stat)
+        .flex-1 
+          +Size14Leading16Semibold("Landing page design")(class='mb-[3px]')
+          +Size10Leading16Gray400('25 January 2022')
+      +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between p-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.z-10.absolute.right-0.top-0
+        img.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+    +Size12Leading16('Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque imperdiet elit sed nisi volutpat').mb-3
+    if block
+      block
+    +Divider(class='mb-[15px]')
+    .flex.items-center.justify-between
+      +SmallTag(tag, tagColor)
+      +UsersStackTiny.translate-x-5
+        +AddUserSm.z-10(class='translate-x-[-20px]')
+
+mixin FinanceStaticCard(title='Total Income', color='text-green', icon='assets/images/icons/icon-bar-chart.svg')
+  +Card.flex-1.px-7(class='py-[15px]')&attributes(attributes)
+    .flex.items-end.mb-10
+      div
+        .w-16.h-16.place-items-center.rounded-full.bg-neutral.grid(class='dark:bg-dark-neutral-border mb-[10px]')
+          img(src=icon, alt='chart icon')
+        +Size14Leading16(title).font-bold
+      .ml-auto
+        .mb-6.flex.justify-items-end 
+          +DropdownToggle
+        div 
+          h5.text-header-5.font-bold.text-gray-1100(class='dark:text-gray-dark-1100 mb-[5px]') $57.9k
+          p.text-header-6.font-semibold.text-right(class=color) +5%
+    div
+      if block
+        block
+
+mixin WalletCardItem(account='8752**** **** 6325', balance='$25,600.00', methodIcon='assets/images/icons/icon-Visa.svg')
+  .flex.items-center.justify-between(class='py-[5px]')
+    div 
+      p.text-desc.text-gray-400(class='dark:text-gray-dark-400 mb-[5px]')= account
+      +Size14Leading16Semibold(balance)
+    .w-12.h-8.bg-neutral.rounded.grid.place-items-center(class='dark:bg-dark-neutral-border')
+      img(src=methodIcon, alt='payment method')
+
+mixin TransferCardItem(logo, name,desc, sales='$450.54')
+  .rounded-lg.border.border-neutral.flex.items-center.justify-between(
+    class='pt-[10px] pb-[14px] px-[17px] xl:pr-12 dark:border-dark-neutral-border'
+  )
+    +AvatarNameSm(logo, name,desc)
+    +SellerSales(sales, '15 Jan 2022 - 2:00 AM', 'mb-[7px] text-right')
+
+mixin CategoryCardItem(category='Dailly expenses', price='$589.99', percent='75', color='pink')
+  .w-full
+    .flex.items-center.justify-between(class='mb-[10px]')
+      +Size14Leading16Normal(category)
+      +Size14Leading16(price)
+    +ProgressBar(null,percent,color, 'h-[8px]')
+
+mixin CreditCard(bgColor='bg-[#4654AB]', paymentIcon='assets/images/Visa-white-bg.png')
+  .rounded-lg.pt-5.pb-6.flex-1.text-white(class='px-[15px]', class=bgColor)
+    .flex.items-start.justify-between(class='py-[5px] mb-[23px]')
+      .flex.items-center(class='gap-[10px]')
+        div 
+          img(src=paymentIcon, alt='payment icon')
+        div 
+          p.text-desc(class='mb-[5px]') Card number
+          p.font-semibold.text-normal 8752**** **** 6325
+      +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto
+        img.cursor-pointer.filter-white(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+    .flex.items-center.justify-between(class='mb-[23px]')
+      div
+        p.text-desc(class='mb-[5px]') Accured
+        p.text-normal.font-semibold $72,985
+      div
+        p.text-desc(class='mb-[5px]') Balance
+        p.text-normal.font-semibold $56,533
+      div
+        p.text-desc(class='mb-[5px]') Blocked
+        p.text-normal.font-semibold $250
+      div
+        p.text-desc(class='mb-[5px]') Valid
+        p.text-normal.font-semibold 06/24
+    .flex.items-center.justify-between
+      p.text-desc Card Status
+      .border.border-neutral.bg-green.flex.items-center.py-2.gap-2.group.transition-colors.duration-200.cursor-pointer(
+        class='rounded-[48px] px-[13px] dark:border-dark-neutral-border hover:bg-neutral dark:hover:bg-dark-neutral-border'
+      )
+        .rounded-full.bg-white(class='w-[7px] h-[7px] group-hover:bg-green')
+        p.font-medium.leading-3(class='text-[10px] group-hover:text-green') Active
+
+mixin DepositCardItem(methodIcon='assets/images/icons/icon-master-card.svg',color='green', text='Active', name='Annette Black', company="McDonald's")
+  tr.text-normal.text-gray-500(class='dark:border-dark-neutral-border dark:text-gray-dark-1100 mb-[15px]')
+    td.rounded-tl-xl.rounded-bl-xl.text-left.border.border-neutral.border-r-0(class='pl-[30px] dark:border-dark-neutral-border') 
+      +Checkbox(class='mb-[-6px]') 
+    td.border.border-neutral.border-r-0.border-l-0(class='dark:border-dark-neutral-border')
+      .w-12.h-8.bg-neutral.rounded.grid.place-items-center(class='dark:bg-dark-neutral-border')
+        img(src=methodIcon, alt='payment method')
+    td.border.border-neutral.py-4.border-r-0.border-l-0(class='dark:border-dark-neutral-border')
+      +SellerSales(name, company, 'mb-[4px]')
+    td.border.border-neutral.border-r-0.border-l-0(class='dark:border-dark-neutral-border') 
+      +SellerSales('$72,985.25', "Credit Card", 'mb-[4px]')
+    td.border.border-neutral.border-r-0.border-l-0(class='dark:border-dark-neutral-border') 
+      +SellerSales('$14.81', "31.7%", 'mb-[4px]')
+    td.border.border-neutral.border-r-0.border-l-0(class='dark:border-dark-neutral-border') 
+      +StatusBorder(color, text)
+    td.border.border-neutral.rounded-tr-xl.rounded-br-xl.border-l-0(class='dark:border-dark-neutral-border') 
+      +DropdownMore(class='w-[46px]')
+
+mixin DepositItem(methodIcon='assets/images/icons/icon-master-card.svg', name='Annette Black', company="McDonald's")
+  tr.text-normal.text-gray-500(class='dark:border-dark-neutral-border dark:text-gray-dark-1100 mb-[15px]')
+    td.rounded-tl-xl.rounded-bl-xl.text-left.border.border-neutral.border-r-0(class='pl-[30px] dark:border-dark-neutral-border') 
+      .w-12.h-8.bg-neutral.rounded.grid.place-items-center(class='dark:bg-dark-neutral-border')
+        img(src=methodIcon, alt='payment method')
+    td.border.border-neutral.border-r-0.border-l-0(class='dark:border-dark-neutral-border')
+      +SellerSales(name, company, 'mb-[4px]')
+    td.border.border-neutral.py-4.border-r-0.border-l-0(class='dark:border-dark-neutral-border')
+      +SellerSales('$72,985.25', "Balance", 'mb-[4px]')
+    td.border.border-neutral.border-r-0.border-l-0(class='dark:border-dark-neutral-border') 
+      +SellerSales('$5,236.23', "Accured", 'mb-[4px]')
+    td.border.border-neutral.border-r-0.border-l-0(class='dark:border-dark-neutral-border') 
+      +SellerSales('09/24', "Valid", 'mb-[4px]')
+    td.border.border-neutral.border-r-0.border-l-0(class='dark:border-dark-neutral-border') 
+      +StatusBorder
+    td.border.border-neutral.rounded-tr-xl.rounded-br-xl.border-l-0(class='dark:border-dark-neutral-border') 
+      +DropdownMore(class='w-[46px]')

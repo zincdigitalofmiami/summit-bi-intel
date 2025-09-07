@@ -1,0 +1,89 @@
+extends layout/layout
+
+block vars
+  - title = 'Mailbox Inbox Page'
+  - bodyClass = 'mailbox-inbox-page'
+
+block container
+  +PageHeader('Mail')
+  .flex.items-center.text-xs.text-gray-500.mb-8(class='gap-x-[11px]')
+    .flex.items-center.gap-x-1
+      img(src='assets/images/icons/icon-home-2.svg', alt='home icon')
+      a.capitalize(href='index.html') Home
+    img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+    span.capitalize.text-color-brands Inbox
+  .grid.grid-cols-1.gap-6(class='xl:grid-cols-[287px_1fr]')
+    .flex.flex-col.flex-1.w-full(class='gap-[27px] lg:flex-row xl:flex-col')
+      +BaseWrapper.rounded-2xl.pb-5.px-7.flex-1(class='pt-[35px]')
+        button.btn.flex.items-center.normal-case.bg-color-brands.h-auto.border-neutral-bg.rounded-lg.gap-x-3.border-4.w-full(
+          class='hover:border-[#B2A7FF] hover:bg-color-brands dark:border-dark-neutral-bg dark:hover:border-[#B2A7FF] py-[10px] mb-[30px]'
+        )
+          img(src='assets/images/icons/icon-message-edit.svg', alt='message edit icon')
+          span.text-white.font-semibold.leading-4(class='text-[14px]') New Category
+        .flex.flex-col.pb-5.border-b.border-neutral.mb-5(class='dark:border-dark-neutral-border')
+          +FolderItem('Inbox', '2568', 'assets/images/icons/icon-inbox.svg')
+          +FolderItem('Starred', '986', 'assets/images/icons/icon-starred.svg')
+          +FolderItem('Snoozed', '2235', 'assets/images/icons/icon-snooze.svg')
+          +FolderItem('Important', '256', 'assets/images/icons/icon-lightning.svg')
+          +FolderItem('Sent', '124','assets/images/icons/icon-send-2.svg')
+          +FolderItem('Social', '15', 'assets/images/icons/icon-social.svg')
+          +FolderItem('Trash', '365', 'assets/images/icons/icon-trash.svg')
+          +FolderItem('Setting', '546', 'assets/images/icons/icon-setting.svg')
+        .flex.flex-col
+          +FolderItem('Team', '2325').filter-green
+          +FolderItem('My Work', '1158').filter-state
+          +FolderItem('Private', '1356').filter-orange
+          +FolderItem('Sent', '2563').filter-pink
+      +BaseWrapper.rounded-2xl.pb-7.px-7.h-fit(class='pt-[21px]')
+        span.text-gray-500.leading-4.font-semibold.border-b.border-neutral.block(
+          class='dark:text-gray-dark-500 text-[14px] pb-[14px] dark:border-dark-neutral-border mb-[18px]'
+        ) Meet now
+        .grid.grid-cols-4.justify-items-center(class='gap-y-[18px] gap-x-[14px]')
+          +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+          +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+          +UserActiveItem('assets/images/seller-avatar-3.png', true, activeColor, 'Afrim')
+          +UserActiveItem('assets/images/seller-avatar-4.png', false, activeColor, 'Eduar')
+          +UserActiveItem('assets/images/seller-avatar-5.png', true, 'orange', 'Saleh')
+          +UserActiveItem('assets/images/seller-avatar-6.png', false, activeColor, 'Edilson')
+          +UserActiveItem('assets/images/seller-avatar-1.png', false, activeColor, 'Afrim')
+          +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, 'Eduar')
+    +Card.overflow-x-scroll.scrollbar-hide.flex-1(class='px-[28px] pt-[33px] pb-[23px]')
+      .flex.items-center.justify-between.flex-col.gap-4(class='mb-[30px] lg:flex-row')
+        form.flex.items-center.border.border-neutral.w-full.order-last(
+          action='#',
+          class='gap-[10px] py-[13px] rounded-[10px] dark:border-dark-neutral-border lg:max-w-[279px] px-[18px] lg:order-first'
+        )
+          button(type='submit')
+            img(src='assets/images/icons/icon-search-normal.svg', alt='search icon')
+          input.w-full.outline-none.border-none.text-xs.font-normal.bg-transparent.text-gray-400(
+            type='search',
+            placeholder='Search all conversation',
+            class='dark:text-gray-dark-400'
+          )
+        .flex.items-center.gap-4.justify-end.w-full
+          p.text-gray-500.text-right(class='text-[10.5px] leading-[17px] dark:text-gray-dark-500') 1-50
+            span.pl-1 of 12,568
+          .flex.items-center
+            a.w-4.h-4.overflow-hidden(href='#') 
+              img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-left.svg', alt='arrow left icon')
+            a.w-4.h-4.overflow-hidden(href='#') 
+              img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+          .p-3.border.rounded-lg.border-neutral(class='dark:border-dark-neutral-border')
+            img(src='assets/images/icons/icon-element-3.svg', alt='element 3 icon')
+      //- +Divider.mb-5
+      .flex.items-center.border-b.border-neutral.gap-9.mb-5(class='dark:border-dark-neutral-border min-w-[800px] lg:min-w-fit')
+        .flex.items-center.gap-5.border-color-brands.pr-12.pl-1(class='pb-[21px] border-b-[2px]')
+          +Checkbox
+          p.text-normal.font-semibold.text-color-brands Primary
+        +MailboxTab
+        +MailboxTab('assets/images/icons/icon-medal-star.svg', 'Promotions', 'bg-blue', 'Envato, Dribble, Behance...')
+      table.w-full(class='min-w-[800px] lg:min-w-fit')
+        tbody 
+          +TableRowMailInbox
+          +TableRowMailInbox('assets/images/avatar-layouts-2.png', 'Arlene McCoy')
+          +TableRowMailInbox('assets/images/avatar-layouts-3.png', 'Robert Fox')
+          +TableRowMailInbox('assets/images/avatar-layouts-4.png', 'Annette Black')
+          +TableRowMailInbox('assets/images/avatar-layouts-5.png', 'Jacob Jones')
+          +TableRowMailInbox('assets/images/avatar-layouts-2.png', 'Dianne Russell')
+          +TableRowMailInbox('assets/images/avatar-layouts-4.png', 'Bessie Cooper')
+          +TableRowMailInbox('assets/images/avatar-layouts-1.png', 'Floyd Miles').border-none

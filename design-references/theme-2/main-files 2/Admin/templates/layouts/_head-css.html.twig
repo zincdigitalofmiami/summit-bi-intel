@@ -1,0 +1,17 @@
+<!--plugins-->
+<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/metisMenu.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/plugins/metismenu/mm-vertical.css"> 
+  <link rel="stylesheet" type="text/css" href="assets/plugins/simplebar/css/simplebar.css">
+  <!--bootstrap css-->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
+  <!--main css-->
+  <link href="assets/css/bootstrap-extended.css" rel="stylesheet">
+  <link href="assets/sass/main.css" rel="stylesheet">
+  <link href="assets/sass/dark-theme.css" rel="stylesheet">
+  <link href="assets/sass/semi-dark.css" rel="stylesheet">
+  <link href="assets/sass/bordered-theme.css" rel="stylesheet">
+  <link href="assets/sass/responsive.css" rel="stylesheet">
+  

@@ -1,0 +1,118 @@
+mixin UsersStack
+  .flex.items-center
+    +UserAvatar('assets/images/avatar-layouts-1.png').z-50
+    +UserAvatar('assets/images/avatar-layouts-2.png').z-40(class='translate-x-[-10px]')
+    +UserAvatar('assets/images/avatar-layouts-3.png').z-30(class='translate-x-[-20px]')
+    +UserAvatar('assets/images/avatar-layouts-4.png').z-20(class='translate-x-[-30px]')
+    if block
+      block
+
+mixin UsersStackSm
+  .flex.items-center.round.text-
+    +UserAvatar('assets/images/avatar-layouts-1.png').z-50
+    +UserAvatar('assets/images/avatar-layouts-2.png').z-40(class='translate-x-[-10px]')
+      if block
+        block
+
+mixin UsersStackTiny
+  .flex.items-center&attributes(attributes)
+    +UserAvatarSm('assets/images/avatar-layouts-1.png').z-50
+    +UserAvatarSm('assets/images/avatar-layouts-2.png').z-40(class='translate-x-[-5px]')
+    +UserAvatarSm('assets/images/avatar-layouts-3.png').z-30(class='translate-x-[-10px]')
+    +UserAvatarSm('assets/images/avatar-layouts-4.png').z-20(class='translate-x-[-15px]')
+    if block
+      block
+
+mixin UserAvatar(avatar, size='w-9 h-9')
+  a.block.rounded-full.border-neutral.overflow-hidden(
+    href='seller-details.html',
+    class='border-[1.4px] dark:border-gray-dark-100',
+    class=size
+  )&attributes(attributes)
+    img.w-full.h-full.object-cover(src=avatar, alt='user avatar')
+
+mixin UserAvatarSm(avatar)
+  a.block.w-5.h-5.rounded-full.border-neutral.overflow-hidden(
+    href='seller-details.html',
+    class='border-[0.8px] dark:border-gray-dark-100'
+  )&attributes(attributes)
+    img.w-full.h-full.object-cover(src=avatar, alt='user avatar')
+
+mixin AddUser
+  button.w-9.h-9.rounded-full.border-neutral.overflow-hidden.bg-color-brands.grid.place-items-center(
+    type='button',
+    class='border-[1.4px] dark:border-dark-neutral-border'
+  )&attributes(attributes)
+    img(src='assets/images/icons/icon-add-circle.svg', alt='plus icon')
+
+mixin AddUserSm
+  button.w-5.h-5.rounded-full.border-neutral.overflow-hidden.bg-color-brands.grid.place-items-center(
+    type='button',
+    class='border-[0.8px] dark:border-dark-neutral-border p-[5px]'
+  )&attributes(attributes)
+    img(src='assets/images/icons/icon-add-circle.svg', alt='plus icon')
+
+mixin Seller(avatar, name, conmpany, rounded='rounded-lg', mb='mb-4')
+  .flex.items-start.gap-3
+    .w-10.h-10.overflow-hidden(class=rounded)
+      img.w-full.h-full.object-cover(src=avatar, alt='seller avatar')
+    div
+      p.text-normal.text-gray-1100(class='dark:text-gray-dark-1100', class=mb)= name
+      p.text-desc.text-gray-400(class='dark:text-gray-dark-400')= conmpany
+
+mixin SellerSales(total, sales, mb='mb-4')
+  div&attributes(attributes)
+    p.text-normal.font-semibold.text-gray-1100(class=mb, class='dark:text-gray-dark-1100')= total
+    p.text-desc.text-gray-400(class='dark:text-gray-dark-400')= sales
+
+mixin AvatarInfo(name, email, mb='mb-[2px]')
+  div
+    p.text-normal.text-gray-1100(class=mb, class='dark:text-gray-dark-1100')= name
+    p.text-desc.text-gray-400(class='dark:text-gray-dark-400')= email
+
+mixin SellersList
+  .pt-5.flex.flex-col.gap-5(class='px-[26px] pb-[22px]')
+    .flex.items-center.justify-between
+      +Seller("assets/images/seller-avatar-1.png", "Esther Howard", "Louis Vuitton")
+      +SellerSales('$778.35', '1258 sales')
+    .flex.items-center.justify-between
+      +Seller("assets/images/seller-avatar-2.png", "Wade Warren", "Binford Ltd.")
+      +SellerSales('$576.28', '1028 sales')
+    .flex.items-center.justify-between
+      +Seller("assets/images/seller-avatar-3.png", "Cameron Williamson", "MasterCard")
+      +SellerSales('$446.61', '985 sales')
+    .flex.items-center.justify-between
+      +Seller("assets/images/seller-avatar-4.png", "Jenny Wilson", "Pizza Hut")
+      +SellerSales('$406.27', '875 sales')
+    .flex.items-center.justify-between
+      +Seller("assets/images/seller-avatar-5.png", "Leslie Alexander", "Apple")
+      +SellerSales('$396.84', '630 sales')
+    .flex.items-center.justify-between
+      +Seller("assets/images/seller-avatar-6.png", "Kristin Watson", "Starbucks")
+      +SellerSales('$351.02', '563 sales')
+
+mixin AvatarName(avatar, name,email)
+  .flex.items-center.gap-2
+    if email
+      .w-12.h-12.rounded-full.overflow-hidden
+        img(src=avatar, alt='user avatar')
+      div
+        p.text-desc.font-semibold.text-gray-1100(class='dark:text-gray-dark-1100')= name
+        p.text-desc.text-gray-400(class='dark:text-gray-dark-400')= email
+    else
+      .w-6.h-6.rounded-full.overflow-hidden
+        img(src=avatar, alt='user avatar')
+      p.text-normal.text-gray-1100(class='dark:text-gray-dark-1100')= name
+
+mixin PaymentMethod(img, name)
+  .flex.items-center(class='gap-[5px]')
+    img(src=img, alt='user avatar', class='max-w-[34px]')
+    p.text-normal.text-gray-1100(class='dark:text-gray-dark-1100')= name
+
+mixin AvatarNameSm(logo='assets/images/icons/icon-dribbble.svg', name='Vehement Capital Partners', desc='Invoice ID: #GSV567489239UI')
+  .flex.items-center.flex-1(class='gap-[18px]')
+    .w-8.h-8.rounded-full.overflow-hidden
+      img(src=logo, alt='brand logo')
+    div
+      p.text-normal.font-semibold.text-gray-1100(class='dark:text-gray-dark-1100 mb-[7px]')= name
+      p.text-desc.text-gray-400(class='dark:text-gray-dark-400')= desc

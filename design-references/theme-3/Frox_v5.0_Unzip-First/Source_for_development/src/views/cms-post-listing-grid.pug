@@ -1,0 +1,33 @@
+extends layout/layout
+
+block vars
+	- title = 'CMS Post Listing Grid Page'
+	- bodyClass = 'cms-post-listing-grid-page'
+
+block container
+	+BreadcrumbWithAddButton('All posts', 'Home', 'Posts listing', 'Add New Post', 'Feb 15, 2022 - Feb 21, 2022', 36, 41)
+	+InputSearchModern('Search post', 'Trending 2022', ['Categories', 'Category1', 'Category2', 'Category3'], ['All Format', 'Format1', 'Format2', 'Format3'], 'Search Article')
+	+BaseWrapper.rounded-2xl.mb-9(class='pt-[23px] pl-[29px] pr-[29px] pb-[29px]')
+		+TitleToggle(16, 23, 'Recent Posts')
+		.grid.grid-cols-1.gap-x-6(class='gap-y-[26px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4')
+			+OngoingEventItem('#', 'assets/images/crm-bg-1.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+			+OngoingEventItem('#', 'assets/images/crm-bg-2.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+			+OngoingEventItem('#', 'assets/images/crm-bg-3.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-4.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-5.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+			+OngoingEventItem('#', 'assets/images/crm-bg-6.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+			+OngoingEventItem('#', 'assets/images/crm-bg-7.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-8.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-1.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+			+OngoingEventItem('#', 'assets/images/crm-bg-2.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+			+OngoingEventItem('#', 'assets/images/crm-bg-3.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-4.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-5.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+			+OngoingEventItem('#', 'assets/images/crm-bg-6.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+			+OngoingEventItem('#', 'assets/images/crm-bg-7.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-8.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-1.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+			+OngoingEventItem('#', 'assets/images/crm-bg-2.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+			+OngoingEventItem('#', 'assets/images/crm-bg-3.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+			+OngoingEventItem('#', 'assets/images/crm-bg-4.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+	+PaginateNextBtn

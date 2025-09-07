@@ -1,0 +1,92 @@
+extends layout/layout
+
+block vars
+  - title = 'File Manage Folder Page'
+  - bodyClass = 'file-manage-folder-page'
+
+block container
+  +BreadcrumbBase('File manage', 'Home', 'Inbox', false, 33, true)
+  section
+    .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+      .flex.flex-col(class='gap-[10px] lg:gap-[27px] xl:w-[25%] md:flex-row xl:flex-col')
+        +BaseWrapper.rounded-2xl.pb-5.flex-1(class='px-[10px] pt-[20px] lg:px-[28px] lg:pt-[35px]')
+          button.btn.flex.items-center.normal-case.bg-color-brands.h-auto.border-neutral-bg.rounded-lg.border-4.w-full(
+            class='hover:border-[#B2A7FF] gap-[5px] md:gap-x-3 hover:bg-color-brands dark:border-dark-neutral-bg dark:hover:border-[#B2A7FF] py-[10px] mb-[30px]'
+          )
+            img(src='assets/images/icons/icon-message-edit.svg', alt='message edit icon')
+            span.text-white.font-semibold.leading-4(class='text-[14px]') New folder
+          .flex.flex-col
+            +FolderItem('Ebook', '11 files')
+            +FolderItem('Game', '185 files')
+            +FolderItem('Settup', '175 files')
+            +FolderItem('Graphic', '1,689 files')
+            +FolderItem('Coding', '125 files')
+            +FolderItem('Customer', '15 files')
+            +FolderItem('Business', '9 files')
+            +FolderItem('Team', '1254 files')
+            +FolderItem('Company', '258 files')
+            +FolderItem('Photos', '369 files')
+            +FolderItem('Movie', '147 files')
+            +FolderItem('Web projects', '123 files')
+            +FolderItem('Other file', '458 files')
+        +BaseWrapper.rounded-2xl.px-7.h-fit(class='pt-[21px] pb-[31px]')
+          p.leading-4.text-gray-500.font-semibold.border-b.border-neutral(
+            class='text-[14px] dark:text-gray-dark-500 pb-[14px] dark:border-dark-neutral-border mb-[18px]'
+          ) User active
+          .grid.grid-cols-2(class='gap-x-[14px] gap-y-[18px] lg:grid-cols-4')
+            +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-3.png', true, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-4.png', false, activeColor, 'Eduar')
+            +UserActiveItem('assets/images/seller-avatar-5.png', true, 'orange', 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-6.png', true, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-1.png', false, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, 'Eduar')
+      +BaseWrapper.rounded-2xl.flex-1(class='px-[28px] pt-[33px] pb-[23px]')
+        .flex.items-center.justify-between.flex-col.gap-4(class='mb-[23px] lg:flex-row')
+          form.flex.items-center.border.border-neutral.w-full.order-last(
+            action='#',
+            class='gap-[10px] py-[13px] rounded-[10px] dark:border-dark-neutral-border lg:w-[279px] pl-[18px] lg:order-first'
+          )
+            button(type='submit')
+              img(src='assets/images/icons/icon-search-normal.svg', alt='search icon')
+            input.w-full.outline-none.border-none.text-xs.font-normal.bg-transparent.text-gray-400(
+              type='search',
+              placeholder='Search all conversation',
+              class='dark:text-gray-dark-400'
+            )
+          .flex.items-center.gap-4.justify-end.w-full
+            p.text-gray-500.text-right(class='text-[10.5px] leading-[17px] dark:text-gray-dark-500') 1-50
+              span.pl-1 of 12,568
+            .flex.items-center
+              a.w-4.h-4.overflow-hidden(href='#') 
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-left.svg', alt='arrow left icon')
+              a.w-4.h-4.overflow-hidden(href='#') 
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+            .p-3.border.rounded-lg.border-neutral(class='dark:border-dark-neutral-border')
+              img(src='assets/images/icons/icon-element-3.svg', alt='element 3 icon')
+
+        .w-full.bg-neutral(class='h-[1px] mb-[70px] dark:bg-dark-neutral-border')
+        .flex.items-center.justify-center.mb-7
+          .relative
+            img(src='assets/images/undraw_blank_canvas.svg', alt='undraw blank canvas', class='dark:hidden')
+            img.hidden(src='assets/images/undraw_blank_canvas_dark.svg', alt='undraw blank canvas', class='dark:block')
+            img.absolute.bottom-0.right-0.translate-y-2.hidden(
+              src='assets/images/square.svg',
+              alt='square',
+              class='translate-x-[96%] md:block dark:hidden'
+            )
+            img.absolute.bottom-0.right-0.translate-y-2.hidden(
+              src='assets/images/square-dark.svg',
+              alt='square',
+              class='translate-x-[96%] dark:md:block'
+            )
+        h2.font-bold.text-gray-1100.text-center(
+          class='text-[24px] leading-[30px] dark:text-gray-dark-1100 tracking-[0.113382px] mb-[13px]'
+        ) No items found.
+        p.leading-4.text-gray-500.font-medium.mb-10.text-center(class='text-[16px] dark:text-gray-dark-500 tracking-[-0.009em]') Start creating new folders or uploading a new file
+        button.btn.flex.items-center.w-fit.normal-case.bg-color-brands.h-auto.border-neutral-bg.rounded-lg.gap-x-3.mx-auto.border-4(
+          class='hover:border-[#B2A7FF] hover:bg-color-brands dark:border-dark-neutral-bg dark:hover:border-[#B2A7FF] py-[10px] mb-[30px] px-[62.5px]'
+        )
+          img(src='assets/images/icons/icon-message-edit.svg', alt='message edit icon')
+          span.text-white.font-semibold.leading-4(class='text-[14px]') Upload new file

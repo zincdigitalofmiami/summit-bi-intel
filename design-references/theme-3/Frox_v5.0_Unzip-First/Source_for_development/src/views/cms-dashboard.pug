@@ -1,0 +1,106 @@
+extends layout/layout
+
+block vars
+  - title = 'CMS Dashboard Page'
+  - bodyClass = 'cms-dashboard-page'
+
+block container
+  +BreadcrumbBase('CMS Dashboard', 'Home', 'Dashboard', 'Feb 15, 2022 - Feb 21, 2022', '34')
+  section
+    +BaseWrapper.p-7.rounded-2xl.mb-6
+      .grid.grid-cols-1(class='gap-x-[22.75px] gap-y-[24.21px] xl:grid-cols-4 lg:grid-cols-2')
+        +JobDashboardChartItem("assets/images/icons/icon-bag-happy.svg", "bag happy icon", "green", "assets/images/chart-mini.png", "1,528", "Acticles", "34.7%",'income')
+        +JobDashboardChartItem("assets/images/icons/icon-messages-2.svg", "messages icon", "blue", "assets/images/chart-mini.png", "1,682", "Comments", "18.7%",'cash')
+        +JobDashboardChartItem("assets/images/icons/icon-folder-2.svg", "folder icon", "violet", "assets/images/chart-mini.png", "282", "Categories", "22.7%",'purple')
+        +JobDashboardChartItem("assets/images/icons/icon-user-square.svg", "user square icon", "orange", "assets/images/chart-mini.png", "985", "Registed Users", "2.7%", 'profit')
+        +JobDashboardChartItem("assets/images/icons/icon-shapes.svg", "shapes icon", "fuchsia", "assets/images/chart-mini.png", "77,875", "Banner Clicks", "12.8%", 'fuchsia')
+        +JobDashboardChartItem("assets/images/icons/icon-share.svg", "share icon", "sky", "assets/images/chart-mini.png", "1,842", "Social Shared", "3.7%", 'sky')
+        +JobDashboardChartItem("assets/images/icons/icon-menu.svg", "menu icon", "red", "assets/images/chart-mini.png", "857", "Menu items", "34.7%", 'red')
+        .bg-neutral-bg.border.border-neutral-accent.p-5(
+          class='rounded-[16.079px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+        )
+          .flex.justify-between
+            .flex.items-center(class='gap-x-[11px]')
+              img(src='assets/images/icons/icon-shield-tick-circle.svg', alt='shield tick icon')
+              p.text-gray-500(class='dark:text-gray-dark-500 text-[10px] leading-[15px] max-w-[135px]') Congratulation! <br> Your FoxDash CMS is up to date (Versions 4.0.12 LTE)
+            +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-4.z-10.self-start
+              img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+    .flex.justify-between.gap-x-5.mb-6.flex-col(class='xl:flex-row')
+      +BaseWrapper.rounded-lg.py-5(class='px-[29px]')
+        +TitleToggle(16, 35, 'Quick Draft')
+        +InputText('Post title').mb-5
+        .rounded-lg.border.border-neutral.min-w-fit(class='dark:border-dark-neutral-border p-[13px] lg:min-w-[498px] mb-[18px]')
+          .flex.items-center.gap-y-4.flex-col(class='gap-x-[27px] mb-[31px] lg:flex-row xl:gap-y-0')
+            .flex.items-center(class='gap-x-[20px]')
+              img.cursor-pointer(src='assets/images/icons/icon-bold.svg', alt='bold icon')
+              img.cursor-pointer(src='assets/images/icons/icon-italicized.svg', alt='italicized icon')
+              img.cursor-pointer(src='assets/images/icons/icon-underlined.svg', alt='underlined icon')
+              img.cursor-pointer(src='assets/images/icons/icon-strikethrough.svg', alt='strikethrough icon')
+              img.cursor-pointer(src='assets/images/icons/icon-textcolor.svg', alt='textcolor icon')
+              img.cursor-pointer(src='assets/images/icons/icon-backgroundcolor.svg', alt='backgroundcolor icon')
+              img.cursor-pointer(src='assets/images/icons/icon-smile.svg', alt='smile icon')
+            .flex.items-center(class='gap-x-[20px]')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-paragraphformat.svg', alt='paragraphformat icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-align-left.svg', alt='align left icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-ordered-list.svg', alt='ordered list icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-unordered-list.svg', alt='unordered list icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              img.cursor-pointer(src='assets/images/icons/icon-indent.svg', alt='indent icon')
+              img.cursor-pointer.opacity-40(src='assets/images/icons/icon-indent.svg', alt='outdent icon')
+          textarea.textarea.w-full.p-0.text-gray-400.resize-none.rounded-none.bg-transparent(
+            class='min-h-[140px] focus:outline-none',
+            placeholder='What’s on your mind?'
+          )
+        .text-right
+          +ButtonBase('Save Draft').font-medium.bg-color-brands(class='py-[7px] px-[17px] hover:bg-color-brands')
+      +BaseWrapper.rounded-lg.py-5.flex-1(class='px-[29px]')
+        +TitleToggle(16, 28, 'Social Network')
+        +Chart('bar', 'max-h-[300px]')
+        //- img(src='assets/images/network-chart.png', alt='network chart')
+    +BaseWrapper.rounded-lg.pb-11.mb-6(class='pt-[23px] pl-[29px] pr-[22px]')
+      +TitleToggle(16, 23, 'Recent Posts')
+      .grid.grid-cols-1.gap-x-6(class='gap-y-[26px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4')
+        +OngoingEventItem('#', 'assets/images/crm-bg-1.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+        +OngoingEventItem('#', 'assets/images/crm-bg-2.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+        +OngoingEventItem('#', 'assets/images/crm-bg-3.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+        +OngoingEventItem('#', 'assets/images/crm-bg-4.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+        +OngoingEventItem('#', 'assets/images/crm-bg-5.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+        +OngoingEventItem('#', 'assets/images/crm-bg-6.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+        +OngoingEventItem('#', 'assets/images/crm-bg-7.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+        +OngoingEventItem('#', 'assets/images/crm-bg-8.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+    .flex.justify-between.gap-6.mb-10.flex-col(class='xl:flex-row')
+      +BaseWrapper.rounded-lg.pt-5.pl-6.pb-8(class='pr-[22px] xl:max-w-[361px]')
+        +TitleToggle(16, 31, 'Popular tags')
+        .flex.items-center.flex-wrap(class='gap-[10px]')
+          +PopularTag('#', 'Figma')
+          +PopularTag('#', 'Adobe XD')
+          +PopularTag('#', 'PSD Editor')
+          +PopularTag('#', 'Employer')
+          +PopularTag('#', 'Online Jobs')
+          +PopularTag('#', 'Remote Work')
+          +PopularTag('#', 'Salary')
+          +PopularTag('#', 'Tips')
+          +PopularTag('#', 'Income')
+          +PopularTag('#', 'Develop')
+          +PopularTag('#', 'App')
+          +PopularTag('#', 'Digital')
+          +PopularTag('#', 'Marketing')
+          +PopularTag('#', 'CEO')
+      +BaseWrapper.rounded-lg.pt-5.pl-6.pb-8(class='pr-[22px]')
+        +TitleToggle(16, 24, 'New active users')
+        .flex.flex-col(class='gap-y-[22px] xl:min-w-[361px]')
+          +ActiveUserItem('assets/images/crm-avatar-7.png', 'Esther Howard', 'Administrator', '1832', 'posts', 40, 40, 100)
+          +ActiveUserItem('assets/images/crm-avatar-8.png', 'Wade Warren', 'Manager', '576', 'posts', 40, 40, 100)
+          +ActiveUserItem('assets/images/crm-avatar-9.png', 'Cameron Williamson', 'Guest', '446', 'posts', 40, 40, 100)
+      +BaseWrapper.rounded-lg.pt-5.pl-6.flex-1.pb-8(class='pr-[22px] xl:pb-0')
+        +TitleToggle(16, 19, 'Statics')
+        .mb-4
+          +StatsRadicalProgress
+        p.text-xs.text-gray-500(class='dark:text-gray-dark-500') Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec enim sem.

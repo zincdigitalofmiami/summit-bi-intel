@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { z } from 'zod';
+import { logger } from '@/lib/logger';
 
 // NOAA Weather Service for Panama City
 const NOAAWeatherSchema = z.object({
@@ -101,9 +102,7 @@ class RealTimeDataService {
     } catch (error) {
       // Log error in production, we'd use proper logging
       if (process.env.NODE_ENV === 'development') {
-        // Console logging only in development
-        // eslint-disable-next-line no-console
-        console.error(`Error fetching ${key}:`, error);
+        logger.error(`Error fetching ${key}`, error);
       }
       // Return cached data if available, even if stale
       return (cached?.data as T) || ({} as T);

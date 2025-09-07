@@ -1,0 +1,35 @@
+mixin PageHeader(text, mb='mb-[13px]')
+  h2.capitalize.text-gray-1100.font-bold(class='text-[28px] leading-[35px] dark:text-gray-dark-1100', class=mb)&attributes(attributes)= text
+
+mixin InputLabel(text)
+  p.text-gray-1100.text-base.leading-4.font-medium.capitalize(class='mb-[10px] dark:text-gray-dark-1100')&attributes(attributes)= text
+
+mixin Size10Leading16Gray400(text)
+  p.leading-4.text-gray-400(class='text-[10px] dark:text-gray-dark-400')&attributes(attributes)= text
+
+mixin Size10Leading16(text)
+  p.leading-4.text-gray-500(class='text-[10px] dark:text-gray-dark-500')&attributes(attributes)= text
+
+mixin Size12Leading16(text)
+  p.text-desc.text-gray-500(class='text-[10px] dark:text-gray-dark-500')&attributes(attributes)= text
+
+mixin Size12Leading16Gray400(text)
+  p.text-desc.text-gray-400(class='dark:text-gray-dark-400')&attributes(attributes)= text
+
+mixin Size10Leading16Semibold(text)
+  p.leading-4.text-gray-1100.font-semibold(class='text-[10px] dark:text-gray-dark-1100')&attributes(attributes)= text
+
+mixin Size14Leading16Gray400(text)
+  p.text-sm.leading-4.text-gray-400(class='dark:text-gray-dark-400')&attributes(attributes)= text
+
+mixin Size14Leading16(text)
+  p.text-sm.leading-4.text-gray-500(class='dark:text-gray-dark-500')&attributes(attributes)= text
+
+mixin Size14Leading16Normal(text)
+  p.text-sm.leading-4.text-gray-1100(class='dark:text-gray-dark-1100')&attributes(attributes)= text
+
+mixin Size14Leading16Semibold(text)
+  p.text-sm.leading-4.text-gray-1100.font-semibold(class='dark:text-gray-dark-1100')&attributes(attributes)= text
+
+mixin Size16Leading20Semibold(text)
+  .text-base.leading-5.text-gray-1100.font-semibold(class='dark:text-gray-dark-1100')&attributes(attributes)= text

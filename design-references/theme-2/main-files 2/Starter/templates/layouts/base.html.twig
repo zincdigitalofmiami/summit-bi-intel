@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--favicon-->
+<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png">
+<title>{% block title %}Welcome{% endblock %} | Symfony & Bootstrap 5 Admin Dashboard Template</title>
+
+{% include 'layouts/_head-css.html.twig' %}
+{% block stylesheets %}{% endblock %}
+
+<body>
+
+{% include 'layouts/_topbar.html.twig' %}
+{% include 'layouts/_sidebar.html.twig' %}
+<main class="main-wrapper">
+    <div class="main-content">
+
+        {% block content %}
+        {% endblock %}
+        
+    </div>
+</main>
+<!--end main wrapper-->
+
+    <!--start overlay-->
+    <div class="overlay btn-toggle"></div>
+    <!--end overlay-->
+
+    {% include 'layouts/_footer.html.twig' %}
+    {% include 'layouts/_cart.html.twig' %}
+    {% include 'layouts/_right-sidebar.html.twig' %}
+    {% include 'layouts/_vendor-scripts.html.twig' %}
+
+    {% block javascripts %}{% endblock %} 
+    </body>
+    
+</html>

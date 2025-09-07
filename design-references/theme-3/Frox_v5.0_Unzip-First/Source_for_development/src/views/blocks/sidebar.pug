@@ -1,0 +1,35 @@
+aside.bg-white.row-span-2.border-r.border-neutral.relative.flex.flex-col.justify-between(
+  class='p-[25px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+) 
+  #sidebar-btn.absolute.p-2.border-neutral.right-0.border.bg-white.rounded-full.cursor-pointer.duration-300(
+    class='translate-x-1/2 hover:opacity-75 dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+  )
+    img(src='assets/images/icons/icon-arrow-left.svg', alt='left chevron icon')
+  div
+    a.mb-10(href='index.html') 
+      img.logo-maximize(
+        src='assets/images/icons/icon-logo.svg',
+        alt='Frox logo'
+      ) 
+      img.logo-minimize(
+        src='assets/images/icons/icon-favicon.svg',
+        alt='Frox logo',
+        class='ml-[10px]'
+      )
+    +SideMenu
+    .category-list
+      .w-full.bg-neutral(class='h-[1px] mb-[21px] dark:bg-dark-neutral-border')
+      +SideCategories
+    .w-full.bg-neutral(class='h-[1px] mb-[35px] dark:bg-dark-neutral-border')
+    .pl-6.seller-maximize(class='mb-[35px]') 
+      h3.text-sm.font-bold.text-gray-1100(class='mb-[15px] dark:text-gray-dark-1100') Top Sellers
+      +UsersStack
+        +AddUser.z-10(class='translate-x-[-40px]')
+    .seller-minimize 
+      h3.text-sm.font-bold.text-gray-1100(class='mb-[15px] dark:text-gray-dark-1100') Sellers
+      +UsersStackSm
+    .upgrade-card
+      .w-full.bg-neutral(class='h-[1px] mb-[35px] dark:bg-dark-neutral-border')
+      +UpgradeCard
+
+  +ThemeToggle

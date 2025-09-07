@@ -1,0 +1,68 @@
+extends layout/layout
+
+block vars
+  - title = 'Product List Page'
+  - bodyClass = 'product-list-page'
+
+block container
+  .flex.items-center.justify-between(class='mb-[19px]')
+    div
+      +PageHeader('All Products')
+      .flex.items-center.justify-between
+        .flex.items-center.text-xs.text-gray-500(class='gap-x-[11px]')
+          .flex.items-center.gap-x-1
+            img(src='assets/images/icons/icon-home-2.svg', alt='home icon')
+            span.capitalize home
+          img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+          span.capitalize.text-color-brands All Products
+    .flex
+      a.list-grid-btn.flex.items-center.gap-x-2.rounded-l-2xl.bg-neutral.active(
+        href='product-list.html',
+        class='px-[17px] py-[14px] dark:bg-dark-neutral-border'
+      )
+        img(src='assets/images/icons/icon-row-vertical.svg', alt='row vertical icon')
+        span.text-xs(class='text-[#8083A3]') List
+      a.list-grid-btn.flex.items-center.gap-x-2.bg-neutral.rounded-r-2xl(
+        href='product-grid.html',
+        class='px-[17px] py-[14px] dark:bg-dark-neutral-border'
+      )
+        img(src='assets/images/icons/icon-grid.svg', alt='grid icon')
+        span.text-xs(class='text-[#8083A3]') Grid
+  .border.p-6.bg-neutral-bg.rounded-2xl.border-neutral.pb-0.overflow-x-scroll.scrollbar-hide(
+    class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border mb-[52px] xl:overflow-x-hidden'
+  )
+    .text-base.leading-5.text-gray-1100.font-semibold.mb-6(class='dark:text-gray-dark-1100') Products
+    table.w-full(class='min-w-[900px]')
+      tr
+        +TableHeaderSellerDetails('Image')
+        +TableHeaderSellerDetails('Name')
+        +TableHeaderSellerDetails('SKU')
+        +TableHeaderSellerDetails('Price')
+        +TableHeaderSellerDetails('Status')
+        +TableHeaderSellerDetails('QTY')
+        +TableHeaderSellerDetails('Rating')
+        +TableHeaderSellerDetails('Sales')
+        th.border-b.border-neutral(class='dark:border-dark-neutral-border')
+      tr 
+        +TableCellProductList(false, "assets/images/product-1.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr
+        +TableCellProductList(false, "assets/images/product-2.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr
+        +TableCellProductList(false, "assets/images/product-3.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr
+        +TableCellProductList(false, "assets/images/product-4.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr 
+        +TableCellProductList(false, "assets/images/product-5.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr
+        +TableCellProductList(false, "assets/images/product-6.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr
+        +TableCellProductList(false, "assets/images/product-7.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr
+        +TableCellProductList(false, "assets/images/product-8.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr 
+        +TableCellProductList(false, "assets/images/product-9.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr
+        +TableCellProductList(false, "assets/images/product-10.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+      tr
+        +TableCellProductList(true, "assets/images/product-11.png", "Cubitt Smart Watch", "Lorem ipsum dolor sit amet, consectetur adipiscing lmao.", "FROX-13563", "$576.28", "556", 5, "186 / 2058")
+  +PaginateNextBtn

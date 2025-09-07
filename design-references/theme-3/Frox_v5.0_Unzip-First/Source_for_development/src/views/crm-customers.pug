@@ -1,0 +1,48 @@
+extends layout/layout
+
+block vars
+  - title = 'CRM Customers Page'
+  - bodyClass = 'crm-customers-page'
+
+block container
+  div(class='xl:px-[97px]')
+    +BreadcrumbBase('Customers', 'Home', 'Customers', 'Feb 15, 2022 - Feb 21, 2022', '53')
+  .flex.flex-col.gap-y-6(class='xl:px-[97px] mb-[53px]')
+    .border.bg-neutral-bg.border-neutral.rounded-2xl(
+      class='px-[26px] pb-[26px] pt-[22px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+    )
+      .flex.justify-between.items-center.pb-4.border-b.border-neutral(class='dark:border-dark-neutral-border mb-[41px]')
+        h3.text-base.leading-5.text-orange.font-semibold New & Pending
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+          img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+      .flex.flex-col(class='gap-y-[18px]')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-1.png', 'Annette Black', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'orange', 'Pending', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-2.png', 'Floyd Miles', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'orange', 'Pending', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-3.png', 'Arlene McCoy', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'orange', 'Pending', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-4.png', 'Eleanor Pena', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'orange', 'Pending', '$782.01')
+    .border.bg-neutral-bg.border-neutral.rounded-2xl(
+      class='px-[26px] pb-[26px] pt-[22px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+    )
+      .flex.justify-between.items-center.pb-4.border-b.border-neutral(class='dark:border-dark-neutral-border mb-[41px]')
+        h3.text-base.leading-5.text-color-brands.font-semibold Paid & Shipping
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+          img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+      .flex.flex-col(class='gap-y-[18px]')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-8.png', 'Albert Flores', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'color-brands', 'Paid', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-6.png', 'Jerome Bell', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'color-brands', 'Paid', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-2.png', 'Leslie Alexander', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'color-brands', 'Shipping', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-7.png', 'Savannah Nguyen', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'color-brands', 'Shipping', '$782.01')
+    .border.bg-neutral-bg.border-neutral.rounded-2xl(
+      class='px-[26px] pb-[26px] pt-[22px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+    )
+      .flex.justify-between.items-center.pb-4.border-b.border-neutral(class='dark:border-dark-neutral-border mb-[41px]')
+        h3.text-base.leading-5.text-green.font-semibold Completed
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+          img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+      .flex.flex-col(class='gap-y-[18px]')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-8.png', 'Bessie Cooper', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'green', 'Completed', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-9.png', 'Ronald Richards', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'green', 'Completed', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-10.png', 'Theresa Webb', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'green', 'Completed', '$782.01')
+        +CustomerStatusItem('assets/images/crm-cus-avatar-11.png', 'Darrell Steward', 'Brand New Bike', 'raines@optonline.net', '24 May, 2020' , 'green', 'Completed', '$782.01')
+  div(class='xl:px-[97px]')
+    +PaginateNextBtn

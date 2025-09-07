@@ -1,0 +1,16 @@
+mixin Badge(number, type)
+  case type 
+    when "solid"
+      - var typeStyle = 'bg-white border-transparent text-black'
+    when "dim"
+      - var typeStyle = 'bg-[#262626] border-transparent text-[#C4C4C4]'
+    when "ghost"
+      - var typeStyle = 'bg-white border-gray-500 text-[#999999]'
+
+  .flex.items-center.gap-x-4
+    .text-sm.flex.items-center.justify-center.rounded.border(class='w-[62px] h-[25px]', class=typeStyle) Badge
+    .w-6.h-6.rounded-full.text-xs.flex.items-center.justify-center.border(class=typeStyle)= number
+
+mixin CategoryBadge(bgColor, content='5')
+  .grid.place-items-center.rounded(class='w-[18px] h-[18px]', class=bgColor) 
+    p.font-medium.text-gray-1100(class='text-[11px] leading-[11px]')= content

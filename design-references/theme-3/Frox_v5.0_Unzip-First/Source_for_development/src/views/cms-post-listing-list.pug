@@ -1,0 +1,35 @@
+extends layout/layout
+
+block vars
+	- title = 'CMS Post Listing List Page'
+	- bodyClass = 'cms-post-listing-list-page'
+
+block container
+	+BreadcrumbWithAddButton('All posts', 'Home', 'Posts listing', 'Add New Post', 'Feb 15, 2022 - Feb 21, 2022', 36, 41)
+	+InputSearchModern('Search post', 'Trending 2023', ['Categories', 'Category1', 'Category2', 'Category3'], ['All Format', 'Format1', 'Format2', 'Format3'], 'Search Article')
+	+BaseWrapper.rounded-2xl.mb-9.overflow-x-scroll.scrollbar-hide(
+		class='pl-[29px] pr-[22px] pb-[26px] pt-[17px] xl:overflow-x-hidden'
+	)
+		table.w-full.border-separate(class='border-spacing-y-[15px] min-w-[1000px]')
+			thead 
+				tr 
+					th.leading-4.text-gray-500.font-normal(class='text-[14px] dark:text-gray-dark-500') Thumbnail
+					th.leading-4.text-gray-500.text-left.font-normal(class='text-[14px] dark:text-gray-dark-500') Title
+					th.leading-4.text-gray-500.text-left.font-normal(class='text-[14px] dark:text-gray-dark-500') Author
+					th.leading-4.text-gray-500.text-left.font-normal(class='text-[14px] dark:text-gray-dark-500') Categories
+					th.leading-4.text-gray-500.text-left.font-normal(class='text-[14px] dark:text-gray-dark-500') Hits
+					th.leading-4.text-gray-500.text-left.font-normal(class='text-[14px] dark:text-gray-dark-500') Edit
+			tbody 
+				+TableCellPostListingCms('assets/images/cms-background-1.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-1.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-13.png', 'How to design a product that can grow itself 10x in year', '25 January 2022', 'assets/images/cms-avt-2.png', 'Theresa Webb', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-14.png', 'Understanding color theory: the color wheel', '25 January 2022', 'assets/images/cms-avt-3.png', 'Courtney Henry', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-15.png', 'How to design a product that can grow itself 10x in year:', '25 January 2022', 'assets/images/cms-avt-4.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-5.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-5.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-6.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-6.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-7.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-7.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-8.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-8.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-9.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-9.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-10.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-10.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-11.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-11.png', 'Kathryn Murphy', 'Administrator', '18599')
+				+TableCellPostListingCms('assets/images/cms-background-12.png', 'Any mechanical keyboard enthusiasts in design?', '25 January 2022', 'assets/images/cms-avt-12.png', 'Kathryn Murphy', 'Administrator', '18599')
+	+PaginateNextBtn

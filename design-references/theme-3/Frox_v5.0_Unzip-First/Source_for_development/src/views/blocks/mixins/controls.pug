@@ -1,0 +1,33 @@
+mixin Control(type, iconColor, img="assets/images/icons/icon-add.svg", disabledType, iconDisabled)
+  case type
+    when "solid"
+      - var typeStyle = 'bg-color-brands text-white font-semibold'
+    when "dim"
+      - var typeStyle = 'bg-gray-500 text-white hover:bg-white hover:border-gray-500 hover:text-gray-1000'
+    when "ghost"
+      - var typeStyle = 'bg-white text-gray-1000 border border-gray-500 hover:bg-white hover:border-gray-500 hover:text-gray-1000 hover:border-4'
+
+  case iconColor 
+    when "white"
+      - var iconColorStyle = 'hover:invert'
+    when "black"
+      - var iconColorStyle = 'invert'
+
+  case disabledType 
+    when "solid"
+      - var disabledTypeStyle = 'bg-gray-400 text-gray-600 pointer-events-none'
+    when "ghost"
+      - var disabledTypeStyle = 'text-gray-600 pointer-events-none'
+
+  case iconDisabled 
+    when "solid"
+      - var iconDisabledStyle = 'filter-gray'
+
+  .flex.items-center(class='gap-x-[14px]')
+    +Button("Control", 93, 37, "L", solid, false).rounded-full(class=disabledType ? disabledTypeStyle : typeStyle)
+    +Button("Control", 93, 37, "L", solid, false).rounded-full(class=disabledType ? disabledTypeStyle : typeStyle)
+    .btn.rounded-full.capitalize.text-sm.w-9.h-9.flex.items-center.justify-center.min-h-fit.transition-all.duration-300.px-0.border-4.border-transparent(
+      class='hover:border-[#B2A7FF] hover:bg-color-brands',
+      class=disabledType ? disabledTypeStyle : typeStyle
+    )
+      img(src=img, alt='icon', class=iconColorStyle, class=iconDisabledStyle)

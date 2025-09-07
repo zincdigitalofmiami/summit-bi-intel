@@ -1,0 +1,124 @@
+extends layout/layout
+
+block vars
+  - title = 'CRM Customer Details Page'
+  - bodyClass = 'crm-customer-details-page'
+
+block container
+  div(class='xl:px-[97px]')
+    +BreadcrumbBase('Customers Details', 'Home', 'Customers', 'Feb 15, 2022 - Feb 21, 2022', '50')
+  div(class='xl:px-[97px]')
+    .border.bg-neutral-bg.border-neutral.rounded-2xl.px-7.flex.justify-between.flex-col(
+      class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border pt-[34px] pb-[66px] gap-[50px] xl:flex-row'
+    )
+      .flex.flex-col.flex-1(class='')
+        img.block.border.rounded-lg.mb-8.mx-auto.border-neutral(
+          class='dark:border-dark-neutral-border p-[5.4px] w-[260px] xl:w-[100%]',
+          src='assets/images/crm-cus-details-avatar.png',
+          alt='avatar'
+        )
+        .border-dashed.border-2.text-center.border-neutral(class='py-[26px] dark:border-dark-neutral-border mb-[19px]')
+          img.mx-auto.inline-block(src='assets/images/icons/icon-image.svg', alt='image icon', class='mb-[15px]')
+          p.text-sm.leading-6.text-gray-500.font-normal(class='mb-[5px]') Drop your image here, or browse
+          p.leading-6.text-gray-400(class='text-[13px]') JPG,PNG and GIF files are allowed
+        .flex.flex-col(class='gap-y-[10px]')
+          +UploadProgressBarSuccess('assets/images/crm-cus-details-avatar-1.png', 'avatar_1.png')
+          +UploadProgressBarSuccess('assets/images/crm-cus-details-avatar-1.png', 'avatar_2.png')
+      .flex.flex-col(class='xl:w-[70%]')
+        .flex.justify-between.flex-col(class='mb-[30px] xl:flex-row gap-x-[26px]')
+          div(class='xl:w-[47%]')
+            +InputLabel("Full name")
+            +InputText("Steven John")(class='mb-[30px]')
+            +InputLabel("Birthday")
+            +InputText("18 September 1985")(class='mb-[30px]')
+            +InputLabel("Email address")
+            +InputText("stevenjohn@gmail.com")(class='mb-[30px]')
+            +InputLabel("Country")
+            +InputSelect("United States of America", 'mb-[30px]')
+            +InputLabel("Address")
+            +InputText("2972 Westheimer Rd. Santa Ana, Illinois 85486")
+          div(class='mt-[28.5px] xl:w-[47%]') 
+            +InputLabel("Gender")
+            .flex.items-center(class='gap-x-[15px] mb-[30px]')
+              label.radio-label.inline-flex.items-center.leading-4.text-gray-400(
+                class='gap-x-[5px] text-[14px] dark:text-gray-dark-400'
+              )
+                input.radio-input.radio.radio-primary(type='radio', name='radio-2', checked='')
+                | Male
+              label.radio-label.inline-flex.items-center.leading-4.text-gray-400(
+                class='gap-x-[5px] text-[14px] dark:text-gray-dark-400'
+              )
+                input.radio-input.radio.radio-primary(type='radio', name='radio-2')
+                | Female
+              label.radio-label.inline-flex.items-center.leading-4.text-gray-400(
+                class='gap-x-[5px] text-[14px] dark:text-gray-dark-400'
+              )
+                input.radio-input.radio.radio-primary(type='radio', name='radio-2')
+                | Other
+            +InputLabel("Company name")
+            +InputText("AliThemes")(class='mb-[30px]')
+            +InputLabel("Phone")
+            +InputText("+ 88 95345 21253")(class='mb-[30px]')
+            +InputLabel("State / Region")
+            +InputSelect("Chicago",'mb-[30px]')
+            +InputLabel("Zip Code")
+            +InputText("1253")
+        +InputLabel("Social Network")
+        .flex.gap-5.flex-col.justify-between(class='mt-[14px] mb-[30px] xl:flex-row')
+          .flex.items-center.gap-x-2
+            img(src='assets/images/icons/icon-facebook-2.svg', alt='facebook icon')
+            a.leading-4.text-gray-400(href='#', class='text-[12px] dark:text-gray-dark-400') fb.com/steven-john
+          .flex.items-center.gap-x-2
+            img(src='assets/images/icons/icon-instagram-2.svg', alt='instagram icon')
+            a.leading-4.text-gray-400(href='#', class='text-[12px] dark:text-gray-dark-400') pin.com/steven-john
+          .flex.items-center.gap-x-2
+            img(src='assets/images/icons/icon-twitter-2.svg', alt='twitter icon')
+            a.leading-4.text-gray-400(href='#', class='text-[12px] dark:text-gray-dark-400') tw.com/steven-john
+          .flex.items-center.gap-x-2
+            img(src='assets/images/icons/icon-linkedin-2.svg', alt='linkedin icon')
+            a.leading-4.text-gray-400(href='#', class='text-[12px] dark:text-gray-dark-400') in.com/steven-john
+        +InputLabel("Bio")
+        .rounded-lg.mb-10.border.border-neutral(class='dark:border-dark-neutral-border p-[13px]')
+          .flex.items-center.gap-y-4.flex-col(class='gap-x-[37px] mb-[31px] xl:flex-row xl:gap-y-0')
+            .flex.items-center(class='gap-x-[28px]')
+              img.cursor-pointer(src='assets/images/icons/icon-bold.svg', alt='bold icon')
+              img.cursor-pointer(src='assets/images/icons/icon-italicized.svg', alt='italicized icon')
+              img.cursor-pointer(src='assets/images/icons/icon-underlined.svg', alt='underlined icon')
+              img.cursor-pointer(src='assets/images/icons/icon-strikethrough.svg', alt='strikethrough icon')
+              img.cursor-pointer(src='assets/images/icons/icon-textcolor.svg', alt='textcolor icon')
+              img.cursor-pointer(src='assets/images/icons/icon-backgroundcolor.svg', alt='backgroundcolor icon')
+              img.cursor-pointer(src='assets/images/icons/icon-smile.svg', alt='smile icon')
+            .flex.items-center(class='gap-x-[28px]')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-paragraphformat.svg', alt='paragraphformat icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-align-left.svg', alt='align left icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-ordered-list.svg', alt='ordered list icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-unordered-list.svg', alt='unordered list icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              img.cursor-pointer(src='assets/images/icons/icon-indent.svg', alt='indent icon')
+              img.cursor-pointer.opacity-40(src='assets/images/icons/icon-indent.svg', alt='outdent icon')
+            .flex.items-center(class='gap-x-[28px]')
+              img.cursor-pointer(src='assets/images/icons/icon-insert-image.svg', alt='insert image icon')
+              img.cursor-pointer(src='assets/images/icons/icon-insert-link.svg', alt='insert link icon')
+              img.cursor-pointer(src='assets/images/icons/icon-insert-file.svg', alt='insert-file icon')
+              img.cursor-pointer(src='assets/images/icons/icon-insert-video.svg', alt='insert video icon')
+              img.cursor-pointer.opacity-40(src='assets/images/icons/icon-undo.svg', alt='undo icon')
+              img.cursor-pointer.opacity-40(src='assets/images/icons/icon-redo.svg', alt='redo icon')
+          textarea.textarea.w-full.p-0.text-gray-400.resize-none.rounded-none.bg-transparent(
+            class='min-h-[140px] focus:outline-none',
+            placeholder='Type description here'
+          )
+        .flex.items-center.gap-x-4.flex-wrap.gap-y-4
+          +Button("Update", "M", "solid", false).border-neutral-bg.px-6(class='dark:border-dark-neutral-bg py-[14px]')
+          button.btn.normal-case.h-fit.min-h-fit.transition-all.duration-300.px-6.border-0.text-white(
+            class='bg-[#E23738] hover:!bg-[#ef6364] hover:text-white py-[14px]'
+          ) Delete
+          button.btn.normal-case.h-fit.min-h-fit.transition-all.duration-300.px-6.border-0(
+            class='bg-[#E8EDF2] text-[#B8B1E4] hover:!bg-[#bdbec0] hover:text-white dark:bg-[#313442] dark:hover:!bg-[#424242] py-[14px]'
+          ) Cancel

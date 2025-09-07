@@ -1,0 +1,58 @@
+extends layout/layout
+
+block vars
+  - title = 'Project Manage Page'
+  - bodyClass = 'project-manage-page'
+
+block container
+  .flex.items-end.justify-between(class='mb-[46px]')
+    div 
+      +PageHeader('Projects manage', 'mb-[10px]')
+      +Size14Leading16("Check out latest updates")
+    .flex.items-center.gap-x-2 
+      img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+      time.text-xs.text-gray-500 Feb 15, 2022 - Feb 21, 2022
+  .grid.grid-cols-1.gap-6(class='xl:grid-cols-3 mb-[33px]')
+    +Card.px-6(class='pt-[15px] pb-[22px]')
+      +CardHeaderWithToggle("Planing")(class='mb-[15px]')
+      +Divider.mb-6
+      .flex.flex-col.gap-3
+        +ProjectCard
+        +ProjectCard('15%', 'blue', 'Medium', 'text-green')
+        +ProjectCard('50%', 'skype', 'Urgent', 'text-red')
+        +Button("Add New", "S", "solid", false).border-neutral-bg.w-fit.show-add-project(
+          class='dark:border-dark-neutral-bg py-[7px] px-[22px]'
+        )
+    +Card.px-6(class='pt-[15px] pb-[22px]')
+      +CardHeaderWithToggle("Processing")(class='mb-[15px]')
+      +Divider.mb-6
+      .flex.flex-col.gap-3
+        +ProjectCard('100%', 'green', 'High', 'text-orange')
+        +ProjectCard
+        +ProjectCard('15%', 'blue', 'Medium', 'text-green')
+        +Button("Add New", "S", "solid", false).border-neutral-bg.w-fit.show-add-project(
+          class='dark:border-dark-neutral-bg py-[7px] px-[22px]'
+        )
+    .flex.flex-col
+      +Card.px-6(class='pt-[15px] pb-[22px] mb-[25px]')
+        +CardHeaderWithToggle("Completed")(class='mb-[15px]')
+        +Divider.mb-6
+        +ProjectCard('100%', 'green', 'High', 'text-orange')
+          +Size12Leading16('Praesent ultricies, ipsum ut congue rhoncus, lorem ligula sollicitudin turpis, ut consectetur leo elit sed tortor. Fusce vitae egestas ligula ut sapien vitae enim scelerisque sollicitudin quis et').mb-3
+        +Button("Add New", "S", "solid", false).border-neutral-bg.w-fit.show-add-project(
+          class='dark:border-dark-neutral-bg py-[7px] px-[22px] mt-[10px]'
+        )
+      +Card.px-6.flex-1(class='pt-[15px] pb-[22px]')
+        +CardHeaderWithToggle("Project Statics")(class='mb-[15px]')
+        +Divider.mb-6
+        +Chart('department', 'max-h-[164px]')
+  +Card(class='pt-[18px] px-[27px] pb-[29px]')
+    +CardHeaderWithToggle("All projects")(class='mb-[17px]')
+    +Divider.mb-7
+    .flex.gap-3.flex-col(class='mb-[30px]') 
+      +ProjectItem
+      +ProjectItem('assets/images/jobs-dashboard-8.png', 'Pathways to Prevention', 82)
+      +ProjectItem('assets/images/jobs-dashboard-9.png', 'Tech Talent Financing Program Design Workshops', 43)
+      +ProjectItem('assets/images/jobs-dashboard-10.png', 'EO 45 All-Agency Workshop', 98)
+      +ProjectItem('assets/images/jobs-dashboard-11.png', 'PACT public housing conversions', 25)
+    +PaginateNextBtn

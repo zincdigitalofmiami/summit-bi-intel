@@ -1,0 +1,26 @@
+extends layout/layout
+
+block vars
+	- title = 'CMS Comment Page'
+	- bodyClass = 'cms-comment-page'
+
+block container
+	+BreadcrumbWithAddButton('All comments', 'Home', 'Comment listing', 'Add Comment', 'Feb 15, 2022 - Feb 21, 2022', 36, 93)
+	+InputSearchModern('Search post', 'Trending 2022', ['Categories', 'Category1', 'Category2', 'Category3'], ['All Format', 'Format1', 'Format2', 'Format3'], 'Search Article')
+	+BaseWrapper.rounded-2xl.mb-9.overflow-x-scroll.scrollbar-hide(class='pt-[17px] pl-[29px] pr-[22px] pb-[31px] xl:overflow-x-hidden')
+		table.w-full.border-separate(class='border-spacing-y-[15px] min-w-[1000px]')
+			thead 
+				tr 
+					th.leading-4.text-left.font-normal.text-gray-500(class='text-[14px] dark:text-gray-dark-500 pl-[22px]') Author
+					th.leading-4.text-left.font-normal.text-gray-500(class='text-[14px] dark:text-gray-dark-500') Comment
+					th.leading-4.text-left.font-normal.text-gray-500(class='text-[14px] dark:text-gray-dark-500') State
+					th.leading-4.text-left.font-normal.text-gray-500(class='text-[14px] dark:text-gray-dark-500') Actions
+			tbody 
+				+TableCellCommentCms('assets/images/cms-avt-1.png', 'Darlene Robertson', 'on 2022/02/17 at 11:21 pm', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'How to design a product that can grow itself 10x in year', 'orange', 'Pending')
+				+TableCellCommentCms('assets/images/cms-avt-2.png', 'Darlene Robertson', 'on 2022/02/17 at 11:21 pm', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'How to design a product that can grow itself 10x in year', 'green', 'Approved')
+				+TableCellCommentCms('assets/images/cms-avt-3.png', 'Darlene Robertson', 'on 2022/02/17 at 11:21 pm', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'How to design a product that can grow itself 10x in year', 'red', 'Block')
+				+TableCellCommentCms('assets/images/cms-avt-4.png', 'Darlene Robertson', 'on 2022/02/17 at 11:21 pm', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'How to design a product that can grow itself 10x in year', 'green', 'Approved')
+				+TableCellCommentCms('assets/images/cms-avt-5.png', 'Darlene Robertson', 'on 2022/02/17 at 11:21 pm', 'Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed posuere egestas nunc ut tempus. Fusce sagittis bibendum est. Pellentesque eu tortor euismod, varius odio ac, auctor arcu. Nam mauris neque, dictum ac velit ut, ultricies efficitur sapien. Vestibulum in velit in', 'How to design a product that can grow itself 10x in year', 'green', 'Approved')
+				+TableCellCommentCms('assets/images/cms-avt-6.png', 'Darlene Robertson', 'on 2022/02/17 at 11:21 pm', 'Phasellus accumsan imperdiet tempor. Cras tincidunt, arcu nec eleifend porttitor, orci est vehicula velit, scelerisque fringilla ligula mi in urna. Nulla ut odio eu mi congue molestie. Maecenas tortor neque, condimentum ut odio in, mollis efficitur enim. In dui ante, faucibus', 'How to design a product that can grow itself 10x in year', 'green', 'Approved')
+				+TableCellCommentCms('assets/images/cms-avt-7.png', 'Darlene Robertson', 'on 2022/02/17 at 11:21 pm', 'Proin id ligula dictum, convallis enim ut, facilisis massa. Mauris a nisi ut sapien blandit imperdiet sed id lacus. Mauris auctor interdum dignissim. Cras at lacus malesuada, mattis neque mattis, lacinia mauris. Nunc ornare blandit turpis, sit amet dignissim lacus egestas in. Ut in iaculis turpis, ac consequat turpis', 'How to design a product that can grow itself 10x in year', 'green', 'Approved')
+	+PaginateNextBtn

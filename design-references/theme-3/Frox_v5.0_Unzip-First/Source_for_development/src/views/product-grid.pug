@@ -1,0 +1,48 @@
+extends layout/layout
+
+block vars
+  - title = 'Product Grid Page'
+  - bodyClass = 'product-grid-page'
+
+block container
+  .flex.items-center.justify-between(class='mb-[19px]')
+    div
+      +PageHeader('All Products')
+      .flex.items-center.justify-between
+        .flex.items-center.text-xs.text-gray-500(class='gap-x-[11px]')
+          .flex.items-center.gap-x-1
+            img(src='assets/images/icons/icon-home-2.svg', alt='home icon')
+            span.capitalize home
+          img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+          span.capitalize.text-color-brands All Products
+    .flex
+      a.list-grid-btn.flex.items-center.gap-x-2.rounded-l-2xl.bg-neutral(
+        href='product-list.html',
+        class='px-[17px] py-[14px] dark:bg-dark-neutral-border'
+      )
+        img(src='assets/images/icons/icon-row-vertical.svg', alt='row vertical icon')
+        span.text-xs(class='text-[#8083A3]') List
+      a.list-grid-btn.flex.items-center.gap-x-2.rounded-r-2xl.bg-neutral.active(
+        href='product-grid.html',
+        class='px-[17px] py-[14px] dark:bg-dark-neutral-border'
+      )
+        img(src='assets/images/icons/icon-grid.svg', alt='grid icon')
+        span.text-xs(class='text-[#8083A3]') Grid
+  .flex.items-center.gap-x-6
+    .flex-1
+      .grid.grid-cols-1.gap-x-6.gap-y-6.border.p-6.bg-neutral-bg.rounded-2xl.border-neutral.mb-9(
+        class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border pb-[31px] xl:grid-cols-3 lg:grid-cols-2'
+      )
+        +ProductGridItem("#", "assets/images/product-1.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-2.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-3.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-4.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-5.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-6.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-7.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-8.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-9.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-10.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-1.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+        +ProductGridItem("#", "assets/images/product-2.png", "Cubitt Smart Watch", 5, "$576.28", "FROX-13563", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur neque ipsum, lacinia et tempor eget, hendrerit et orci. Phasellus at nisi non turpis accumsan feugiat vel non arcu. Aliquam ultrices lacus et leo ultrices facilisis. Aliquam ullamcorper lectus dui, ac posuere sapien iaculis lmao.", "186 / 2058")
+      +PaginateNextBtn

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--favicon-->
+<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png">
+<title>{% block title %}Welcome{% endblock %} | Symfony & Bootstrap 5 Admin Dashboard Template</title>
+
+{% include 'layouts/_head-css.html.twig' %}
+{% block stylesheets %}{% endblock %}
+
+<body>
+
+{% block content %}
+{% endblock %}
+
+        {% include 'layouts/_vendor-scripts.html.twig' %}
+        {% block javascripts %}{% endblock %} 
+    </body>
+    
+</html>

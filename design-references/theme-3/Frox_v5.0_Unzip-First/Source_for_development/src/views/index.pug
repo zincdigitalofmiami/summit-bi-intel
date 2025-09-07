@@ -1,0 +1,92 @@
+extends layout/layout
+
+block vars
+  - title = 'Frox - Multipurpose TailwindCSS Dashboard Template';
+  - bodyClass = 'ecommerce-dashboard-page';
+
+block container
+  +Breadcrumb('home', 'Dashboard')(class='mb-[37px]')
+  .grid.grid-cols-1.gap-6(class='mb-[26px] lg:grid-cols-2 xl:grid-cols-4')
+    +StaticCard('Total sells', '$126.500', '34.7%', 'bg-green')
+    +StaticCard('Orders value', '$136.800', '22.8%', 'bg-blue')
+    +StaticCard('Daily orders', '$25.200', '17.8%', 'bg-violet')
+    +StaticCard('Total sells', '$12.125', '23.9%', 'bg-pink')
+  .grid.grid-cols-1.items-center.mb-6(class='gap-[18px] xl:grid-cols-[1fr,364px]')
+    +PerformanceCard
+    +Card.flex-1.self-stretch
+      .flex.items-center.justify-between.px-6(class='py-[18px]')
+        p.text-subtitle-semibold.font-semibold.text-gray-1100(
+          class='dark:text-gray-dark-1100'
+        ) Best Sellers
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4
+          img.cursor-pointer(
+            src='assets/images/icons/icon-toggle.svg',
+            alt='toggle icon'
+          )
+      .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+      +SellersList
+  +Card.overflow-scroll.scrollbar-hide(class='p-[25px] mb-[33px]')
+    +CardHeaderWithToggle('Recent Purchases').pb-4.border-neutral.border-b.mb-5(
+      class='dark:border-dark-neutral-border'
+    )
+    table.w-full(class='min-w-[900px]')
+      thead
+        tr.border-b.border-neutral(class='dark:border-dark-neutral-border pb-[15px]') 
+          th.text-left
+            +Checkbox(class='mb-[6px]')
+          th.font-normal.text-normal.text-gray-400.text-left(
+            class='pb-[15px] dark:text-gray-dark-400'
+          ) Products
+          th.font-normal.text-normal.text-gray-400.text-left(
+            class='pb-[15px] dark:text-gray-dark-400'
+          ) Order ID
+          th.font-normal.text-normal.text-gray-400.text-left(
+            class='pb-[15px] dark:text-gray-dark-400'
+          ) Date
+          th.font-normal.text-normal.text-gray-400.text-left(
+            class='pb-[15px] dark:text-gray-dark-400'
+          ) Customer name
+          th.font-normal.text-normal.text-gray-400.text-left(
+            class='pb-[15px] dark:text-gray-dark-400'
+          ) Status
+          th.font-normal.text-normal.text-gray-400.text-left(
+            class='pb-[15px] dark:text-gray-dark-400'
+          ) Amount
+          th.font-normal.text-normal.text-gray-400.text-center(
+            class='pb-[15px] dark:text-gray-dark-400'
+          ) Actions
+      tbody
+        +TableRowRecentPurchases('MacBook Pro', '#25413', 'Aug 5th, 2021','assets/images/seller-avatar-1.png','Bessie Cooper', 'bg-green','Delivered', '$400.00')
+        +TableRowRecentPurchases('iPhone 11 Pro', '#25413', 'Aug 5th, 2021','assets/images/seller-avatar-2.png','Annette Black', 'bg-orange','Pending', '$200.00')
+        +TableRowRecentPurchases('Oppo A20', '#25413', 'Aug 5th, 2021','assets/images/seller-avatar-3.png','Erling Halland', 'bg-green','Delivered', '$250.00')
+        +TableRowRecentPurchases('Oppo A20', '#25413', 'Aug 5th, 2021','assets/images/seller-avatar-4.png','Kristin Watson', 'bg-red','Canceled', '$400.00')
+        +TableRowRecentPurchases('MacBook Pro', '#25413', 'Aug 5th, 2021','assets/images/seller-avatar-5.png','Esther Howard', 'bg-green','Delivered', '$400.00')
+        +TableRowRecentPurchases('iPhone 11 Pro', '#25413', 'Aug 5th, 2021','assets/images/seller-avatar-2.png','Jerome Bell', 'bg-orange','Pending', '$200.00')
+        +TableRowRecentPurchases('Oppo A20', '#25413', 'Aug 5th, 2021','assets/images/seller-avatar-6.png','Brooklyn ', 'bg-red','Canceled', '$400.00')
+  .grid.grid-cols-1.gap-6(class='lg:grid-cols-3')
+    +Card.flex-1(class='p-[25px]')
+      +CardHeaderWithToggle('Market Overview').pb-3.border-neutral.border-b.mb-5(
+        class='dark:border-dark-neutral-border'
+      )
+      .grid.grid-cols-7(class='gap-x-[27.45px]')
+        +VerticalProgressBar(50, "Mon")
+        +VerticalProgressBar(50, "Tue")
+        +VerticalProgressBar(50, "Wed")
+        +VerticalProgressBar(50, "Thu")
+        +VerticalProgressBar(50, "Fri")
+        +VerticalProgressBar(50, "Sat", true)
+        +VerticalProgressBar(50, "Sun", true)
+    +Card.flex-1(class='p-[25px]')
+      +CardHeaderWithToggle('Visits by Source').pb-3.border-neutral.border-b.mb-5(
+        class='dark:border-dark-neutral-border'
+      )
+      div
+        +Chart('visit', 'max-h-[240px] lg:max-h-[123px] xl:max-h-[200px]')
+      p.text-desc.text-gray-500.mt-3(class='dark:text-gray-dark-500') Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+    +Card.flex-1(class='p-[25px]')
+      +CardHeaderWithToggle('Total Revenue').pb-3.border-neutral.border-b.mb-5(
+        class='dark:border-dark-neutral-border'
+      )
+      div
+        +Chart('revenue', 'max-h-[240px] lg:max-h-[123px] xl:max-h-[200px]')
+      p.text-desc.text-gray-500.mt-3(class='dark:text-gray-dark-500') Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.

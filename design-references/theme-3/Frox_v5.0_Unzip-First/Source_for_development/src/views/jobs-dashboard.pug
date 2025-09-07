@@ -1,0 +1,127 @@
+extends layout/layout
+
+block vars
+  - title = 'Jobs Dashboard Page'
+  - bodyClass = 'jobs-dashboard-page'
+
+block container
+  +PageHeader("Howdy Steven!")
+  .flex.justify-between.mb-11.flex-col.gap-y-2.items-stretch(class='lg:flex-row lg:items-center')
+    .text-sm.text-gray-500(class='leading-[16px] dark:text-gray-dark-500') Check out latest updates
+    .flex.items-center.gap-x-2 
+      img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+      time.text-xs.text-gray-500 Feb 15, 2022 - Feb 21, 2022
+  .flex.justify-between.mb-6.flex-col(class='gap-[26px] xl:flex-row')
+    .grid.grid-cols-1.gap-x-6(class='gap-y-[21px] xl:grid-cols-2')
+      +JobDashboardChartItem("assets/images/icons/icon-bag-happy.svg", "bag happy icon", "green", "assets/images/chart-mini.png", "$126.500", "Posted Jobs", "34.7%", 'income')
+      +JobDashboardChartItem("assets/images/icons/icon-chart-2.svg", "chart icon", "orange", "assets/images/chart-mini.png", "$126.500", "Application", "34.7%",'expences')
+      +JobDashboardChartItem("assets/images/icons/icon-graph.svg", "graph icon", "blue", "assets/images/chart-mini.png", "$126.500", "Interview Schedules", "34.7%",'cash')
+      +JobDashboardChartItem("assets/images/icons/icon-chart.svg", "chart icon", "orange", "assets/images/chart-mini.png", "$126.500", "Shortlist", "34.7%",'profit')
+    .flex-1.bg-neutral-bg.rounded-2xl.p-6.border.border-neutral-accent(
+      class='xl:min-w-[556px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+    )
+      .flex.justify-between.mb-4
+        span.text-gray-1100.font-medium(class='dark:text-gray-dark-1100 text-[16px] leading-[16px]') Vacany Stats
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-4.z-10
+          img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+      .flex.items-center.mb-6(class='gap-x-[5px]')
+        .rounded-full(class='w-[11px] h-[11px] bg-[#C2B9FF]')
+        span.text-xs.text-gray-1100(class='dark:text-gray-dark-1100') Instagram
+        .rounded-full.bg-color-brands(class='w-[11px] h-[11px]')
+        span.text-xs.text-gray-1100(class='dark:text-gray-dark-1100') Facebook
+      .flex.justify-between.items-end
+        +VacanyStatsHeightItem("93")
+        +VacanyStatsHeightItem("75")
+        +VacanyStatsHeightItem("77")
+        +VacanyStatsHeightItem("106")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100", true)
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+        +VacanyStatsHeightItem("100")
+  .p-7.border.bg-neutral-bg.border-neutral-accent.rounded-2xl.mb-6(
+    class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+  )
+    .flex.justify-between.items-center(class='mb-[16px]')
+      +Size16Leading20Semibold("Recent Jobs")
+      +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-4.z-10
+        img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+    .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[29px]')
+    .flex.flex-col.gap-y-3(class='mb-[30px]')
+      +RecentJobItem('assets/images/jobs-dashboard-1.png', 'Regional Sales Account Manager', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ')
+      +RecentJobItem('assets/images/jobs-dashboard-13.png', 'Customer Care Representative', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$779.58 ', false, false, true)
+      +RecentJobItem('assets/images/jobs-dashboard-14.png', 'Sales Manager', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$396.84 ', false, true, false)
+      +RecentJobItem('assets/images/jobs-dashboard-15.png', 'Retail Store Manager', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$169.43 ', true, false, false)
+      +RecentJobItem('assets/images/jobs-dashboard-16.png', 'Business Development Manager', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$27 ')
+    +PaginateNextBtn
+  .flex.gap-6.flex-col(class='xl:flex-row')
+    .rounded-2xl.bg-neutral-bg.border.border-neutral(
+      class='sm:min-w-[364px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border py-[19px]'
+    )
+      .flex.items-center.justify-between.mb-4(class='px-[26px]')
+        .text-base.leading-5.font-semibold.text-gray-1100(class='dark:text-gray-dark-1100') New Employers
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-4.z-10
+          img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+      .w-full.mb-5.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+      .flex.flex-col.mb-8(class='gap-y-[27px] px-[26px]')
+        +DashboardColItem('assets/images/jobs-dashboard-2.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-3.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-4.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-5.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-7.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-2.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+      div(class='px-[26px]')
+        +ButtonBase("View More").bg-color-brands.rounded(class='py-[7px] px-[18.5px] hover:bg-color-brands')
+    .rounded-2xl.bg-neutral-bg.border.border-neutral(
+      class='sm:min-w-[364px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border py-[19px]'
+    )
+      .flex.items-center.justify-between.mb-4(class='px-[26px]')
+        .text-base.leading-5.font-semibold.text-gray-1100(class='dark:text-gray-dark-1100') Featured Candiadates
+        +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-4.z-10
+          img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+      .w-full.mb-5.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+      .flex.flex-col.mb-8(class='gap-y-[27px] px-[26px]')
+        +DashboardColItem('assets/images/jobs-dashboard-9.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-10.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-11.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-12.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-8.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+        +DashboardColItem('assets/images/jobs-dashboard-9.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales')
+      div(class='px-[26px]')
+        +ButtonBase("View More").bg-color-brands.rounded(class='py-[7px] px-[18.5px] hover:bg-color-brands')
+    .flex-1
+      .rounded-2xl.relative.mb-6(class='sm:min-w-[364px] bg-[#5192FF] h-[242px] pt-[30px] pl-[42px]')
+        h3.text-white.font-bold.text-lg.mb-4(class='leading-[22px]') Recruiting?
+        p.text-white.text-xs.font-normal.mb-5(class='max-w-[233px]') Advertise your jobs to millions of monthly users and search 16.8 million CVs in our database.
+        button.flex.items-center.gap-x-2.bg-white.text-xs(class='rounded-[6px] py-[7px] px-[14px] text-[#37404E]') Post a Job
+          img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+        img.absolute.bottom-0.right-4(src='assets/images/asset-dashboard-image.svg', alt='asset dashboard')
+      .bg-neutral-bg.border.border-neutral(
+        class='rounded-[10px] px-[30px] py-[28px] dark:border-dark-neutral-border dark:bg-dark-neutral-bg h-[236px]'
+      )
+        .flex.items-center.justify-between(class='mb-[14px]')
+          .text-lg.font-bold.text-gray-1100(class='dark:text-gray-dark-1100 leading-[22px]') User statics
+          +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+            img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+        p.text-xs.text-gray-500(class='dark:text-gray-dark-500 max-w-[302px] mb-[14px]') Advertise your jobs to millions of monthly users and search 16.8 million CVs in our database.
+        p.text-right.text-red.text-sm.mb-2 36,895.2
+        +ProgressBarBase(40, "color-brands")(class='mb-[22px]')
+        .flex.items-center
+          a(href='#', class='z-[6]')
+            img.w-10(src='assets/images/jobs-dashboard-2.png', alt='avatar')
+          a(href='#', class='z-[5] ml-[-10px]')
+            img.w-10(src='assets/images/jobs-dashboard-3.png', alt='avatar')
+          a(href='#', class='z-[4] ml-[-10px]')
+            img.w-10(src='assets/images/jobs-dashboard-4.png', alt='avatar')
+          button.w-10.h-10.rounded-full.bg-color-brands.flex.items-center.justify-center(class='z-[3] ml-[-10px]')
+            img(src='assets/images/icons/icon-plus.svg', alt='plus icon')

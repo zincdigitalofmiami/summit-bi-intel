@@ -1,0 +1,101 @@
+mixin UploadProgressBarLoading(percent, img, name)
+  .flex.items-center.justify-between.py-3.border.pl-3.pr-3.transition-all.duration-300(
+    class='border-[#E8EDF2] dark:border-[#313442] rounded-[5px] gap-x-[10px] hover:shadow-xl sm:pr-8 lg:pr-3 xl:pr-8'
+  )
+    img.hidden(src=img, alt='product', class='sm:block lg:hidden xl:block')
+    .flex.flex-col.flex-1(class='gap-y-[10px]')
+      .flex.items-center.justify-between(class='text-[13px]') 
+        span.text-gray-1100.text-sm.leading-4(class='dark:text-gray-dark-1100')= name
+        span.text-xs.text-gray-1100(class='dark:text-gray-dark-1100')= percent + '%'
+      progress.progress.progress-accent(value=percent, max='100')
+    img(src='assets/images/icons/icon-close-circle.svg', alt='close circle icon')
+
+mixin UploadProgressBarSuccess(img, name)
+  .flex.items-center.justify-between.py-3.border.pl-3.pr-3.transition-all.duration-300(
+    class='border-[#E8EDF2] dark:border-[#313442] rounded-[5px] gap-x-[10px] hover:shadow-xl sm:pr-8 lg:pr-3 xl:pr-8'
+  )
+    img.hidden(src=img, alt='product', class='sm:block lg:hidden xl:block')
+    .flex.flex-col.flex-1(class='gap-y-[10px]')
+      .flex.items-center.justify-between(class='text-[13px]')
+        span.text-gray-1100.text-sm.leading-4(class='dark:text-gray-dark-1100')= name
+      progress.progress.progress-accent(value='100', max='100')
+    img(src='assets/images/icons/icon-check-circle.svg', alt='check circle icon')
+
+mixin ProgressBar(star, percent, color, height='h-[5px]')
+  - var width = `w-[${percent}%]`
+  - var backgroundColor = `bg-${color}`
+
+  .flex.items-center.w-full(class='gap-x-[14px]')
+    if star
+      span.text-xs.text-gray-500.inline-block(class='dark:text-gray-dark-500 w-[34px]')= star
+    .overflow-hidden.bg-neutral.flex-1(class='rounded-[5px] dark:bg-dark-neutral-border', class=height)
+      .flex.flex-col.justify-center.overflow-hidden.whitespace-nowrap(
+        class=width,
+        class=backgroundColor,
+        aria-valuenow=percent,
+        aria-valuemin='0',
+        aria-valuemax='100',
+        class='rounded-[5px] h-[5px]'
+      )
+
+mixin ProgressBarBase(percent, color)
+  - var width = `w-[${percent}%]`
+  - var backgroundColor = `bg-${color}`
+
+  .flex.items-center.w-full(class='gap-x-[14px]')&attributes(attributes)
+    .overflow-hidden.bg-neutral.flex-1(class='h-[5px] rounded-[5px] dark:bg-dark-neutral-border')
+      .flex.flex-col.justify-center.overflow-hidden.whitespace-nowrap(
+        class=width,
+        class=backgroundColor,
+        aria-valuenow=percent,
+        aria-valuemin='0',
+        aria-valuemax='100',
+        class='rounded-[5px] h-[5px]'
+      )
+
+mixin ProgressBarNonGray(percent, color)
+  - var width = `w-[${percent}%]`
+  - var backgroundColor = `bg-${color}`
+
+  .flex.items-center.w-full(class='gap-x-[14px]')&attributes(attributes)
+    .overflow-hidden.flex-1(class='h-[5px] rounded-[5px]')
+      .flex.flex-col.justify-center.overflow-hidden.whitespace-nowrap(
+        class=width,
+        class=backgroundColor,
+        aria-valuenow=percent,
+        aria-valuemin='0',
+        aria-valuemax='100',
+        class='rounded-[5px] h-[5px]'
+      )
+
+mixin VerticalProgressBar(percent, text, isRed)
+  - var height = `h-[${percent}%]`
+  .flex.flex-col-reverse(class='gap-y-[10px]')
+    p.text-xs(class=isRed ? 'text-red dark:text-red' : 'text-gray-400 dark:text-gray-dark-400')= text
+    .relative.bg-neutral(class='rounded-[10px] dark:bg-dark-neutral-border h-[198px] max-w-[21.12px]')
+      .w-full.block.bg-color-brands.absolute.bottom-0(class='rounded-[10px]', class=height)
+
+mixin RadicalProgress(bgColor='bg-[#DAFCCC]', progressColor='text-green', stat=70)
+  .radial-progress(style=`--value: ${stat}; --size: 65px; --thickness: 4px`, class=bgColor, class=progressColor, class='max-w-[65px]') 
+    span.text-black.text-xs= `${stat}%`
+
+mixin Radical(color='orange', progress='25%')
+  - var bgColors = `bg-radical-${color}`
+
+  .rounded-full.relative.transparent(class='w-[54px] h-[54px] bg-[#A6A6A640]', class=bgColors)
+    .absolute.bg-white.rounded-full.grid.place-items-center(
+      class='w-[48px] h-[48px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+    )
+      span.text-mini-btn-label.text-gray-500.font-semibold(class='dark:text-gray-dark-500 tracking-[-1px]')= progress
+
+mixin StatsRadicalProgress
+  .flex.items-center.mb-6(class='gap-[15px]')
+    +Legend
+    +Legend('bg-violet', 'Workspace')
+    +Legend('bg-blue', 'Projects')
+    +Legend('bg-red', 'Other')
+  .flex.items-center.gap-4
+    +RadicalProgress
+    +RadicalProgress('bg-[#DAD7FE]', 'text-violet', 46)
+    +RadicalProgress('bg-[#FFE5D3]', 'text-red', 15)
+    +RadicalProgress('bg-[#CCECFE]', 'text-blue', 67)

@@ -1,0 +1,173 @@
+mixin DropDown(hover=true,list=[{link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Item 1'}, {link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Item 2'}], labelStyle='',menuStyle='bg-white p-[25px] pb-[10px]', childStyle='p-[15px] pl-[21px]', color, titleStyle='',iconStyle='', position='', bgColor='dark:text-gray-dark-500 dark:border-dark-neutral-border dark:bg-dark-neutral-bg')
+  .dropdown(class=hover && 'dropdown-hover', class=position === 'end' && 'dropdown-end')&attributes(attributes)
+    label.cursor-pointer.dropdown-label(tabindex='0', class=labelStyle)
+      if block
+        block
+    ul.dropdown-content(tabindex='0')
+      .relative.menu.rounded-box.dropdown-shadow(class=menuStyle, class=bgColor)
+        .border-solid.border-b-8.border-x-transparent.border-x-8.border-t-0.absolute(
+          class='w-[14px] top-[-7px]',
+          class=color,
+          class=position === 'end' && 'right-[18px]'
+        )
+        each val in list
+          if val.divider
+            .w-full.bg-neutral(class='h-[1px] my-[7px] dark:bg-dark-neutral-border')
+          else
+            li(class=childStyle)
+              if val.link
+                a.flex.items-center.bg-transparent.p-0(
+                  href=val.link,
+                  class='gap-[7px]',
+                  class=val.title === 'View details' && 'show-detail'
+                ) 
+                  if val.icon
+                    i.w-4.h-4.grid.place-items-center
+                      img(src=val.icon, alt='icon', class=iconStyle)
+                  span(class=val.link === '#remove' ? 'text-red text-[11px] leading-4' : titleStyle)= val.title
+              else
+                .flex.items-center.bg-transparent.p-0
+                  if val.icon
+                    i.w-4.h-4
+                      img(src=val.icon, alt='icon', class=iconStyle)
+                  span(class=val.link === '#remove' ? 'text-red text-[11px] leading-4' : titleStyle)= val.title
+
+mixin DropDown-2(hover=true,list=[{link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Item 1'}, {link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Item 2'}], labelStyle='',menuStyle='bg-white p-[25px] pb-[10px]', childStyle='', color, titleStyle='',iconStyle='', position='', bgColor='dark:text-gray-dark-500 dark:border-dark-neutral-border dark:bg-dark-neutral-bg')
+  .dropdown(class=hover && 'dropdown-hover', class=position === 'end' && 'dropdown-end')&attributes(attributes)
+    label.cursor-pointer.dropdown-label(tabindex='0', class=labelStyle)
+      if block
+        block
+    ul.absolute.right-0.dropdown-content(tabindex='0')
+      .relative.menu.rounded-box.dropdown-shadow(class=menuStyle, class=bgColor)
+        .border-solid.border-b-8.border-x-transparent.border-x-8.border-t-0.absolute.right-4(
+          class='w-[14px] top-[-7px]',
+          class=color,
+          class=position === 'end' && 'right-[18px]'
+        )
+        each val in list
+          li.px-2
+            .flex.align-items-start
+              img.object-cover.rounded-full.h-8.w-8.shrink-0.mr-3(src='assets/images/avatar-layouts-1.png', alt='logo')
+              .flex-grow.overflow-hidden(class='ml-0.5')
+                p.text-sm.font-medium.text-gray-1100.truncate(class='dark:text-gray-dark-1100') Karen Robinson
+                p.text-gray-500.mb-0.text-xs.truncate(class='dark:text-gray-500')
+                  | Hey ! i&apos;m available here
+
+mixin DropDown-3(hover=true,list=[{link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Item 1'}, {link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Item 2'}], labelStyle='',menuStyle='bg-white p-[25px] pb-[10px]', childStyle='p-[15px] pl-[21px]', color, titleStyle='',iconStyle='', position='', bgColor='dark:text-gray-dark-500 dark:border-dark-neutral-border dark:bg-dark-neutral-bg')
+  .dropdown(class=hover && 'dropdown-hover', class=position === 'end' && 'dropdown-end')&attributes(attributes)
+    label.cursor-pointer.dropdown-label(tabindex='0', class=labelStyle)
+      if block
+        block
+    ul.dropdown-content.left-0(tabindex='0')
+      .relative.menu.rounded-box.dropdown-shadow(class=menuStyle, class=bgColor)
+        .border-solid.border-b-8.border-x-transparent.border-x-8.border-t-0.absolute(
+          class='w-[14px] top-[-7px]',
+          class=color,
+          class=position === 'end' && 'right-[18px]'
+        )
+        each val in list
+          if val.divider
+            .w-full.bg-neutral(class='h-[1px] my-[7px] dark:bg-dark-neutral-border')
+          else
+            li(class=childStyle)
+              if val.link
+                a.flex.items-center.bg-transparent.p-0(
+                  href=val.link,
+                  class='gap-[7px]',
+                  class=val.title === 'View details' && 'show-detail'
+                ) 
+                  if val.icon
+                    i.w-4.h-4.grid.place-items-center
+                      img(src=val.icon, alt='icon', class=iconStyle)
+                  span(class=val.link === '#remove' ? 'text-red text-[11px] leading-4' : titleStyle)= val.title
+              else
+                .flex.items-center.bg-transparent.p-0
+                  if val.icon
+                    i.w-4.h-4
+                      img(src=val.icon, alt='icon', class=iconStyle)
+                  span(class=val.link === '#remove' ? 'text-red text-[11px] leading-4' : titleStyle)= val.title
+
+mixin DropDownChat
+  .dropdown.dropdown-end&attributes(attributes)
+    label.cursor-pointer.dropdown-label(tabindex='0')
+      .relative(class='w-[26px] h-[26px]')
+        img.w-full.h-full.object-cover(src='assets/images/icons/icon-messages.svg', alt='message icon')
+        .w-2.h-2.bg-fuchsia.rounded-full.absolute(class='right-[1px] top-[-1px]')
+    ul.dropdown-content(tabindex='0')
+      .relative.menu.rounded-box.dropdown-shadow.bg-white.px-6(
+        class='mt-[50px] min-w-[350px] pt-[21px] pb-[11px] dark:bg-dark-neutral-bg'
+      )
+        .border-solid.border-b-8.border-x-transparent.border-x-8.border-t-0.absolute.border-b-white(
+          class='w-[14px] top-[-7px] right-[18px] dark:border-b-dark-neutral-bg'
+        )
+        .flex.items-center.justify-between.pb-5.border-b.border-neutral(class='mb-[22px] dark:border-b-dark-neutral-border')
+          +Size14Leading16Semibold('New Mesages')
+          a.text-color-brands.text-xs(href='#', class='hover:opacity-75') View All
+        +DropDownChatItem
+        .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+        +DropDownChatItem('assets/images/avatar-layouts-2.png', 'Emma Watson', "Hey, I'm going to meet a friend of mine at the department store.")
+        .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+        +DropDownChatItem('assets/images/avatar-layouts-3.png', 'Elizabeth', 'Good morning, How are you? What about our next meeting?', '')
+
+mixin DropDownNotification
+  .dropdown.dropdown-end&attributes(attributes)
+    label.cursor-pointer.dropdown-label(tabindex='0')
+      .relative(class='w-[26px] h-[26px]')
+        img.w-full.h-full.object-cover(src='assets/images/icons/icon-notification-bing.svg', alt='notification icon')
+        .w-2.h-2.bg-fuchsia.rounded-full.absolute(class='right-[1px] top-[-1px]')
+    ul.dropdown-content(tabindex='0')
+      .relative.menu.rounded-box.dropdown-shadow.bg-white.px-6(
+        class='mt-[50px] min-w-[350px] pt-[21px] pb-[11px] dark:bg-dark-neutral-bg'
+      )
+        .border-solid.border-b-8.border-x-transparent.border-x-8.border-t-0.absolute.border-b-white(
+          class='w-[14px] top-[-7px] right-[18px] dark:border-b-dark-neutral-bg'
+        )
+        .flex.items-center.justify-between.pb-5.border-b.border-neutral(class='mb-[22px] dark:border-b-dark-neutral-border')
+          +Size14Leading16Semibold('Notifications')
+          a.text-color-brands.text-xs(href='#', class='hover:opacity-75') View All
+        +DropDownNotificationItem('assets/images/avatar-layouts-4.png', 'Jenny Wilson', "commented on your latest story", "1 min ago", "")
+        .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+        +DropDownNotificationItem('assets/images/avatar-layouts-1.png', 'Esther Howard', "commented on your latest story", "3 mins ago", "")
+        .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+        +DropDownNotificationItem('assets/images/avatar-layouts-2.png', 'Steven', 'add new photos in Travel Album', '5 mins ago', "")
+        .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+        +DropDownNotificationItem('assets/images/avatar-layouts-3.png', 'Wada Warren', 'posted new job', '6 mins ago', "")
+        .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+        +DropDownNotificationItem('assets/images/avatar-layouts-4.png', 'Jenny Wilson', ' Updated her profile and company', '8 mins ago', "")
+
+mixin DropDownNotificationItem(avatar='assets/images/avatar-layouts-1.png', name='Esther Howard', text='Please tell me how to develop this template to Tailwind CSS 3 and ReactJS ?', time="1 min ago", hasBorder='border-b border-neutral mb-[18px]')
+  li.rounded&attributes(attributes)(class='ml-[-14px] hover:bg-gray-100 w-[calc(100%+28px)] dark:hover:bg-gray-dark-100')
+    .flex.items-start.bg-transparent(class='gap-[10px] p-[14px]')
+      img.w-8.h-8.rounded-full(src=avatar, alt='user avatar')
+      div 
+        .flex.items-center(class='gap-[15px] mb-[7px]')
+          +Size10Leading16Semibold(name) 
+          +Size10Leading16(text).line-clamp-2
+        +Size10Leading16(time)
+
+mixin DropDownChatItem(avatar='assets/images/avatar-layouts-1.png', name='Esther Howard', text='Please tell me how to develop this template to Tailwind CSS 3 and ReactJS ?', hasBorder='border-b border-neutral mb-[18px]')
+  li.rounded&attributes(attributes)(class='ml-[-14px] hover:bg-gray-100 w-[calc(100%+28px)] dark:hover:bg-gray-dark-100')
+    .flex.items-start.bg-transparent(class='gap-[10px] p-[14px]')
+      img.w-8.h-8.rounded-full(src=avatar, alt='user avatar')
+      div 
+        .flex.items-center(class='gap-[25px] mb-[7px]')
+          +Size10Leading16Semibold(name)
+          +Size10Leading16('3 mins ago')
+        +Size10Leading16(text).line-clamp-2
+
+mixin DropDownWithIcon(width, icon, text)
+  +DropDown(false, list=[{title: 'Sales report'}, {title: 'Export report'}, {title: 'Profit manage'},{title: 'Revenue report'}], labelStyle='flex items-center justify-between', menuStyle=`${width} bg-neutral-bg pt-[14px] pb-[7px] px-4 border border-neutral-border`, childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+    .flex.items-center.justify-between.p-4.bg-neutral-bg.border.border-neutral.rounded-lg(
+      class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border',
+      class=width
+    )
+      +Size14Leading16(text)
+      img.cursor-pointer(src=icon, alt='icon')
+
+mixin DropdownToggle
+  +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4&attributes(attributes)
+    img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+
+mixin DropdownMore
+  +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Pending'}, {link: '#', title: 'Completed'}, {divider: true}, {link: '#remove', title: 'Cancel'}], labelStyle='flex items-center justify-between p-3', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').flex-1&attributes(attributes)
+    img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')

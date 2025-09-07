@@ -1,0 +1,53 @@
+mixin Breadcrumb(text1, text2)
+  +PageHeader(text2)
+  .flex.items-center.text-xs.text-gray-500(class='gap-x-[11px]')&attributes(attributes)
+    .flex.items-center.gap-x-1
+      img(src='assets/images/icons/icon-home-2.svg', alt='home icon')
+      a.capitalize(href='index.html')= text1
+    img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+    span.capitalize.text-color-brands= text2
+
+mixin BreadcrumbBase(text1, text2, text3, text4, mb, hiddenTime)
+  - var marginBottom = `mb-[${mb}px]`
+  +PageHeader(text1)
+  .flex.justify-between.flex-col.gap-y-2(class='sm:flex-row', class=marginBottom)
+    .flex.items-center.text-xs(class='gap-x-[11px]')
+      .flex.items-center.gap-x-1
+        img(src='assets/images/icons/icon-home-2.svg', alt='home icon')
+        span.capitalize.text-gray-500(class='dark:text-gray-dark-500')= text2
+      img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+      span.capitalize.text-color-brands= text3
+    .items-center.gap-x-2(class=hiddenTime ? 'hidden' : 'flex')
+      img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+      time.text-xs.text-gray-500(class='dark:text-gray-dark-500')= text4
+
+mixin BreadcrumbWithAddButton(text1, text2, text3, text4, text5, mb, gapBtn)
+  - var marginBottom = `mb-[${mb}px]`
+  - var gapBtn = `gap-x-[${gapBtn}px]`
+  .flex.justify-between.flex-col.gap-y-3(class=marginBottom, class='md:flex-row')
+    .flex.flex-col.items-stretch.gap-y-3(class=gapBtn, class='lg:items-center lg:flex-row')
+      div
+        +PageHeader(text1)
+        .flex.items-center.text-xs(class='gap-x-[11px]')
+          .flex.items-center.gap-x-1
+            img(src='assets/images/icons/icon-home-2.svg', alt='home icon')
+            span.capitalize.text-gray-500(class='dark:text-gray-dark-500')= text2
+          img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+          span.capitalize.text-color-brands= text3
+      button.btn.flex.items-center.w-fit.normal-case.bg-color-brands.h-auto.border-white.rounded-2xl.border-gray-100(
+        class='gap-x-[10.5px] border-[4px] hover:border-[#B2A7FF] hover:bg-color-brands dark:border-black dark:hover:border-[#B2A7FF] p-[17.5px]'
+      )
+        img(src='assets/images/icons/icon-add.svg', alt='add icon')
+        span.text-white.font-semibold(class='text-[14px] leading-[21px]')= text4
+    .flex.items-center.gap-x-2.self-end
+      img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+      time.text-xs.text-gray-500(class='dark:text-gray-dark-500')= text5
+
+mixin BreadcrumbUnoriginal(text1, text2, text3, mb)
+  - var marginBottom = `mb-[${mb}px]`
+  +PageHeader(text1)
+  .flex.justify-between.flex-col.gap-y-2(class='sm:flex-row', class=marginBottom)
+    span.text-gray-500.text-xs(class='dark:text-gray-dark-500')= text2
+    .flex.items-center.gap-x-2 
+      img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+      time.text-xs.text-gray-500(class='dark:text-gray-dark-500')= text3

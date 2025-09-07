@@ -1,0 +1,109 @@
+extends layout/layout
+
+block vars
+  - title = 'Help Center Add Category Page'
+  - bodyClass = 'help-center-add-category-page'
+
+block container
+  +BreadcrumbBase('Help Desk', 'Home', 'Ticket Details', false, 32, true)
+  section
+    .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+      +BaseWrapper.rounded-2xl.px-5.py-7.flex-1(class='md:py-[42px] md:px-12')
+        h1.font-bold.text-gray-1100(class='text-[24px] leading-[30px] dark:text-gray-dark-1100 tracking-[0.1px] mb-[39px]') Add New Category
+        +InputLabel("Category name")
+        +InputText("Add name").mb-8(class='md:mb-12')
+        +InputLabel("Parent")
+        +InputText("Add name").mb-8(class='md:mb-12')
+        +InputLabel("Description")
+        .rounded-lg.mb-8.border.border-neutral(class='dark:border-dark-neutral-border p-[13px] md:mb-12')
+          .flex.items-center.gap-y-4.flex-col(class='gap-x-[27px] mb-[31px] xl:flex-row xl:gap-y-0')
+            .flex.items-center(class='gap-x-[20px]')
+              img.cursor-pointer(src='assets/images/icons/icon-bold.svg', alt='bold icon')
+              img.cursor-pointer(src='assets/images/icons/icon-italicized.svg', alt='italicized icon')
+              img.cursor-pointer(src='assets/images/icons/icon-underlined.svg', alt='underlined icon')
+              img.cursor-pointer(src='assets/images/icons/icon-strikethrough.svg', alt='strikethrough icon')
+              img.cursor-pointer(src='assets/images/icons/icon-textcolor.svg', alt='textcolor icon')
+              img.cursor-pointer(src='assets/images/icons/icon-backgroundcolor.svg', alt='backgroundcolor icon')
+              img.cursor-pointer(src='assets/images/icons/icon-smile.svg', alt='smile icon')
+            .flex.items-center(class='gap-x-[20px]')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-paragraphformat.svg', alt='paragraphformat icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-align-left.svg', alt='align left icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-ordered-list.svg', alt='ordered list icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                img(src='assets/images/icons/icon-unordered-list.svg', alt='unordered list icon')
+                img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+              img.cursor-pointer(src='assets/images/icons/icon-indent.svg', alt='indent icon')
+              img.cursor-pointer.opacity-40(src='assets/images/icons/icon-indent.svg', alt='outdent icon')
+            .flex.items-center(class='gap-x-[20px]')
+              img.cursor-pointer(src='assets/images/icons/icon-insert-image.svg', alt='insert image icon')
+              img.cursor-pointer(src='assets/images/icons/icon-insert-link.svg', alt='insert link icon')
+              img.cursor-pointer(src='assets/images/icons/icon-insert-file.svg', alt='insert-file icon')
+              img.cursor-pointer(src='assets/images/icons/icon-insert-video.svg', alt='insert video icon')
+              img.cursor-pointer.opacity-40(src='assets/images/icons/icon-undo.svg', alt='undo icon')
+              img.cursor-pointer.opacity-40(src='assets/images/icons/icon-redo.svg', alt='redo icon')
+          textarea.textarea.w-full.p-0.text-gray-400.resize-none.rounded-none.bg-transparent.leading-4(
+            class='min-h-[300px] focus:outline-none dark:text-gray-dark-400 text-[14px]',
+            placeholder='Content here'
+          )
+        +InputLabel("Thumbnail / Gallery")
+        .border-dashed.border-2.text-center.border-neutral.cursor-pointer.mb-8(
+          class='py-[26px] dark:border-dark-neutral-border md:mb-12'
+        )
+          img.mx-auto.inline-block(src='assets/images/icons/icon-image.svg', alt='image icon', class='mb-[15px]')
+          p.text-sm.leading-6.text-gray-500.font-normal(class='mb-[5px]') Drop your image here, or browse
+          p.leading-6.text-gray-400(class='text-[13px]') JPG,PNG and GIF files are allowed
+        +InputLabel("Tag")
+        +InputText('Add tags')
+        +BaseWrapper.rounded-lg(class='p-[15px] mt-[10px]')
+          .flex.flex-wrap(class='gap-[10px]')
+            +Tag('smartwatch')
+            +Tag('Apple')
+            +Tag('Watch')
+            +Tag('smartphone')
+            +Tag('iPhone14 max')
+            +Tag('iPhone14 max')
+            +Tag('iPhone14 max')
+            +Tag('smartwatch')
+            +Tag('Apple')
+            +Tag('Watch')
+      .flex.flex-col(class='gap-y-[27px] xl:w-[24.4%]')
+        +AddBoxItem('Ticket Details', 'Status:', 'Visibility:', 'Last update:', 'Open', 'Publish', '2 mins ago', 'Save Status', 'Delete ticket')
+        +BaseWrapper.rounded-2xl(class='pt-[21px] px-[23px] pb-[34px]')
+          span.text-gray-500.leading-4.font-semibold.border-b.border-neutral.block(
+            class='dark:text-gray-dark-500 text-[14px] pb-[14px] dark:border-dark-neutral-border mb-[18px]'
+          ) Support Team
+          .grid.grid-cols-4.justify-items-center(class='gap-y-[18px] gap-x-[14px]')
+            +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-3.png', true, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-4.png', false, activeColor, 'Eduar')
+            +UserActiveItem('assets/images/seller-avatar-5.png', true, 'orange', 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-6.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-1.png', false, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, 'Eduar')
+        +BaseWrapper.rounded-2xl.pb-5.px-7(class='pt-[35px]')
+          button.btn.flex.items-center.normal-case.bg-color-brands.h-auto.border-neutral-bg.rounded-lg.gap-x-3.border-4.w-full.leading-4.font-semibold(
+            class='hover:border-[#B2A7FF] hover:bg-color-brands dark:border-dark-neutral-bg dark:hover:border-[#B2A7FF] py-[10px] px-[15px] mb-[30px] text-[14px]'
+          )
+            img(src='assets/images/icons/icon-message-edit.svg', alt='message edit icon')
+            span.text-white.font-semibold.leading-4(class='text-[14px]') New Category
+          .flex.flex-col.pb-5.border-b.border-neutral.mb-5(class='dark:border-dark-neutral-border')
+            +FolderItem('Plugins', '2568')
+            +FolderItem('Account', '986')
+            +FolderItem('Permission', '2235')
+            +FolderItem('Update theme', '256')
+            +FolderItem('Download', '124')
+            +FolderItem('Install', '15')
+            +FolderItem('API', '365')
+            +FolderItem('Development', '546')
+          .flex.flex-col
+            +FolderItem('Unassigned', '25').filter-green
+            +FolderItem('Open', '58').filter-state
+            +FolderItem('Closed', '1356').filter-orange
+            +FolderItem('Archived', '2563').filter-pink

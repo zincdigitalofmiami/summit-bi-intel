@@ -1,0 +1,41 @@
+extends layout/layout
+
+block vars
+  - title = 'Finance Transaction Page'
+  - bodyClass = 'finance-transaction-page'
+
+block container
+  .flex.items-end.justify-between(class='mb-[31px]')
+    div
+      +Breadcrumb('home', 'Transactions')
+    .flex.items-center.gap-x-2 
+      img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+      time.text-xs.text-gray-500 Feb 15, 2022 - Feb 21, 2022
+  +Card.overflow-x-scroll.scrollbar-hide(class='p-[25px] pb-[30px] mb-[45px]')
+    +CardHeaderWithToggle("Deposits").mb-4
+    .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[32px]')
+    table.w-full.border-separate(class='min-w-[900px] border-spacing-y-[15px]')
+      thead(class='')
+        tr(class='dark:border-dark-neutral-border pb-[15px] pl-[30px]') 
+          th.text-left(class='pl-[30px]') 
+            +Checkbox(class='mb-[6px]')
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Account
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Payment to
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Total / Type
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Fee
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Status
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Actions
+      tbody
+        +DepositCardItem
+        +DepositCardItem('assets/images/icons/icon-Visa.svg', 'orange', 'Pending')
+        +DepositCardItem('assets/images/icons/icon-Stripe.svg')
+        +DepositCardItem
+        +DepositCardItem('assets/images/icons/icon-Visa.svg','red', 'Failed')
+        +DepositCardItem('assets/images/icons/icon-Stripe.svg')
+        +DepositCardItem
+        +DepositCardItem('assets/images/icons/icon-Visa.svg','orange', 'Pending')
+        +DepositCardItem('assets/images/icons/icon-Stripe.svg')
+        +DepositCardItem
+        +DepositCardItem('assets/images/icons/icon-Visa.svg')
+        +DepositCardItem('assets/images/icons/icon-Stripe.svg','red', 'Failed')
+  +PaginateNextBtn

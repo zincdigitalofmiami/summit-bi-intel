@@ -1,0 +1,686 @@
+mixin UpgradeCard
+  .rounded-xl.bg-neutral.py-5.w-fit.flex.flex-col.gap-5.justify-between(class='px-[31px] dark:bg-dark-neutral-border')&attributes(attributes)
+    .relative(class='mr-[18px]')
+      img(src='assets/images/icons/icon-chat-bubble.svg', alt='chat bubble', class='ml-[6px] dark:hidden')
+      img.hidden(src='assets/images/icons/icon-chat-bubble-dark.svg', alt='chat bubble', class='ml-[6px] dark:block')
+      img.w-full.h-full.object-cover(src='assets/images/hero-layouts.svg', alt='hero')
+      img.ml-auto.absolute.right-0(src='assets/images/circle-list-1.png', alt='circle list', class='translate-x-[120%]')
+
+    p.text-desc.text-center.text-gray-1100.font-normal.mx-auto(class='max-w-[15ch] dark:text-gray-dark-1100') Unlock more information now by Upgrade to
+      span.font-bold &nbsp;PRO
+    +Button('Upgrade Now', "S", 'solid', disabledType).px-5.block.border-neutral(
+      class='py-[7px] dark:border-dark-neutral-border'
+    )
+
+mixin HorizontalUpgradeCard
+  .rounded-xl.bg-neutral.pt-5.w-fit.flex.justify-between.pl-9.mx-auto(
+    class='pr-[26px] pb-[43px] gap-[50px] dark:bg-dark-neutral-border'
+  )&attributes(attributes)
+    .mt-5(class='xl:w-[145px]')
+      p.text-desc.text-center.text-gray-1100.font-normal.mx-auto(class='max-w-[16ch] dark:text-gray-dark-1100 mb-[21px]') Unlock more information now <br> by Upgrade to
+        span.font-bold &nbsp;PRO
+      +Button('Upgrade Now', "S", 'solid', disabledType).px-5.block.border-neutral(
+        class='py-[14px] dark:border-dark-neutral-border'
+      )
+    .relative.mt-auto
+      img(src='assets/images/icons/icon-chat-bubble.svg', alt='chat bubble', class='ml-[6px] dark:hidden')
+      img.hidden(src='assets/images/icons/icon-chat-bubble-dark.svg', alt='chat bubble', class='ml-[6px] dark:block')
+      .overflow-hidden(class='xl:w-[126px] h-[102px]')
+        img.w-full.h-full.object-cover(src='assets/images/hero-layouts.svg', alt='hero')
+      img.left-0.absolute.bottom-0(
+        src='assets/images/circle-list-1.png',
+        alt='circle list',
+        class='translate-x-[-63%] translate-y-[-17px]'
+      )
+
+mixin IconTextMini(img, alt, text)
+  .flex.gap-x-1.items-center 
+    img(src=img, alt=alt)
+    span.text-xs.text-gray-400(class='dark:text-gray-dark-400')= text
+
+mixin UpcomingEventItem(img, title, text1, text2, text3, text4)
+  a.flex.items-center.border.bg-neutral-bg.border-neutral(
+    href='#',
+    class='pt-[27px] pb-[30px] pl-[21px] gap-x-[14px] rounded-[10px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border hover:bg-gray-100 dark:hover:bg-gray-dark-100'
+  )
+    img(src=img, alt='avatar', class='w-[52px]')
+    .flex.flex-col(class='gap-y-[15px] lg:gap-y-[6px]')
+      +Size16Leading20Semibold(title)
+      .flex.flex-col.items-stretch.gap-y-2(class='gap-x-[15px] lg:flex-row lg:items-center')
+        span.text-xs.text-color-brands= text1
+        +IconTextMini('assets/images/icons/icon-location.svg', 'location icon', text2)
+        +IconTextMini('assets/images/icons/icon-briefcase.svg', 'briefcase icon', text3)
+        +IconTextMini('assets/images/icons/icon-clock.svg', 'clock icon', text4)
+
+mixin ActiveUserItem(img, text1, text2, text3, text4, width, height, rounded)
+  - var imgStyle = `w-[${width}px] h-[${height}px] rounded-[${rounded}px]`
+  .flex.justify-between
+    .flex.gap-x-3
+      .overflow-hidden(class=imgStyle)
+        img.w-full.h-full.object-cover(src=img, alt='avatar')
+      .flex.flex-col(class='gap-y-[7px]')
+        h4.text-gray-1100.text-sm.leading-4(class='dark:text-gray-dark-1100')= text1
+        span.text-gray-400.text-xs(class='dark:text-gray-dark-400')= text2
+    .flex.flex-col.gap-y-2.items-end
+      h5.text-sm.leading-4.text-gray-1100.font-semibold(class='dark:text-gray-dark-1100')= text3
+      span.text-gray-400.text-xs(class='dark:text-gray-dark-400')= text4
+
+mixin CryptoActivityItem(img, alt, text1, text2, text3, text4, width, height, rounded)
+  - var imgStyle = `w-[${width}px] h-[${height}px] rounded-[${rounded}px]`
+  .flex.justify-between
+    .flex.gap-x-2.items-center
+      .overflow-hidden(class=imgStyle)
+        img.w-full.h-full.object-cover(src=img, alt=alt)
+      .flex.flex-col(class='gap-y-[7px]')
+        h4.text-gray-1100.text-sm.leading-4.font-semibold(class='dark:text-gray-dark-1100')= text1
+        .flex.items-center(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-export-green.svg', alt='export icon')
+          span.font-medium.text-green(class='text-[12px] leading-[12px]')= text2
+    .flex.flex-col.gap-y-2.items-end
+      h5.text-sm.leading-4.text-gray-1100.font-semibold(class='dark:text-gray-dark-1100')= text3
+      span.text-gray-400.text-xs(class='dark:text-gray-dark-400')= text4
+
+mixin OngoingEventItem(href, img, text1, text2, text3)
+  a.flex.flex-col.border.bg-neutral-bg.border-neutral.rounded-lg(
+    href=href,
+    class='p-[22px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+  )
+    img(src=img, alt='background', class='mb-[13px]')
+    .flex.justify-between(class='mb-[9px]')
+      span.leading-4.text-gray-500(class='text-[10.5958px] dark:text-gray-dark-500')= text1
+      time.leading-4.text-gray-500(class='text-[10.5958px] dark:text-gray-dark-500')= text2
+    h2.font-semibold.text-gray-1100(class='text-[12px] leading-[18px] dark:text-gray-dark-1100 mb-[27px]')= text3
+    button.bg-neutral-bg.mt-auto.border-transparent.rounded-lg.transition-all.duration-200.group.w-fit(
+      class='dark:bg-dark-neutral-bg border-[4px] dark:hover:border-dark-neutral-border hover:border-neutral'
+    )
+      .border-neutral.flex.items-center.gap-x-2.border.rounded-lg.py-2(
+        class='dark:border-dark-neutral-border px-[10px] group-hover:border-transparent'
+      )
+        img(src='assets/images/icons/icon-edit-2.svg', alt='edit icon')
+        span.text-gray-1100(class='dark:text-gray-dark-1100 text-[12px] leading-[19px]') View now
+
+mixin CustomerStatusItem(img, name, brand, mail, date, statusColor, statusContent, price)
+  - var statusBg = `bg-${statusColor}`
+  - var statusText = `text-${statusColor}`
+  .border.bg-neutral-bg.border-neutral.rounded-xl.flex.flex-col.justify-between.px-4.items-stretch.gap-y-3(
+    class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border py-[11px] md:flex-row md:items-center'
+  )
+    div(class='min-w-[184px]')
+      .inline-flex.items-center.gap-x-3
+        img.w-10(src=img, alt='avatar')
+        h5.leading-4.text-gray-1100.font-semibold(class='text-[14px] dark:text-gray-dark-1100')= name
+    .flex.items-center(class='gap-x-[6px] w-[224px]')
+      img(src='assets/images/icons/icon-cart.svg', alt='cart icon')
+      span.leading-4.text-gray-400(class='text-[14px] dark:text-gray-dark-400')= brand
+    .items-center.flex(class='gap-x-[6px] w-[210px] md:hidden xl:flex')
+      img(src='assets/images/icons/icon-email.svg', alt='email icon')
+      span.leading-4.text-gray-400(class='text-[14px] dark:text-gray-dark-400')= mail
+    .items-center.flex(class='gap-x-[6px] w-[120px] md:hidden xl:flex')
+      img(src='assets/images/icons/icon-date.svg', alt='date icon')
+      span.leading-4.text-gray-400(class='text-[14px] dark:text-gray-dark-400')= date
+    div(class='min-w-[125px]')
+      .inline-flex.items-center.gap-x-3.border.bg-neutral-bg.border-neutral.px-4(
+        class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border rounded-[72.418px] py-[9px]'
+      )
+        .rounded-full(class='w-[10px] h-[10px]', class=statusBg)
+        span.font-medium(class='text-[12px] leading-[18px]', class=statusText)= statusContent
+    .flex.items-center.self-end(class='gap-x-[17px] md:self-stretch')
+      span.leading-4.text-gray-1100(class='text-[14px] dark:text-gray-dark-1100')= price
+      +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+        img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+
+mixin OrderItem(id, img, name, date, statusContent, price)
+  .flex.justify-between.items-center.border-neutral(class='py-[15px] dark:border-dark-neutral-border')&attributes(attributes)
+    p.leading-4.text-gray-1100.hidden(class='text-[14px] dark:text-gray-dark-1100 w-[107px] sm:inline') ID:
+      span= id
+    .flex.items-center.gap-x-2(class='w-[161px]')
+      img(src=img, alt='product')
+      span.leading-4.text-gray-1100(class='text-[14px] dark:text-gray-dark-1100')= name
+    time.leading-4.text-gray-1100.hidden(class='text-[14px] dark:text-gray-dark-1100 w-[135px] sm:inline')= date
+    .items-center.hidden(class='gap-x-[6px] w-[135px] sm:flex')
+      .w-2.h-2.bg-green.rounded-full
+      span.leading-4.text-gray-1100(class='text-[14px] dark:text-gray-dark-1100')= statusContent
+    span.leading-4.text-gray-1100(class='text-[14px] dark:text-gray-dark-1100 sm:w-[98px]')= price
+
+mixin HireNowItem(img1, img2, img3, number, title, info)
+  .flex.items-center.justify-between(class='lg:gap-x-[50px] lg:w-[424px]')
+    .flex.items-center
+      a(href='#', class='z-[3]')
+        img.border.border-neutral-bg.rounded-full(src=img1, alt='avatar', class='w-[38px] dark:border-dark-neutral-bg')
+      a(href='#', class='z-[4] ml-[-10px]')
+        img.border.border-neutral-bg.rounded-full(src=img2, alt='avatar', class='w-[38px] dark:border-dark-neutral-bg')
+      a(href='#', class='z-[5] ml-[-10px]')
+        img.border.border-neutral-bg.rounded-full(src=img3, alt='avatar', class='w-[38px] dark:border-dark-neutral-bg')
+      button.rounded-full.bg-color-brands.flex.items-center.justify-center.leading-5.font-medium.text-white(
+        class='z-[6] ml-[-10px] w-[38px] h-[38px] text-[14px]'
+      )= number
+    .flex.flex-col.items-end
+      h4.text-color-brands.leading-4(class='text-[14px]')= title
+      span.text-gray-400.text-xs(class='dark:text-gray-dark-400')= info
+
+mixin TitleToggle(pb, mb, text)
+  - var marginBottom = `mb-[${mb}px]`
+  - var paddingBottom = `pb-[${pb}px]`
+  .flex.items-center.justify-between.border-b.border-neutral(class='dark:border-dark-neutral-border', class=marginBottom, class=paddingBottom)&attributes(attributes)
+    +Size16Leading20Semibold(text)
+    +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+      img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+
+mixin CmsMediaItem(img, name, weight)
+  +BaseWrapper.px-5(class='rounded-[7px] pt-[19px] pb-[17px]')
+    .mb-3 
+      img.rounded(src=img, alt='background')
+    .flex.items-center.justify-between 
+      span.text-gray-500(class='text-[10px] leading-[15px] dark:text-gray-dark-500')= name
+      span.text-gray-500(class='text-[10px] leading-[15px] dark:text-gray-dark-500')= weight
+
+mixin InputSearchModern(placeholder, tag, workSelectList, locationSelectList, btnContent)
+  +BaseWrapper.rounded-2xl.search-input-shadow.flex.items-center.justify-between.flex-col(
+    class='py-[18px] pl-[28px] pr-[19px] mb-[38px] gap-[10px] sm:flex-row'
+  )
+    .flex.items-center
+      img(src='assets/images/icons/icon-search-normal.svg', alt='seacrh icon')
+      input.input.w-full.bg-transparent.outline-none.h-5.text-gray-400.text-sm.leading-4(
+        type='text',
+        placeholder=placeholder,
+        class='focus:!outline-none placeholder:text-gray-400 dark:placeholder:text-gray-dark-400 pl-[11px]'
+      )
+    div
+      button.text-sm.leading-4.text-gray-500.py-3.rounded-lg.px-5.hidden.items-center(
+        class='dark:text-gray-dark-500 bg-[#E8EDF2] dark:bg-[#313442] xl:inline-flex gap-x-[13px]'
+      )
+        = tag
+        img.cursor-pointer(src='assets/images/icons/icon-close.svg', alt='close icon')
+    .items-center.hidden(class='min-w-[127px] lg:flex')
+      img.flex-1(src='assets/images/icons/icon-work.svg', alt='work icon')
+      +Select(workSelectList)(class='!outline-0')
+    .items-center.hidden(class='min-w-[133px] lg:flex')
+      img.flex-1(src='assets/images/icons/icon-location.svg', alt='location icon')
+      +Select(locationSelectList)(class='!outline-0')
+    +ButtonBase(btnContent).px-6.bg-color-brands.rounded-lg(class='py-[11.5px] hover:bg-color-brands')
+
+mixin SourceAnalyticsItem(borderBoolean, icon, alt, source, sourceInfo, number, percent)
+  - var border = `border-b border-dashed border-gray-200 dark:border-gray-dark-200`
+  .flex.justify-between.flex-col.gap-4(class='pb-[16.5px] sm:items-center sm:flex-row', class=borderBoolean ? border : '')
+    .flex.gap-3.items-center
+      .bg-neutral.w-8.h-8.flex.items-center.justify-center.rounded(class='dark:bg-dark-neutral-border')
+        img(src=icon, alt=alt)
+      .flex.flex-col(class='gap-y-[3px]')
+        h3.leading-4.text-black.font-semibold(class='text-[14px] dark:text-white')= source
+        span.text-xs.text-gray-400(class='dark:text-gray-dark-400')= sourceInfo
+    .flex.items-center.gap-4.justify-between 
+      h4.leading-5.font-semibold.text-gray-1100(class='text-[16px] dark:text-gray-dark-1100')= number
+      .flex.items-center.gap-2 
+        img(src='assets/images/icons/icon-export-green.svg', alt='export icon')
+        span.leading-4.font-medium.text-green(class='text-[16px]')= percent
+
+mixin CountryAnalyticsItem(borderBoolean, logo, alt, country, countryInfo, number, percent, textColor='text-green', exportIcon='assets/images/icons/icon-export-green.svg')
+  - var border = `border-b border-dashed border-gray-200 dark:border-gray-dark-200`
+  .flex.justify-between.items-center(class='pb-[16.5px]', class=borderBoolean ? border : '')
+    .flex.gap-3.items-center
+      .w-8.h-8.rounded-full.overflow-hidden
+        img.w-full.h-full.object-cover(src=logo, alt=alt)
+      .flex.flex-col(class='gap-y-[3px]')
+        h3.leading-4.text-black.font-semibold(class='text-[14px] dark:text-white')= country
+        span.text-xs.text-gray-400(class='dark:text-gray-dark-400')= countryInfo
+    .flex.items-center.gap-4 
+      h4.leading-5.font-semibold.text-gray-1100(class='text-[16px] dark:text-gray-dark-1100')= number
+      .flex.items-center.gap-2 
+        img(src=exportIcon, alt='export icon')
+        span.leading-4.font-medium(class='text-[16px]', class=textColor)= percent
+
+mixin ActiveMemberItem(img, percent1, progressColor, percent2, kpi)
+  .flex.items-center.justify-between
+    .flex.items-center(class='gap-x-[15px] w-[80%]')
+      .w-8.h-8.overflow-hidden.shrink-0
+        img.w-full.h-full.object-cover(src=img, alt='avatar')
+      .flex.flex-col.gap-y-1.w-full
+        +ProgressBarNonGray(percent1, progressColor)
+        +ProgressBarNonGray(percent2, 'gray-200')
+    span.leading-4.text-gray-1100(class='text-[14px] dark:text-gray-dark-1100')= kpi
+
+mixin RecruitingCard
+  .rounded-2xl.relative(class='bg-[#5192FF] h-[242px] pt-[30px] pl-[42px]')&attributes(attributes)
+    h3.text-white.font-bold.text-lg.mb-4(class='leading-[22px]') Recruiting?
+    p.text-white.text-xs.font-normal.mb-5(class='max-w-[233px]') Advertise your jobs to millions of monthly users and search 16.8 million CVs in our database.
+    button.flex.items-center.gap-x-2.bg-white.text-xs(class='rounded-[6px] py-[7px] px-[14px] text-[#37404E]') Post a Job
+      img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+    img.absolute.bottom-0.right-4(src='assets/images/asset-dashboard-image.svg', alt='asset dashboard')
+
+mixin UserStaticsCard(avt1, avt2, avt3, link1, link2, link3)
+  +BaseWrapper.flex-1(class='rounded-[10px] px-[30px] py-[28px]')
+    .flex.items-center.justify-between(class='mb-[14px]')
+      .text-lg.font-bold.text-gray-1100(class='dark:text-gray-dark-1100 leading-[22px]') User statics
+      +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+        img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+    p.text-xs.text-gray-500(class='dark:text-gray-dark-500 max-w-[302px] mb-[14px]') Advertise your jobs to millions of monthly users and search 16.8 million CVs in our database.
+    p.text-right.text-red.text-sm.mb-2 36,895.2
+    +ProgressBarBase(40, "color-brands")(class='mb-[22px]')
+    .flex.items-center
+      a.w-10.h-10.overflow-hidden(href=link1, class='z-[3]')
+        img.w-full.h-full.object-cover(src=avt1, alt='avatar')
+      a.w-10.h-10.overflow-hidden(href=link2, class='z-[4] ml-[-10px]')
+        img.w-full.h-full.object-cover(src=avt2, alt='avatar')
+      a.w-10.h-10.overflow-hidden(href=link3, class='z-[5] ml-[-10px]')
+        img.w-full.h-full.object-cover(src=avt3, alt='avatar')
+      button.w-10.h-10.rounded-full.bg-color-brands.flex.items-center.justify-center(class='z-[6] ml-[-10px]')
+        img(src='assets/images/icons/icon-plus.svg', alt='plus icon')
+
+mixin FavoriteFolderItem(icon, alt, title, titleColor, liList)
+  +BaseWrapper.rounded-lg.py-3(class='px-[11px]')
+    .flex.items-end.mb-2(class='gap-[7px]')
+      .w-6.h-6.overflow-hidden
+        img.w-full.h-full.object-cover(src=icon, alt=alt)&attributes(attributes)
+      .font-semibold.leading-4(class='text-[14px]', class=`text-${titleColor}`)= title
+    ul.list-disc.ml-4
+      each val in liList
+        li.text-gray-500.leading-4(class='dark:text-gray-dark-500 text-[11px]')= val
+
+mixin FolderItem(folderName, quantity, icon='assets/images/icons/icon-folder-open.svg')
+  .flex.items-center.justify-between.bg-transparent.rounded.cursor-pointer.gap-2(
+    class='p-[10px] hover:bg-neutral dark:hover:bg-dark-neutral-border'
+  )
+    .flex.items-center(class='gap-x-[14px]')
+      .w-5.h-5.overflow-hidden
+        img.w-full.h-full.object-cover(src=icon, alt='folder open icon')&attributes(attributes)
+      h3.text-gray-500.leading-4.font-semibold(class='dark:text-gray-dark-500 text-[14px]')= folderName
+    span.text-xs.text-gray-500(class='dark:text-gray-dark-500')= quantity
+
+mixin UserActiveItem(avatar, active=true, activeColor='green', name, avatarSize=50, activeSize=16, borderImageColor=true, border=true, nameStyles=true)
+  - var activeColorVar = `bg-${activeColor}`
+  .flex.flex-col.cursor-pointer.items-center(class=`gap-y-[10px] w-[${avatarSize}px]`)&attributes(attributes)
+    .relative
+      .overflow-hidden.rounded-full(
+        class=`w-[${avatarSize}px] h-[${avatarSize}px]`,
+        class=borderImageColor ? 'border-[#7364DB]' : 'border-white dark:border-dark-neutral-bg',
+        class=border ? 'border-2' : 'border-0'
+      )
+        img.w-full.h-full.object-cover(src=avatar, alt='avatar')
+      .absolute.rounded-full.border.border-neutral-bg.bottom-0.right-0(
+        class=`dark:border-dark-neutral-bg w-[${activeSize}px] h-[${activeSize}px]`,
+        class=active ? '' : 'hidden',
+        class=activeColorVar
+      )
+    span.leading-4(
+      class='text-[14px]',
+      class=name ? '' : 'hidden',
+      class=nameStyles ? 'text-gray-500 dark:text-gray-dark-500' : 'text-gray-1100 dark:text-gray-dark-1100 font-semibold'
+    )= name
+
+mixin UserActiveMaxItem(avatar, active=true, activeColor='green', name, avatarSize=50, activeSize=16, borderImageColor=true, border=true, nameStyles=true)
+  - var activeColorVar = `bg-${activeColor}`
+  .flex.flex-col.cursor-pointer.items-center(class=`gap-y-[10px] max-w-[${avatarSize}px]`)&attributes(attributes)
+    .relative
+      .overflow-hidden.rounded-full(
+        class=`max-w-[${avatarSize}px] max-h-[${avatarSize}px]`,
+        class=borderImageColor ? 'border-[#7364DB]' : 'border-white dark:border-dark-neutral-bg',
+        class=border ? 'border-2' : 'border-0'
+      )
+        img.w-full.h-full.object-cover(src=avatar, alt='avatar')
+      .absolute.rounded-full.border.border-neutral-bg.bottom-0.right-0(
+        class=`dark:border-dark-neutral-bg w-[${activeSize}px] h-[${activeSize}px]`,
+        class=active ? '' : 'hidden',
+        class=activeColorVar
+      )
+    span.leading-4(
+      class='text-[14px]',
+      class=name ? '' : 'hidden',
+      class=nameStyles ? 'text-gray-500 dark:text-gray-dark-500' : 'text-gray-1100 dark:text-gray-dark-1100 font-semibold'
+    )= name
+
+mixin MessagesItem(avatar, name, time, title, message)
+  .bg-gray-100.rounded-lg.border.border-neutral.relative.pr-2(
+    class='dark:bg-gray-dark-100 dark:border-dark-neutral-border py-[14px]'
+  )
+    .flex(class='gap-x-[11px]')
+      +UserActiveItem(avatar, true, activeColor, false, 32, 10, false)
+      .flex.flex-col.gap-y-1 
+        .flex.items-center(class='gap-x-[13px]')
+          span.text-xs.text-gray-500(class='dark:text-gray-dark-500')= name
+          time.text-xs.text-gray-400(class='dark:text-gray-dark-400')= time
+        h4.text-gray-1100.font-semibold.leading-4(class='dark:text-gray-dark-1100 text-[14px] mb-[6px]')= title
+        p.text-xs.text-gray-400(class='dark:text-gray-dark-400 max-w-[261px]')= message
+    +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between p-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').absolute.right-0.top-0
+      img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+
+mixin MessagesReceivedBox(avatar, name, time, messages)
+  .flex(class='gap-x-[5px] max-w-[608px]')
+    +UserActiveItem(avatar, true, activeColor, false, 32, 10, false, false)
+    .flex.flex-col.mt-2(class='gap-y-[6px]')
+      .flex.items-center(class='gap-x-[13px]')
+        span.text-xs.text-gray-600(class='dark:text-gray-dark-600')= name
+        time.text-xs.text-gray-400(class='dark:text-gray-dark-400')= time
+      .flex.items-center.gap-x-3
+        .rounded-2xl.rounded-tl-none(class='bg-[#5CAFFD] p-[18px]')
+          p.text-xs.text-white(class='max-w-[395px]')= messages
+        +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between p-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').-translate-x-4
+          img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+
+mixin MessagesSentBox(avatar, name, time, messages, messageImages=false)
+  .flex.self-end(class='gap-x-[5px] max-w-[608px]')
+    .flex.flex-col.mt-2(class='gap-y-[6px]')
+      .flex.items-center.self-end(class='gap-x-[13px]')
+        span.text-xs.text-gray-600(class='dark:text-gray-dark-600')= name
+        time.text-xs.text-gray-400(class='dark:text-gray-dark-400')= time
+      .flex.items-center.gap-x-3.flex-row-reverse
+        .rounded-2xl.rounded-tr-none.bg-neutral(class='dark:bg-dark-neutral-border p-[18px]')
+          p.text-xs.text-gray-1100(class='max-w-[395px] dark:text-gray-dark-1100')= messages
+        +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between p-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-4
+          img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+      +MessageImages(class=messageImages ? 'grid' : 'hidden')
+    +UserActiveItem(avatar, true, activeColor, false, 32, 10, false, false)
+
+mixin MessageImages
+  .gap-2.mt-3.self-end(
+    class='grid-cols-[52px_52px_52px_52px] grid-rows-[52px_52px] md:grid-cols-[84px_84px_84px_84px] md:grid-rows-[84px_84px]'
+  )&attributes(attributes)
+    .col-span-2.rounded-sm.overflow-hidden.cursor-pointer
+      img.w-full.h-full.object-cover.rounded-xl(
+        src='https://images.unsplash.com/photo-1520942702018-0862200e6873?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        alt='message photo'
+      )
+    .rounded-sm.overflow-hidden.cursor-pointer
+      img.w-full.h-full.object-cover.rounded-xl(
+        src='https://images.unsplash.com/photo-1476673160081-cf065607f449?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80',
+        alt='message photo'
+      )
+    .rounded-sm.overflow-hidden.cursor-pointer
+      img.w-full.h-full.object-cover.rounded-xl(
+        src='https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+        alt='message photo'
+      )
+    .rounded-sm.overflow-hidden.cursor-pointer
+      img.w-full.h-full.object-cover.rounded-xl(
+        src='https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1333&q=80',
+        alt='message photo'
+      )
+    .col-span-2.rounded-sm.overflow-hidden.cursor-pointer
+      img.w-full.h-full.object-cover.rounded-xl(
+        src='https://images.unsplash.com/photo-1501696461415-6bd6660c6742?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
+        alt='message photo'
+      )
+    .rounded-sm.overflow-hidden.cursor-pointer
+      img.w-full.h-full.object-cover.rounded-xl(
+        src='https://images.unsplash.com/photo-1506252374453-ef5237291d83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
+        alt='message photo'
+      )
+
+mixin UserActiveTimeOnlineItem(avatar, name, time)
+  .flex.flex-col.items-center(class='gap-y-[3px]')
+    +UserActiveItem(avatar, true, activeColor, name, 77, 18, false, false, false)
+    span.text-gray-400.leading-4(class='dark:text-gray-dark-400 text-[10px]')= time
+
+mixin MessageNotificationItem(avatar, name, notificationCount, message, time)
+  .bg-gray-100.rounded-lg.border.border-neutral.relative(class='dark:bg-gray-dark-100 dark:border-dark-neutral-border p-[18px]')
+    .flex.justify-between.items-center
+      .flex.items-center(class='gap-x-[10px]')
+        +UserActiveItem(avatar, true, activeColor, false, 40, 10, false)
+        .flex.flex-col(class='gap-y-[6px]')
+          .flex(class='gap-x-[10px]')
+            h2.leading-4.text-gray-1100.font-medium(class='text-[16px] dark:text-gray-dark-1100')= name
+            .rounded.bg-red.flex.items-center.justify-center(class='w-[18px] h-[18px]')
+              span.text-xs.text-white= notificationCount
+          p.text-xs.text-gray-400(class='dark:text-gray-dark-400')= message
+      .flex.flex-col(class='gap-y-[7px]')
+        time.text-xs.text-gray-400(class='dark:text-gray-dark-400')= time
+        .w-3.h-3.overflow-hidden.self-end
+          img.w-full.h-full.object-cover.filter-green-2(src='assets/images/icons/icon-star-2.svg', alt='star icon')
+
+mixin HelpCenterDashboardItem(avatar, name, title, content, assignedTo, time, category, comments, likeCount, border=true)
+  .flex.pb-6.border-neutral(class='dark:border-dark-neutral-border pt-[22px]', class=border ? 'border-b' : '')
+    .flex.flex-col.mr-3(class='gap-y-[27px]')
+      .overflow-hidden.rounded-full(class='w-[42px] h-[42px]')
+        img.w-full.h-full.object-cover(src=avatar, alt='avatar')
+      .flex.items-center.gap-x-1 
+        .overflow-hidden.w-4.h-4
+          img.w-full.h-full.object-cover(src='assets/images/icons/icon-like.svg', alt='like icon')
+        span.text-gray-1100(class='dark:text-gray-dark-1100 text-[12px] leading-[18px]')= likeCount
+    .flex.flex-col
+      h3.text-xs.font-bold.text-gray-500(class='dark:text-gray-dark-500 mb-[2px]')= name
+      h2.leading-4.text-gray-1100.font-semibold.mb-4(class='text-[16px] dark:text-gray-dark-1100')= title
+      .flex.gap-5.mb-4
+        p.text-gray-500.p-4.border.border-neutral.rounded-xl(
+          class='text-[12px] leading-[18px] dark:text-gray-dark-500 dark:border-dark-neutral-border max-w-[746px]'
+        )= content
+        .flex.flex-col.items-center.justify-evenly
+          +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between w-5 h-5', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+            img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+          .w-3.h-3.overflow-hidden
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-star-yellow.svg', alt='star icon')
+          +Checkbox(class='w-[18px] h-[18px] hover:w-[18px] hover:h-[18px]')
+      .flex.items-center.flex-wrap.gap-y-5(class='gap-x-[38px]')
+        .flex.items-center.gap-1
+          .overflow-hidden.w-4.h-4
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-profile-2user.svg', alt='profile 2 user icon')
+          span.leading-4.text-gray-400(class='text-[11px] dark:text-gray-dark-400') Assigned to
+            a.text-color-brands.ml-1(href='#', class='dark:text-color-brands')= assignedTo
+        .flex.items-center.gap-1
+          .overflow-hidden.w-4.h-4
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-calendar-3.svg', alt='calendar icon')
+          span.leading-4.text-gray-400(class='text-[11px] dark:text-gray-dark-400')= time
+        .flex.items-center.gap-1
+          .overflow-hidden.w-4.h-4
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-folder.svg', alt='folder icon')
+          span.leading-4.text-gray-400(class='text-[11px] dark:text-gray-dark-400') Category
+            a.text-color-brands.ml-1(href='#', class='dark:text-color-brands')= category
+        .flex.items-center.gap-1
+          .overflow-hidden.w-4.h-4
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-messages-3.svg', alt='messages icon')
+          span.leading-4.text-gray-400(class='text-[11px] dark:text-gray-dark-400')= comments
+    button.flex.items-center.gap-x-1.self-start(class='ml-[-40px] translate-y-[-7px] lg:translate-y-0')
+      span.text-gray-400.font-semibold.leading-4(class='dark:text-gray-dark-400 text-[14px]') Close
+      img(src='assets/images/icons/icon-add-square-fill.svg', alt='add icon')
+
+mixin HelpCenterTicketItem(avatar, name, likeCount, time, content)
+  .flex(class='gap-[11px] pb-[46px]')
+    .overflow-hidden.rounded-full.shrink-0(class='w-[42px] h-[42px]')
+      img.w-full.h-full.object-cover(src=avatar, alt='avatar')
+    .flex.flex-col 
+      .flex.items-center.justify-between(class='mb-[2px]')
+        span.text-xs.text-gray-1100.font-bold(class='dark:text-gray-dark-1100')= name
+        .flex.items-center.gap-x-1 
+          .overflow-hidden.w-4.h-4
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-like.svg', alt='like icon')
+          span.text-gray-1100(class='dark:text-gray-dark-1100 text-[12px] leading-[18px]')= likeCount
+      time.leading-4.text-gray-400.mb-4(class='text-[11px] dark:text-gray-dark-400')= time
+      p.text-gray-500.p-4.border.border-neutral.rounded-xl(
+        class='text-[14px] leading-[22px] dark:text-gray-dark-500 dark:border-dark-neutral-border max-w-[810px]'
+      )= content
+
+mixin AddBoxItem(heading, firstTitle, secondTitle, thirdTitle, firstContent, secondContent, thirdContent, firstButton, secondButton)
+  .border.border-neutral.rounded-lg.bg-neutral-bg(class='dark:border-dark-neutral-border pb-[31px] dark:bg-dark-neutral-bg')
+    .bg-neutral.rounded-t-lg(class='py-[15px] pl-[18px] mb-[27px] dark:bg-dark-neutral-border')
+      p.text-gray-1100.leading-4.font-semibold(class='dark:text-gray-dark-1100 text-[14px]')= heading
+    .flex.flex-col(class='pl-[18px] gap-y-[15px] mb-[25px]')
+      .flex.items-center(class='gap-x-[6px]')
+        img(src='assets/images/icons/icon-tree.svg', alt='tree icon')
+        span.text-gray-500.text-xs(class='dark:text-gray-dark-500')= firstTitle
+        span.text-gray-1100.text-xs(class='dark:text-gray-dark-1100')= firstContent
+      .flex.items-center(class='gap-x-[6px]')
+        img(src='assets/images/icons/icon-eye.svg', alt='eye icon')
+        span.text-gray-500.text-xs(class='dark:text-gray-dark-500')= secondTitle
+        span.text-gray-1100.text-xs(class='dark:text-gray-dark-1100')= secondContent
+      .flex.items-center(class='gap-x-[6px]')
+        img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+        span.text-gray-500.text-xs(class='dark:text-gray-dark-500')= thirdTitle
+        span.text-gray-1100.text-xs(class='dark:text-gray-dark-1100')= thirdContent
+    div(class='px-[18px] mb-[25px]')
+      .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border')
+    .flex.justify-between(class='px-[18px]')
+      +Button(firstButton, "M", false, false).border-neutral-bg.bg-gray-200.font-medium.text-gray-500(
+        class='dark:border-dark-neutral-bg py-[7px] px-[14px] dark:bg-gray-dark-200 text-[12px] leading-[18px] dark:text-gray-dark-500 hover:bg-gray-200 dark:hover:bg-gray-dark-200 hover:border-gray-300 dark:hover:border-gray-dark-300'
+      )
+      +Button(secondButton, "M", "solid", false).border-neutral-bg.font-medium(
+        class='dark:border-dark-neutral-bg py-[7px] px-[14px] text-[12px] leading-[18px]'
+      )
+
+mixin HelpCenterKnowledgeItem(icon, iconAlt, title, liList=["Getting started with our application", "Next steps with our application", "Working with demo content", "Upgrading to paid service", "Setting up new domain and page"])
+  +BaseWrapper.rounded-lg.px-5.pb-5(class='pt-[30px]')
+    .flex.items-center(class='gap-x-[9px] mb-[13px]')
+      .w-8.h-8.overflow-hidden.filter-gray.shrink-0
+        img.w-full.h-full.object-cover(src=icon, alt=iconAlt)
+      span.font-semibold.text-color-brands.text-left(class='text-[18px] md:text-[20px] leading-[18px]')= title
+    ul.list-disc.text-left.pl-5(class='mb-[13px]')
+      each val in liList
+        li.text-gray-500(class='dark:text-gray-dark-500 text-[14px] leading-[28px]')= val
+    a.flex.items-center.gap-x-1(href='#')
+      span.text-gray-500.font-semibold(class='dark:text-gray-dark-500 text-[12px] leading-[28px]') View All
+      img(src='assets/images/icons/icon-arrow-right-long.svg', alt='arrow right icon')
+
+mixin HelpCenterQuestionItem(title, content)
+  .flex.flex-col.gap-y-1
+    .flex.items-center(class='gap-x-[9px]')
+      .rounded-full.bg-color-brands.flex.items-center.justify-center.shrink-0(class='w-[26px] h-[26px]')
+        img(src='assets/images/icons/icon-question-mark.svg', alt='question mark icon')
+      p.leading-6.text-gray-900.text-left(class='text-[16px] dark:text-gray-dark-900')= title
+    p.text-gray-400.leading-5.text-left(class='dark:text-gray-dark-400 text-[12px] max-w-[396px] ml-[35px]')= content
+
+mixin HelpCenterQuestionUlItem(title, liList)
+  .flex.flex-col.gap-y-1
+    .flex.items-center(class='gap-x-[9px]')
+      .rounded-full.bg-color-brands.flex.items-center.justify-center.shrink-0(class='w-[26px] h-[26px]')
+        img(src='assets/images/icons/icon-question-mark.svg', alt='question mark icon')
+      p.leading-6.text-gray-900.text-left(class='text-[16px] dark:text-gray-dark-900')= title
+    ul.list-disc.text-left(class='max-w-[396px] ml-[49px]')
+      each val in liList
+        li.text-gray-400.leading-5(class='dark:text-gray-dark-400 text-[12px]')= val
+
+mixin StatusItem
+  +BaseWrapper.rounded-2xl(class='pt-[18px] pb-[28px] px-[18px]')
+    .flex.flex-col 
+      .flex.items-center.justify-between(class='mb-[22px]')
+        .flex.items-center(class='gap-x-[10px]')
+          +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, false, 40, 8, false, false)
+          .flex.flex-col(class='gap-y-[6px]')
+            span.leading-4.font-medium.text-gray-1100(class='text-[16px] tracking-[-0.009em] dark:text-gray-dark-1100') Steven Jobs
+            span.text-xs.text-gray-400(class='dark:text-gray-dark-400') 2 mins ago
+        +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+          img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+      p.text-gray-500.leading-5.mb-6(class='xl:max-w-[726px] dark:text-gray-dark-500 text-[12px]') Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis quam nec pretium elementum. Nunc lobortis euismod mauris et molestie. Ut feugiat venenatis aliquet. Curabitur pretium dui ac interdum eleifend. Mauris eleifend mi sit amet elementum aliquam. Aliquam vitae feugiat tortor
+      .flex.items-center.justify-between(class='mb-[17px]')
+        .flex.items-center
+          a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[3]')
+            img.w-full.h-full.object-cover(src='assets/images/cus-dashboard-8.png', alt='avatar')
+          a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[4] ml-[-8px]')
+            img.w-full.h-full.object-cover(src='assets/images/cus-dashboard-9.png', alt='avatar')
+          a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[5] ml-[-8px]')
+            img.w-full.h-full.object-cover(src='assets/images/crm-avatar-3.png', alt='avatar')
+          .flex.items-center.justify-center.w-8.h-8.rounded-full.bg-gray-400(class='dark:bg-gray-dark-400 ml-[-8px] z-[6]')
+            span.text-xs.text-white +3
+        .flex.items-center.gap-4 
+          span.leading-4.text-gray-500(class='text-[14px] dark:text-gray-dark-500') 6 Comments
+          span.leading-4.text-gray-500(class='text-[14px] dark:text-gray-dark-500') 12 Share
+      .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[11px]')
+      .flex.items-center.justify-between.px-7
+        .flex.items-center.cursor-pointer(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-like-linear.svg', alt='like icon')
+          span.text-xs.text-gray-500(class='dark:text-gray-dark-500') Like
+        .flex.items-center.cursor-pointer(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-message.svg', alt='message icon')
+          span.text-xs.text-gray-500(class='dark:text-gray-dark-500') Comments
+        .flex.items-center.cursor-pointer(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-fill-share.svg', alt='share icon')
+          span.text-xs.text-gray-500(class='dark:text-gray-dark-500') Share
+      .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mt-[11px] mb-[19px]')
+      .flex(class='gap-[15px]')
+        +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, false, 32, 8, false, false)
+        .bg-neutral.rounded-lg.flex-1.pt-2.pb-3(class='dark:bg-dark-neutral-border px-[17px]')
+          input.text-gray-400.bg-transparent.text-xs.w-full.py-1(
+            type='text',
+            placeholder='Write a comment...',
+            class='dark:text-gray-dark-400 focus:outline-none'
+          )
+          .flex.items-center.gap-x-3.justify-end
+            img.cursor-pointer(src='assets/images/icons/icon-gif-boxy.svg', alt='gif icon')
+            img.cursor-pointer(src='assets/images/icons/icon-picture-boxy.svg', alt='picture icon')
+            img.cursor-pointer(src='assets/images/icons/icon-smile-boxy.svg', alt='smile icon')
+
+mixin StatusWithImageItem
+  +BaseWrapper.rounded-2xl(class='pt-[18px] pb-[28px] px-[18px]')
+    .flex.flex-col 
+      .flex.items-center.justify-between(class='mb-[22px]')
+        .flex.items-center(class='gap-x-[10px]')
+          +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, false, 40, 8, false, false)
+          .flex.flex-col(class='gap-y-[6px]')
+            span.leading-4.font-medium.text-gray-1100(class='text-[16px] tracking-[-0.009em] dark:text-gray-dark-1100') Steven Jobs
+            span.text-xs.text-gray-400(class='dark:text-gray-dark-400') 2 mins ago
+        +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+          img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+      p.text-gray-500.leading-5.mb-6(class='xl:max-w-[726px] dark:text-gray-dark-500 text-[12px]') I love food and sleep if I give you a bit of food or text you all night, that means something.
+      .flex(class='gap-[15px] h-[250px] mb-[22px]')
+        .flex-1
+          img.w-full.h-full.object-cover.rounded-lg(src='assets/images/status-image-1.png', alt='status image')
+        div(class='w-[53%]')
+          img.w-full.h-full.object-cover.rounded-lg(src='assets/images/status-image-2.png', alt='status image')
+      .flex.items-center.justify-between(class='mb-[17px]')
+        .flex.items-center
+          a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[3]')
+            img.w-full.h-full.object-cover(src='assets/images/cus-dashboard-8.png', alt='avatar')
+          a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[4] ml-[-8px]')
+            img.w-full.h-full.object-cover(src='assets/images/cus-dashboard-9.png', alt='avatar')
+          a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[5] ml-[-8px]')
+            img.w-full.h-full.object-cover(src='assets/images/crm-avatar-3.png', alt='avatar')
+          .flex.items-center.justify-center.w-8.h-8.rounded-full.bg-gray-400(class='dark:bg-gray-dark-400 ml-[-8px] z-[6]')
+            span.text-xs.text-white +3
+        .flex.items-center.gap-4 
+          span.leading-4.text-gray-500(class='text-[14px] dark:text-gray-dark-500') 6 Comments
+          span.leading-4.text-gray-500(class='text-[14px] dark:text-gray-dark-500') 12 Share
+      .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[11px]')
+      .flex.items-center.justify-between.px-7
+        .flex.items-center.cursor-pointer(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-like-linear.svg', alt='like icon')
+          span.text-xs.text-gray-500(class='dark:text-gray-dark-500') Like
+        .flex.items-center.cursor-pointer(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-message.svg', alt='message icon')
+          span.text-xs.text-gray-500(class='dark:text-gray-dark-500') Comments
+        .flex.items-center.cursor-pointer(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-fill-share.svg', alt='share icon')
+          span.text-xs.text-gray-500(class='dark:text-gray-dark-500') Share
+      .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mt-[11px] mb-[19px]')
+      .flex(class='gap-[15px]')
+        +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, false, 32, 8, false, false)
+        .bg-neutral.rounded-lg.flex-1.pt-2.pb-3(class='dark:bg-dark-neutral-border px-[17px]')
+          input.text-gray-400.bg-transparent.text-xs.w-full.py-1(
+            type='text',
+            placeholder='Write a comment...',
+            class='dark:text-gray-dark-400 focus:outline-none'
+          )
+          .flex.items-center.gap-x-3.justify-end
+            img.cursor-pointer(src='assets/images/icons/icon-gif-boxy.svg', alt='gif icon')
+            img.cursor-pointer(src='assets/images/icons/icon-picture-boxy.svg', alt='picture icon')
+            img.cursor-pointer(src='assets/images/icons/icon-smile-boxy.svg', alt='smile icon')
+
+mixin UserInfoOnline(avatar, name, phoneNumber, minutes, type='minutes')
+  .flex.items-center.justify-between 
+    .flex.items-center(class='gap-[14px]')
+      .overflow-hidden.rounded-full(class='w-[42px] h-[42px]')
+        img.w-full.h-full.object-cover(src=avatar, alt='avatar')
+      .flex.flex-col(class='gap-y-[5px]') 
+        span.text-xs.text-gray-1100.font-medium(class='dark:text-gray-dark-1100 tracking-[-0.009em]')= name
+        span.text-gray-300(class='text-[11px] leading-[17px] dark:text-gray-300')= phoneNumber
+    if type === 'minutes'
+      span.text-gray-400(class='text-[13px] leading-[17px] dark:text-gray-dark-400')= minutes
+      .rounded-full.bg-green.hidden(class='w-[9px] h-[9px]')
+      img.hidden(src='assets/images/icons/icon-tick-circle.svg', alt='tick icon')
+    if type === 'icon'
+      span.text-gray-400.hidden(class='text-[13px] leading-[17px] dark:text-gray-dark-400')= minutes
+      .rounded-full.bg-green.hidden(class='w-[9px] h-[9px]')
+      img(src='assets/images/icons/icon-tick-circle.svg', alt='tick icon')
+    if type === 'circle'
+      span.text-gray-400.hidden(class='text-[13px] leading-[17px] dark:text-gray-dark-400')= minutes
+      .rounded-full.bg-green(class='w-[9px] h-[9px]')
+      img.hidden(src='assets/images/icons/icon-tick-circle.svg', alt='tick icon')
+
+mixin IconWithTextSocial(icon, alt, text)
+  .flex.items-center.gap-2 
+    .overflow-hidden.rounded-full(class='w-[22px] h-[22px]')
+      img.w-full.h-full.object-cover(src=icon, alt=alt)
+    span.text-xs.text-gray-1100(class='dark:text-gray-dark-1100')= text
+
+mixin StoryItem(image, avatar, name)
+  .flex.flex-col
+    .overflow-hidden.rounded-lg(class='max-h-[250px] max-w-[175px]')
+      img.w-full.h-full.object-cover(src=image, alt='story image')
+    .flex.gap-2.ml-5(class='mt-[-20px]') 
+      +UserActiveItem(avatar, true, activeColor, false, 38, 10, false).shrink-0
+      span.text-gray-1100.font-medium.self-end(class='dark:text-gray-dark-1100 text-[10px] leading-[11px] tracking-[-0.009em]')= name

@@ -1,0 +1,158 @@
+mixin Modal(text)
+  label.btn.modal-button(for=`${text}-modal`)&attributes(attributes)= text
+  input.modal-toggle(type='checkbox', id=`${text}-modal`)
+  if block
+    block
+
+mixin DetailsModal
+  .modal
+    .modal-box.relative.bg-neutral-bg.scrollbar-hide(class='dark:bg-dark-neutral-bg')
+      label.absolute.right-2.top-2.cursor-pointer(for='details-modal')
+        img(src='assets/images/icons/icon-close-modal.svg', alt='close modal button')
+      h6.text-header-6.font-semibold.text-gray-500(class='dark:text-gray-dark-500 mb-[49px]') Transaction Details
+      .flex.items-center.gap-6.mb-10
+        div 
+          img(src='assets/images/nasa.png', alt='Nasa logo')
+        div 
+          p.text-header-7.font-bold.text-gray-1100.mb-2(class='dark:text-gray-dark-1100') Transfer $68.25 to Nasa.,JSC
+          +Size14Leading16('On 22 January 2022 At 15:39 GMT')(class='mb-[21px]')
+          +StatusBorder
+      +TransactionDetailsItem('assets/images/icons/icon-user.svg', 'user icon', 'Send to', 'Jane Cooper', 'E-mail: tim.jennings@example.com', 'Phone: +099 856 245', '$ 68,125.25')(
+        class='mb-[76px]'
+      )
+      +TransactionDetailsItem('assets/images/icons/icon-home-hashtag.svg', 'home icon', 'Bank Details', '967-400 026789758', 'Sparkasse credit', 'Invoice ID: #12546872', '$250').mb-2
+      .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[67px]')
+      .flex.items-center.justify-between.flex-wrap.gap-3
+        .flex.items-center(class='gap-[15px]')
+          button.border-0.capitalize.font-semibold.py-4.px-8.text-gray-500.bg-neutral.flex.items-center.gap-2(
+            class='text-[12px] leading-[21px] dark:text-gray-dark-500 dark:bg-dark-neutral-border hover:opacity-80 rounded-[10px]'
+          ) 
+            p Print
+            i 
+              img(src='assets/images/icons/icon-printer.svg', alt='print icon')
+          button.bg-transparent.font-semibold.flex.items-center(
+            class='text-[12px] leading-[21px] dark:text-gray-dark-500 hover:opacity-80 rounded-[10px] gap-[10px]'
+          ) 
+            p Download Pdf
+            i 
+              img(src='assets/images/icons/icon-down.svg', alt='down icon')
+        button.border-0.capitalize.font-semibold.py-4.px-8.text-gray-500.bg-neutral.flex.items-center.gap-2(
+          class='text-[12px] leading-[21px] dark:text-gray-dark-500 dark:bg-dark-neutral-border hover:opacity-80 rounded-[10px]'
+        ) 
+          p Issue Refund
+          i 
+            img(src='assets/images/icons/icon-refunds.svg', alt='print icon')
+
+mixin NewProjectModal
+  .modal
+    .modal-box.relative.bg-neutral-bg.scrollbar-hide(class='dark:bg-dark-neutral-bg pt-[53px]')
+      label.absolute.right-2.top-2.cursor-pointer(for='project-modal')
+        img(src='assets/images/icons/icon-close-modal.svg', alt='close modal button')
+      .flex.items-center.justify-center.flex-col
+        h6.text-header-6.font-semibold.text-gray-500.text-center(class='dark:text-gray-dark-500 mb-[38px]') Create a New Project
+        .cursor-pointer.show-add-project-2
+          img(
+            src='assets/images/icons/add-project.svg',
+            width=92,
+            height=92,
+            alt='add project icon',
+            class='hover:opacity-80 mb-[29px] dark:hidden'
+          )
+          img.hidden(
+            src='assets/images/icons/add-project-dark.svg',
+            width=92,
+            height=92,
+            alt='add project icon',
+            class='hover:opacity-80 mb-[29px] dark:block'
+          )
+        +Size14Leading16Normal('Blank project')(class='mb-[6px]')
+        +Size12Leading16Gray400('Start from scratch')(class='mb-[61px]')
+        .flex.items-center(class='gap-[6px]')
+          +Button("Templates", "S", "solid", false).border-neutral-bg.w-fit(
+            class='dark:border-dark-neutral-bg py-[7px] px-[16.5px]'
+          )
+          +Button("Cancel", "S", "dim", false).border-neutral-bg.w-fit(
+            class='dark:border-dark-neutral-bg py-[7px] px-[19px]'
+          )
+
+mixin AddProjectModal
+  .modal
+    .modal-box.relative.bg-neutral-bg.scrollbar-hide.w-full(class='dark:bg-dark-neutral-bg pt-[53px] max-w-[794px]')
+      label.absolute.right-2.top-2.cursor-pointer(for='add-modal')
+        img(src='assets/images/icons/icon-close-modal.svg', alt='close modal button')
+      .flex.items-center.justify-center.flex-col
+        h6.text-header-6.font-semibold.text-gray-500.text-center(class='dark:text-gray-dark-500 mb-[50px]') Create a New Project
+        .w-full.flex.flex-col(class='max-w-[531px] gap-[30px] mb-[60px] lg:mb-[166px]')
+          +UploadImageInput.w-full(class='max-w-[724px]')
+          .w-full 
+            +InputLabel("Project Name")
+            +InputText('Type name here')
+          .w-full
+            +InputLabel("Description")
+            +EditorInput('h-[218px]', 'Type description here')
+          .w-full 
+            +InputLabel("Category")
+            +InputText('Design system')
+          .w-full 
+            +InputLabel("Priority")
+            +InputText('Urgent')
+          .w-full 
+            +InputLabel("Tag")
+            +BaseWrapper.rounded-lg(class='p-[15px] mt-[10px] min-h-[107px]')
+              .flex.flex-wrap(class='gap-[10px]')
+                +Tag('smartwatch')
+                +Tag('Apple')
+                +Tag('Watch')
+                +Tag('smartphone')
+                +Tag('iPhone14 max')
+
+mixin ShareProjectModal
+  .modal
+    .modal-box.relative.bg-neutral-bg.scrollbar-hide.w-full(class='dark:bg-dark-neutral-bg pt-[53px] max-w-[738px] pr-[31px]')
+      label.absolute.right-2.top-2.cursor-pointer(for='share-modal')
+        img(src='assets/images/icons/icon-close-modal.svg', alt='close modal button')
+      .flex.items-center.justify-center.flex-col
+        h6.text-header-6.font-semibold.text-gray-500.text-center(class='dark:text-gray-dark-500 mb-[53px]') Share Duplicate of Creative requests
+        +Divider.mb-10
+        .w-full(class='mb-[65px]') 
+          +InputLabel("Invite link")
+          .flex.items-center.justify-between.rounded-md.bg-neutral(class='py-[11px] px-[10px] dark:bg-dark-neutral-border')
+            +Size14Leading16Gray400('foxy.com/ZmRzYSBmZHMgc2RmIHNkYWZzZ')
+            .flex.items-center.text-blue(class='gap-[6px]')
+              img(src='assets/images/icons/Icon-link.svg', alt='link icon')
+              p.text-desc Copy link
+        .w-full(class='mb-[24px]') 
+          +InputLabel("Invite with email")
+          .flex.items-center.gap-5 
+            input.bg-transparent.text-sm.leading-4.text-gray-400.border.border-neutral.flex-1.rounded-md(
+              type='text',
+              placeholder='Add project members by name or email',
+              class='focus:outline-none p-[10px] dark:text-gray-dark-400 placeholder:text-inherit dark:border-dark-neutral-border'
+            )
+            +Button("Invite", "M", "solid", false).border-neutral-bg(
+              class='dark:border-dark-neutral-bg py-[11px] px-[23px]'
+            )
+        .w-full.flex.items-center.justify-between(class='mb-[30px]')
+          .flex.items-center.gap-3 
+            +UserAvatar('assets/images/avatar-layouts-1.png').border-none
+            +Size14Leading16Gray400('Theresa Webb')
+          +Size14Leading16Gray400('Owner')
+        +Divider(class='mb-[35px]')
+        .w-full(class='mb-[42px]')
+          p.text-subtitle.font-medium.text-gray-1100.mb-8(class='dark:text-gray-dark-1100') Members
+          .flex.flex-col.items-center.gap-6.w-full
+            +MemberItem
+            +MemberItem('assets/images/avatar-layouts-3.png', 'Cameron Williamson', 'trungkienspktnd@gamail.com')
+            +MemberItem('assets/images/avatar-layouts-4.png', 'Jacob Jones', 'manhhachkt08@gmail.com')
+            +MemberItem('assets/images/avatar-layouts-5.png', 'Arlene McCoy', 'tienlapspktnd@gmail.com')
+            +MemberItem('assets/images/avatar-layouts-1.png', 'Brooklyn Simmons', 'tranthuy.nute@gmail.com')
+
+mixin MailModal
+  .modal
+    .modal-box.relative.bg-neutral-bg.scrollbar-hide.w-full(class='dark:bg-dark-neutral-bg pt-[38px] max-w-[650px] pl-[45px]')
+      label.absolute.right-2.top-2.cursor-pointer(for='mail-modal')
+        img(src='assets/images/icons/icon-close-modal.svg', alt='close modal button')
+      .flex.items-center.justify-center.flex-col
+        h6.w-full.text-header-6.font-semibold.text-gray-500(class='dark:text-gray-dark-500 mb-[39px]') New Mesage
+        +MailboxSend.w-full
+          +Size12Leading16Gray400('Schedule')

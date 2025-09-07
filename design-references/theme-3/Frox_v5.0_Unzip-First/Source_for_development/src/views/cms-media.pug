@@ -1,0 +1,43 @@
+extends layout/layout
+
+block vars
+  - title = 'CMS Media Page'
+  - bodyClass = 'cms-media-page'
+
+block container
+  +BreadcrumbBase('Media', 'Home', 'Posts listing', 'Feb 15, 2022 - Feb 21, 2023', '36')
+  +InputSearchModern('Search media', 'space', ['Categories', 'Category1', 'Category2', 'Category3'], ['All Format', 'Format1', 'Format2', 'Format3'], 'Search media')
+  +BaseWrapper.rounded-2xl.pt-12.pb-10.px-6.mb-10
+    h3.leading-4.text-gray-1100.text-center.mb-5.font-medium(class='text-[16px] dark:text-gray-dark-1100') Add new media
+    .border-dashed.border-2.text-center.border-neutral.mb-12.mx-auto.cursor-pointer(
+      class='py-[26px] dark:border-dark-neutral-border max-w-[724px]'
+    )
+      img.mx-auto.inline-block(src='assets/images/icons/icon-image.svg', alt='image icon', class='mb-[15px]')
+      p.text-sm.leading-6.text-gray-500.font-normal(class='mb-[5px]') Drop your image here, or browse
+      p.leading-6.text-gray-400(class='text-[13px]') JPG,PNG and GIF files are allowed
+    .grid.grid-cols-1.gap-6(class='xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2')
+      +CmsMediaItem('assets/images/cms-media-1.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-2.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-3.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-4.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-5.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-6.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-7.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-8.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-9.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-10.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-11.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-12.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-13.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-14.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-15.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-16.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-17.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-18.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-19.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-20.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-21.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-22.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-23.png', 'this_is_space.png', '320kb')
+      +CmsMediaItem('assets/images/cms-media-24.png', 'this_is_space.png', '320kb')
+  +PaginateNextBtn

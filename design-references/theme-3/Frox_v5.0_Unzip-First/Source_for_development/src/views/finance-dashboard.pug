@@ -1,0 +1,71 @@
+extends layout/layout
+
+block vars
+  - title = 'Finance Dashboard Page'
+  - bodyClass = 'finance-dashboard-page'
+
+block container
+  +Breadcrumb('home', 'Dashboard')(class='mb-[37px]')
+  .grid.items-center.gap-6.grid-cols-1(class='lg:grid-cols-2 xl:grid-cols-4 mb-[27px]')
+    +FinanceStaticCard
+      +Chart('income', 'max-h-[44px]')(class='mb-[15px]')
+    +FinanceStaticCard('Expences', 'text-red', 'assets/images/icons/icon-money.svg')
+      +Chart('expences', 'max-h-[44px]')(class='mb-[15px]')
+    +FinanceStaticCard('Cash on Hand', 'text-blue', 'assets/images/icons/icon-economy.svg')
+      +Chart('cash', 'max-h-[44px]')(class='mb-[15px]')
+    +FinanceStaticCard('Profit Margin', 'text-orange', 'assets/images/icons/icon-update.svg')
+      +Chart('profit', 'max-h-[44px]')(class='mb-[15px]')
+  .grid.grid-cols-1.items-center.gap-6.mb-6(class='xl:grid-cols-3')
+    +Card.flex-1(class='py-[18px] px-[22px] mb-[10px]')
+      +CardHeaderWithToggleSm('Your wallet').mb-5
+      .flex.flex-col(class='gap-[18px]')
+        +WalletCardItem
+        +WalletCardItem('9872 **** **** 2356', '$34,180.20', 'assets/images/icons/icon-master-card.svg')
+        +WalletCardItem('Cumulative total', '$59,780.2', 'assets/images/icons/icon-briefcase.svg')
+    +Card.flex-1.pt-5(class='pb-[34px] px-[22px] mb-[10px]')
+      +CardHeaderWithToggleSm('All expenses').mb-5
+      .mb-6
+        +StatsRadicalProgress
+      p.text-desc.text-gray-500(class='dark:text-gray-dark-500') Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec enim sem.
+    +Card.flex-1.pt-5.self-stretch(class='pb-[9px] px-[22px] mb-[10px]')
+      +CardHeaderWithToggleSm('Best Sellers')(class='mb-[14px]')
+      .flex.flex-col.gap-5 
+        .flex.items-center.justify-between
+          +Seller("assets/images/seller-avatar-1.png", "Esther Howard", "Louis Vuitton", 'rounded-full', 'mb-[5px]')
+          +SellerSales('$778.35', '1258 sales', 'mb-[3px]')
+        .flex.items-center.justify-between
+          +Seller("assets/images/seller-avatar-2.png", "Wade Warren", "Binford Ltd.", 'rounded-full', 'mb-[5px]')
+          +SellerSales('$576.28', '1028 sales', 'mb-[3px]')
+        .flex.items-center.justify-between
+          +Seller("assets/images/seller-avatar-3.png", "Cameron Williamson", "MasterCard", 'rounded-full', 'mb-[5px]')
+          +SellerSales('$446.61', '985 sales', 'mb-[3px]')
+  .grid.grid-cols-1.items-center.gap-6(class='xl:grid-cols-3 mb-[45px]')
+    +Card.flex-1.col-span-2(class='pt-[21px] pl-[26px] pr-[19px] pb-[47px]')
+      +CardHeaderWithToggleSm('Latest transfers')(class='mb-[23px]')
+        a.text-color-brands.text-desc.mr-5(href='#') See all transfers
+      .flex.flex-col(class='gap-[11px]')
+        +TransferCardItem
+        +TransferCardItem('assets/images/icons/icon-LinkedIN.svg', 'Sterling Cooper','Invoice ID: #GSV567489241UI', '$778.35')
+        +TransferCardItem('assets/images/icons/icon-Behance.svg', 'Cyberdyne Systems','Invoice ID: #GSV567489241UI', '$328.35')
+        +TransferCardItem('assets/images/icons/icon-Pinterest.svg', 'J-Texon','Invoice ID: #GSV567489243UI', '$351.025')
+        +TransferCardItem('assets/images/icons/icon-DuckDuckGo.svg', 'Genco Pura Olive Oil Company','Invoice ID: #GSV567489243UI', '$779.58')
+        +TransferCardItem('assets/images/icons/icon-twitter.svg', 'Soylent Corp','Invoice ID: #GSV567489240UI', '$275.43')
+        +TransferCardItem('assets/images/icons/icon-blogger.svg', 'Gekko & Co','Invoice ID: #GSV567489241UI', '$219.78')
+        +TransferCardItem('assets/images/icons/icon-Invision.svg', 'Plexzap','Invoice ID: #GSV567489241UI', '$406.27')
+        +TransferCardItem('assets/images/icons/icon-google+.svg', 'Singletechno','Invoice ID: #GSV567489242UI', '$106.58')
+    div 
+      +Card.pt-5.pb-8(class='px-[23px] mb-[21px]')
+        +CardHeaderWithToggleSm('Categories Static')(class='mb-[23px]')
+        .flex.items-center.gap-5.flex-col
+          +CategoryCardItem
+          +CategoryCardItem('Health', '$767.50', '60', 'violet')
+          +CategoryCardItem('Children', '$490.51', '80', 'blue')
+          +CategoryCardItem('Banking', '$490.51', '75', 'green')
+          +CategoryCardItem('House', '$490.51', '65', 'orange')
+          +CategoryCardItem('Banking', '$490.51', '73', 'sky')
+      +Card(class='p-[23px] mb-[15px]')
+        +CardHeaderWithToggleSm('Credit Card')(class='mb-[27px]')
+        div 
+          img.w-full.h-full.object-cover(src='assets/images/credit-card-placeholder.png', alt='credit card')
+      +Button("+ Add New Card", "M", "solid", false).px-6.border-transparent(class='py-[14px]')
+  +PaginateNextBtn

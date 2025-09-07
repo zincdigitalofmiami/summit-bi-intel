@@ -1,0 +1,117 @@
+extends layout/layout
+
+block vars
+  - title = 'Help Center Ticket Page'
+  - bodyClass = 'help-center-ticket-page'
+
+block container
+  +BreadcrumbBase('Help Desk', 'Home', 'Ticket Details', false, 32, true)
+  section
+    .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+      +BaseWrapper.rounded-2xl(class='pt-[33px] pb-[42px]')
+        .flex.items-center.justify-between(class='px-[26px] mb-[17px]') 
+          .flex.flex-col(class='gap-y-[15px]')
+            h3.text-gray-1100.font-semibold(class='dark:text-gray-dark-1100 text-[20px] leading-[18px]') How to import the demo content?
+            .flex.items-center.flex-wrap(class='gap-x-[38px] gap-y-[10px]')
+              .flex.items-center(class='gap-x-[5px]')
+                .overflow-hidden.w-4.h-4
+                  img.w-full.h-full.object-cover(src='assets/images/icons/icon-calendar-3.svg', alt='calendar icon')
+                span.text-gray-400.leading-4(class='dark:text-gray-dark-400 text-[11px]') Update 16 April 2022
+              .flex.items-center(class='gap-x-[5px]')
+                .overflow-hidden.w-4.h-4
+                  img.w-full.h-full.object-cover(src='assets/images/icons/icon-messages-3.svg', alt='messages icon')
+                span.text-gray-400.leading-4(class='dark:text-gray-dark-400 text-[11px]') 12 comments
+          .flex.items-center.flex-wrap.justify-center(class='gap-[10px]')
+            button.bg-orange.rounded.text-white(class='px-[10px] py-[5px] text-[10.5px] leading-[17px]') Needs Response
+            .border.border-neutral.rounded-lg.flex.items-center.justify-center(
+              class='w-[42px] h-[42px] dark:border-dark-neutral-border'
+            )
+              .overflow-hidden.w-4.h-4
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-star-yellow.svg', alt='star icon')
+        .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[38px]')
+        div(class='px-[26px]')
+          +HelpCenterTicketItem('assets/images/seller-avatar-1.png', 'Jerome Bell', '113', '1 day ago on Thursday at 7:28am', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nulla lectus, bibendum eu justo aliquam, malesuada blandit dolor. In volutpat mauris ut tempus scelerisque. Fusce sagittis mi eu nunc gravida eleifend. Suspendisse blandit scelerisque elit vel mattis. Praesent auctor erat nec ante dictum, eget congue enim sollicitudin. Nulla facilisi. Donec semper, odio eget tempus consequat, lectus augue auctor sem, sit amet mattis nunc metus quis mi.')
+          +HelpCenterTicketItem('assets/images/seller-avatar-2.png', 'Azumi Rose', '113', '1 day ago on Thursday at 7:28am', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nulla lectus, bibendum eu justo aliquam, malesuada blandit dolor. In volutpat mauris ut tempus scelerisque. Fusce sagittis mi eu nunc gravida eleifend. Suspendisse blandit scelerisque elit vel mattis. Praesent auctor erat nec ante dictum, eget congue enim sollicitudin. Nulla facilisi. Donec semper, odio eget tempus consequat, lectus augue auctor sem, sit amet mattis nunc metus quis mi.')
+          +HelpCenterTicketItem('assets/images/seller-avatar-3.png', 'Jerome Bell', '113', '1 day ago on Thursday at 7:28am', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nulla lectus, bibendum eu justo aliquam, malesuada blandit dolor. In volutpat mauris ut tempus scelerisque. Fusce sagittis mi eu nunc gravida eleifend. Suspendisse blandit scelerisque elit vel mattis. Praesent auctor erat nec ante dictum, eget congue enim sollicitudin. Nulla facilisi. Donec semper, odio eget tempus consequat, lectus augue auctor sem, sit amet mattis nunc metus quis mi.')
+          +HelpCenterTicketItem('assets/images/seller-avatar-4.png', 'Azumi Rose', '113', '1 day ago on Thursday at 7:28am', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nulla lectus, bibendum eu justo aliquam, malesuada blandit dolor. In volutpat mauris ut tempus scelerisque. Fusce sagittis mi eu nunc gravida eleifend. Suspendisse blandit scelerisque elit vel mattis. Praesent auctor erat nec ante dictum, eget congue enim sollicitudin. Nulla facilisi. Donec semper, odio eget tempus consequat, lectus augue auctor sem, sit amet mattis nunc metus quis mi.')
+        .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[41px]')
+        div(class='pl-[82px] pr-[26px]')
+          h2.text-gray-1100.font-semibold(class='dark:text-gray-dark-1100 text-[28px] leading-[34px] mb-[25px]') Repply
+          .rounded-lg.mb-5.border.border-neutral(class='dark:border-dark-neutral-border p-[13px]')
+            .flex.items-center.gap-y-4.flex-col(class='gap-x-[27px] mb-[31px] xl:flex-row xl:gap-y-0')
+              .flex.items-center(class='gap-x-[20px]')
+                img.cursor-pointer(src='assets/images/icons/icon-bold.svg', alt='bold icon')
+                img.cursor-pointer(src='assets/images/icons/icon-italicized.svg', alt='italicized icon')
+                img.cursor-pointer(src='assets/images/icons/icon-underlined.svg', alt='underlined icon')
+                img.cursor-pointer(src='assets/images/icons/icon-strikethrough.svg', alt='strikethrough icon')
+                img.cursor-pointer(src='assets/images/icons/icon-textcolor.svg', alt='textcolor icon')
+                img.cursor-pointer(src='assets/images/icons/icon-backgroundcolor.svg', alt='backgroundcolor icon')
+                img.cursor-pointer(src='assets/images/icons/icon-smile.svg', alt='smile icon')
+              .flex.items-center(class='gap-x-[20px]')
+                .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                  img(src='assets/images/icons/icon-paragraphformat.svg', alt='paragraphformat icon')
+                  img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+                .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                  img(src='assets/images/icons/icon-align-left.svg', alt='align left icon')
+                  img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+                .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                  img(src='assets/images/icons/icon-ordered-list.svg', alt='ordered list icon')
+                  img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+                .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                  img(src='assets/images/icons/icon-unordered-list.svg', alt='unordered list icon')
+                  img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+                img.cursor-pointer(src='assets/images/icons/icon-indent.svg', alt='indent icon')
+                img.cursor-pointer.opacity-40(src='assets/images/icons/icon-indent.svg', alt='outdent icon')
+              .flex.items-center(class='gap-x-[20px]')
+                img.cursor-pointer(src='assets/images/icons/icon-insert-image.svg', alt='insert image icon')
+                img.cursor-pointer(src='assets/images/icons/icon-insert-link.svg', alt='insert link icon')
+                img.cursor-pointer(src='assets/images/icons/icon-insert-file.svg', alt='insert-file icon')
+                img.cursor-pointer(src='assets/images/icons/icon-insert-video.svg', alt='insert video icon')
+                img.cursor-pointer.opacity-40(src='assets/images/icons/icon-undo.svg', alt='undo icon')
+                img.cursor-pointer.opacity-40(src='assets/images/icons/icon-redo.svg', alt='redo icon')
+            textarea.textarea.w-full.p-0.text-gray-400.resize-none.rounded-none.bg-transparent.leading-4(
+              class='min-h-[140px] focus:outline-none dark:text-gray-dark-400 text-[14px]',
+              placeholder='Content here'
+            )
+          .flex.items-center(class='gap-x-[15px]')
+            +Button("Send", "M", "solid", false).border-neutral-bg.px-6.font-medium(
+              class='dark:border-dark-neutral-bg py-[7px] text-[12px] leading-[18px]'
+            )
+            +Button("Save Draft", "M", false, false).border-neutral-bg.px-6.bg-gray-200.font-medium.text-gray-500(
+              class='dark:border-dark-neutral-bg py-[7px] dark:bg-gray-dark-200 text-[12px] leading-[18px] dark:text-gray-dark-500 hover:bg-gray-200 dark:hover:bg-gray-dark-200 hover:border-gray-300 dark:hover:border-gray-dark-300'
+            )
+      .flex.flex-col.flex-1(class='gap-y-[27px]')
+        +AddBoxItem('Ticket Details', 'Status:', 'Visibility:', 'Last update:', 'Open', 'Publish', '2 mins ago', 'Save Status', 'Delete ticket')
+        +BaseWrapper.rounded-2xl(class='pt-[21px] px-[23px] pb-[34px]')
+          span.text-gray-500.leading-4.font-semibold.border-b.border-neutral.block(
+            class='dark:text-gray-dark-500 text-[14px] pb-[14px] dark:border-dark-neutral-border mb-[18px]'
+          ) Support Team
+          .grid.grid-cols-4.justify-items-center(class='gap-y-[18px] gap-x-[14px]')
+            +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-3.png', true, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-4.png', false, activeColor, 'Eduar')
+            +UserActiveItem('assets/images/seller-avatar-5.png', true, 'orange', 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-6.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-1.png', false, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, 'Eduar')
+        +BaseWrapper.rounded-2xl.pb-5.px-7(class='pt-[35px]')
+          button.btn.flex.items-center.normal-case.bg-color-brands.h-auto.border-neutral-bg.rounded-lg.gap-x-3.border-4.w-full.leading-4.font-semibold(
+            class='hover:border-[#B2A7FF] hover:bg-color-brands dark:border-dark-neutral-bg dark:hover:border-[#B2A7FF] py-[10px] px-[15px] mb-[30px] text-[14px]'
+          )
+            img(src='assets/images/icons/icon-message-edit.svg', alt='message edit icon')
+            span.text-white.font-semibold.leading-4(class='text-[14px]') New Category
+          .flex.flex-col.pb-5.border-b.border-neutral.mb-5(class='dark:border-dark-neutral-border')
+            +FolderItem('Plugins', '2568')
+            +FolderItem('Account', '986')
+            +FolderItem('Permission', '2235')
+            +FolderItem('Update theme', '256')
+            +FolderItem('Download', '124')
+            +FolderItem('Install', '15')
+            +FolderItem('API', '365')
+            +FolderItem('Development', '546')
+          .flex.flex-col
+            +FolderItem('Unassigned', '25').filter-green
+            +FolderItem('Open', '58').filter-state
+            +FolderItem('Closed', '1356').filter-orange
+            +FolderItem('Archived', '2563').filter-pink

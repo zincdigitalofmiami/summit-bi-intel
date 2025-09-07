@@ -1,0 +1,50 @@
+extends layout/layout
+
+block vars
+  - title = 'Course Dashboard Page'
+  - bodyClass = 'course-dashboard-page'
+
+block container
+  +BreadcrumbUnoriginal('Howdy Steven!', 'Check out latest updates', 'Feb 15, 2022 - Feb 21, 2022', 44)
+  section
+    .flex.flex-col.justify-between.gap-5(class='mb-[26px] xl:flex-row')
+      +BaseWrapper.rounded-2xl.flex-1(class='pb-[33px]') 
+        +TitleToggle(19, 25, 'Earnings').px-6.pt-6
+        .px-6
+          div 
+            +Chart('bar', 'max-h-[300px]')
+      +BaseWrapper.rounded-2xl(class='pb-[19px] xl:w-1/3') 
+        +TitleToggle(16, 21, 'Top Authors').px-6(class='pt-[19px]')
+        .px-6
+          .flex.flex-col(class='gap-y-[17px]')
+            +ActiveUserItem('assets/images/cus-dashboard-8.png', 'Esther Howard', 'Louis Vuitton', '$778.35', '1258 sales', 33, 33, 100)
+            +ActiveUserItem('assets/images/cus-dashboard-9.png', 'Wade Warren', 'Binford Ltd.', '$128.00', '1258 sales', 33, 33, 100)
+            +ActiveUserItem('assets/images/crm-avatar-9.png', 'Cameron Williamson', 'MasterCard', '$128.00', '1258 sales', 33, 33, 100)
+            +ActiveUserItem('assets/images/crm-avatar-3.png', 'Jenny Wilson', 'Pizza Hut', '$406.27', '875 sales', 33, 33, 100)
+            +ActiveUserItem('assets/images/avatar-layouts-5.png', 'Leslie Alexander', 'Apple', '$396.84', '630 sales', 33, 33, 100)
+            +ActiveUserItem('assets/images/cus-dashboard-10.png', 'Kristin Watson', 'Starbucks', '$351.02', '563 sales', 33, 33, 100)
+    .flex.flex-col.justify-between.gap-5(class='xl:flex-row')
+      +BaseWrapper.rounded-2xl.pt-6.flex-1(class='pb-[23px]')
+        +TitleToggle(19, 33, 'Recent Courses')(class='px-[25px]')
+        div(class='px-[25px]')
+          .grid.grid-cols-1.gap-6(class='mb-[31px] lg:grid-cols-2')
+            +RecentCourseItemGrid('assets/images/icons/icon-bootstrap.svg', 'bootstrap logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+            +RecentCourseItemGrid('assets/images/icons/icon-tailwind.svg', 'tailwind logo', 'Tailwind CSS 3.0: Fundamentals', '6.5 hours', '68 lectures', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+            +RecentCourseItemGrid('assets/images/icons/icon-pug.svg', 'pug logo', 'PUG Template Engine Master Course 2022', '6.5 hours', '68 lectures', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+            +RecentCourseItemGrid('assets/images/icons/icon-webpack.svg', 'webpack logo', 'PUG Template Engine Master Course', '6.5 hours', '68 lectures', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+            +RecentCourseItemGrid('assets/images/icons/icon-sass.svg', 'sass logo', 'Advanced CSS and Sass: Flexbox, Grid, Animations', '6.5 hours', '68 lectures', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+            +RecentCourseItemGrid('assets/images/icons/icon-redux.svg', 'redux logo', 'Server Side Rendering with React and Redux', '6.5 hours', '68 lectures', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+          +PaginateNextBtnSm
+      div(class='xl:w-1/3')
+        +BaseWrapper.rounded-2xl.pb-7.mb-6(class='pt-[19px]')
+          +TitleToggle(16, 12, 'Active Lessons')(class='px-[25px]')
+          div(class='pl-[30px] pr-[17px]')
+            .flex.flex-col 
+              +ActiveLessonItem('assets/images/icons/icon-bootstrap.svg', 'bootstrap logo', 'Bootstrap 5', '32 lessions', 68)
+              +ActiveLessonItem('assets/images/icons/icon-sass.svg', 'sass logo', 'Sass Css Online', '26 lessions', 80)
+              +ActiveLessonItem('assets/images/icons/icon-pug.svg', 'pug logo', 'Pug HTML rendering', '156 lessions', 50)
+              +ActiveLessonItem('assets/images/icons/icon-tailwind.svg', 'tailwind logo', 'Tailwind CSS', '67 lessions', 60)
+              +ActiveLessonItem('assets/images/icons/icon-webpack.svg', 'webpack logo', 'Webpack 5.x', '23 lessions', 90)
+              +ActiveLessonItem('assets/images/icons/icon-redux.svg', 'redux logo', 'React Redux online', '17 lessions', 40, false)
+        +RecruitingCard.mb-6
+        +UserStaticsCard('assets/images/cus-dashboard-8.png', 'assets/images/cus-dashboard-9.png', 'assets/images/crm-avatar-3.png', '#', '#', '#')

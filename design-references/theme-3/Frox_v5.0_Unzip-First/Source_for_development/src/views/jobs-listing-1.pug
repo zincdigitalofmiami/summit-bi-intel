@@ -1,0 +1,68 @@
+extends layout/layout
+
+block vars
+  - title = 'Jobs Listing 1 Page';
+  - bodyClass = 'jobs-listing-1-page';
+
+block container
+  .text-center.pb-20.px-5(class='pt-[66px] xl:px-[150px]')
+    h2.text-gray-1100.font-semibold(
+      class='dark:text-gray-dark-1100 text-[28px] leading-[34px] mb-[10px]'
+    ) There are 34.256 jobs
+    p.text-gray-500.text-sm.leading-4(class='dark:text-gray-dark-500 mb-[34px]') Check out latest updates
+    .bg-neutral-bg.flex.rounded-xl.w-full.m-0.search-input-shadow.items-center(
+      class='py-[14px] px-[18px] dark:bg-gray-dark-100 mb-[35px]'
+    )
+      img(src='assets/images/icons/icon-search-normal.svg', alt='seacrh icon')
+      input.input.w-full.bg-transparent.outline-none.h-5.text-gray-400.text-sm.leading-4(
+        type='text',
+        placeholder='Enter your keyword...',
+        class='focus:!outline-none placeholder:text-gray-400 dark:placeholder:text-gray-dark-400 pl-[11px]'
+      )
+      .items-center.py-3.rounded-lg.justify-center.hidden(
+        class='gap-x-[13px] bg-[#E8EDF2] dark:bg-[#313442] min-w-[164px] xl:flex'
+      )
+        span.text-sm.leading-4.text-gray-500(class='dark:text-gray-dark-500') UI/UX designing
+        img.cursor-pointer(
+          src='assets/images/icons/icon-close.svg',
+          alt='close icon'
+        )
+      .items-center.hidden(class='min-w-[127px] ml-[68px] xl:flex')
+        img.flex-1(src='assets/images/icons/icon-work.svg', alt='work icon')
+        +Select
+      .items-center.hidden(class='min-w-[133px] ml-[58px] xl:flex')
+        img.flex-1(
+          src='assets/images/icons/icon-location.svg',
+          alt='location icon'
+        )
+        +Select(['New York, USA', 'Seattle, USA', 'Ho Chi Minh City, VN', 'Ha Noi, VN'])
+      +ButtonBase('Find Jobs').px-6.bg-color-brands.rounded-lg(
+        class='py-[10.5px] hover:bg-color-brands xl:ml-[102px]'
+      )
+    .flex.mx-auto.flex-wrap.justify-center(class='max-w-[700px] gap-[5px]')
+      +TagBase('PHP Developer')
+      +TagBase('Python Developer')
+      +TagBase('Human Resource')
+      +TagBase('Joomla Developer')
+      +TagBase('UI UX Designer')
+      +TagBase('Program Manager')
+      +TagBase('Marketing Manager')
+      +TagBase('SEO Manager')
+      +TagBase('Graphic Designer')
+  .bg-neutral-bg.px-5(class='pt-[60px] xl:px-[175px] pb-[38px] dark:bg-dark-neutral-bg')
+    h2.text-gray-1100.font-semibold.text-center(
+      class='dark:text-gray-dark-1100 text-[28px] leading-[34px] mb-[10px]'
+    ) Latest Jobs
+    p.text-gray-500.text-xs.mb-10.text-center(class='dark:text-gray-dark-500') Showing 41-60 of 944 jobs
+    .grid.grid-cols-1.gap-3(class='md:grid-cols-2 lg:grid-cols-1 mb-[38px]')
+      +RecentJobItem('assets/images/jobs-dashboard-1.png', 'Marketing Coordinator', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ')
+      +RecentJobItem('assets/images/jobs-dashboard-11.png', 'President of Sales', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ', false, false, true)
+      +RecentJobItem('assets/images/jobs-dashboard-10.png', 'Dog Trainer', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ', false, true, false)
+      +RecentJobItem('assets/images/jobs-dashboard-9.png', 'Marketing Coordinator', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ', true, false, false)
+      +RecentJobItem('assets/images/jobs-dashboard-1.png', 'Nursing Assistant', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ')
+      +RecentJobItem('assets/images/jobs-dashboard-11.png', 'Dog Trainer', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ')
+      +RecentJobItem('assets/images/jobs-dashboard-10.png', 'Regional Sales Account Manager', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ', false, false, true)
+      +RecentJobItem('assets/images/jobs-dashboard-9.png', 'Regional Sales Account Manager', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ', false, true, false)
+      +RecentJobItem('assets/images/jobs-dashboard-10.png', 'Web Designer', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ', true, false, false)
+      +RecentJobItem('assets/images/jobs-dashboard-11.png', 'Medical Assistant', 'Mitsubished', 'New York, NY', 'Full time', '3 mins ago', '$219.78 ')
+    +PaginateNextBtn

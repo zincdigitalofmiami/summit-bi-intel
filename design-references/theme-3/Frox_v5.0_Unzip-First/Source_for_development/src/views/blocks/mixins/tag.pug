@@ -1,0 +1,25 @@
+mixin Tag(text)
+  .flex.items-center.py-1.px-2(class='gap-x-[5px] mb-[10px] bg-[#E8EDF2] dark:bg-[#313442] rounded-[5px]')&attributes(attributes)
+    span.text-xs.text-gray-400= text
+    img.cursor-pointer(src='assets/images/icons/icon-close.svg', alt='close icon')
+
+mixin TagBase(text)
+  .bg-neutral-bg.border.border-neutral.rounded-lg.text-xs.text-gray-500(
+    class='px-[15px] py-[10px] dark:text-gray-dark-500 dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+  )= text
+
+mixin PopularTag(href, text)
+  a.bg-neutral.text-gray-500.leading-3(
+    href=href,
+    class='rounded-[50px] dark:bg-dark-neutral-border py-[10px] px-[18px] dark:text-gray-dark-500 text-[10px]'
+  )= text
+
+mixin SmallTag(text="High", color="text-orange")
+  .px-2.leading-4.bg-neutral(class='py-[3px] rounded-[4px] text-[10px] dark:bg-dark-neutral-border', class=color)= text
+
+mixin MailboxTag(text='Inbox', bgColor='bg-gray-100 dark:bg-gray-dark-100', avatar)
+  .flex.items-center.rounded(class='gap-[5px] py-[6px] pl-[10px] pr-[5px]', class=bgColor)
+    if avatar
+      img.rounded-full.w-4.h-4(src=avatar, alt='user avatar')
+    p.font-medium.text-gray-400(class='text-[10px] leading-[15px] dark:text-gray-dark-400')= text
+    +CloseIcon

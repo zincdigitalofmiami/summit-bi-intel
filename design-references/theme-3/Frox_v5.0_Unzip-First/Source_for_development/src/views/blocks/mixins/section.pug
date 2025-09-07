@@ -1,0 +1,359 @@
+mixin OrderDetailsItem(img, alt, text1, text2, text3, text4, text5)
+  .flex.items-start(class='gap-x-[10px]')
+    .w-12.h-12.flex.items-center.justify-center.rounded-full(class='bg-[#E8EDF2] dark:bg-[#313442]')
+      img(src=img, alt=alt, class='dark:invert')
+    .flex.flex-col.gap-y-2
+      +Size14Leading16Semibold(text1)
+      +Size14Leading16(text2)
+      +Size14Leading16(text3)
+      +Size14Leading16(text4)
+      button.capitalize.text-xs.text-color-brands.py-2.rounded-lg(
+        class='px-[13.5px] bg-[#E8EDF2] dark:bg-[#313442] max-w-[114px]'
+      )= text5
+
+mixin TransactionDetailsItem(img, alt, text1, text2, text3, text4, text5)
+  .flex.items-end.justify-between&attributes(attributes)
+    .flex.items-start(class='gap-x-[10px]')
+      .w-12.h-12.flex.items-center.justify-center.rounded-full(class='bg-[#E8EDF2] dark:bg-[#313442]')
+        img(src=img, alt=alt, class='dark:invert')
+      .flex.flex-col.gap-y-2
+        +Size14Leading16Semibold(text1)
+        +Size14Leading16(text2)
+        +Size14Leading16(text3)
+        +Size14Leading16(text4)
+    .capitalize.text-xs.text-color-brands.py-2.rounded-lg(class='px-[13.5px] bg-[#E8EDF2] dark:bg-[#313442] max-w-[114px]')= text5
+
+mixin ProductGridItem(href, img, name, rating, price, sku, desc, sales)
+  a.block.border.border-neutral.bg-neutral-bg.rounded-lg(
+    href=href,
+    class='p-[15px] dark:border-dark-neutral-border dark:bg-dark-neutral-bg'
+  )
+    .flex.items-center.gap-x-5.mb-6
+      img.border.border-neutral.rounded-lg(src=img, alt='product', class='dark:border-dark-neutral-border w-[86px]')
+      .flex-1 
+        .flex.items-center.justify-between.mb-2 
+          h3.text-sm.leading-4.text-gray-900.font-semibold(class='dark:text-gray-dark-900')= name
+          img(src='assets/images/icons/icon-3-dots.svg', alt='3 dots icon')
+        div(class='mb-[18px]')
+          +RatingStar(rating)
+        .flex.items-center.justify-between
+          +Size14Leading16Semibold(price)
+          +Size14Leading16(sku)
+    p.text-gray-500.border-b.border-neutral(
+      class='dark:text-gray-dark-500 text-[11px] leading-[18px] pb-[18px] mb-[18px] dark:border-dark-neutral-border'
+    )= desc
+    .flex.items-center.justify-between 
+      .flex.items-center(class='gap-x-[6px]')
+        .w-2.h-2.bg-green.rounded-full
+        +Size14Leading16Normal("Active").font-normal
+      +Size14Leading16Semibold(sales)
+
+mixin JobDashboardChartItem(icon, alt, bgColor, img, text1, text2, text3, chart)
+  - var backgroundColor = `bg-${bgColor}`
+  .flex.flex-col.gap-y-4.bg-neutral-bg.border.border-neutral-accent.p-5.rounded-2xl(
+    class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+  )
+    .flex.items-center.justify-between 
+      .flex.gap-x-2.items-center
+        img.p-2.rounded-lg(src=icon, alt=alt, class=backgroundColor)
+        span.text-gray-1100.font-bold(class='dark:text-gray-dark-1100 text-[16px] leading-[16px]')= text1
+      +Chart(chart, 'max-h-[34px]').translate-x-4
+      +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-4.z-10.self-start
+        img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+    .flex.items-center.justify-between
+      span.text-gray-500.text-xs(class='dark:text-gray-dark-500')= text2
+      .flex.items-center(class='gap-x-[7px]')
+        img(src='assets/images/icons/icon-export-green.svg', alt='export icon')
+        span.text-green.font-medium(class='text-[16px] leading-[16px]')= text3
+
+mixin CryptoDashboardChartItem(coin='Bitcoin (BTC)', icon='assets/images/icons/icon-bitcoin.svg', chart='purple')
+  .rounded-xl.border.border-neutral.bg-neutral-bg.pr-3.relative(
+    class='dark:border-dark-neutral-border dark:bg-dark-neutral-bg py-[14px] pl-[10px]'
+  )&attributes(attributes)
+    .flex.items-center.mb-3.gap-6
+      .flex.items-center(class='gap-[7px]')
+        .w-6.h-6 
+          img.w-full.h-full.object-cover(src=icon, alt='coin icon')
+        span.font-bold.text-gray-1100(class='text-[12px] leading-[12px] dark:text-gray-dark-1100') 126.500
+      +Chart(chart, 'max-h-[34px]')
+    .flex.items-center.justify-between
+      p.text-gray-500(class='text-[10px] leading-[12px] dark:text-gray-dark-500')= coin
+      .flex.items-center(class='gap-x-[5px]')
+        img(src='assets/images/icons/icon-export-green.svg', alt='export icon')
+        span.text-green.font-medium(class='text-[12px] leading-[12px]') 34.7%
+    +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between p-[14px]', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').absolute.right-0.top-0
+      img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+
+mixin VacanyStatsHeightItem(height, bgColorActive=false)
+  - var height = `h-[${height}px]`
+  .w-2(class='md:w-[14px] rounded-[57.3986px]', class=height, class=bgColorActive ? 'bg-color-brands' : 'bg-[#C2B9FF]')
+
+mixin RecentJobItem(img, text1, text2, text3, text4, text5, text6, hidden1=false, hidden2=false, hidden3=false)
+  .bg-gray-100.border.border-neutral-accent.flex.items-start.justify-between.flex-col.gap-y-2(
+    class='lg:items-center dark:bg-gray-dark-100 rounded-[10px] dark:border-dark-neutral-border pt-[27px] pl-[21px] pb-[30px] pr-[26px] lg:flex-row'
+  )
+    .flex.items-start.flex-col(class='lg:items-center gap-x-[14px] lg:flex-row')
+      .mb-5(class='w-[52px] h-[52px] lg:mb-0')
+        img.w-full.h-full.object-cover(src=img, alt='avatar')
+      .flex.flex-col(class='gap-y-[6px]')
+        +Size16Leading20Semibold(text1).text-center(class='lg:text-left')
+        .flex.gap-x-4.items-stretch.flex-col(class='lg:items-center lg:flex-row')
+          span.text-xs.text-color-brands= text2
+          .flex.gap-x-1.items-center 
+            img(src='assets/images/icons/icon-location.svg', alt='location icon')
+            span.text-xs.text-gray-400(class='dark:text-gray-dark-400')= text3
+          .flex.gap-x-1.items-center 
+            img(src='assets/images/icons/icon-briefcase.svg', alt='briefcase icon')
+            span.text-xs.text-gray-400(class='dark:text-gray-dark-400')= text4
+          .flex.gap-x-1.items-center 
+            img(src='assets/images/icons/icon-clock.svg', alt='clock icon')
+            span.text-xs.text-gray-400(class='dark:text-gray-dark-400')= text5
+    .flex.items-center.w-full.flex-col.gap-4(class='lg:w-[45%] lg:flex-row')
+      .flex.items-center(class='gap-[10px] lg:flex')
+        +ButtonBase("Remote").text-gray-1100.font-normal(
+          class='bg-[#C5FFDC] py-[10px] hover:bg-[#d7ffe7]',
+          class=hidden1 ? 'hidden' : ''
+        )
+        +ButtonBase("Senior").text-gray-1100.font-normal(
+          class='bg-[#C5E3FF] py-[10px] hover:bg-[#dbedff]',
+          class=hidden2 ? 'hidden' : ''
+        )
+        +ButtonBase("Full time").text-gray-1100.font-normal(
+          class='bg-[#bda8ff80] py-[10px] hover:bg-[#d1c3ff80]',
+          class=hidden3 ? 'hidden' : ''
+        )
+      p.text-xl.text-color-brands.font-semibold.flex-1.text-right.w-full(class='leading-[18px]')= text6
+        span.text-gray-500.text-sm.leading-4.font-normal(class='dark:text-gray-dark-500') / Hour
+
+mixin DashboardColItem(img, text1, text2, text3, text4)
+  .flex.items-center.justify-between 
+    .flex.items-center(class='gap-x-[10px]')
+      img(src=img, alt='avatar')
+      .flex.flex-col.gap-y-1
+        p.text-gray-1100(class='text-[11.5005px] leading-[13px] dark:text-gray-dark-1100')= text1
+        p.text-gray-400(class='text-[9.85759px] leading-[13px] dark:text-gray-dark-400')= text2
+    .flex.flex-col(class='gap-y-[3px]')
+      p.font-semibold.text-gray-1100(class='text-[11.5005px] leading-[13px] dark:text-gray-dark-1100')= text3
+      p.text-gray-400(class='dark:text-gray-dark-400 text-[9.85759px] leading-[13px]')= text4
+
+mixin RecentCourseItemGrid(img, alt, title, hours, lectures, desc, place, dollar, tagName1, tagName2)
+  .bg-neutral-bg.border.border-neutral(
+    class='dark:bg-dark-neutral-bg rounded-[10px] px-[25px] pb-[25px] pt-[30px] dark:border-dark-neutral-border'
+  )
+    .flex.justify-between.items-start(class='mb-[23px]')
+      .flex.items-center.flex-1(class='gap-x-[11px]')
+        img(src=img, alt=alt)
+        h4.text-gray-500.font-semibold.text-left.flex-1(
+          class='dark:text-gray-dark-500 max-w-[202px] text-[13px] leading-[15px]'
+        )= title
+      +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between p-3 min-w-5', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').translate-x-3
+        img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+    .flex.items-center.gap-x-5.border-b.border-neutral(class='mb-[19px] pb-[19px] dark:border-dark-neutral-border')
+      .flex.items-center.gap-x-1 
+        img(src='assets/images/icons/icon-clock.svg', alt='clock icon')
+        span.text-gray-500(class='dark:text-gray-dark-500 text-[12px] leading-[15px]')= hours
+      .flex.items-center.gap-x-1 
+        img(src='assets/images/icons/icon-video.svg', alt='video icon')
+        span.text-gray-500(class='dark:text-gray-dark-500 text-[12px] leading-[15px]')= lectures
+    p.text-gray-500.text-left(class='lg:max-w-[292px] text-[11px] leading-[15px] dark:text-gray-dark-500 mb-[37px]')= desc
+    .flex.justify-between.border-b.border-neutral(class='mb-[23px] pb-[17px] dark:border-dark-neutral-border')
+      .flex.items-center(class='gap-x-[5px]')
+        .rounded-full(class='w-[6px] h-[6px] bg-[#96DE95]')
+        span.text-color-brands(class='text-[11px] leading-[15px]')= place
+      p.text-color-brands.font-semibold.leading-4(class='text-[18px] mr-[10px]')= dollar
+        span.font-normal.leading-4(class='text-[11px] text-[#878D96]') /Hour
+    .flex.justify-between
+      .flex.items-center(class='gap-x-[10px]')
+        p.py-1.text-xs.bg-neutral.text-gray-900(
+          class='px-[10px] dark:bg-dark-neutral-border rounded-[5px] dark:text-gray-dark-900'
+        )= tagName1
+        p.py-1.text-xs.bg-neutral.text-gray-900(
+          class='px-[10px] dark:bg-dark-neutral-border rounded-[5px] dark:text-gray-dark-900'
+        )= tagName2
+      .flex.items-center(class='gap-x-[11px]')
+        img(src='assets/images/icons/icon-shield-check.svg', alt='shield check icon')
+        img(src='assets/images/icons/icon-bookmark.svg', alt='bookmark icon')
+
+mixin RecentJobItemGrid(img, title, place1, desc, place2, dollar)
+  .bg-neutral-bg.border.border-neutral(class='dark:bg-dark-neutral-bg rounded-[10px] p-[27px] dark:border-dark-neutral-border')
+    .flex.justify-between.items-start(class='mb-[23px]')
+      .flex.items-center.gap-x-3
+        .overflow-hidden.border-neutral.rounded-full(
+          class='w-[52px] h-[52px] border-[0.71955px] dark:border-dark-neutral-border'
+        )
+          img.img-filter-shadow.w-full.h-full.object-cover(src=img, alt='avatar')
+        h4.text-gray-500.font-semibold.text-sm.leading-4.text-left.flex-1(class='dark:text-gray-dark-500 max-w-[183px]')= title
+      +DropDown(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+        img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+    .flex.items-center.gap-x-5.ml-3(class='mb-[19px]')
+      .flex.items-center.gap-x-1 
+        img(src='assets/images/icons/icon-location.svg', alt='location icon')
+        span.text-gray-400.text-xs(class='dark:text-gray-dark-400')= place1
+      .flex.items-center.gap-x-1 
+        img(src='assets/images/icons/icon-briefcase.svg', alt='briefcase icon')
+        span.text-gray-400.text-xs(class='dark:text-gray-dark-400') Full time
+    p.text-xs.text-gray-400.text-left(class='max-w-[319px] dark:text-gray-dark-400 mb-[37px]')= desc
+    .flex.justify-between.mb-8
+      .flex.items-center(class='gap-x-[5px]')
+        .rounded-full(class='w-[6px] h-[6px] bg-[#96DE95]')
+        span.text-color-brands.text-xs= place2
+      p.text-color-brands.font-semibold.text-xl(class='leading-[18px] mr-[10px]')= dollar
+        span.font-normal(class='text-[12px] leading-[18px] text-[#878D96]') /Hour
+    .flex.justify-between
+      .flex.items-center(class='gap-x-[10px] ml-[11px]')
+        p.py-1.text-xs.bg-neutral(
+          class='px-[10px] dark:bg-dark-neutral-border rounded-[5px] text-[#37404E] dark:text-[#b3b3b3]'
+        ) Adobe XD
+        p.py-1.text-xs.bg-neutral(
+          class='px-[10px] dark:bg-dark-neutral-border rounded-[5px] text-[#37404E] dark:text-[#b3b3b3]'
+        ) Figma
+      .flex.items-center(class='gap-x-[11px]')
+        img(src='assets/images/icons/icon-shield-check.svg', alt='shield check icon')
+        img(src='assets/images/icons/icon-bookmark.svg', alt='bookmark icon')
+
+mixin BaseWrapper
+  .border.bg-neutral-bg.border-neutral(class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border')&attributes(attributes)
+    if block
+      block
+
+mixin ActiveLessonItem(logo, alt, title, lessions, percent, border=true)
+  - var borderBottom = 'pb-[13px] border-b border-dashed border-neutral dark:border-dark-neutral-border'
+  .flex.items-center.justify-between.pt-2(class=border ? borderBottom : '') 
+    .flex.items-center.gap-2 
+      img(src=logo, alt=alt)
+      .flex.flex-col.gap-y-1 
+        h3.text-gray-1100(class='text-[11.5px] leading-[13px] dark:text-gray-dark-1100')= title
+        span.text-gray-400(class='dark:text-gray-dark-400 text-[10px] leading-[13px]')= lessions
+    .flex.flex-col.gap-y-2 
+      span.text-gray-400(class='text-[10px] leading-[13px] dark:text-gray-dark-400')= `${percent} complete`
+      +ProgressBarBase(percent, 'color-brands')
+
+mixin RecentCourseItemGridImage(logo, alt, courseName, hours, lectures, star, courseImage, courseAlt, courseDesc, place, dollar, tagName1, tagName2)
+  +BaseWrapper.pb-7.cursor-pointer(class='rounded-[9px] px-[18px] pt-[26px]')
+    .flex.items-center(class='gap-x-[17px] mb-[17px]')
+      .overflow-hidden.flex-shrink-0(class='w-[38px] h-[34px]')
+        img.w-full.h-full.object-cover(src=logo, alt=alt)
+      h2.font-semibold.text-gray-1100(class='text-[14px] leading-[18px] dark:text-gray-dark-1100')= courseName
+    .flex.items-center.mb-5.flex-col.gap-3(class='sm:flex-row')
+      .flex.items-center.gap-3
+        .flex.items-center(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-clock.svg', alt='clock icon')
+          span.text-gray-500(class='dark:text-gray-dark-500 text-[12px] leading-[15px]')= hours
+        .flex.items-center(class='gap-x-[5px]')
+          img(src='assets/images/icons/icon-video.svg', alt='video icon')
+          span.text-gray-500(class='dark:text-gray-dark-500 text-[12px] leading-[15px]')= lectures
+      +RatingStar(star)(class='w-[11px] h-[11px]')
+    .overflow-hidden.rounded-lg.w-full(class='mb-[17px]')
+      img.w-full.h-full.object-cover(src=courseImage, alt=courseAlt)
+    .flex.justify-between.border-b.border-neutral.flex-col.gap-3(
+      class='pb-[18px] dark:border-dark-neutral-border mb-[18px] sm:flex-row'
+    )
+      p.text-gray-500(class='text-[11px] leading-[15px] dark:text-gray-dark-500 max-w-[206px]')= courseDesc
+      .flex.flex-col(class='gap-y-[5px]')
+        .flex.items-center.gap-x-1 
+          .rounded-full(class='w-[6px] h-[6px] bg-[#96DE95]')
+          span.text-gray-400(class='dark:text-gray-dark-400 text-[11px] leading-[15px]')= place
+        p.font-semibold.leading-4.text-gray-900(class='text-[18px] mr-[10px] dark:text-gray-dark-900')= dollar
+          span.font-normal.leading-4(class='text-[11px] text-[#878D96]') /Hour
+    .flex.justify-between.flex-col.gap-3(class='sm:flex-row')
+      .flex.items-center(class='gap-x-[10px]')
+        p.py-1.text-xs.bg-neutral.text-gray-900(
+          class='px-[10px] dark:bg-dark-neutral-border rounded-[5px] dark:text-gray-dark-900'
+        )= tagName1
+        p.py-1.text-xs.bg-neutral.text-gray-900(
+          class='px-[10px] dark:bg-dark-neutral-border rounded-[5px] dark:text-gray-dark-900'
+        )= tagName2
+      .flex.items-center(class='gap-x-[11px]')
+        img(src='assets/images/icons/icon-shield-check.svg', alt='shield check icon')
+        img(src='assets/images/icons/icon-bookmark.svg', alt='bookmark icon')
+
+mixin ProjectItem(img="assets/images/jobs-dashboard-1.png", text1="OPGV Violence Interrupter Tracking Workshops", progress=68)
+  .border.border-neutral-accent.flex.items-start.justify-between.flex-col.gap-y-4.py-6(
+    class='xl:items-center rounded-[10px] dark:border-dark-neutral-border pl-[22px] pr-[30px] xl:flex-row'
+  )
+    .flex.items-center.flex-col.justify-end(class='gap-[15px] md:flex-row')
+      .mb-5(class='w-[52px] h-[52px] lg:mb-0')
+        img.w-full.h-full.object-cover(src=img, alt='avatar')
+      .flex.flex-col.flex-1(class='gap-y-[6px]')
+        +Size16Leading20Semibold(text1).text-left
+        .flex.gap-4.items-center.flex-wrap(class='gap-y-[6px]')
+          span.text-xs.text-color-brands Mitsubished
+          .flex.gap-x-1.items-center 
+            img(src='assets/images/icons/icon-location.svg', alt='location icon', class='w-[10px] h-[12px]')
+            span.text-xs.text-gray-400(class='dark:text-gray-dark-400') New York, NY
+          .flex.gap-x-1.items-center 
+            img(src='assets/images/icons/icon-briefcase.svg', alt='briefcase icon')
+            span.text-xs.text-gray-400(class='dark:text-gray-dark-400') Urgent
+          .flex.gap-x-1.items-center 
+            img(src='assets/images/icons/icon-clock.svg', alt='clock icon')
+            span.text-xs.text-gray-400(class='dark:text-gray-dark-400') 3 mins ago
+    .flex.items-center.justify-between.w-full.flex-col.gap-4.flex-1(class='xl:justify-end md:flex-row')
+      div 
+        +Size12Leading16Gray400('Team members')(class='mb-[9px]')
+        +UsersStack
+      div(class='xl:ml-[152px]')
+        +Size12Leading16Gray400('Progress').text-center(class='mb-[13px]')
+        .flex.items-center(class='gap-[14px]')
+          +Size14Leading16Gray400(`${progress}%`)
+          div(class='min-w-[100px] md:min-w-[148px]')
+            +ProgressBarBase(progress, "green")
+
+mixin MemberItem(avatar='assets/images/avatar-layouts-2.png', name='Bessie Cooper', email='binhan628@gmail.com')
+  .flex.items-center.justify-between.w-full
+    .flex.items-center.gap-3
+      +UserAvatar(avatar).border-none
+      +AvatarInfo(name, email)
+    +Select(["Can Edit", "Can View"], 'select-caret')
+
+mixin MailboxReadItem(avatar='assets/images/seller-avatar-2.png', name='Cody Fisher', desc='Lorem ipsum dolor sit amet, consectetur adipiscing elit....')
+  .flex.items-center.justify-between.border-b.border-neutral.w-full.flex-wrap.gap-4(
+    class='pb-[30px] dark:border-dark-neutral-border last:border-none'
+  )
+    .flex.items-center.flex-wrap.gap-4(class='lg:gap-[87px]')
+      .flex.items-center.gap-3
+        .relative.w-10.h-10
+          img.w-full.h-full.object-cover.rounded-full(src=avatar, alt='avatar')
+          .absolute.rounded-full.border.border-neutral-bg.bg-green.bottom-0.w-2.h-2.right-1
+        .flex-1
+          p.text-normal.font-semibold.text-gray-1100(class='dark:text-gray-dark-1100 mb-[5px]')= name
+          p.text-desc.text-gray-500(class='dark:text-gray-dark-500 md:truncate')= desc
+      p.text-desc.text-gray-400(class='dark:text-gray-dark-400') 2022/02/17, 11:21 pm
+    .flex.items-center(class='gap-[14px]')
+      +ReplyIcon('fill-gray-400 dark:fill-gray-dark-400')
+      +StarIcon
+      +MoreIcon
+
+mixin MailboxSend
+  .flex.items-center.gap-4.flex-col&attributes(attributes)
+    .flex.items-center.rounded-lg.border.border-neutral.justify-between.w-full.flex-wrap.gap-3(
+      class='py-[13px] px-[10px] dark:border-dark-neutral-border'
+    )
+      .flex.items-center
+        +Size14Leading16Gray400('To:').pr-5
+        .flex.items-center.flex-wrap(class='gap-[5px]')
+          +MailboxTag('Steven Job', 'bg-neutral dark:bg-dark-neutral-border', 'assets/images/seller-avatar-2.png')
+          +MailboxTag('Hailen', 'bg-neutral dark:bg-dark-neutral-border', 'assets/images/seller-avatar-3.png')
+          +MailboxTag('Azumi Rose', 'bg-neutral dark:bg-dark-neutral-border', 'assets/images/seller-avatar-4.png')
+      .flex.items-center(class='gap-[6px]')
+        p.font-medium.text-gray-400.cursor-pointer(
+          class='text-[10px] leading-[15px] dark:text-gray-dark-400 hover:text-color-brands dark:hover:text-color-brands'
+        ) Cc
+        p.font-medium.text-gray-400.cursor-pointer(
+          class='text-[10px] leading-[15px] dark:text-gray-dark-400 hover:text-color-brands dark:hover:text-color-brands'
+        ) Bcc
+    .rounded-lg.border.border-neutral.justify-between.w-full(class='py-[16px] px-[13px] dark:border-dark-neutral-border')
+      input.input.bg-transparent.text-sm.leading-4.text-gray-400.p-0.w-full.h-4.rounded-none(
+        type='text',
+        placeholder='Subject',
+        class='focus:outline-none dark:text-gray-dark-400 placeholder:text-inherit'
+      )
+    +EditorInput.w-full
+    .flex.items-center.w-full(class='gap-[15px]')
+      +Button('Send', "M", "solid", false).border-neutral-bg.font-medium(
+        class='dark:border-dark-neutral-bg py-[7px] px-[24px] text-[12px] leading-[18px]'
+      ) 
+      +Button("Save Darft", "M", false, false).border-neutral-bg.bg-gray-200.font-medium.text-gray-500(
+        class='dark:border-dark-neutral-bg py-[7px] px-[17px] dark:bg-gray-dark-200 text-[12px] leading-[18px] dark:text-gray-dark-500 hover:bg-gray-200 dark:hover:bg-gray-dark-200 hover:border-gray-300 dark:hover:border-gray-dark-300'
+      )
+      if block
+        block

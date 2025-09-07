@@ -1,0 +1,19 @@
+header.flex.items-center.justify-between.flex-wrap.bg-neutral-bg.p-5.gap-5(
+  class='md:py-6 md:pl-[25px] md:pr-[38px] lg:flex-nowrap dark:bg-dark-neutral-bg lg:gap-0'
+)
+  a.hidden.logo(href='index.html')
+    img(src='assets/images/icons/icon-logo.svg', alt='Frox logo', class='md:mr-[100px] lg:mr-[133px]')
+  +SearchBar.order-last(class='lg:order-first')
+  +DropDown(false, list=[{link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'All Brands'}, {link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'News Reviews'}, {link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Financial report'},{link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Shipping'},{link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'View Catalog'},{link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Revenue report'},{link: '#', icon:'assets/images/icons/icon-verify.svg', title: 'Refund requests'}], labelStyle='flex items-center justify-between w-[142px]', menuStyle='min-w-[237px] mt-[25px] md:mt-[48px] p-[25px] pb-[10px]', childStyle='text-normal p-[15px] pl-[21px]', color='border-b-color-brands',titleStyle='text-white hover:text-[#C6CBD9]', iconStyle='', position='', bgColor='bg-color-brands')
+    .items-center.justify-center.hidden.rounded-lg.border.border-neutral(
+      class='dark:border-dark-neutral-border gap-x-[10px] px-[18px] py-[11px] sm:flex'
+    )
+      .flex.items-center(class='gap-[11px]')
+        img(src='assets/images/icons/icon-export.svg', alt='export icon')
+        span.text-normal.font-semibold.text-gray-500(class='dark:text-gray-dark-500') Browse
+      img(src='assets/images/icons/icon-arrow-down.svg', alt='down icon')
+  .flex.items-center.order-2.user-noti(class='gap-[30px] xl:gap-[48px] lg:order-3 lg:mr-0')
+    +DropDownChat
+    +DropDownNotification
+    +DropDown(false, list=[ { link: 'sign-in.html', icon: 'assets/images/icons/icon-user.svg', title: 'Profile' }, { link: '#', icon: 'assets/images/icons/icon-favorite-chart.svg', title: 'Dashboard' },{ link: '#', icon: 'assets/images/icons/icon-bitcoin-card.svg', title: 'Payouts' }, { link: '#', icon: 'assets/images/icons/icon-trade.svg', title: 'Statement' }, { link: '#', icon: 'assets/images/icons/icon-sun.svg', title: 'Settings' },{divider: true}, { link: '#', icon: 'assets/images/icons/icon-logout.svg', title: 'Log out' }, ], labelStyle='', menuStyle='p-[25px] pb-[10px] bg-neutral-bg mt-[25px] md:mt-[40px] min-w-[237px]', childStyle='text-gray-500 hover:text-gray-1100 hover:bg-gray-100 dark:text-gray-dark-500 dark:hover:text-gray-dark-1100 dark:hover:bg-gray-dark-100 rounded-lg group p-[15px] pl-[21px]', color='border-b-neutral-bg dark:border-b-dark-neutral-bg', titleStyle='',iconStyle='group-hover:filter-black dark:group-hover:filter-white', position='end')
+      img(src='assets/images/avatar-layouts-5.png', alt='user avatar')

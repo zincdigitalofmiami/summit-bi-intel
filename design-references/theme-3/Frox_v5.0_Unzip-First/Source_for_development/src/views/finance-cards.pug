@@ -1,0 +1,38 @@
+extends layout/layout
+
+block vars
+  - title = 'Finance Cards Page'
+  - bodyClass = 'finance-cards-page'
+
+block container
+  .flex.items-end.justify-between(class='mb-[37px]')
+    div
+      +Breadcrumb('home', 'Your Cards')
+    .flex.items-center.gap-x-2 
+      img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+      time.text-xs.text-gray-500 Feb 15, 2022 - Feb 21, 2022
+  +Card.mb-10(class='p-[25px] pb-[30px]')
+    +CardHeaderWithToggle("Your cards").mb-4
+    .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[42px]')
+    .grid.items-center.gap-6.grid-cols-1.mb-10(class='lg:grid-cols-2 xl:grid-cols-3')
+      +CreditCard
+      +CreditCard('bg-[#DF991D]', 'assets/images/MasterCard-white-bg.png')
+      +CreditCard('bg-[#568721]', 'assets/images/Bitcoin-white-bg.png')
+      +CreditCard('bg-[#E878AD]', 'assets/images/Stripe-white-bg.png')
+      +CreditCard('bg-[#5A96FF]', 'assets/images/Paypal-white-bg.png')
+      +CreditCard('bg-[#9869EB]', 'assets/images/Bitpay-white-bg.png')
+    .flex.items-center.justify-center
+      button.rounded-lg.bg-neutral.text-gray-1100.px-6.font-semibold(
+        class='dark:text-gray-dark-1100 dark:bg-dark-neutral-border py-[11px] text-[14px] leading-[21px]'
+      ) + Add new card
+  +Card.overflow-x-scroll.scrollbar-hide(class='p-[25px] pb-[30px] mb-[45px]')
+    +CardHeaderWithToggle("Deposits").mb-4
+    .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[32px]')
+    table.w-full.border-separate(class='min-w-[900px] border-spacing-y-[15px]')
+      tbody
+        +DepositItem
+        +DepositItem('assets/images/icons/icon-Visa.svg', 'Kathryn Murphy', "Ferrari")
+        +DepositItem('assets/images/icons/icon-master-card.svg', 'Eleanor Pena', "Louis Vuitton")
+        +DepositItem('assets/images/icons/icon-Visa.svg', 'Albert Flores', "Apple")
+        +DepositItem('assets/images/icons/icon-master-card.svg', 'Floyd Miles', "General Electric")
+  +PaginateNextBtn

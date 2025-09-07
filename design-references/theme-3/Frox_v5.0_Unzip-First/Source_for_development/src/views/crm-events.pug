@@ -1,0 +1,67 @@
+extends layout/layout
+
+block vars
+  - title = 'CRM Events Page'
+  - bodyClass = 'crm-events-page'
+
+block container
+  div(class='xl:px-[97px]')
+    +BreadcrumbBase('Events', 'Home', 'Customers', 'Feb 15, 2022 - Feb 21, 2023', '53')
+  .flex.flex-col.justify-between(class='xl:px-[97px] xl:flex-row gap-[38px] lg:gap-x-4')
+    .border.bg-neutral-bg.border-neutral.rounded-2xl.pt-4.px-7.w-full(
+      class='pb-[51px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border lg:min-w-[690px] xl:min-w-[730px]'
+    )
+      .flex.flex-col.justify-between.border-b.border-neutral.items-stretch.gap-y-3(
+        class='lg:flex-row pb-[15px] dark:border-dark-neutral-border mb-[30px] lg:items-center'
+      )
+        +Size16Leading20Semibold("Upcoming events")
+        +InputSelect("Status", 'mb-0')(class='max-w-[173px]')
+      .flex.flex-col(class='gap-y-[15px] mb-[35px]')
+        +UpcomingEventItem('assets/images/crm-avatar-1.png', 'Meeting with a client', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+        +UpcomingEventItem('assets/images/crm-avatar-2.png', 'New project discussion', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+        +UpcomingEventItem('assets/images/crm-avatar-3.png', 'Financial data overview', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+        +UpcomingEventItem('assets/images/crm-avatar-4.png', 'New project discussion', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+        +UpcomingEventItem('assets/images/crm-avatar-5.png', 'New project discussion', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+        +UpcomingEventItem('assets/images/crm-avatar-6.png', 'New project discussion', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+      +PaginateNextBtnSm
+    .flex.flex-col.flex-1(class='gap-y-[30px]')
+      .border.bg-neutral-bg.border-neutral.rounded-lg.pl-6.pt-5(
+        class='pr-[22px] pb-[31px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+      )
+        .flex.justify-between.items-center.pb-4.mb-6.border-b.border-neutral(class='dark:border-dark-neutral-border')
+          +Size16Leading20Semibold("Active users")
+          +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+            img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+        .flex.flex-col(class='gap-y-[22px]')
+          +ActiveUserItem('assets/images/crm-avatar-7.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 8)
+          +ActiveUserItem('assets/images/crm-avatar-8.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 8)
+          +ActiveUserItem('assets/images/crm-avatar-9.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 8)
+          +ActiveUserItem('assets/images/crm-avatar-10.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 8)
+          +ActiveUserItem('assets/images/crm-avatar-11.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 8)
+          +ActiveUserItem('assets/images/crm-avatar-12.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 8)
+      .border.bg-neutral-bg.border-neutral.rounded-lg.pl-6.pt-5.flex-1(
+        class='pr-[22px] pb-[27px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+      )
+        .flex.justify-between.items-center.pb-4.mb-6.border-b.border-neutral(class='dark:border-dark-neutral-border')
+          +Size16Leading20Semibold("Statistics")
+          +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+            img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+        +Chart('bar', 'max-h-[300px]')
+  div(class='pt-[39px] xl:px-[97px]')
+    .pt-6.border.bg-neutral-bg.border-neutral.rounded-2xl(
+      class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border pl-[31px] pr-[27px] pb-[50px]'
+    )
+      .flex.flex-col.justify-between.items-stretch.border-b.border-neutral.gap-y-3(
+        class='lg:flex-row pb-[19px] dark:border-dark-neutral-border mb-[10px] lg:items-center'
+      )
+        +Size16Leading20Semibold("Ongoing events")
+        +InputSelect("Status", 'mb-0')(class='max-w-[173px]')
+      .grid.grid-cols-1(class='gap-x-[17.25px] gap-y-[25px] sm:grid-cols-2 lg:grid-cols-4')
+        +OngoingEventItem('#', 'assets/images/crm-bg-1.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+        +OngoingEventItem('#', 'assets/images/crm-bg-2.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+        +OngoingEventItem('#', 'assets/images/crm-bg-3.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+        +OngoingEventItem('#', 'assets/images/crm-bg-4.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+        +OngoingEventItem('#', 'assets/images/crm-bg-5.png', 'Courtney Henry', '06 September', 'Starting your traveling blog with Vasco')
+        +OngoingEventItem('#', 'assets/images/crm-bg-6.png', 'Courtney Henry', '06 September', 'How to choose the right customer for your photo business?')
+        +OngoingEventItem('#', 'assets/images/crm-bg-7.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')
+        +OngoingEventItem('#', 'assets/images/crm-bg-8.png', 'Courtney Henry', '06 September', 'How to write content about your photographs')

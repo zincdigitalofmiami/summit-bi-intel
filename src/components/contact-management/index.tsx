@@ -7,12 +7,13 @@ import {
   Phone, 
   Mail, 
   MessageSquare, 
-  MapPin, 
+  MapPin,
   Clock,
   Star,
   Building2,
   User
 } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 const emergencyContacts = [
   {
@@ -90,8 +91,21 @@ export default function ContactManagement() {
     window.open(`mailto:${email}`, '_blank');
   };
 
-  const handleMessage = (_contact: typeof keyContacts[0]) => {
-    // TODO: Implement messaging functionality
+  const handleMessage = (contact: typeof keyContacts[0]) => {
+    // Log messaging action
+    logger.info(`Messaging contact: ${contact.name}`);
+
+    // For now, open SMS app or messaging app
+    // In a real implementation, this would integrate with a messaging service
+    if (contact.phone) {
+      // Try to open SMS app
+      const smsUrl = `sms:${contact.phone}`;
+      window.open(smsUrl, '_blank');
+
+      logger.info(`Opened SMS app for ${contact.name} (${contact.phone})`);
+    } else {
+      logger.warn(`No phone number available for messaging ${contact.name}`);
+    }
   };
 
   const getPriorityColor = (priority: string) => {

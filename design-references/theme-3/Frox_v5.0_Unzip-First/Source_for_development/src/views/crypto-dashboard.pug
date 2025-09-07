@@ -1,0 +1,83 @@
+extends layout/layout
+
+block vars
+  - title = 'Crypto Dashboard Page'
+  - bodyClass = 'crypto-dashboard-page'
+
+block container
+  +BreadcrumbBase('Howdy Steven!', 'Home', 'Crypto', 'Feb 15, 2022 - Feb 21, 2022', '47')
+  section
+    .grid.grid-cols-1.mb-6(class='gap-[10px] xl:grid-cols-6 lg:grid-cols-2')
+      +CryptoDashboardChartItem
+      +CryptoDashboardChartItem('Ethereum (ETH)','/assets/images/icons/icon-ethereum.svg','profit')
+      +CryptoDashboardChartItem('TRON (TRX)','/assets/images/icons/icon-trx.svg','income')
+      +CryptoDashboardChartItem('Uniswap (UNI)','/assets/images/icons/icon-uni.svg', 'red')
+      +CryptoDashboardChartItem('USD Coin (USDC)','/assets/images/icons/icon-usdc.svg','cash')
+      +CryptoDashboardChartItem('Binance Coin (BNB)','/assets/images/icons/icon-bnb.svg','fuchsia')
+    .flex.justify-between.gap-5.mb-10.flex-col(class='xl:flex-row')
+      .flex.flex-col(class='xl:w-[67%]')
+        +BaseWrapper.rounded-2xl.px-6(class='pt-[15px] pb-[28px] mb-[25px]')
+          +TitleToggle(15, 21, 'Balance Flow')
+          div 
+            +Chart('bar', 'max-h-[280px]')
+        .flex.justify-between.gap-6.flex-col(class='mb-[21px] lg:flex-row')
+          +Card.flex-1(class='py-[18px] px-[22px] mb-[10px] lg:w-[361px]')
+            +CardHeaderWithToggleSm('Your wallet').mb-5
+            .flex.flex-col(class='gap-[26px]')
+              +WalletCardItem
+              +WalletCardItem('9872 **** **** 2356', '$34,180.20', 'assets/images/icons/icon-master-card.svg')
+              +WalletCardItem('Cumulative total', '$59,780.2', 'assets/images/icons/icon-briefcase.svg')
+          +Card.pt-5.flex-1(class='pb-[34px] px-[22px] mb-[10px]')
+            +CardHeaderWithToggleSm('All expenses').mb-5
+            .mb-6
+              +StatsRadicalProgress
+            p.text-desc.text-gray-500(class='dark:text-gray-dark-500') Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec enim sem.
+        .flex.justify-between.flex-col(class='gap-[21px] mb-[29px] lg:flex-row')
+          +Card.flex-1.pt-5.self-stretch(class='pb-[9px] px-[22px]')
+            +CardHeaderWithToggleSm('Best Sellers')(class='mb-[15px]')
+            .flex.flex-col(class='gap-y-[31px]')
+              +ActiveUserItem('assets/images/cus-dashboard-2.png', 'Esther Howard', 'Louis Vuitton', '$778.35', '1258 sales', 40, 40, 100)
+              +ActiveUserItem('assets/images/cus-dashboard-3.png', 'Wade Warren', 'Binford Ltd.', '$576.28', '1028 sales', 40, 40, 100)
+              +ActiveUserItem('assets/images/cus-dashboard-1.png', 'Cameron Williamson', 'MasterCard', '$446.61', '985 sales', 40, 40, 100)
+          +UserStaticsCard('assets/images/cus-dashboard-8.png', 'assets/images/cus-dashboard-9.png', 'assets/images/crm-avatar-3.png', '#', '#', '#')
+        +BaseWrapper.rounded-2xl(class='pb-[34px] pt-[25px] px-[25px]')
+          .flex.flex-col.justify-between.border-b.border-neutral.items-stretch.gap-y-3(
+            class='lg:flex-row pb-[15px] dark:border-dark-neutral-border mb-[30px] lg:items-center'
+          )
+            +Size16Leading20Semibold("Upcoming events")
+            +InputSelect("Status", 'mb-0')(class='max-w-[173px]')
+          .flex.flex-col(class='gap-y-[15px] mb-[35px]')
+            +UpcomingEventItem('assets/images/crm-avatar-1.png', 'Meeting with a client', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+            +UpcomingEventItem('assets/images/crm-avatar-2.png', 'New project discussion', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+            +UpcomingEventItem('assets/images/crm-avatar-3.png', 'Financial data overview', 'Start at 05:48AM', 'New York, NY', 'Design Team', 'About 30 minutes')
+          +PaginateNextBtnSm
+      .flex.flex-col.flex-1(class='gap-y-[23px]')
+        +BaseWrapper.px-6.rounded-2xl(class='pt-[15px] pb-[27px]')
+          +TitleToggle(15, 22, 'Recent Activities')
+          .flex.flex-col(class='gap-y-[29px]')
+            +CryptoActivityItem('assets/images/icons/icon-bitcoin.svg', 'bitcoin icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+            +CryptoActivityItem('assets/images/icons/icon-binance.svg', 'binance icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+            +CryptoActivityItem('assets/images/icons/icon-cardano.svg', 'cardano icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+            +CryptoActivityItem('assets/images/icons/icon-ethereum.svg', 'ethereum icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+            +CryptoActivityItem('assets/images/icons/icon-tether.svg', 'tether icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+            +CryptoActivityItem('assets/images/icons/icon-usd.svg', 'usd icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+            +CryptoActivityItem('assets/images/icons/icon-xrp.svg', 'xrp icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+            +CryptoActivityItem('assets/images/icons/icon-xrp.svg', 'xrp icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+            +CryptoActivityItem('assets/images/icons/icon-xrp.svg', 'xrp icon', 'BTC/USD', '34.7%', '$10,245.00', '340.5 USD')
+        +BaseWrapper.px-6.rounded-2xl(class='pt-[15px] pb-[21px]')
+          +TitleToggle(15, 25, 'Stats by Department')
+          .flex.flex-col(class='gap-y-[19px] mb-[25px]')
+            +ActiveUserItem('assets/images/crypto-avt-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crypto-avt-2.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-9.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-10.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-11.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-12.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/jobs-dashboard-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/jobs-dashboard-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/jobs-dashboard-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/jobs-dashboard-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/jobs-dashboard-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+          +Button("View More", "M", "solid", false).border-neutral-bg.px-6(
+            class='dark:border-dark-neutral-bg py-[14px]'
+          )

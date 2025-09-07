@@ -1,0 +1,30 @@
+mixin ThemeToggle
+  .rounded-xl.bg-neutral.pt-4.flex.items-center.gap-5.mt-5.sidebar-control(
+    class='pr-[18px] pb-[13px] pl-[19px] dark:bg-dark-neutral-border'
+  )
+    .flex.items-center.gap-3
+      i#theme-toggle-dark-icon.moon-icon
+        img.cursor-pointer(
+          src='assets/images/icons/icon-moon.svg',
+          alt='moon icon'
+        )
+        img.cursor-pointer(
+          src='assets/images/icons/icon-moon-active.svg',
+          alt='moon icon'
+        )
+      +ToggleS(false, false, 'theme-toggle')#toggle-theme-btn
+      i#theme-toggle-light-icon.sun-icon
+        img.cursor-pointer(
+          src='assets/images/icons/icon-sun.svg',
+          alt='sun icon'
+        )
+        img.cursor-pointer(
+          src='assets/images/icons/icon-sun-active.svg',
+          alt='sun icon'
+        )
+    .bg-neutral-bg(class='w-[2px] h-[30px] dark:bg-dark-neutral-bg')
+    div 
+      img#sidebar-expand.cursor-pointer(
+        src='assets/images/icons/icon-maximize-3.svg',
+        alt='expand icon'
+      )

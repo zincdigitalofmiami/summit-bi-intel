@@ -1,0 +1,110 @@
+extends layout/layout
+
+block vars
+  - title = 'CMS Add Post Page'
+  - bodyClass = 'cms-add-post-page'
+
+block container
+  +BreadcrumbBase('Add new post', 'Home', 'Posts listing', 'Feb 15, 2022 - Feb 21, 2023', '54')
+  +BaseWrapper.rounded-2xl(class='px-[25px] pt-[25px] pb-[68px]')
+    .flex.justify-between.gap-x-5.flex-col(class='xl:flex-row')
+      div(class='xl:w-[70%]')
+        .mb-12
+          +InputLabel("Post title")
+          +InputText('Add title')
+        .mb-12
+          +InputLabel("Content")
+          .rounded-lg.border.border-neutral(class='dark:border-dark-neutral-border p-[13px]')
+            .flex.items-center.gap-y-4.flex-col(class='gap-x-[37px] mb-[31px] xl:flex-row xl:gap-y-0')
+              .flex.items-center(class='gap-x-[21px]')
+                img.cursor-pointer(src='assets/images/icons/icon-bold.svg', alt='bold icon')
+                img.cursor-pointer(src='assets/images/icons/icon-italicized.svg', alt='italicized icon')
+                img.cursor-pointer(src='assets/images/icons/icon-underlined.svg', alt='underlined icon')
+                img.cursor-pointer(src='assets/images/icons/icon-strikethrough.svg', alt='strikethrough icon')
+                img.cursor-pointer(src='assets/images/icons/icon-textcolor.svg', alt='textcolor icon')
+                img.cursor-pointer(src='assets/images/icons/icon-backgroundcolor.svg', alt='backgroundcolor icon')
+                img.cursor-pointer(src='assets/images/icons/icon-smile.svg', alt='smile icon')
+              .flex.items-center(class='gap-x-[21px]')
+                .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                  img(src='assets/images/icons/icon-paragraphformat.svg', alt='paragraphformat icon')
+                  img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+                .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                  img(src='assets/images/icons/icon-align-left.svg', alt='align left icon')
+                  img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+                .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                  img(src='assets/images/icons/icon-ordered-list.svg', alt='ordered list icon')
+                  img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+                .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+                  img(src='assets/images/icons/icon-unordered-list.svg', alt='unordered list icon')
+                  img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+                img.cursor-pointer(src='assets/images/icons/icon-indent.svg', alt='indent icon')
+                img.cursor-pointer.opacity-40(src='assets/images/icons/icon-indent.svg', alt='outdent icon')
+              .flex.items-center(class='gap-x-[21px]')
+                img.cursor-pointer(src='assets/images/icons/icon-insert-image.svg', alt='insert image icon')
+                img.cursor-pointer(src='assets/images/icons/icon-insert-link.svg', alt='insert link icon')
+                img.cursor-pointer(src='assets/images/icons/icon-insert-file.svg', alt='insert-file icon')
+                img.cursor-pointer(src='assets/images/icons/icon-insert-video.svg', alt='insert video icon')
+                img.cursor-pointer.opacity-40(src='assets/images/icons/icon-undo.svg', alt='undo icon')
+                img.cursor-pointer.opacity-40(src='assets/images/icons/icon-redo.svg', alt='redo icon')
+            textarea.textarea.w-full.p-0.text-gray-400.resize-none.rounded-none.bg-transparent(
+              class='min-h-[262px] focus:outline-none',
+              placeholder='Content here'
+            )
+        .mb-12 
+          +InputLabel("Thumbnail / Gallery")
+          .border-dashed.border-2.text-center.border-neutral(class='py-[26px] dark:border-dark-neutral-border')
+            img.mx-auto.inline-block(src='assets/images/icons/icon-image.svg', alt='image icon', class='mb-[15px]')
+            p.text-sm.leading-6.text-gray-500.font-normal(class='mb-[5px]') Drop your image here, or browse
+            p.leading-6.text-gray-400(class='text-[13px]') JPG,PNG and GIF files are allowed
+        .mb-12 
+          +InputLabel("Excerpt")
+          textarea.textarea.w-full.text-gray-400.resize-none.rounded-lg.bg-transparent.border.border-neutral.pt-2(
+            class='min-h-[131px] focus:outline-none dark:border-dark-neutral-border pl-[13px]',
+            placeholder='The excerpt'
+          )
+        div
+          +InputLabel("Tag")
+          +InputText('Add tags')
+          +BaseWrapper.rounded-lg(class='p-[15px] mt-[10px]')
+            .flex.flex-wrap(class='gap-[10px]')
+              +Tag('smartwatch')
+              +Tag('Apple')
+              +Tag('Watch')
+              +Tag('smartphone')
+              +Tag('iPhone14 max')
+              +Tag('iPhone14 max')
+              +Tag('iPhone14 max')
+              +Tag('smartwatch')
+              +Tag('Apple')
+              +Tag('Watch')
+      .flex-1.flex.flex-col(class='gap-y-[15px] mt-[25px]')
+        +AddBoxItem('Publish', 'Status:', 'Visibility:', 'Schedule:', 'Draft', 'Publish', 'Immediately', 'Save Draft', 'Publish')
+        .border.border-neutral.rounded-lg(class='dark:border-dark-neutral-border pb-[31px]')
+          .bg-neutral.rounded-t-lg(class='py-[15px] pl-[18px] mb-[27px] dark:bg-dark-neutral-border')
+            p.text-gray-1100.leading-4.font-semibold(class='dark:text-gray-dark-1100 text-[14px]') Categories
+          .flex.flex-col(class='gap-y-[22px] px-[18px] mb-[25px]')
+            +CheckboxText('Laptops')
+            +CheckboxText('Mobile phones')
+            +CheckboxText('Desktops')
+            +CheckboxText('Accessories')
+            +CheckboxText('Portable storage')
+            +CheckboxText('Networking')
+          .flex.items-center.justify-center.cursor-pointer(class='gap-x-[13px]')
+            img(src='assets/images/icons/icon-add-square.svg', alt='add square icon')
+            span.font-semibold.text-xs.text-gray-1100(class='dark:text-gray-dark-1100') Add category
+        .border.border-neutral.rounded-lg(class='dark:border-dark-neutral-border pb-[31px]')
+          .bg-neutral.rounded-t-lg(class='py-[15px] pl-[18px] mb-[27px] dark:bg-dark-neutral-border')
+            p.text-gray-1100.leading-4.font-semibold(class='dark:text-gray-dark-1100 text-[14px]') Format
+          .flex.flex-col(class='gap-y-[15px] px-[18px] mb-[25px]')
+            +RadioIconText('assets/images/icons/icon-flag.svg', 'flag icon', 'Standard')
+            +RadioIconText('assets/images/icons/icon-flash.svg', 'flash icon', 'Aside')
+            +RadioIconText('assets/images/icons/icon-gallery.svg', 'gallery icon', 'Image')
+            +RadioIconText('assets/images/icons/icon-subtitle.svg', 'subtitle icon', 'Gallery')
+            +RadioIconText('assets/images/icons/icon-video-square.svg', 'video square icon', 'Video')
+            +RadioIconText('assets/images/icons/icon-music-square.svg', 'music square icon', 'Audio')
+        .border.border-neutral.rounded-lg(class='dark:border-dark-neutral-border pb-[31px]')
+          .bg-neutral.rounded-t-lg(class='py-[15px] pl-[18px] mb-[27px] dark:bg-dark-neutral-border')
+            p.text-gray-1100.leading-4.font-semibold(class='dark:text-gray-dark-1100 text-[14px]') Discussion
+          .flex.flex-col(class='gap-y-[22px] px-[18px] mb-[25px]')
+            +CheckboxText('Allow comments')
+            +CheckboxText('Allow trackbacks and pingbacks on this page')

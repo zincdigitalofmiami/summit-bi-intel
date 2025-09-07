@@ -1,0 +1,151 @@
+extends layout/layout
+
+block vars
+  - title = 'Social Feed 3 Page'
+  - bodyClass = 'social-feed-3-page'
+
+block container
+  section
+    .flex.justify-between.gap-6
+      .flex-col.gap-y-6.hidden(class='sm:flex')
+        +BaseWrapper.px-6.rounded-2xl(class='py-[22px]')
+          p.text-xs.text-gray-400(class='dark:text-gray-dark-400 mb-[23px]') Your pages
+          .flex.flex-col.mb-5(class='gap-y-[18px]')
+            +IconWithTextSocial('assets/images/icons/icon-white-ui-store.svg', 'WhiteUI.Store', 'WhiteUI.Store')
+            +IconWithTextSocial('assets/images/icons/icon-dribbble-community.svg', 'Dribbble Community', 'Dribbble Community')
+            +IconWithTextSocial('assets/images/icons/icon-behance-inspiration.svg', 'Behance Inspiration', 'Behance Inspiration')
+            +IconWithTextSocial('assets/images/icons/icon-sketch-app-tuts.svg', 'Sketch App Tuts', 'Sketch App Tuts')
+            +IconWithTextSocial('assets/images/icons/icon-figma-resources.svg', 'Figma Resources', 'Figma Resources')
+            +IconWithTextSocial('assets/images/icons/icon-adobe-xd-tuts.svg', 'Adobe Xd Tuts', 'Adobe Xd Tuts')
+            +IconWithTextSocial('assets/images/icons/icon-themeforest-market.svg', 'Themeforest Market ', 'Themeforest Market ')
+          .flex.items-center.gap-x-3
+            +DropDown-3(false, list=[{link: '#', title: 'View details'}, {link: '#', title: 'Send message'}, {link: '#', title: 'Contact'}, {divider: true}, {link: '#remove', title: 'Delete'}], labelStyle='flex items-center justify-between', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+              img.mx-auto.cursor-pointer(src='assets/images/icons/icon-more.svg', alt='more icon')
+            a.text-xs.text-gray-1100(href='#', class='dark:text-gray-dark-1100') Show more
+        +BaseWrapper.rounded-2xl(class='p-[18px] pb-[47px]')
+          .flex.items-center.pb-4.border-b.border-neutral.mb-8(class='gap-x-[10px] dark:border-dark-neutral-border')
+            +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, false, 40, 8, false, false)
+            .flex.flex-col(class='gap-y-[6px]')
+              span.leading-4.text-gray-1100.font-medium(class='text-[16px] dark:text-gray-dark-1100') Steven Jobs
+              span.text-xs.text-gray-400(class='dark:text-gray-dark-400') 2 mins ago
+          .flex.flex-col.mb-8
+            +SideMenuSecondItem('assets/images/icons/icon-favorite-chart.svg', 'favorite icon', 'News Feed')
+            +SideMenuSecondItem('assets/images/icons/icon-crm.svg', 'crm icon', 'People')
+            +SideMenuSecondItem('assets/images/icons/icon-gallery-favorite.svg', 'gallery icon', 'Photos')
+            +SideMenuSecondItem('assets/images/icons/icon-user-square.svg', 'user icon', 'Profiles')
+            +SideMenuSecondItem('assets/images/icons/icon-share.svg', 'share icon', 'Groups')
+            +SideMenuSecondItem('assets/images/icons/icon-setting-2.svg', 'setting icon', 'Setting')
+          p.text-xs.text-gray-400.mb-2(class='dark:text-gray-dark-400') Recent followers
+          .flex.items-center
+            a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[3]')
+              img.w-full.h-full.object-cover(src='assets/images/cus-dashboard-8.png', alt='avatar')
+            a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[4] ml-[-8px]')
+              img.w-full.h-full.object-cover(src='assets/images/cus-dashboard-9.png', alt='avatar')
+            a.w-8.h-8.overflow-hidden.rounded-full(href='#', class='z-[5] ml-[-8px]')
+              img.w-full.h-full.object-cover(src='assets/images/crm-avatar-3.png', alt='avatar')
+            .flex.items-center.justify-center.w-8.h-8.rounded-full.bg-gray-400(class='dark:bg-gray-dark-400 ml-[-8px] z-[6]')
+              span.text-xs.text-white +3
+        +UpgradeCard
+      .flex.justify-between.gap-6.items-start.flex-col.flex-1(class='xl:flex-row')
+        .flex.flex-col.gap-y-6.flex-1.w-full(class='xl:w-fit')
+          +BaseWrapper.px-5.rounded-2xl(class='py-[18px]')
+            .flex.items-center.justify-between.flex-col(class='gap-[15px] lg:flex-row')
+              +StoryItem('assets/images/story1.png', 'assets/images/seller-avatar-1.png', 'Floyd Miles')
+              +StoryItem('assets/images/story2.png', 'assets/images/seller-avatar-2.png', 'Robert Fox')
+              +StoryItem('assets/images/story3.png', 'assets/images/seller-avatar-3.png', 'Dianne Russell')
+              +StoryItem('assets/images/story4.png', 'assets/images/seller-avatar-4.png', 'Albert Flores')
+          +BaseWrapper.rounded-2xl(class='py-[18px] pr-[22px] pl-[18px]')
+            .flex.items-center(class='gap-[14px] mb-[18px]')
+              .overflow-hidden.rounded-full.shrink-0(class='w-[42px] h-[42px]')
+                img.w-full.h-full.object-cover(src='assets/images/seller-avatar-1.png', alt='avatar')
+              input.flex-1.text-gray-400.text-xs.bg-neutral.rounded-lg(
+                type='text',
+                placeholder='What are you thinking ?',
+                class='dark:text-gray-dark-400 dark:bg-dark-neutral-border py-[13px] px-[18px] focus:outline-none'
+              )
+            .flex.items-center.justify-between
+              .flex.items-center.gap-9.flex-wrap
+                .flex.items-center(class='gap-x-[9px]')
+                  img(src='assets/images/icons/icon-video-camera-boxy.svg', alt='video camera icon')
+                  span.text-gray-400.text-xs(class='dark:text-gray-dark-400') Live Video
+                .flex.items-center(class='gap-x-[9px]')
+                  img(src='assets/images/icons/icon-picture-boxy.svg', alt='picture icon')
+                  span.text-gray-400.text-xs(class='dark:text-gray-dark-400') Photo/Video
+                .flex.items-center(class='gap-x-[9px]')
+                  img(src='assets/images/icons/icon-smile-boxy.svg', alt='smile icon')
+                  span.text-gray-400.text-xs(class='dark:text-gray-dark-400') Feeling
+              +Button("Post", "M", "solid", false).border-neutral-bg.py-3.px-7(
+                class='dark:border-dark-neutral-bg'
+              )
+          +BaseWrapper.rounded-2xl(class='pt-[30px] pb-[35px] pr-[22px] pl-[26px]')
+            .flex.items-center.justify-between.flex-col(class='gap-[18px] xl:flex-row')
+              button.bg-neutral.flex.items-center.pr-5(
+                class='rounded-[50px] dark:bg-dark-neutral-border gap-x-[10px] py-[11px] pl-[22px]'
+              )
+                img(src='assets/images/icons/icon-video-gradient.svg', alt='video icon')
+                span.text-gray-1100.font-medium(class='dark:text-gray-dark-1100 text-[12px] leading-[9px]') Create Group Video
+              .relative
+                .grid.grid-cols-4.items-center.gap-4(class='lg:flex')
+                  +UserActiveMaxItem('assets/images/seller-avatar-1.png', true, activeColor, false, 50, 13, false, false)
+                  +UserActiveMaxItem('assets/images/seller-avatar-2.png', true, activeColor, false, 50, 13, false, false)
+                  +UserActiveMaxItem('assets/images/seller-avatar-3.png', true, activeColor, false, 50, 13, false, false)
+                  +UserActiveMaxItem('assets/images/seller-avatar-4.png', true, activeColor, false, 50, 13, false, false)
+                  +UserActiveMaxItem('assets/images/seller-avatar-5.png', true, activeColor, false, 50, 13, false, false)
+                  +UserActiveMaxItem('assets/images/seller-avatar-6.png', true, activeColor, false, 50, 13, false, false)
+                  +UserActiveMaxItem('assets/images/seller-avatar-1.png', true, activeColor, false, 50, 13, false, false)
+                  +UserActiveMaxItem('assets/images/seller-avatar-2.png', true, activeColor, false, 50, 13, false, false)
+                .absolute(class='top-1/2 translate-y-[-50%] right-[-28px] lg:right-[-10px]')
+                  button.border-neutral.rounded-full.flex.items-center.justify-center.bg-white.my-auto(
+                    class='w-[25px] h-[25px] dark:border-dark-neutral-border border-[1.5625px]'
+                  )
+                    img(src='assets/images/icons/icon-arrow-right-long.svg', alt='arrow right icon')
+          +StatusWithImageItem
+          +StatusItem
+          +StatusItem
+        +BaseWrapper.rounded-2xl.pb-6.px-6.w-full(class='pt-[15px] xl:w-fit')
+          .flex.justify-between.items-center.border-b.border-neutral.pb-1(class='dark:border-dark-neutral-border mb-[11px]') 
+            span.text-sm.text-gray-1100(class='dark:text-gray-dark-1100') 36 Messages
+            +Select(['Newest', 'Newest01', 'Newest02', 'Newest03'])
+          .flex.items-center.mb-10.justify-center(class='gap-[7px]')
+            .grid.grid-cols-4(class='gap-[8px]')
+              +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+              +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+              +UserActiveItem('assets/images/seller-avatar-3.png', true, activeColor, 'Afrim')
+              +UserActiveItem('assets/images/seller-avatar-4.png', false, activeColor, 'Eduar')
+            button.border-neutral.rounded-full.flex.items-center.justify-center.mb-6.bg-white(
+              class='w-[30px] h-[30px] dark:border-dark-neutral-border border-[1.5625px]'
+            )
+              img(src='assets/images/icons/icon-arrow-right-long.svg', alt='arrow right icon')
+          form.flex.items-center.border.border-neutral.w-full.order-last.mb-6(
+            action='#',
+            class='gap-[10px] py-[13px] rounded-[10px] dark:border-dark-neutral-border pl-[18px] lg:order-first'
+          )
+            button(type='submit')
+              img(src='assets/images/icons/icon-search-normal.svg', alt='search icon')
+            input.w-full.outline-none.border-none.text-xs.font-normal.bg-transparent.text-gray-400(
+              type='search',
+              placeholder='people, groups, messages...',
+              class='dark:text-gray-dark-400'
+            )
+          .flex.flex-col(class='gap-y-[21px]')
+            +UserInfoOnline('assets/images/seller-avatar-1.png', 'Darlene Robertson', '(684) 555-0102', '2 min', 'minutes')
+            +UserInfoOnline('assets/images/seller-avatar-2.png', 'Eleanor Pena', '(252) 555-0126', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-3.png', 'Cameron Williamson', '(302) 555-0107', '2 min', 'icon')
+            +UserInfoOnline('assets/images/seller-avatar-4.png', 'Courtney Henry', '(316) 555-0116', '2 min')
+            +UserInfoOnline('assets/images/seller-avatar-5.png', 'Esther Howard', '(239) 555-0108', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-6.png', 'Robert Fox', '(319) 555-0115', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-1.png', 'Jacob Jones', '(702) 555-0122', '2 min', 'icon')
+            +UserInfoOnline('assets/images/seller-avatar-2.png', 'Dianne Russell', '(205) 555-0100', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-1.png', 'Darlene Robertson', '(684) 555-0102', '2 min', 'minutes')
+            +UserInfoOnline('assets/images/seller-avatar-2.png', 'Eleanor Pena', '(252) 555-0126', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-3.png', 'Cameron Williamson', '(302) 555-0107', '2 min', 'icon')
+            +UserInfoOnline('assets/images/seller-avatar-4.png', 'Courtney Henry', '(316) 555-0116', '2 min')
+            +UserInfoOnline('assets/images/seller-avatar-5.png', 'Esther Howard', '(239) 555-0108', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-6.png', 'Robert Fox', '(319) 555-0115', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-1.png', 'Jacob Jones', '(702) 555-0122', '2 min', 'icon')
+            +UserInfoOnline('assets/images/seller-avatar-2.png', 'Dianne Russell', '(205) 555-0100', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-4.png', 'Courtney Henry', '(316) 555-0116', '2 min')
+            +UserInfoOnline('assets/images/seller-avatar-5.png', 'Esther Howard', '(239) 555-0108', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-6.png', 'Robert Fox', '(319) 555-0115', '2 min', 'circle')
+            +UserInfoOnline('assets/images/seller-avatar-1.png', 'Jacob Jones', '(702) 555-0122', '2 min', 'icon')
+            +UserInfoOnline('assets/images/seller-avatar-2.png', 'Dianne Russell', '(205) 555-0100', '2 min', 'circle')

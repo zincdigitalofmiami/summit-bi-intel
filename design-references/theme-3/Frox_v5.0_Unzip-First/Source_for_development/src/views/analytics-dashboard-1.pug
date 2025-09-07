@@ -1,0 +1,65 @@
+extends layout/layout
+
+block vars
+  - title = 'Analytics Dashboard 1 Page'
+  - bodyClass = 'analytics-dashboard-1-page'
+
+block container
+  +BreadcrumbUnoriginal('Howdy Steven!', 'Check out latest updates', 'Feb 15, 2022 - Feb 21, 2022', 43)
+  section
+    .flex.flex-col.gap-y-6 
+      .flex.flex-col.justify-between.gap-6(class='xl:flex-row')
+        +BaseWrapper.rounded-2xl.px-6.flex-1(class='pt-[15px] pb-[34px]')
+          +TitleToggle(15, 24, 'Top countries')
+          //- img(src='assets/images/map-world.png', alt='map world')
+          canvas#canvas
+        +BaseWrapper.rounded-2xl(class='pt-[15px] pb-[31px] pl-[30px] pr-[27px] xl:w-[35%]')
+          +TitleToggle(15, 34, 'Popular browser')
+          div(class='mb-[43px]')
+            +Chart('bar', 'max-h-[256px]')
+          +ButtonBase('View All Reports').w-full.bg-neutral.text-gray-500(
+            class='dark:text-gray-dark-500 dark:bg-dark-neutral-border rounded-[10px] py-[15px] hover:bg-neutral dark:hover:bg-dark-neutral-border'
+          )
+      .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+        +BaseWrapper.rounded-2xl.pb-8.px-6.flex-1(class='pt-[15px]')
+          +TitleToggle(15, 24, 'Active members')
+          .flex.flex-col(class='gap-y-[15px]')
+            +ActiveMemberItem('assets/images/avatar-layouts-5.png', 100, 'color-brands', 50, '9.5 kpi')
+            +ActiveMemberItem('assets/images/cus-dashboard-8.png', 80, 'orange', 40, '8.3 kpi')
+            +ActiveMemberItem('assets/images/cus-dashboard-9.png', 60, 'blue', 30, '7.6 kpi')
+            +ActiveMemberItem('assets/images/crm-avatar-3.png', 70, 'red', 65, '6.8 kpi')
+            +ActiveMemberItem('assets/images/cus-dashboard-10.png', 90, 'green', 35, '5.9 kpi')
+            +ActiveMemberItem('assets/images/cms-avt-9.png', 90, 'pink', 45, '5.9 kpi')
+        .grid.grid-cols-2(class='gap-x-[25px] gap-y-[22px]')
+          +JobDashboardChartItem("assets/images/icons/icon-bag-happy.svg", "bag happy icon", "green", "assets/images/chart-mini.png", "126.500", "Bitcoin (BTC)", "34.7%",'income')
+          +JobDashboardChartItem("assets/images/icons/icon-messages-2.svg", "messages icon", "blue", "assets/images/chart-mini.png", "126.500", "Ethereum (ETH)", "34.7%",'cash')
+          +JobDashboardChartItem("assets/images/icons/icon-folder-2.svg", "folder icon", "violet", "assets/images/chart-mini.png", "126.500", "TRON (TRX)", "34.7%","purple")
+          +JobDashboardChartItem("assets/images/icons/icon-user-square.svg", "user square icon", "orange", "assets/images/chart-mini.png", "126.500", "Uniswap (UNI)", "34.7%", 'expences')
+          +JobDashboardChartItem("assets/images/icons/icon-shapes.svg", "shapes icon", "fuchsia", "assets/images/chart-mini.png", "126.500", "USD Coin (USDC)", "34.7%", 'fuchsia')
+          +JobDashboardChartItem("assets/images/icons/icon-share.svg", "share icon", "sky", "assets/images/chart-mini.png", "126.500", "Binance Coin (BNB)", "34.7%",'sky')
+        +UpgradeCard.mx-auto(class='xl:mx-0')
+      .flex.flex-col.justify-between.gap-6(class='xl:flex-row')
+        +BaseWrapper.rounded-2xl.pb-8.pl-6.flex-1(class='pt-[15px] pr-[22px]')
+          +TitleToggle(15, 25, 'Visits by Source')
+          .flex.flex-col.gap-y-3.mb-9
+            +TransferCardItem
+            +TransferCardItem('assets/images/icons/icon-linkedin.svg', 'Sterling Cooper','Invoice ID: #GSV567489241UI', '$778.35')
+            +TransferCardItem('assets/images/icons/icon-Behance.svg', 'Cyberdyne Systems','Invoice ID: #GSV567489241UI', '$328.35')
+            +TransferCardItem('assets/images/icons/icon-Pinterest.svg', 'J-Texon','Invoice ID: #GSV567489243UI', '$351.025')
+            +TransferCardItem('assets/images/icons/icon-DuckDuckGo.svg', 'Genco Pura Olive Oil Company','Invoice ID: #GSV567489243UI', '$779.58')
+            +TransferCardItem('assets/images/icons/icon-twitter.svg', 'Soylent Corp','Invoice ID: #GSV567489240UI', '$275.43')
+          +PaginateNextBtn
+        +BaseWrapper.px-6.rounded-2xl(class='pt-[15px] pb-[21px] xl:w-[32%]')
+          +TitleToggle(15, 25, 'Stats by Department')
+          .flex.flex-col(class='gap-y-[19px] mb-[25px]')
+            +ActiveUserItem('assets/images/crypto-avt-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crypto-avt-2.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-9.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-10.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-11.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-12.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/jobs-dashboard-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+            +ActiveUserItem('assets/images/jobs-dashboard-1.png', 'Esther Howard', 'Binford Ltd.', '$128.00', '1258 sales', 40, 40, 100)
+          +Button("View More", "M", "solid", false).border-neutral-bg.px-6(
+            class='dark:border-dark-neutral-bg py-[14px]'
+          )

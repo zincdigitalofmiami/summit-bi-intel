@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { logger } from '@/lib/logger';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -23,15 +24,20 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log to external service in production
+    // Log error using our structured logger
+    logger.error('React Error Boundary caught an error', {
+      error: error.message,
+      stack: error.stack,
+      componentStack: errorInfo.componentStack
+    });
+
+    // Store in global for debugging in development
     if (process.env.NODE_ENV !== 'production') {
-      // Development-only logging - store in global for debugging
       if (typeof window !== 'undefined') {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).__devError = { error, errorInfo };
       }
     }
-    // TODO: In production, send to error tracking service like Sentry
   }
 
   render() {

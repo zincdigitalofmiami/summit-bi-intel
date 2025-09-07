@@ -1,0 +1,83 @@
+extends layout/layout
+
+block vars
+  - title = 'File Manage Folder Page'
+  - bodyClass = 'file-manage-folder-page'
+
+block container
+  +BreadcrumbBase('File manage', 'Home', 'Inbox', false, 33, true)
+  section
+    .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+      .flex.flex-col(class='gap-[10px] lg:gap-[27px] xl:w-[25%] md:flex-row xl:flex-col')
+        +BaseWrapper.rounded-2xl.pb-5.flex-1(class='px-[28px] pt-[35px]')
+          button.btn.flex.items-center.normal-case.bg-color-brands.h-auto.border-neutral-bg.rounded-lg.gap-x-3.border-4.w-full(
+            class='hover:border-[#B2A7FF] hover:bg-color-brands dark:border-dark-neutral-bg dark:hover:border-[#B2A7FF] py-[10px] mb-[30px]'
+          )
+            img(src='assets/images/icons/icon-message-edit.svg', alt='message edit icon')
+            span.text-white.font-semibold.leading-4(class='text-[14px]') New folder
+          .flex.flex-col
+            +FolderItem('Ebook', '11 files')
+            +FolderItem('Game', '185 files')
+            +FolderItem('Settup', '175 files')
+            +FolderItem('Graphic', '1,689 files')
+            +FolderItem('Coding', '125 files')
+            +FolderItem('Customer', '15 files')
+            +FolderItem('Business', '9 files')
+            +FolderItem('Team', '1254 files')
+            +FolderItem('Company', '258 files')
+            +FolderItem('Photos', '369 files')
+            +FolderItem('Movie', '147 files')
+            +FolderItem('Web projects', '123 files')
+            +FolderItem('Other file', '458 files')
+        +BaseWrapper.rounded-2xl.px-7.h-fit(class='pt-[21px] pb-[31px]')
+          p.leading-4.text-gray-500.font-semibold.border-b.border-neutral(
+            class='text-[14px] dark:text-gray-dark-500 pb-[14px] dark:border-dark-neutral-border mb-[18px]'
+          ) User active
+          .grid.grid-cols-2(class='gap-x-[14px] gap-y-[18px] lg:grid-cols-4')
+            +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-3.png', true, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-4.png', false, activeColor, 'Eduar')
+            +UserActiveItem('assets/images/seller-avatar-5.png', true, 'orange', 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-6.png', true, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-1.png', false, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, 'Eduar')
+      +Card.overflow-x-scroll.scrollbar-hide.flex-1(class='px-[28px] pt-[33px] pb-[23px]')
+        .flex.items-center.justify-between.flex-col.gap-4(class='mb-[23px] lg:flex-row')
+          form.flex.items-center.border.border-neutral.w-full.order-last(
+            action='#',
+            class='gap-[10px] py-[13px] rounded-[10px] dark:border-dark-neutral-border lg:w-[279px] pl-[18px] lg:order-first'
+          )
+            button(type='submit')
+              img(src='assets/images/icons/icon-search-normal.svg', alt='search icon')
+            input.w-full.outline-none.border-none.text-xs.font-normal.bg-transparent.text-gray-400(
+              type='search',
+              placeholder='Search all conversation',
+              class='dark:text-gray-dark-400'
+            )
+          .flex.items-center.gap-4.justify-end.w-full
+            p.text-gray-500.text-right(class='text-[10.5px] leading-[17px] dark:text-gray-dark-500') 1-50
+              span.pl-1 of 12,568
+            .flex.items-center
+              a.w-4.h-4.overflow-hidden(href='#') 
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-left.svg', alt='arrow left icon')
+              a.w-4.h-4.overflow-hidden(href='#') 
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+            .p-3.border.rounded-lg.border-neutral(class='dark:border-dark-neutral-border')
+              img(src='assets/images/icons/icon-element-3.svg', alt='element 3 icon')
+        .w-full.bg-neutral(class='h-[1px] mb-[10px] dark:bg-dark-neutral-border')
+        table.w-full(class='min-w-[800px] lg:min-w-fit')
+          tbody
+            +TableCellFileManagerFolder('assets/images/icons/icon-pdf.svg', 'pdf icon', 'project_plan.pdf', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-avi.svg', 'avi icon', 'trailer_final.mp4', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-gif.svg', 'gif icon', 'animation.gif', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-doc.svg', 'doc icon', 'team_work.doc', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-mkv.svg', 'mkv icon', 'earn_space.mkv', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-mp3.svg', 'mp3 icon', 'animal_sound.mp3', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-jpg.svg', 'jpg icon', 'family.jpg', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-psd.svg', 'psd icon', 'banner_design_final.psd', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-svg.svg', 'svg icon', 'icon.svg', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-txt.svg', 'txt icon', 'note.txt', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-xls.svg', 'xls icon', 'financial_report.xlsx', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+            +TableCellFileManagerFolder('assets/images/icons/icon-zip.svg', 'zip icon', 'all_source_code.zip', 'on 2022/02/17 at 11:21 pm', '160 downloads', '616.59Kb', '25 shared', '3 versions')
+        +PaginateNextBtn.mt-6

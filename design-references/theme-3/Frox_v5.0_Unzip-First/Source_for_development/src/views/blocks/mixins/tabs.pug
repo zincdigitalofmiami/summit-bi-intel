@@ -1,0 +1,18 @@
+mixin TabList(text1, text2, text3)
+  .tabs.tabs-boxed.rounded-3xl(class='bg-[#262626]')
+    a.tab.text-white.text-xs.capitalize.tab-active(href='#')= text1
+    a.tab.text-white.text-xs.capitalize(href='#')= text2
+    a.tab.text-white.text-xs.capitalize(href='#')= text3
+
+mixin MailboxTabs
+  div
+
+mixin MailboxTab(icon='assets/images/icons/icon-mailbox-user.svg', title='Social', bgBadge='bg-green', subText='Twitter, Facebook')
+  .flex.items-start(class='gap-[11px] pb-[10px]')
+    div 
+      img(src=icon, alt='mailbox icon')
+    div 
+      .flex.items-center(class='gap-[5px]')
+        +Size12Leading16(title).font-semibold
+        .text-white.rounded-2xl.whitespace-nowrap(class='py-[3px] px-[6px] text-[10px] leading-[10px]', class=bgBadge) 2 new
+      +Size10Leading16Gray400(subText).whitespace-nowrap

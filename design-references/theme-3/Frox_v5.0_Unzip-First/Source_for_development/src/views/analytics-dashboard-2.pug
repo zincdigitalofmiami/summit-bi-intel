@@ -1,0 +1,127 @@
+extends layout/layout
+
+block vars
+  - title = 'Analytics Dashboard 2 Page'
+  - bodyClass = 'analytics-dashboard-2-page'
+
+block container
+  +BreadcrumbUnoriginal('Howdy Steven!', 'Check out latest updates', 'Feb 15, 2022 - Feb 21, 2022', 43)
+  section
+    .flex.flex-col(class='gap-y-[30px]')
+      .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+        +BaseWrapper.rounded-2xl.pl-6.pb-10(class='pt-[15px] pr-[30px] xl:w-[33.333%]')
+          +TitleToggle(15, 25, 'Visits by Source')
+          .flex.flex-col(class='gap-y-[25.5px]')
+            +SourceAnalyticsItem(true, 'assets/images/icons/icon-direct-right.svg', 'direct right icon', 'Direct Source', 'Direct link clicks', '16892', '34.7%')
+            +SourceAnalyticsItem(true, 'assets/images/icons/icon-video-square.svg', 'video square icon', 'Youtube chanel', 'Direct link clicks', '3845', '28.6%')
+            +SourceAnalyticsItem(true, 'assets/images/icons/icon-directbox-default.svg', 'directbox default icon', 'Email Newsletter', 'Direct link clicks', '1563', '22.8%')
+            +SourceAnalyticsItem(true, 'assets/images/icons/icon-programming-arrows.svg', 'programming arrows icon', 'Referrals', 'Direct link clicks', '1523', '16.4%')
+            +SourceAnalyticsItem(true, 'assets/images/icons/icon-people.svg', 'people icon', 'Social Network', 'Direct link clicks', '1452', '17.3%')
+            +SourceAnalyticsItem(false, 'assets/images/icons/icon-hashtag.svg', 'hashtag icon', 'Other', 'Direct link clicks', '1202', '12.9%')
+        +BaseWrapper.rounded-2xl.flex-1.pl-6(class='pt-[15px] pr-[18px] pb-[29px]')
+          .flex.items-center.justify-between.border-b.border-neutral(
+            class='dark:border-dark-neutral-border pb-[15px] mb-[38px]'
+          ) 
+            +Size16Leading20Semibold('Sales Statistics')
+            .flex.items-center
+              .flex.items-center.gap-5
+                span.leading-4.text-gray-500.font-medium.cursor-pointer(class='text-[10px] dark:text-gray-dark-500') Month
+                span.leading-4.text-gray-500.font-medium.cursor-pointer(class='text-[10px] dark:text-gray-dark-500') Week
+                span.leading-4.text-gray-500.font-medium.bg-neutral.cursor-pointer.px-2(
+                  class='text-[10px] dark:text-gray-dark-500 dark:bg-dark-neutral-border rounded-[3px] py-[2px]'
+                ) Day
+              +DropDown(false, list=[{link: '#', title: 'Sales report'}, {link: '#', title: 'Export report'}, {link: '#', title: 'Profit manage'},{link: '#', title: 'Revenue report'}, {divider: true}, {link: '#remove', title: 'Remove widget'}], labelStyle='flex items-center justify-between py-2 px-4', menuStyle='min-w-[126px] bg-neutral-bg mt-[10px] pt-[14px] pb-[7px] px-4 border border-neutral-border ', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end').ml-auto.translate-x-4.z-10
+                img.cursor-pointer(src='assets/images/icons/icon-toggle.svg', alt='toggle icon')
+          +Chart('bar', 'max-h-[400px]')
+      .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+        +BaseWrapper.rounded-2xl.pl-6.pb-10(class='pt-[15px] pr-[30px] xl:w-[33.333%]')
+          +TitleToggle(15, 25, 'Visits by Country')
+          .flex.flex-col(class='gap-y-[25.5px]')
+            +CountryAnalyticsItem(true, 'assets/images/icons/icon-united-states.svg', 'United States logo', 'United States', 'Direct link clicks', '579', '34.7%')
+            +CountryAnalyticsItem(true, 'assets/images/icons/icon-france.svg', 'france logo', 'France', 'Direct link clicks', '2,588', '28.6%')
+            +CountryAnalyticsItem(true, 'assets/images/icons/icon-india.svg', 'india logo', 'India', 'Direct link clicks', '1,253', '22.8%', 'text-red', 'assets/images/icons/icon-export-red.svg')
+            +CountryAnalyticsItem(true, 'assets/images/icons/icon-sweden.svg', 'sweden logo', 'Sweden', 'Direct link clicks', '892', '16.4%')
+            +CountryAnalyticsItem(true, 'assets/images/icons/icon-Vietnam.svg', 'Vietnam logo', 'Vietnam', 'Direct link clicks', '168', '17.3%')
+            +CountryAnalyticsItem(true, 'assets/images/icons/icon-turkey.svg', 'turkey logo', 'Turkey', 'Direct link clicks', '654', '17.3%')
+            +CountryAnalyticsItem(false, 'assets/images/icons/icon-brasil.svg', 'brasil logo', 'Brasil', 'Direct link clicks', '243', '12.9%')
+        +BaseWrapper.rounded-2xl.pb-9.px-6(class='pt-[16px] xl:w-[33.333%]')
+          +TitleToggle(15, 24, 'Queries by Clicks')
+          table.w-full
+            thead
+              tr 
+                th.leading-4.text-gray-400.font-semibold.uppercase.text-left(
+                  class='text-[14px] dark:text-gray-dark-400 w-[46%]'
+                ) Keyword
+                th.leading-4.text-gray-400.font-semibold.uppercase.text-left(class='text-[14px] dark:text-gray-dark-400') Click
+            tbody
+              +QueryByClickItem('Macbook', 2635, 100)
+              +QueryByClickItem('Apple Watch', 1658, 90)
+              +QueryByClickItem('Samsung Galaxy', 1452, 80)
+              +QueryByClickItem('iPhone 13', 1325, 70)
+              +QueryByClickItem('OPPO Reno7', 985, 60)
+              +QueryByClickItem('Laptop Asus', 920, 50)
+              +QueryByClickItem('Vivo Y21s', 853, 40)
+              +QueryByClickItem('MSI Gaming GF63', 658, 30)
+              +QueryByClickItem('MacBook Pro 14', 425, 20, false)
+        +BaseWrapper.rounded-2xl.pb-9.px-6.flex-1(class='pt-[16px]')
+          +TitleToggle(16, 39, 'Stats by Department')
+          .flex.items-center.justify-center(class='gap-[46px] mb-[33px]')
+            .flex.flex-col(class='gap-[7px]')
+              h3.font-bold.text-gray-1100(class='text-[24px] leading-[30px] tracking-[0.113382px] dark:text-gray-dark-1100') $ 18,025
+              span.font-semibold.leading-4.text-gray-400(class='text-[14px] dark:text-gray-dark-400') Actual for March
+            .flex.flex-col(class='gap-[7px]')
+              h3.font-bold.text-gray-1100(class='text-[24px] leading-[30px] tracking-[0.113382px] dark:text-gray-dark-1100') $ 38,689
+              .flex.items-center.gap-3
+                span.font-semibold.leading-4.text-gray-400(class='text-[14px] dark:text-gray-dark-400') GAP
+                .flex.items-center.gap-2
+                  img(src='assets/images/icons/icon-export-green.svg', alt='export icon')
+                  span.leading-4.font-medium.text-green(class='text-[16px]') 23.7%
+          .mx-auto.relative(class='mb-[52px]')
+            .absolute.hidden(class='top-1/2 -translate-y-1/2 xl:block left-[15%]')
+              p.text-subtitle.text-gray-500(class='dark:text-gray-dark-500') Total Categories
+              p.text-header-4.font-bold.text-gray-1100.text-center(class='dark:text-gray-dark-1100') 150
+            +Chart('department', 'max-h-[240px]')
+          p.text-xs.text-gray-400.mx-auto(class='max-w-[327px] dark:text-gray-dark-400') Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus, sapien eu volutpat fermentum, sem lacus euismod lacus, sit amet maximus elit ipsum et nisi.
+      .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+        +BaseWrapper.rounded-2xl.px-6.flex-1.overflow-x-scroll.scrollbar-hide(
+          class='pt-[16px] pb-[29.5px] xl:w-[50%] lg:overflow-x-hidden'
+        )
+          +TitleToggle(15, 24, 'Top Referral Sources')(class='min-w-[580px] lg:min-w-fit')
+          table.w-full(class='min-w-[580px] lg:min-w-fit')
+            thead
+              tr 
+                th.leading-4.text-gray-400.font-semibold.uppercase.text-left(
+                  class='text-[14px] dark:text-gray-dark-400 w-[170px]'
+                ) CAMPAIGN
+                th.leading-4.text-gray-400.font-semibold.uppercase.text-left(
+                  class='text-[14px] dark:text-gray-dark-400 pl-[22px]'
+                ) SESSIONS
+                th.leading-4.text-gray-400.font-semibold.uppercase.text-right(class='text-[14px] dark:text-gray-dark-400') CONVERSION RATE
+            tbody
+              +TopAnalyticsItem('Google', '920', '31.7%', '95%', '62.5%')
+              +TopAnalyticsItem('Bing Search', '875', '31.7%', '95%', '62.5%')
+              +TopAnalyticsItem('Yahoo co', '963', '31.7%', '95%', '62.5%', 'text-red', 'text-red', 'assets/images/icons/icon-export-red.svg', 'assets/images/icons/icon-export-red.svg')
+              +TopAnalyticsItem('Stackoverflow', '125', '31.7%', '95%', '62.5%')
+              +TopAnalyticsItem('Facebook', '985', '31.7%', '95%', '62.5%')
+              +TopAnalyticsItem('Twitter feed', '125', '31.7%', '95%', '62.5%', textColor1, textColor2, exportIcon1, exportIcon2, false)
+        +BaseWrapper.rounded-2xl.px-6.flex-1.overflow-x-scroll.scrollbar-hide(
+          class='pt-[16px] pb-[29.5px] lg:overflow-x-hidden'
+        )
+          +TitleToggle(15, 24, 'Top Performing Pages')(class='min-w-[580px] lg:min-w-fit')
+          table.w-full(class='min-w-[580px] lg:min-w-fit')
+            thead
+              tr 
+                th.leading-4.text-gray-400.font-semibold.uppercase.text-left(
+                  class='text-[14px] dark:text-gray-dark-400 w-[170px]'
+                ) PAGES
+                th.leading-4.text-gray-400.font-semibold.uppercase.text-left(
+                  class='text-[14px] dark:text-gray-dark-400 pl-[22px]'
+                ) VISIT
+                th.leading-4.text-gray-400.font-semibold.uppercase.text-right(class='text-[14px] dark:text-gray-dark-400') BANNER CLICKS
+            tbody
+              +TopAnalyticsItem('home page', '920', '31.7%', '95%', '62.5%')
+              +TopAnalyticsItem('contact page', '875', '31.7%', '95%', '62.5%')
+              +TopAnalyticsItem('booking', '963', '31.7%', '95%', '62.5%')
+              +TopAnalyticsItem('faqs', '125', '31.7%', '95%', '62.5%')
+              +TopAnalyticsItem('services', '985', '31.7%', '95%', '62.5%', 'text-red', 'text-red', 'assets/images/icons/icon-export-red.svg', 'assets/images/icons/icon-export-red.svg')
+              +TopAnalyticsItem('contact us', '125', '31.7%', '95%', '62.5%', textColor1, textColor2, exportIcon1, exportIcon2, false)

@@ -1,0 +1,92 @@
+extends layout/layout
+
+block vars
+  - title = 'Chat 3 Page'
+  - bodyClass = 'chat-3-page'
+
+block container
+  section
+    +BaseWrapper.rounded-2xl(class='pt-[25px] pb-[5px] mb-[22px]')
+      .grid.grid-cols-2.justify-items-center.gap-y-5(class='md:grid-cols-4 xl:grid-cols-8')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-1.png', 'Dianne', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-2.png', 'Victoria', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-3.png', 'Arlene', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-4.png', 'Mitchell', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-5.png', 'Colleen', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-6.png', 'Philip', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-1.png', 'Shawn', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-2.png', 'Courtney', '2 mins ago')
+    .flex.flex-col(class='gap-[22px] xl:flex-row')
+      +BaseWrapper.rounded-2xl.px-6.pb-5(class='pt-[15px]')
+        .flex.justify-between.items-center.border-b.border-neutral.pb-1(class='dark:border-dark-neutral-border mb-[11px]') 
+          span.text-sm.text-gray-1100(class='dark:text-gray-dark-1100') 36 Messages
+          +Select(['Newest', 'Newest01', 'Newest02', 'Newest03'])
+        .flex.justify-between.items-center.gap-5.flex-row-reverse(class='mb-[7px] lg:flex-row')
+          form.flex.flex-1.items-center.border.border-neutral.w-full.order-last(
+            action='#',
+            class='gap-[10px] py-[13px] rounded-[10px] dark:border-dark-neutral-border lg:w-[279px] pl-[18px] lg:order-first'
+          )
+            button(type='submit')
+              img(src='assets/images/icons/icon-search-normal.svg', alt='search icon')
+            input.w-full.outline-none.border-none.text-xs.font-normal.bg-transparent.text-gray-400(
+              type='search',
+              placeholder='people, groups, messages...',
+              class='dark:text-gray-dark-400'
+            )
+          button.overflow-hidden(class='w-[42px] h-[42px]') 
+            img.w-full.h-full.object-cover(src='assets/images/icons/icon-filter-2.svg', alt='filter icon', class='dark:hidden')
+            img.w-full.h-full.object-cover.hidden(
+              src='assets/images/icons/icon-filter-2-black.svg',
+              alt='filter icon',
+              class='dark:block'
+            )
+        .flex.flex-col.gap-y-2
+          +MessageNotificationItem('assets/images/seller-avatar-1.png', 'Steven Jobs', '1', 'We will start this project...', '11:26 am')
+      +BaseWrapper.rounded-2xl.flex-1.px-6(class='pt-[17px]')
+        .relative
+          .flex.justify-between.border-b.border-neutral.pb-4(class='dark:border-dark-neutral-border mb-[18px]') 
+            .flex(class='gap-x-[38px]')
+              .overflow-hidden.w-12.h-12.rounded-full
+                img.w-full.h-full.object-cover(src='assets/images/seller-avatar-1.png', alt='avatar')
+              .flex.flex-col(class='gap-y-[6px]')
+                h3.leading-4.font-medium.text-gray-1100(class='text-[16px] dark:text-gray-dark-1100') Theresa Rose
+                .flex.items-center(class='gap-x-[5px]')
+                  span.text-gray-400.text-xs.font-semibold(class='dark:text-gray-dark-400') Active now
+                  .bg-green.rounded-full(class='w-[10px] h-[10px]')
+            .flex.items-center.gap-x-3 
+              button.w-6.h-6.overflow-hidden 
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-search-normal.svg', alt='search icon')
+              button.w-6.h-6.overflow-hidden 
+                img.w-full.h-full.object-cover.filter-gray(
+                  src='assets/images/icons/icon-gallery.svg',
+                  alt='gallery icon'
+                )
+              button.w-6.h-6.overflow-hidden 
+                img.w-full.h-full.object-cover.filter-blue(src='assets/images/icons/icon-video.svg', alt='video icon')
+              button.w-6.h-6.overflow-hidden 
+                img.w-full.h-full.object-cover.filter-gray(
+                  src='assets/images/icons/icon-microphone-2.svg',
+                  alt='microphone icon'
+                )
+          time.text-center.text-gray-400.text-xs.block.mb-6(class='dark:text-gray-dark-400') August 15, 2022
+          .flex.flex-col.overflow-y-scroll.scrollbar-hide(class='gap-y-[27px] max-h-[750px] mb-[180px]') 
+            +MessagesReceivedBox('assets/images/seller-avatar-2.png', 'Theresa Rose', '08:33AM', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum consequat suscipit. Praesent condimentum nibh sed sem ornare, ac malesuada diam congue.')
+            +MessagesSentBox('assets/images/seller-avatar-1.png', 'Theresa Rose', '08:33AM', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum consequat suscipit.', true)
+            +MessagesReceivedBox('assets/images/seller-avatar-2.png', 'Theresa Rose', '08:33AM', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum consequat suscipit.')
+            +MessagesSentBox('assets/images/seller-avatar-1.png', 'Theresa Rose', '08:33AM', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum consequat suscipit. Praesent condimentum nibh sed sem ornare, ac malesuada diam congue.')
+          form.flex.items-center.border.border-neutral.w-full.order-last.absolute.justify-between(
+            action='#',
+            class='gap-[10px] py-[14px] rounded-[10px] dark:border-dark-neutral-border px-[22px] lg:order-first bottom-[-125px]'
+          )
+            input.w-full.outline-none.border-none.text-xs.font-normal.bg-transparent.text-gray-400.flex-1(
+              type='text',
+              placeholder='Type to add your message',
+              class='dark:text-gray-dark-400'
+            )
+            .flex.items-center.gap-x-6
+              button.overflow-hidden(class='w-[18px] h-[18px]') 
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-smile.svg', alt='smile icon')
+              button.overflow-hidden(class='w-[13px] h-[13px]') 
+                img.w-full.h-full.object-cover.filter-gray(src='assets/images/icons/icon-add.svg', alt='add icon')
+              button.bg-blue.rounded-full.flex.items-center.justify-center.w-11.h-11(type='submit')
+                img(src='assets/images/icons/icon-send-1.svg', alt='send icon')

@@ -1,0 +1,50 @@
+block mixins
+  include ../blocks/mixins
+
+block vars
+  - title = 'Site'
+  - bodyClass = ''
+
+doctype html
+html.scroll-smooth.overflow-x-hidden(lang='en')
+  head
+    meta(charset='utf-8')
+    title= title
+    meta(name='description', content='')
+    meta(name='keywords', content='')
+    meta(name='robots', content='index, follow')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1.0')
+    link(rel='icon', href='assets/images/icons/icon-favicon.svg', type='image/x-icon', sizes='16x16')
+    link(rel='stylesheet', href='assets/styles/tailwind.min.css?v=5.0')
+    link(rel='stylesheet', href='assets/styles/style.min.css?v=5.0')
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
+    link(
+      rel='stylesheet',
+      href='https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Noto+Sans:wght@400;500;600;700;800&display=swap'
+    )
+
+  body.w-screen.relative.overflow-x-hidden.min-h-screen.bg-gray-100.scrollbar-hide(class=bodyClass, class='dark:bg-[#000]')
+    #layout.wrapper.mx-auto.text-gray-900.font-normal.grid.scrollbar-hide(class='grid-cols-[257px,1fr] grid-rows-[auto,1fr]')
+      block sidebar
+        include ../blocks/sidebar
+      block header
+        include ../blocks/header
+      main.overflow-x-scroll.scrollbar-hide.flex.flex-col.justify-between(class='pt-[42px] px-[23px] pb-[28px]')
+        div
+          block container
+          +Modal('details').absolute(class='left-[-1000px]')
+            +DetailsModal
+          +Modal('project').absolute(class='left-[-1000px]')
+            +NewProjectModal
+          +Modal('add').absolute(class='left-[-1000px]')
+            +AddProjectModal
+          +Modal('share').absolute(class='left-[-1000px]')
+            +ShareProjectModal
+          +Modal('mail').absolute(class='left-[-1000px]')
+            +MailModal
+
+        block footer
+          include ../blocks/footer
+    block layer
+    include ../blocks/scripts

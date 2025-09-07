@@ -1,0 +1,64 @@
+extends layout/layout
+
+block vars
+  - title = 'CRM Customer Details Page'
+  - bodyClass = 'crm-customer-details-page'
+
+block container
+  div(class='xl:px-[97px]')
+    +BreadcrumbBase('Customers Details', 'Home', 'Customers', 'Feb 15, 2022 - Feb 21, 2022', '53')
+  .flex.justify-between.flex-col(class='xl:px-[97px] gap-x-[38px] xl:flex-row')
+    .flex.flex-col.gap-y-6 
+      .border.bg-neutral-bg.border-neutral.rounded-2xl(
+        class='dark:bg-dark-neutral-bg dark:border-dark-neutral-border px-[30px] pt-[30px] pb-[43px] md:w-[50%] md:mx-auto xl:w-full xl:mx-0'
+      )
+        img.mb-5.mx-auto(src='assets/images/crm-cus-details-1.png', alt='avatar', class='w-[150px]')
+        h2.font-semibold.text-center(class='text-[20px] leading-[18px] text-[#313442] mb-[5px]') Steven Jonh
+        p.leading-4.text-gray-500.text-center(class='text-[14px] dark:text-gray-dark-500 mb-[15px]') Cchicago, 6015, USA
+        button.flex.items-center.justify-center.bg-color-brands.rounded-md.mx-auto(
+          class='w-[250px] gap-x-[6px] py-[10px] mb-[27px]'
+        )
+          img(src='assets/images/icons/icon-edit.svg', alt='edit icon')
+          span.leading-4.font-semibold(class='text-[#FCFCFC] text-[14px]') Edit Profile
+        table.w-full(class='mb-[27px]')
+          +TableRowCustomerDetails("Email ID:", "stevenjohn@gmail.com")
+          +TableRowCustomerDetails("Birthday:", "18 September 1985")
+          +TableRowCustomerDetails("Phone:", "+88 879 23249")
+          +TableRowCustomerDetails("Country:", "France")
+          +TableRowCustomerDetails("State/Region:", "Paris")
+          +TableRowCustomerDetails("Address:", "15 No, Bondi Street")
+          +TableRowCustomerDetails("Joined:", "28 March 2015")
+        p.text-color-brands.leading-4.mb-4(class='text-[14px]') Social Network
+        .flex.items-center.gap-x-3
+          a(href='#')
+            img(src='assets/images/icons/icon-facebook-2.svg', alt='facebook icon')
+          a(href='#')
+            img(src='assets/images/icons/icon-instagram-2.svg', alt='instagram icon')
+          a(href='#')
+            img(src='assets/images/icons/icon-twitter-2.svg', alt='twitter icon')
+          a(href='#')
+            img(src='assets/images/icons/icon-linkedin-2.svg', alt='linkedin icon')
+      +RecruitingCard.mb-6(class='sm:min-w-[364px]')
+    .flex-1
+      .border.bg-neutral-bg.border-neutral.rounded-2xl.mb-9(
+        class='px-[28px] pb-[18px] pt-[22px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+      )
+        .flex.justify-between.pb-5.border-b.border-neutral.flex-col.items-stretch.gap-y-3(
+          class='dark:border-dark-neutral-border sm:items-center mb-[11px] sm:flex-row'
+        )
+          h3.text-base.leading-5.font-semibold.text-gray-500(class='dark:text-gray-dark-500') Orders List
+          +InputSelect("Status", 'mb-0')(class='max-w-[173px]')
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Wiless Speaker', '17 Oct, 2022', 'Completed', '$782.01').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook Pro', '17 Oct, 2022', 'Completed', '$601.13').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Dell Laptop', '17 Oct, 2022', 'Completed', '$202.87').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook Air', '17 Oct, 2022', 'Completed', '$739.65').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook', '17 Oct, 2022', 'Completed', '$293.01').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'LG Laptop', '17 Oct, 2022', 'Completed', '$779.58').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook Pro', '17 Oct, 2022', 'Completed', '$169.43').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook Pro', '17 Oct, 2022', 'Completed', '$576.28').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook', '17 Oct, 2022', 'Completed', '$778.35').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'LG Laptop', '17 Oct, 2022', 'Completed', '$446.61').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook Pro', '17 Oct, 2022', 'Completed', '$351.02').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook Pro', '17 Oct, 2022', 'Completed', '$450.54').border-b
+        +OrderItem(' 70668', 'assets/images/crm-product-1.png', 'Macbook Pro', '17 Oct, 2022', 'Completed', '$105.55')
+      +PaginateNextBtn

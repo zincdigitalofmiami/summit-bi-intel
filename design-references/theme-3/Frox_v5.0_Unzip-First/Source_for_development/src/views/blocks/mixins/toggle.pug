@@ -1,0 +1,19 @@
+mixin ToggleM(whiteBg=true, disabled)
+  label.flex.items-center.cursor-pointer(for='toggleInputM', class=disabled && 'pointer-events-none') 
+    .relative 
+      input#toggleInputM.sr-only.peer(type='checkbox', name='')
+      .block.rounded-full(class='w-[56px] h-[32px]', class=whiteBg ? 'bg-white' : 'bg-color-brands peer-checked:bg-color-brands')
+      .dot.absolute.left-1.top-1.rounded-full.transition(
+        class='h-[24px] w-[24px]',
+        class=whiteBg ? 'bg-gray-900' : 'bg-[#DCD7FC] peer-checked:bg-white'
+      )
+
+mixin ToggleS(whiteBg=true, disabled, id='toggleInputS')
+  label.flex.items-center.cursor-pointer(for=id, class=disabled && 'pointer-events-none')&attributes(attributes) 
+    .relative 
+      input.sr-only.peer(type='checkbox', name='', id=id)
+      .block.rounded-full(class='w-[48px] h-[16px]', class=whiteBg ? 'bg-white' : 'bg-gray-300 peer-checked:bg-[#B2A7FF]')
+      .dot.dotS.absolute.rounded-full.transition(
+        class='h-[24px] w-[24px] top-[-4px] left-[-4px]',
+        class=whiteBg ? 'bg-gray-900' : 'bg-[#B2A7FF] peer-checked:bg-color-brands'
+      )

@@ -1,0 +1,23 @@
+extends layout/layout
+
+block vars
+	- title = 'Course Course Page'
+	- bodyClass = 'course-course-page'
+
+block container
+	+BreadcrumbUnoriginal('All courses', 'Check out latest updates', 'Feb 15, 2022 - Feb 21, 2022', 43)
+	section
+		+BaseWrapper.rounded-2xl.pt-6.flex-1(class='pb-[28px]')
+			+TitleToggle(19, 33, 'Recent Courses')(class='px-[25px]')
+			div(class='px-[25px]')
+				.grid.grid-cols-1.gap-6(class='mb-[23px] lg:grid-cols-2 xl:grid-cols-3')
+					+RecentCourseItemGridImage('assets/images/icons/icon-bootstrap.svg', 'bootstrap logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/bootstrap-course.png', 'bootstrap course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+					+RecentCourseItemGridImage('assets/images/icons/icon-react.svg', 'react logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/tailwind-course.png', 'tailwind course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+					+RecentCourseItemGridImage('assets/images/icons/icon-redux.svg', 'redux logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/redux-course.png', 'redux course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+					+RecentCourseItemGridImage('assets/images/icons/icon-sass.svg', 'sass logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/sass-course.png', 'sass course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+					+RecentCourseItemGridImage('assets/images/icons/icon-css.svg', 'css logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/css-course.png', 'css course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+					+RecentCourseItemGridImage('assets/images/icons/icon-pug.svg', 'pug logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/pug-course.png', 'pug course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+					+RecentCourseItemGridImage('assets/images/icons/icon-tailwind.svg', 'tailwind logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/angular-course.png', 'angular course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+					+RecentCourseItemGridImage('assets/images/icons/icon-webpack.svg', 'webpack logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/django-course-1.png', 'django course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+					+RecentCourseItemGridImage('assets/images/icons/icon-sass.svg', 'sass logo', 'Bootstrap 5 Course: The Complete Guide Step by Step', '6.5 hours', '68 lectures', 5, 'assets/images/django-course-2.png', 'django course', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'Ali Education', '$500', 'Developer', 'Front-end')
+				+PaginateNextBtnSm

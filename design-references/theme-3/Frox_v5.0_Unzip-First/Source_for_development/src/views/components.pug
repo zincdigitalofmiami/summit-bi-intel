@@ -1,0 +1,51 @@
+extends layout/layout
+
+block vars
+  - title = 'Components Page'
+  - bodyClass = 'components-page'
+
+block container
+  main.p-5
+    h2.text-gray-500.header-1.mt-5 Dropdown
+    +DropDown(hover, list=[{link: '#', icon:'/assets/images/icons/icon-verify.svg', title: 'All Brands'}, {link: '#', icon:'/assets/images/icons/icon-verify.svg', title: 'News Reviews'}, {link: '#', icon:'/assets/images/icons/icon-verify.svg', title: 'Financial report'},{link: '#', icon:'/assets/images/icons/icon-verify.svg', title: 'Shipping'},{link: '#', icon:'/assets/images/icons/icon-verify.svg', title: 'View Catalog'},{link: '#', icon:'/assets/images/icons/icon-verify.svg', title: 'Revenue report'},{link: '#', icon:'/assets/images/icons/icon-verify.svg', title: 'Refund requests'}], labelStyle='flex items-center justify-between', menuStyle='bg-color-brands min-w-[237px] mt-[25px] md:mt-[48px] p-[25px] pb-[10px]', childStyle='text-normal', color='border-b-color-brands',titleStyle='text-white hover:text-[#C6CBD9]')(
+      class='w-[142px]'
+    )
+      .flex.items-center(class='gap-[11px]') 
+        img(src='/assets/images/icons/icon-export.svg', alt='export icon')
+        span.text-normal.font-semibold.text-gray-500 Browse
+      img(src='/assets/images/icons/icon-arrow-down.svg', alt='down icon')
+    h2.text-gray-500.header-1 Buttons
+    +Button("Button", 156, 56, "L", "solid", false)
+    +Button("Button", 124, 42, "M", "dim", false)
+    +Button("Button", 88, 32, "S", "ghost", false)
+    h2.text-gray-500.header-1 Sliders
+    +RangeSliders
+    h2.text-gray-500.header-1 Badges
+    .flex.gap-x-10
+      +Badge(3, "solid")
+      +Badge(2, "dim")
+      +Badge(4, "ghost")
+    h2.text-gray-500.header-1 Seclectors
+    +Checkbox
+    +Radio
+    h2.text-gray-500.header-1 Toggles
+    .flex.gap-x-10
+      +ToggleM(false, false)
+      +ToggleS(false, true)
+    h2.text-gray-500.header-1 Controls
+    .flex.flex-col.gap-y-10
+      +TabList("toggle 1", "toggle 1", "toggle 1")
+      +Control("solid", false, img, "solid", "solid")
+      +Control("dim", "white", "assets/images/icons/icon-x.svg", "solid", "solid")
+      +Control("ghost", "black", "assets/images/icons/icon-x.svg", "ghost", "solid")
+    h2.text-gray-500.header-1.mt-5 Breadcrumb
+    +Breadcrumb('home', 'product details')
+    h2.text-gray-500.header-1.mt-5 Category Badge
+    +CategoryBadge('bg-yellow', content='5')
+    h2.text-gray-500.header-1.mt-5 Users Stack
+    +UsersStack
+      +AddUser.z-10(class='translate-x-[-40px]')
+    h2.text-gray-500.header-1.mt-5 Upgrade Block
+      +UpgradeCard
+    h2.text-gray-500.header-1.mt-5 Chart Example
+      +Chart('performance')

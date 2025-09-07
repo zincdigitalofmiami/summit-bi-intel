@@ -1,0 +1,24 @@
+extends layout/layout
+
+block vars
+  - title = 'Your are done'
+  - bodyClass = 'authentication-sign-in-page'
+
+block container
+  form.rounded-2xl.bg-white.mx-auto.p-10.text-center(action='', method='', class='max-w-[440px] my-[84px] dark:bg-[#1F2128]')
+    .mb-4.text-center.mx-auto
+      img.inline-block(src='assets/images/icons/icon-done.svg', alt='landing success')
+    h3.font-bold.text-2xl.text-gray-1100.capitalize(class='mb-[5px] dark:text-gray-dark-1100') Almost done!
+    p.text-sm.text-gray-500(class='mb-[30px] dark:text-gray-dark-500') Last step
+    div.text-center.mx-auto
+      .mb-4.text-center.mx-auto
+        img.inline-block(src='assets/images/icons/icon-done-mail.png', alt='landing success')
+      p.text-md.text-gray-1100(class='mb-[30px] dark:text-gray-dark-1100')
+        | We sent an email to
+        a(href="#")
+          | foxdashboard@hotmail.com
+        <br>
+        | Click confirmation link in the email to verify your account.
+    +Button("Open Email App & Confirm", false, 52, "M", "solid", false).w-full.border-neutral-bg(
+      class='mb-[20px] py-[14px] dark:border-dark-neutral-bg'
+    )

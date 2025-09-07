@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { logger } from '@/lib/logger';
 
 interface UseLocalStorageOptions<T> {
   fallback?: T;
@@ -48,8 +49,7 @@ export function useLocalStorage<T>(
     } catch (error) {
       // Silent fail - don't break the app if localStorage fails
       if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
-        console.warn(`Failed to save to localStorage (key: ${key}):`, error);
+        logger.warn(`Failed to save to localStorage (key: ${key})`, error);
       }
     }
   }, [key, serialize, storedValue]);
@@ -63,8 +63,7 @@ export function useLocalStorage<T>(
       }
     } catch (error) {
       if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
-        console.warn(`Failed to clear localStorage (key: ${key}):`, error);
+        logger.warn(`Failed to clear localStorage (key: ${key})`, error);
       }
     }
   }, [key, initialValue]);

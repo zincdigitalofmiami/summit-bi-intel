@@ -1,0 +1,112 @@
+extends layout/layout
+
+block vars
+  - title = 'Add New Job Page'
+  - bodyClass = 'add-new-job-page'
+
+block container
+  .text-center(class='mt-[66px] mb-[61px]')
+    h1.text-gray-1100.font-semibold(class='dark:text-gray-dark-1100 text-[28px] leading-[34px] mb-[15px]') Add New Job
+    .flex.items-center.mx-auto.justify-center(class='gap-x-[11px]')
+      .flex.items-center.gap-x-1 
+        img(src='assets/images/icons/icon-home-2.svg', alt='home icon')
+        a.text-gray-500.text-xs(href='#', class='dark:text-gray-dark-500') Home
+      img(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+      a.text-xs.text-color-brands(href='') Add new
+  .flex.gap-x-12.border.justify-between.flex-col.gap-y-12.bg-white.border-neutral.px-5(
+    class='pt-[61px] pb-[55px] xl:pl-[168px] xl:pr-[190px] dark:border-dark-neutral-border lg:flex-row lg:gap-y-0 dark:bg-[#1F2128]'
+  )
+    div(class='lg:max-w-[610px]')
+      +InputLabel("Job Title")
+      +InputText("Type name here").mb-12
+      +InputLabel("Job Description")
+      .rounded-lg.mb-12.border.border-neutral(class='dark:border-dark-neutral-border p-[13px]')
+        .flex.items-center.gap-y-4.flex-col(class='gap-x-[27px] mb-[31px] xl:flex-row xl:gap-y-0')
+          .flex.items-center(class='gap-x-[20px]')
+            img.cursor-pointer(src='assets/images/icons/icon-bold.svg', alt='bold icon')
+            img.cursor-pointer(src='assets/images/icons/icon-italicized.svg', alt='italicized icon')
+            img.cursor-pointer(src='assets/images/icons/icon-underlined.svg', alt='underlined icon')
+            img.cursor-pointer(src='assets/images/icons/icon-strikethrough.svg', alt='strikethrough icon')
+            img.cursor-pointer(src='assets/images/icons/icon-textcolor.svg', alt='textcolor icon')
+            img.cursor-pointer(src='assets/images/icons/icon-backgroundcolor.svg', alt='backgroundcolor icon')
+            img.cursor-pointer(src='assets/images/icons/icon-smile.svg', alt='smile icon')
+          .flex.items-center(class='gap-x-[20px]')
+            .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+              img(src='assets/images/icons/icon-paragraphformat.svg', alt='paragraphformat icon')
+              img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+            .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+              img(src='assets/images/icons/icon-align-left.svg', alt='align left icon')
+              img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+            .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+              img(src='assets/images/icons/icon-ordered-list.svg', alt='ordered list icon')
+              img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+            .flex.items-center.cursor-pointer(class='gap-x-[1.5px]')
+              img(src='assets/images/icons/icon-unordered-list.svg', alt='unordered list icon')
+              img(src='assets/images/icons/icon-arrow-down-triangle.svg', alt='arrow down triangle icon')
+            img.cursor-pointer(src='assets/images/icons/icon-indent.svg', alt='indent icon')
+            img.cursor-pointer.opacity-40(src='assets/images/icons/icon-indent.svg', alt='outdent icon')
+          .flex.items-center(class='gap-x-[20px]')
+            img.cursor-pointer(src='assets/images/icons/icon-insert-image.svg', alt='insert image icon')
+            img.cursor-pointer(src='assets/images/icons/icon-insert-link.svg', alt='insert link icon')
+            img.cursor-pointer(src='assets/images/icons/icon-insert-file.svg', alt='insert-file icon')
+            img.cursor-pointer(src='assets/images/icons/icon-insert-video.svg', alt='insert video icon')
+            img.cursor-pointer.opacity-40(src='assets/images/icons/icon-undo.svg', alt='undo icon')
+            img.cursor-pointer.opacity-40(src='assets/images/icons/icon-redo.svg', alt='redo icon')
+        textarea.textarea.w-full.p-0.text-gray-400.resize-none.rounded-none.bg-transparent(
+          class='min-h-[140px] focus:outline-none',
+          placeholder='Type description here'
+        )
+      +InputLabel("Job type")
+      +InputSelect("Full time job")
+      +InputLabel("Location")
+      +InputSelect("New York, USA")
+      .flex.justify-between.flex-col(class='lg:flex-row')
+        div 
+          +InputLabel("Experience level")
+          +InputText("Senior").mb-12
+          +InputLabel("Salary range")
+          +InputText("$500").mb-12
+          +InputLabel("Working hour")
+          +InputSelect("8:00 - 14:00")
+        div 
+          +InputLabel("Experience Years")
+          +InputText("2-4 years").mb-12
+          +InputLabel("Hour rate")
+          +InputText("$42").mb-12
+          +InputLabel("Weekend")
+          +InputSelect("2 days")
+      +InputLabel("Skills")
+      .flex.items-center.border.flex-wrap.rounded-lg.border-neutral.mb-12(
+        class='gap-x-[10px] dark:border-dark-neutral-border pt-[15px] pl-[15px] pr-[23px] pb-[66px]'
+      )
+        +Tag('smartwatch')
+        +Tag('Apple')
+        +Tag('Watch')
+        +Tag('smartphone')
+        +Tag('iPhone13 max')
+        +Tag('iPhone13 max')
+        +Tag('iPhone13 max')
+        +Tag('iPhone13 max')
+        +Tag('iPhone13 max')
+        +Tag('iPhone13 max')
+        +Tag('iPhone13 max')
+      .flex.items-center.gap-x-4.flex-wrap.gap-y-4
+        +Button("Update", "M", "solid", false).border-neutral-bg.px-6(class='dark:border-dark-neutral-bg py-[14px]')
+        button.btn.normal-case.h-fit.min-h-fit.transition-all.duration-300.px-6.border-0.text-white(
+          class='bg-[#E23738] hover:!bg-[#ef6364] hover:text-white py-[14px]'
+        ) Delete
+        button.btn.normal-case.h-fit.min-h-fit.transition-all.duration-300.px-6.border-0(
+          class='bg-[#E8EDF2] text-[#B8B1E4] hover:!bg-[#bdbec0] hover:text-white dark:bg-[#313442] dark:hover:!bg-[#424242] py-[14px]'
+        ) Cancel
+
+    div
+      img.block.border.rounded-lg.mb-12.mx-auto.border-neutral(
+        class='dark:border-dark-neutral-border p-[23.8px]',
+        src='assets/images/product-12.png',
+        alt='product'
+      )
+      +InputLabel("product gallery")
+      .border-dashed.border-2.text-center.mb-12.border-neutral(class='py-[26px] dark:border-dark-neutral-border')
+        img.mx-auto.inline-block(src='assets/images/icons/icon-image.svg', alt='image icon', class='mb-[15px]')
+        p.text-sm.leading-6.text-gray-500.font-normal(class='mb-[5px]') Drop your image here, or browse
+        p.leading-6.text-gray-400(class='text-[13px]') JPG,PNG and GIF files are allowed

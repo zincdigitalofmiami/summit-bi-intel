@@ -1,0 +1,94 @@
+extends layout/layout
+
+block vars
+  - title = 'File Manage Dashboard Page'
+  - bodyClass = 'file-manage-dashboard-page'
+
+block container
+  +BreadcrumbBase('File manage', 'Home', 'Dashboard', false, 31, true)
+  section
+    .flex.justify-between.gap-6.mb-6.flex-col(class='xl:flex-row')
+      +BaseWrapper.rounded-2xl.px-6.flex-1(class='pt-[15px] pb-[30px]')
+        +TitleToggle(15, 24, 'Daily Usage')
+        +Chart('multiBar', 'max-h-[450px]')
+      .flex.flex-col.gap-6
+        +BaseWrapper.rounded-2xl.px-6.flex-1(class='pt-[20px] pb-[41px]')
+          +TitleToggle(16, 24, 'Storage Overview')
+          .grid.items-center.gap-4.grid-cols-4.mb-9 
+            +RadicalProgress
+            +RadicalProgress('bg-[#DAD7FE]', 'text-violet', 46)
+            +RadicalProgress('bg-[#FFE5D3]', 'text-red', 15)
+            +RadicalProgress('bg-[#CCECFE]', 'text-blue', 67)
+            +RadicalProgress('bg-[#CCECFE]', 'text-fuchsia', 23)
+            +RadicalProgress('bg-[#CCECFE]', 'text-orange', 88)
+            +RadicalProgress('bg-[#CCECFE]', 'text-teal-400', 50)
+          .grid.grid-cols-4.items-center.mb-6(class='gap-[15px]')
+            +Legend
+            +Legend('bg-red', 'Document')
+            +Legend('bg-fuchsia', 'Video')
+            +Legend('bg-blue', 'Audio')
+            +Legend('bg-violet', 'Images')
+            +Legend('bg-orange', 'Exe')
+            +Legend('bg-teal-400', 'Other')
+
+          //- div 
+          //-   img(src='assets/images/file-manager-circle-chart.png', alt='chart')
+        +HorizontalUpgradeCard
+    .flex.justify-between.gap-6.flex-col(class='xl:flex-row')
+      .flex.flex-col.gap-y-6.flex-1
+        +BaseWrapper.rounded-2xl.px-6(class='pt-[15px] pb-[29px]')
+          +TitleToggle(15, 26, 'Favorite Folders')
+          .grid.grid-cols-2(class='gap-[13px] md:grid-cols-3 xl:grid-cols-6')
+            +FavoriteFolderItem('assets/images/icons/icon-gallery-fill.svg', 'image icon', 'Images', 'color-brands', ['125 sub folders', '1,895 files', '24Gb']).filter-color-brands
+            +FavoriteFolderItem('assets/images/icons/icon-note-green.svg', 'note icon', 'Note', 'green', ['125 sub folders', '1,895 files', '24Gb'])
+            +FavoriteFolderItem('assets/images/icons/icon-design.svg', 'design icon', 'Design', 'blue', ['125 sub folders', '1,895 files', '24Gb'])
+            +FavoriteFolderItem('assets/images/icons/icon-archive-orange.svg', 'image icon', 'Archive', 'orange', ['125 sub folders', '1,895 files', '24Gb'])
+            +FavoriteFolderItem('assets/images/icons/icon-music-pink.svg', 'music icon', 'Music', 'pink', ['125 sub folders', '1,895 files', '24Gb'])
+            +FavoriteFolderItem('assets/images/icons/icon-movie-skype.svg', 'movie icon', 'Movie', 'sky', ['125 sub folders', '1,895 files', '24Gb'])
+        +BaseWrapper.rounded-2xl.px-6.overflow-x-scroll.scrollbar-hide(class='pt-[25px] pb-[42px] lg:overflow-x-hidden')
+          +TitleToggle(16, 20, 'Recent Purchases')(class='min-w-[852px] lg:min-w-fit') 
+          table.w-full(class='min-w-[852px] lg:min-w-fit') 
+            thead
+              tr 
+                th.text-left.pb-3
+                  +Checkbox(class='translate-y-[3px]')
+                th.text-gray-400.leading-4.font-normal.text-left.pb-3(class='dark:text-gray-dark-400 text-[14px]') File name
+                th.text-gray-400.leading-4.font-normal.text-left.pb-3(class='dark:text-gray-dark-400 text-[14px]') Size
+                th.text-gray-400.leading-4.font-normal.text-left.pb-3(class='dark:text-gray-dark-400 text-[14px]') Modified
+                th.text-gray-400.leading-4.font-normal.text-left.pb-3(class='dark:text-gray-dark-400 text-[14px]') Category
+                th.text-gray-400.leading-4.font-normal.text-left.pb-3(class='dark:text-gray-dark-400 text-[14px]') Actions
+            tbody 
+              +TableCellRecentPurchaseItem('assets/images/icons/icon-design.svg', 'design icon', 'dahsboard_design.fig', '2.4Mb', 'Aug 5th, 2022', 'Mac Image')
+              +TableCellRecentPurchaseItem('assets/images/icons/icon-gallery-fill.svg', 'image icon', 'macbook_pro.jpg', '2.4Mb', 'Aug 5th, 2022', 'Mac Image').filter-green
+              +TableCellRecentPurchaseItem('assets/images/icons/icon-code-violet.svg', 'code icon', 'index.html', '2.4Mb', 'Aug 5th, 2022', 'Mac Image')
+              +TableCellRecentPurchaseItem('assets/images/icons/icon-archive-orange.svg', 'archive icon', 'code.zip', '2.4Mb', 'Aug 5th, 2022', 'Mac Image')
+              +TableCellRecentPurchaseItem('assets/images/icons/icon-music-pink.svg', 'music icon', 'sound_bird.mp3', '2.4Mb', 'Aug 5th, 2022', 'Mac Image')
+              +TableCellRecentPurchaseItem('assets/images/icons/icon-movie-red.svg', 'movie icon', 'full_trailer_2.mp4', '2.4Mb', 'Aug 5th, 2022', 'Mac Image')
+              +TableCellRecentPurchaseItem('assets/images/icons/icon-code-pink.svg', 'code icon', 'router.js', '2.4Mb', 'Aug 5th, 2022', 'Mac Image', false)
+      .flex.flex-col.gap-6(class='xl:w-[29%]')
+        +BaseWrapper.rounded-2xl.pt-5.px-6.pb-8
+          +TitleToggle(16, 31, 'Popular tags')
+          .flex.items-center.flex-wrap(class='gap-[10px]')
+            +PopularTag('#', 'Figma')
+            +PopularTag('#', 'Adobe XD')
+            +PopularTag('#', 'PSD Editor')
+            +PopularTag('#', 'Employer')
+            +PopularTag('#', 'Online Jobs')
+            +PopularTag('#', 'Remote Work')
+            +PopularTag('#', 'Salary')
+            +PopularTag('#', 'Tips')
+            +PopularTag('#', 'Income')
+            +PopularTag('#', 'Develop')
+            +PopularTag('#', 'App')
+            +PopularTag('#', 'Digital')
+            +PopularTag('#', 'Marketing')
+            +PopularTag('#', 'CEO')
+        +BaseWrapper.rounded-2xl.pt-5.px-6(class='pb-[39px]')
+          +TitleToggle(16, 24, 'New active users')
+          .flex.flex-col(class='gap-y-[22px]')
+            +ActiveUserItem('assets/images/cus-dashboard-8.png', 'Esther Howard', 'Administrator', '1832', 'files', 40, 40, 100)
+            +ActiveUserItem('assets/images/cus-dashboard-9.png', 'Wade Warren', 'Manager', '576', 'files', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-9.png', 'Cameron Williamson', 'Guest', '446', 'files', 40, 40, 100)
+            +ActiveUserItem('assets/images/crm-avatar-3.png', 'Cameron Williamson', 'Guest', '446', 'files', 40, 40, 100)
+            +ActiveUserItem('assets/images/avatar-layouts-5.png', 'Cameron Williamson', 'Guest', '446', 'files', 40, 40, 100)
+            +ActiveUserItem('assets/images/cus-dashboard-10.png', 'Cameron Williamson', 'Guest', '446', 'files', 40, 40, 100)

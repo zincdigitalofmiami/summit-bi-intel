@@ -1,0 +1,8 @@
+mixin Chart(id, maxHeight)
+  div&attributes(attributes)
+    canvas(width='400', height='400', class=maxHeight, id=`${id}Chart`)
+
+mixin Legend(color='bg-orange', text='Shopping')
+  .flex.items-center(class='gap-[2.5px]')
+    .w-2.h-2.rounded-full(class=color)
+    span.text-gray-1100(class='text-[7px] leading-[11px] dark:text-gray-dark-1100')= text

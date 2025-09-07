@@ -1,0 +1,70 @@
+extends layout/layout
+
+block vars
+  - title = 'Help Center Knowledge Base Page'
+  - bodyClass = 'help-center-knowledge-base-page'
+
+block container
+  +BreadcrumbBase('Help Desk', 'Home', 'Knowledge Base', false, 25, true)
+  section
+    +BaseWrapper.text-center.rounded-2xl.px-2(class='pt-[53px] pb-[98px]')
+      h1.font-semibold.text-gray-1100(class='text-[28px] leading-[34px] dark:text-gray-dark-1100 mb-[10px]') How Can We Help?
+      p.leading-4.text-gray-500.mb-9(class='text-[14px] dark:text-gray-dark-500') Check out latest updates
+      +BaseWrapper.rounded-2xl.search-input-shadow.flex.items-center.justify-between.flex-col.mx-auto(
+        class='py-[18px] pl-[28px] pr-[19px] mb-[37px] gap-[10px] sm:flex-row lg:w-[635px]'
+      )
+        .flex.items-center.flex-1
+          img(src='assets/images/icons/icon-search-normal.svg', alt='seacrh icon')
+          input.input.w-full.bg-transparent.outline-none.h-5.text-gray-400.text-sm.leading-4(
+            type='text',
+            placeholder='Search for answers',
+            class='focus:!outline-none placeholder:text-gray-400 dark:placeholder:text-gray-dark-400 pl-[11px]'
+          )
+        .flex.items-center(class='gap-x-[14px]')
+          button.text-sm.leading-4.text-gray-500.py-3.rounded-lg.px-5.hidden.items-center(
+            class='dark:text-gray-dark-500 bg-[#E8EDF2] dark:bg-[#313442] xl:inline-flex gap-x-[13px]'
+          ) UI/UX designing
+            img.cursor-pointer(src='assets/images/icons/icon-close.svg', alt='close icon')
+          +ButtonBase('Search').px-6.bg-color-brands.rounded-lg(class='py-[11.5px] hover:bg-color-brands')
+      .flex.mx-auto.flex-wrap.justify-center(class='max-w-[700px] gap-[5px] mb-[58px]')
+        +TagBase('PHP Developer')
+        +TagBase('Python Developer')
+        +TagBase('Human Resource')
+        +TagBase('Joomla Developer')
+        +TagBase('UI UX Designer')
+        +TagBase('Program Manager')
+        +TagBase('Marketing Manager')
+        +TagBase('SEO Manager')
+        +TagBase('Graphic Designer')
+      .w-full.bg-neutral(class='h-[1px] dark:bg-dark-neutral-border mb-[65px]')
+      .grid.grid-cols-1(class='gap-x-[30px] gap-y-[25px] px-[20px] xl:px-[105px] mb-[65px] lg:grid-cols-2 xl:grid-cols-3')
+        +HelpCenterKnowledgeItem('assets/images/icons/icon-brush.svg', 'brush icon', 'Getting Started', ["Getting started with our application", "Next steps with our application", "Working with demo content", "Upgrading to paid service", "Setting up new domain and page"])
+        +HelpCenterKnowledgeItem('assets/images/icons/icon-code.svg', 'code icon', 'Security Settings', ["Technical issues and security", "My application is loading slowly", "Disabling scripts in preview", "Checking page content size", "Troubleshooting checkout issues"])
+        +HelpCenterKnowledgeItem('assets/images/icons/icon-thunder.svg', 'thunder icon', 'Troubleshooting', ["Technical issues and security", "My application is loading slowly", "Disabling scripts in preview", "Checking page content size", "Troubleshooting checkout issues"])
+        +HelpCenterKnowledgeItem('assets/images/icons/icon-layer.svg', 'layer icon', 'Account and Billing', ["Technical issues and security", "My application is loading slowly", "Disabling scripts in preview", "Checking page content size", "Troubleshooting checkout issues"])
+        +HelpCenterKnowledgeItem('assets/images/icons/icon-folder-open.svg', 'folder open icon', 'Purchase & Payment', ["Technical issues and security", "My application is loading slowly", "Disabling scripts in preview", "Checking page content size", "Troubleshooting checkout issues"])
+        +HelpCenterKnowledgeItem('assets/images/icons/icon-color-swatch.svg', 'color swatch icon', 'Term & Conditions', ["Technical issues and security", "My application is loading slowly", "Disabling scripts in preview", "Checking page content size", "Troubleshooting checkout issues"])
+      h2.font-semibold.text-gray-1100(class='text-[28px] leading-[34px] dark:text-gray-dark-1100 mb-[10px]') Frequently Asked Questions
+      p.leading-4.text-gray-500(class='text-[14px] mb-[65px] dark:text-gray-dark-500') Check out latest updates
+      .grid.grid-cols-1.justify-items-center(class='mb-[55px] px-[39px] gap-y-[23px] xl:grid-cols-2')
+        .flex.flex-col(class='gap-y-[23px]')
+          +HelpCenterQuestionItem('Can I see the demo before purchasing?', 'Etiam amet mauris suscipit in odio integer congue metus vitae arcu mollis blandit ultrice ligula egestas and magna suscipit lectus magna suscipit luctus blandit vitae ')
+          +HelpCenterQuestionItem('Can I import my sitemap to your system?', 'An enim nullam tempor sapien gravida a donec ipsum enim an porta justo integer at velna vitae auctor integer congue undo magna at pretium purus pretium')
+          +HelpCenterQuestionItem('How can I switch my subscription?', 'Cubilia laoreet augue egestas and luctus donec curabite diam vitae dapibus libero and quisque gravida donec and neque. Blandit justo aliquam molestie nunc sapien')
+          +HelpCenterQuestionUlItem('I have an issue with my account', ['Etiam amet mauris suscipit sit amet in odio. Integer congue leo metus. Vitae arcu mollis blandit ultrice ligula', 'An enim nullam tempor sapien gravida donec congue leo metus. Vitae arcu mollis blandit integer at velna'])
+          +HelpCenterQuestionUlItem('Do you have a free trial?', ['Fringilla risus, luctus mauris orci auctor purus', 'Quaerat sodales sapien euismod blandit purus and ipsum primis in cubilia laoreet augue luctus'])
+        .flex.flex-col(class='gap-y-[23px]')
+          +HelpCenterQuestionItem('Can I use your system on different devices?', 'Etiam amet mauris suscipit in odio integer congue metus vitae arcu mollis blandit ultrice ligula egestas and magna suscipit lectus magna suscipit luctus blandit vitae')
+          +HelpCenterQuestionItem('Can I cancel my subscription at any time?', 'An enim nullam tempor sapien gravida a donec ipsum enim an porta justo integer at velna vitae auctor integer congue undo magna at pretium purus pretium')
+          +HelpCenterQuestionItem('Is there an additional discount when paid annually?', 'Cubilia laoreet augue egestas and luctus donec curabite diam vitae dapibus libero and quisque gravida donec and neque. Blandit justo aliquam molestie nunc sapien')
+          +HelpCenterQuestionUlItem('What happens if I don’t renew my license?', ['Etiam amet mauris suscipit sit amet in odio. Integer congue leo metus. Vitae arcu mollis blandit ultrice ligula', 'An enim nullam tempor sapien gravida donec congue leo metus. Vitae arcu mollis blandit integer at velna'])
+          +HelpCenterQuestionUlItem('What kind of payment methods do you provide?', ['Fringilla risus, luctus mauris orci auctor purus', 'Quaerat sodales sapien euismod blandit purus and ipsum primis in cubilia laoreet augue luctus'])
+      h3.font-semibold.text-gray-1100(class='text-[28px] leading-[34px] dark:text-gray-dark-1100 mb-[10px]') Still have a questions?
+      p.text-gray-500(class='text-[14px] leading-[22px] mb-[65px] dark:text-gray-dark-500') If you cannot find answer to your question in our FAQ, you can always contact us. <br> We wil answer to you shortly! Meet our Support team
+      .flex.justify-center.flex-wrap.items-center.gap-y-10.mx-auto(class='gap-x-[100px] max-w-[500px] xl:max-w-fit')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-1.png', 'Dianne', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-2.png', 'Victoria', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-3.png', 'Arlene', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-4.png', 'Mitchell', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-5.png', 'Colleen', '2 mins ago')
+        +UserActiveTimeOnlineItem('assets/images/seller-avatar-6.png', 'Philip', '2 mins ago')

@@ -1,0 +1,48 @@
+extends layout/layout
+
+block vars
+  - title = 'Sign In Page'
+  - bodyClass = 'authentication-sign-in-page'
+
+block container
+  form.rounded-2xl.bg-white.mx-auto.p-10.text-center(action='', method='', class='max-w-[440px] my-[84px] dark:bg-[#1F2128]')
+    .mb-4.text-center.mx-auto
+      img.inline-block(src='assets/images/icons/icon-landing-success-1.svg', alt='landing success')
+    h3.font-bold.text-2xl.text-gray-1100.capitalize(class='mb-[5px] dark:text-gray-dark-1100') welcome back!
+    p.text-sm.text-gray-500(class='mb-[30px] dark:text-gray-dark-500') Let’s build something greate
+    div
+      label(for='email')
+        p.text-left.text-sm.mb-2.text-gray-1100(class='dark:text-gray-dark-1100') E-mail or phone number
+      .form-control(class='mb-[20px]')
+        .input-group.border.rounded-lg(class='border-[#E8EDF2] dark:border-[#313442]')
+          input.input.flex-1.bg-transparent.text-gray-300(
+            type='text',
+            placeholder='Email',
+            name='email',
+            class='focus:outline-none dark:text-gray-dark-300'
+          )
+          button.btn-square.flex.items-center.justify-center.bg-transparent
+            img(src='assets/images/icons/icon-sms.svg', alt='sms icon')
+
+      label(for='psw')
+        p.text-left.text-sm.mb-2.text-gray-1100(class='dark:text-gray-dark-1100') Password
+      .form-control(class='mb-[20px]')
+        .input-group.border.rounded-lg(class='border-[#E8EDF2] dark:border-[#313442]')
+          input.input.flex-1.bg-transparent.text-gray-300(
+            type='password',
+            placeholder='Password',
+            name='psw',
+            autocomplete='on',
+            class='focus:outline-none dark:text-gray-dark-300'
+          )
+          button.btn-square.border-white.flex.items-center.justify-center.bg-transparent
+            img(src='assets/images/icons/icon-eye.svg', alt='eye icon')
+    +Button("Login", false, 52, "M", "solid", false).w-full.border-neutral-bg(
+      class='mb-[20px] py-[14px] dark:border-dark-neutral-bg'
+    )
+    a.text-right.text-xs.block(href='#', class='text-[#8083A3] mb-[20px]') Forgot password?
+    .flex.items-center.gap-x-2.justify-between(class='mb-[20px]')
+      +ButtonHasIconLeft("#", "assets/images/icons/icon-google.svg", "google icon", "Google account")
+      +ButtonHasIconLeft("#", "assets/images/icons/icon-facebook.svg", "facebook icon", "Facebook account")
+    p.text-sm.text-gray-1100(class='dark:text-gray-dark-1100') Don’t have an account?
+      a.text-color-brands(href='sign-up.html') &nbsp;Sign up

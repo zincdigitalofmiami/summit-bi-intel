@@ -1,0 +1,83 @@
+extends layout/layout
+
+block vars
+  - title = 'Help Center Dashboard Page'
+  - bodyClass = 'help-center-dashboard-page'
+
+block container
+  +BreadcrumbBase('Help Desk', 'Home', 'Dashboard', false, 30, true)
+  section
+    .flex.justify-between.gap-6.flex-col.items-start(class='xl:flex-row')
+      +BaseWrapper.rounded-2xl.px-7(class='pt-[33px] pb-[26px]')
+        .flex.items-center.justify-between.flex-col.gap-4(class='mb-[25px] lg:flex-row')
+          form.flex.items-center.border.border-neutral.w-full.order-last(
+            action='#',
+            class='gap-[10px] py-[13px] rounded-[10px] dark:border-dark-neutral-border lg:w-[279px] pl-[18px] lg:order-first'
+          )
+            button(type='submit')
+              img(src='assets/images/icons/icon-search-normal.svg', alt='search icon')
+            input.w-full.outline-none.border-none.text-xs.font-normal.bg-transparent.text-gray-400(
+              type='search',
+              placeholder='Search all conversation',
+              class='dark:text-gray-dark-400'
+            )
+          .flex.items-center.gap-4.justify-end
+            p.text-gray-500.text-right(class='text-[10.5px] leading-[17px] dark:text-gray-dark-500') 1-50
+              span.pl-1 of 12,568
+            .flex.items-center
+              a.w-4.h-4.overflow-hidden(href='#') 
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-left.svg', alt='arrow left icon')
+              a.w-4.h-4.overflow-hidden(href='#') 
+                img.w-full.h-full.object-cover(src='assets/images/icons/icon-arrow-right.svg', alt='arrow right icon')
+            .p-3.border.rounded-lg.border-neutral(class='dark:border-dark-neutral-border')
+              img(src='assets/images/icons/icon-element-3.svg', alt='element 3 icon')
+        .w-full.bg-neutral.mb-4(class='h-[1px] dark:bg-dark-neutral-border')
+        +HelpCenterDashboardItem('assets/images/seller-avatar-1.png', 'Jerome Bell', 'How to import the demo content?', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'DEV Team', 'Update 16 April 2022', 'Nest - dashboard', '12 comments', '113')
+        +HelpCenterDashboardItem('assets/images/seller-avatar-2.png', 'Cameron Williamson', 'I want to buy this product license', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'DEV Team', 'Update 16 April 2022', 'Nest - dashboard', '12 comments', '113')
+        +HelpCenterDashboardItem('assets/images/seller-avatar-3.png', 'Guy Hawkins', 'Accepted currencies for product billing', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'DEV Team', 'Update 16 April 2022', 'Nest - dashboard', '12 comments', '113')
+        +HelpCenterDashboardItem('assets/images/seller-avatar-4.png', 'Robert Fox', 'Understanding company billing and accounts', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'DEV Team', 'Update 16 April 2022', 'Nest - dashboard', '12 comments', '113')
+        +HelpCenterDashboardItem('assets/images/seller-avatar-5.png', 'Ronald Richards', 'Using Private Browsing or Incognito mode', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'DEV Team', 'Update 16 April 2022', 'Nest - dashboard', '12 comments', '113')
+        +HelpCenterDashboardItem('assets/images/seller-avatar-6.png', 'Ronald Richards', 'Accepted currencies for product billing', 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien.', 'DEV Team', 'Update 16 April 2022', 'Nest - dashboard', '12 comments', '113', false)
+        +PaginateNextBtnSm(class='mt-[22px]')
+      .flex.flex-col.flex-1(class='gap-y-[27px] w-full')
+        +BaseWrapper.rounded-2xl.pb-5.px-7(class='pt-[35px]')
+          button.btn.flex.items-center.normal-case.bg-color-brands.h-auto.border-neutral-bg.rounded-lg.gap-x-3.border-4.w-full(
+            class='hover:border-[#B2A7FF] hover:bg-color-brands dark:border-dark-neutral-bg dark:hover:border-[#B2A7FF] py-[10px] mb-[30px]'
+          )
+            img(src='assets/images/icons/icon-message-edit.svg', alt='message edit icon')
+            span.text-white.font-semibold.leading-4(class='text-[14px]') New Category
+          .flex.flex-col.pb-5.border-b.border-neutral.mb-5(class='dark:border-dark-neutral-border')
+            +FolderItem('Plugins', '2568')
+            +FolderItem('Account', '986')
+            +FolderItem('Permission', '2235')
+            +FolderItem('Update theme', '256')
+            +FolderItem('Download', '124')
+            +FolderItem('Install', '15')
+            +FolderItem('API', '365')
+            +FolderItem('Development', '546')
+          .flex.flex-col
+            +FolderItem('Unassigned', '25').filter-green
+            +FolderItem('Open', '58').filter-state
+            +FolderItem('Closed', '1356').filter-orange
+            +FolderItem('Archived', '2563').filter-pink
+        +BaseWrapper.rounded-2xl.pb-7.flex-1.px-7(class='pt-[21px]')
+          span.text-gray-500.leading-4.font-semibold.border-b.border-neutral.block(
+            class='dark:text-gray-dark-500 text-[14px] pb-[14px] dark:border-dark-neutral-border mb-[18px]'
+          ) Support Team
+          .grid.grid-cols-4.justify-items-center(class='gap-y-[18px] gap-x-[14px]')
+            +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-3.png', true, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-4.png', false, activeColor, 'Eduar')
+            +UserActiveItem('assets/images/seller-avatar-5.png', true, 'orange', 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-6.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-1.png', false, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-2.png', true, activeColor, 'Eduar')
+            +UserActiveItem('assets/images/seller-avatar-1.png', true, activeColor, 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-3.png', false, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-4.png', true, activeColor, 'Eduar')
+            +UserActiveItem('assets/images/seller-avatar-5.png', true, 'blue', 'Saleh')
+            +UserActiveItem('assets/images/seller-avatar-6.png', true, activeColor, 'Edilson')
+            +UserActiveItem('assets/images/seller-avatar-1.png', false, activeColor, 'Afrim')
+            +UserActiveItem('assets/images/seller-avatar-2.png', false, activeColor, 'Eduar')

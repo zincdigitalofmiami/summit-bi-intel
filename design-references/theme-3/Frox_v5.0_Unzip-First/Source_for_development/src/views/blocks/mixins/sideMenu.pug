@@ -1,0 +1,69 @@
+mixin SideMenu
+  div(class='pt-[106px] lg:pt-[35px] pb-[18px]')
+    +SideMenuItem('assets/images/icons/icon-favorite-chart.svg', 'Dashboard', 'dashboard').active
+    +SideMenuItem('assets/images/icons/icon-products.svg', 'Ecommerce', 'ecommerce', [{link: 'index.html', title: 'Dashboards'}, {link: 'product-list.html', title: 'Products List'}, {link: 'product-grid.html', title: 'Products Grid'}, {link: 'product-details.html', title: 'Product Details'},{link: 'order-list.html', title: 'Order List'}, {link: 'order-details.html', title: 'Order Details'}, {link: 'transactions-list.html', title: 'Transactions'},{link: 'customers-lists.html', title: 'Customers List'}, {link: 'reviews-list.html', title: 'Customers Review'}, {link: 'seller-details.html', title: 'Seller Details'}])
+    +SideMenuItem('assets/images/icons/icon-wallet.svg', 'Finance', 'finance', [{link: 'finance-dashboard.html', title: 'Dashboard'}, {link: 'finance-cards.html', title: 'Cards'},{link: 'finance-transactions.html', title: 'Transactions'}, {link: '#', title: 'Transactions Details', id:'transaction-detail'}])
+    +SideMenuItem('assets/images/icons/icon-job.svg', 'Jobs', 'jobs', [{link: 'jobs-dashboard.html', title: 'Dashboard 1'}, {link: 'jobs-dashboard.html', title: 'Dashboard 2'}, {link: 'jobs-listing-1.html', title: 'Jobs Listing 1'}, {link: 'jobs-listing-2.html', title: 'Jobs Listing 2'}, {link: 'jobs-add-new-job.html', title: 'Add New Job'}])
+    +SideMenuItem('assets/images/icons/icon-cms.svg', 'CMS', 'cms', [{link: 'cms-dashboard.html', title: 'Dashboard'}, {link: 'cms-post-listing-grid.html', title: 'Posts Grid'}, {link: 'cms-post-listing-list.html', title: 'Post List'}, {link: 'cms-media.html', title: 'Media'}, {link: 'cms-add-post.html', title: ' Add Post'}, {link: 'cms-comment.html', title: 'Comments'},])
+    +SideMenuItem('assets/images/icons/icon-crm.svg', 'CRM', 'crm', [{link: 'crm-dashboard.html', title: 'Dashboard'}, {link: 'crm-events.html', title: 'Events'}, {link: 'crm-customers.html', title: 'Customers'}, {link: 'crm-customer-details.html', title: 'Customer Details'}, {link: 'crm-customer-edit.html', title: ' Customer Edit'}])
+    +SideMenuItem('assets/images/icons/icon-analytics.svg', 'Analytics', 'analytics', [{link: 'analytics-dashboard-1.html', title: 'Dashboard-1'},{link: 'analytics-dashboard-2.html', title: 'Dashboard-2'}])
+    +SideMenuItem('assets/images/icons/icon-project.svg', 'Project Manage', 'project-manage', [{link: 'project-dashboard.html', title: 'Dashboard'},{link: '#', title: 'Add Project', className:'show-add-project'},{link: '#', title: 'Share Project', id: 'show-share-modal'}])
+    +SideMenuItem('assets/images/icons/icon-chat.svg', 'Chat / Message', 'chat', [{link: 'chat-page-1.html', title: 'Layout 1'},{link: 'chat-page-2.html', title: 'Layout 2'},{link: 'chat-page-3.html', title: 'Layout 3'}])
+    +SideMenuItem('assets/images/icons/icon-network.svg', 'Social Network', 'network', [{link: 'social-feed-1.html', title: 'Social Feed 1'},{link: 'social-feed-2.html', title: 'Social Feed 2'},{link: 'social-feed-3.html', title: 'Social Feed 3'}])
+    +SideMenuItem('assets/images/icons/icon-crypto.svg', 'Crypto', 'crypto', [{link: 'crypto-dashboard.html', title: 'Dashboard'}])
+    +SideMenuItem('assets/images/icons/icon-mailbox.svg', 'Mailbox', 'mailbox', [{link: 'mailbox-inbox.html', title: 'Inbox'}, {link: 'mailbox-read.html', title: 'Read'}, {link: 'mailbox-chat.html', title: 'Chat'}, {link: '#', title: 'Compose', id: 'show-mail-modal'}])
+    +SideMenuItem('assets/images/icons/icon-course.svg', 'Online Course', 'course', [{link: 'course-dashboard.html', title: 'Dashboard'}, {link: 'course-course.html', title: 'Course'}, {link: 'course-add-course.html', title: 'Add Course'}])
+    +SideMenuItem('assets/images/icons/icon-file.svg', 'File Manager', 'file', [{link: 'file-manage-dashboard.html', title: 'Dashboard'},{link: 'file-manage-folder.html', title: 'Folder'}, {link: 'file-manage-folder-blank.html', title: 'Folder Blank'}])
+    +SideMenuItem('assets/images/icons/icon-headphone.svg', 'Help Center', 'help', [{link: 'help-center-dashboard.html', title: 'Dashboard'},{link: 'help-center-ticket.html', title: 'Ticket'},{link: 'help-center-add-category.html', title: 'Add Category'},{link: 'help-center-knowledge-base.html', title: 'Knowledge Base'}])
+    +SideMenuItem('assets/images/icons/icon-auth.svg', 'Authentication', 'auth', [{link: 'sign-in.html', title: 'Sign In'}, {link: 'sign-up.html', title: 'Sign Up'}, {link: 'reset-password.html', title: 'Reset password'}, {link: 'password-required.html', title: 'Password required'}, {link: 'sign-up-success.html', title: 'Signup success'}])
+
+mixin SideMenuItem(icon, title, id, child)
+  .sidemenu-item.rounded-xl.relative
+    input.sr-only.peer(type='checkbox', value=id, name='sidemenu', id=id)
+    label.flex.items-center.justify-between.w-full.cursor-pointer&attributes(attributes)(
+      class='py-[17px] px-[21px] focus:outline-none peer-checked:border-transparent',
+      for=id
+    )
+      .flex.items-center(class='gap-[10px]')
+        img(src=icon, alt='side menu icon')
+        span.text-normal.font-semibold.text-gray-500.sidemenu-title(class='dark:text-gray-dark-500')= title
+    img.absolute.right-2.transition-all.duration-150.caret-icon.pointer-events-none(
+      src='assets/images/icons/icon-arrow-down.svg',
+      alt='caret icon',
+      class='peer-checked:rotate-180 top-[22px]'
+    )
+    +ChildMenuItem(child)
+
+mixin ChildMenuItem(childList=[    {link: 'index.html', title: 'Ecommerce'},    {link: 'finance-dashboard.html', title: 'Finance'},    {link: 'jobs-dashboard.html', title: 'Jobs'},    {link: 'cms-dashboard.html', title: 'CMS'},    {link: 'crm-dashboard.html', title: 'CRM'},    {link: 'analytics-dashboard-1.html', title: 'Analytics'},    {link: 'project-dashboard.html', title: 'Project Manage'},    {link: 'chat-page-1.html', title: 'Chat / Message'},    {link: 'social-feed-1.html', title: 'Social Network'},    {link: 'crypto-dashboard.html', title: 'Crypto'},    {link: 'mailbox-inbox.html', title: 'Mailbox'},    {link: 'file-manage-dashboard.html', title: 'File Manage'},    {link: 'help-center-dashboard.html', title: 'Help Center'},    {link: 'course-dashboard.html', title: 'Course Online'}  ])
+  .hidden(class='peer-checked:block')
+    ul.text-gray-300.child-menu.z-10(class='pl-[53px]')
+      each val in childList
+        if val.link
+          li.pb-2.transition-opacity.duration-150(class='hover:opacity-75', class=val.className)
+            a.text-normal(href=val.link, id=val.id || null)= val.title
+
+mixin SideCategories
+  h3.text-sm.font-bold.text-gray-1100.py-3.px-6(class='dark:text-gray-dark-1100') Categories
+  div
+    +SideCategoriesItem('Laptops', 'bg-yellow', '8')
+    +SideCategoriesItem('Mobile phones', 'bg-orange', '6')
+    +SideCategoriesItem('Desktops')
+    +SideCategoriesItem('Accessories', 'bg-pink', '5')
+    +SideCategoriesItem('Portable storage', 'bg-green', '9')
+    +SideCategoriesItem('Networking')
+  .flex.items-center.gap-3.py-3.px-6(class='mb-[22px]')
+    img(src='assets/images/icons/icon-add-square.svg', alt='add icon')
+    p.text-sm.font-bold.text-gray-1100(class='dark:text-gray-dark-1100') Add Category
+
+mixin SideCategoriesItem(title, bgColor, number)
+  a.flex.items-center.justify-between.py-3.pl-6(href='#')
+    span.text-gray-500.text-normal(class='dark:text-gray-dark-500')= title
+    if bgColor
+      +CategoryBadge(bgColor, number)
+
+mixin SideMenuSecondItem(icon, alt, title)
+  .flex.items-center.justify-between.cursor-pointer.rounded-xl.group(class='py-[17px] px-[21px] hover:bg-color-brands')
+    .flex.items-center(class='gap-[10px]')
+      .w-6.h-6.overflow-hidden
+        img.filter-gray.w-full.h-full.object-cover(src=icon, alt=alt, class='group-hover:filter-white')
+      span.text-normal.font-semibold.text-gray-500(class='dark:text-gray-dark-500 group-hover:text-white')= title

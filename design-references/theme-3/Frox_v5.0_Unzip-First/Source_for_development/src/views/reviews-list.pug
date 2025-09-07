@@ -1,0 +1,63 @@
+extends layout/layout
+
+block vars
+  - title = 'Reviews Lists Page'
+  - bodyClass = 'reviews-lists-page'
+
+block container
+  .flex.items-end.justify-between(class='mb-[25px]')
+    div 
+      +Breadcrumb('home', 'Reviews List')
+    .flex.items-center.gap-x-2 
+      img(src='assets/images/icons/icon-calendar-1.svg', alt='calendar icon')
+      time.text-xs.text-gray-500 Feb 15, 2022 - Feb 21, 2022
+  .flex.items-center.justify-between.flex-wrap.gap-5(class='mb-[27px]')
+    +DropDown(false, list=[{title: 'Sales report'}, {title: 'Export report'}, {title: 'Profit manage'},{title: 'Revenue report'}], labelStyle='flex items-center justify-between', menuStyle='w-[225px] bg-neutral-bg pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+      .flex.items-center.justify-between.p-4.bg-neutral-bg.border.border-neutral.rounded-lg(
+        class='w-[225px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+      )
+        +Size14Leading16('All Category')
+        img.cursor-pointer(src='assets/images/icons/icon-arrow-down.svg', alt='arrow icon')
+    .flex.items-center.gap-3
+      +DropDown(false, list=[{title: 'Sales report'}, {title: 'Export report'}, {title: 'Profit manage'},{title: 'Revenue report'}], labelStyle='flex items-center justify-between', menuStyle='w-[173px] bg-neutral-bg pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+        .flex.items-center.justify-between.p-4.bg-neutral-bg.border.border-neutral.rounded-lg(
+          class='w-[173px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+        )
+          +Size14Leading16('10-02-2021')
+          img.cursor-pointer(src='assets/images/icons/icon-calendar-2.svg', alt='calendar icon')
+      +DropDown(false, list=[{title: 'Sales report'}, {title: 'Export report'}, {title: 'Profit manage'},{title: 'Revenue report'}], labelStyle='flex items-center justify-between', menuStyle='w-[173px] bg-neutral-bg pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+        .flex.items-center.justify-between.p-4.bg-neutral-bg.border.border-neutral.rounded-lg(
+          class='w-[173px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border'
+        )
+          +Size14Leading16('Status')
+          img.cursor-pointer(src='assets/images/icons/icon-arrow-down.svg', alt='arrow icon')
+      +DropDown(false, list=[{title: 'Sales report'}, {title: 'Export report'}, {title: 'Profit manage'},{title: 'Revenue report'}], labelStyle='flex items-center justify-between', menuStyle='w-[90px] bg-neutral-bg pt-[14px] pb-[7px] px-4 border border-neutral-border', childStyle='text-normal mb-[7px]', color='border-b-transparent',titleStyle='text-gray-500 text-[11px] leading-4 hover:text-gray-700', iconStyle, 'end')
+        .flex.items-center.p-4.bg-neutral-bg.border.border-neutral.rounded-lg(
+          class='w-[90px] dark:bg-dark-neutral-bg dark:border-dark-neutral-border gap-[5px]'
+        )
+          img.cursor-pointer(src='assets/images/icons/icon-filter.svg', alt='calendar icon')
+          +Size14Leading16('Filters')
+  +Card.overflow-x-scroll.scrollbar-hide(class='p-[25px] mb-[25px]')
+    +CardHeaderWithToggle('Reviews List').pb-4.border-neutral.border-b.mb-5(class='dark:border-dark-neutral-border')
+    table.w-full(class='min-w-[900px]')
+      thead
+        tr.border-b.border-neutral(class='dark:border-dark-neutral-border pb-[15px]') 
+          th.text-left
+            +Checkbox(class='mb-[6px] mr-[10px]')
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Customer
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Comment
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Rating
+          th.font-normal.text-normal.text-gray-400.text-left(class='pb-[15px] dark:text-gray-dark-400') Date
+          th.font-normal.text-normal.text-gray-400.text-center(class='pb-[15px] dark:text-gray-dark-400') Actions
+      tbody
+        +TableRowReviewList('assets/images/seller-avatar-1.png','Bessie Cooper','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-2.png','Bessie Halland','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-3.png','Bessie Nguyen','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-4.png','Bessie Smith','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-5.png','Bessie John','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-1.png','Bessie Cooper','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-2.png','Bessie Halland','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-3.png','Bessie Nguyen','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-4.png','Bessie Smith','sid_turner78@gmail.com', '17 Oct, 2022')
+        +TableRowReviewList('assets/images/seller-avatar-5.png','Bessie John','sid_turner78@gmail.com', '17 Oct, 2022')
+  +PaginateNextBtn

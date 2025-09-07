@@ -1,0 +1,85 @@
+mixin Button(text, size="L", type, disabledType='')
+  case size 
+    when "L"
+      - var sizeStyle = 'rounded-2xl'
+    when "M"
+      - var sizeStyle = 'rounded-lg'
+    when "S"
+      - var sizeStyle = 'rounded-lg text-xs'
+
+  case type 
+    when "solid"
+      - var typeStyle = 'bg-color-brands hover:bg-color-brands hover:border-[#B2A7FF] dark:hover:border-[#B2A7FF]'
+    when "dim"
+      - var typeStyle = 'bg-gray-500 hover:bg-white hover:text-black hover:border-gray-300 dark:hover:border-gray-dark-300'
+    when "ghost"
+      - var typeStyle = 'bg-white hover:bg-white border border-gray-500 border-4 border-transparent hover:border-gray-300 text-gray-1000'
+
+  case disabledType
+    when "solid"
+      - var disabledTypeStyle = 'text-[#B8B1E4] bg-color-brands pointer-events-none'
+    when "dim"
+      - var disabledTypeStyle = 'text-[#c0c0c0] bg-[#e7e7e7] pointer-events-none'
+    when "ghost"
+      - var disabledTypeStyle = 'text-[#4D4D4D] bg-white pointer-events-none'
+
+  button.btn.normal-case.h-fit.min-h-fit.transition-all.duration-300.border-4(class='', class=disabledTypeStyle, class=typeStyle)&attributes(attributes)= text
+
+mixin ButtonHasIconLeft(href, img, alt, text)
+  a.flex.items-center.justify-center.border.rounded-lg(
+    href=href,
+    class='gap-x-[10px] border-[#E8EDF2] p-[3px] py-[14px] sm:min-w-[170px]'
+  ) 
+    img(src=img, alt=alt)
+    span.text-gray-1100.text-xs(class='dark:text-gray-dark-1100')= text
+
+mixin ButtonHasIconRight(href, img, alt, text)
+  a.flex.items-center.justify-center.border.rounded-lg(
+    href=href,
+    class='gap-x-[10px] border-[#E8EDF2] p-[3px] py-[14px] sm:min-w-[170px]'
+  )&attributes(attributes) 
+    span.text-gray-1100.text-xs= text
+    img(src=img, alt=alt)
+
+mixin ButtonBase(text, lh='leading-4', borderWidth='border-0')
+  button.btn.text-sm.h-fit.min-h-fit.capitalize&attributes(attributes)(class=lh, class=borderWidth)= text
+
+mixin ButtonRevenue(bgColor, color, text1, text2)
+  - var bgColor = `bg-[${bgColor}] hover:bg-[${bgColor}]`
+  - var color = `text-[${color}]`
+
+  button.btn.border-0.h-fit.min-h-fit.capitalize.flex.flex-col.px-5.rounded-lg(class='gap-y-[6px] py-[15px]', class=bgColor)
+    span.leading-4.font-medium(class='text-[16px]', class=color)= text1
+    span.text-gray-1100.text-xs.font-normal(class='dark:text-gray-dark-1100')= text2
+
+mixin Pagination
+  .flex.items-center.gap-x-10
+    div
+      +ButtonBase("1").bg-color-brands.font-semibold(class='py-[11px] px-[18px] hover:bg-color-brands') 
+      +ButtonBase("2").bg-transparent.font-semibold.text-gray-1100(
+        class='py-[11px] px-[18px] hover:text-white hover:bg-color-brands dark:text-gray-dark-1100'
+      ) 
+      +ButtonBase("3").bg-transparent.font-semibold.text-gray-1100(
+        class='py-[11px] px-[18px] hover:text-white hover:bg-color-brands dark:text-gray-dark-1100'
+      ) 
+    a.flex.items-center.justify-center.border.rounded-lg.border-neutral(
+      href='#',
+      class='gap-x-[10px] px-[18px] py-[11px] dark:border-dark-neutral-border'
+    ) 
+      span.text-gray-400.text-xs.font-semibold(class='leading-[18px] dark:text-gray-dark-400') Next
+      img(src='assets/images/icons/icon-arrow-right-long.svg', alt='arrow right icon')
+
+mixin ButtonRevenue(bgColor, color, text1, text2)
+  - var bgColor = `bg-[${bgColor}] hover:bg-[${bgColor}]`
+  - var color = `text-[${color}]`
+
+  button.btn.border-0.h-fit.min-h-fit.capitalize.flex.flex-col.px-5.rounded-lg(class='gap-y-[6px] py-[15px]', class=bgColor)
+    span.leading-4.font-medium(class='text-[16px]', class=color)= text1
+    span.text-gray-1100.text-xs.font-normal(class='dark:text-gray-dark-1100')= text2
+
+mixin IconButton
+  .border.border-neutral.rounded-lg.grid.place-items-center.cursor-pointer.group(
+    class='w-[42px] h-[42px] dark:border-dark-neutral-border'
+  )
+    if block
+      block
