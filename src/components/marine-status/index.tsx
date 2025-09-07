@@ -2,6 +2,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import WeatherWidget from "@/components/weather-widget";
+import WeatherMapWidget from "@/components/weather-map-widget";
+import WeatherAlertBanner from "@/components/weather-alert-banner";
 import { 
   CheckCircle, 
   Clock, 
@@ -51,15 +54,13 @@ const statusData = {
     visibility: "10+ miles",
     temperature: "78°F"
   },
-  fleetStatus: {
+  equipmentStatus: {
     available: 4,
     inUse: 2,
     maintenance: 1,
-    totalVessels: 7
+    totalEquipment: 7
   }
 };
-
-import WeatherWidget from "@/components/weather-widget";
 
 export default function MarineStatusOverview() {
   const getStatusColor = (status: string) => {
@@ -90,6 +91,19 @@ export default function MarineStatusOverview() {
 
   return (
     <div className="space-y-6">
+      {/* Weather Alert Banner - ABOVE MARINE WEATHER */}
+      <WeatherAlertBanner />
+      
+      {/* Weather Information Grid - TOP PRIORITY */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-2">
+          <WeatherWidget />
+        </div>
+        <div className="xl:col-span-1">
+          <WeatherMapWidget />
+        </div>
+      </div>
+
       {/* Active Projects */}
       <Card>
         <CardHeader>
@@ -137,7 +151,7 @@ export default function MarineStatusOverview() {
         </CardContent>
       </Card>
 
-      {/* Marine Conditions & Fleet Status */}
+      {/* Marine Conditions & Equipment Status */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -191,41 +205,41 @@ export default function MarineStatusOverview() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Anchor className="h-5 w-5" />
-              Fleet Status
+              Equipment Status
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-600">
-                  {statusData.fleetStatus.available}
+                  {statusData.equipmentStatus.available}
                 </div>
-                <div className="text-sm text-muted-foreground">Available Vessels</div>
+                <div className="text-sm text-muted-foreground">Available Equipment</div>
               </div>
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <div className="text-lg font-semibold">{statusData.fleetStatus.inUse}</div>
+                  <div className="text-lg font-semibold">{statusData.equipmentStatus.inUse}</div>
                   <div className="text-xs text-muted-foreground">In Use</div>
                 </div>
                 <div>
-                  <div className="text-lg font-semibold">{statusData.fleetStatus.maintenance}</div>
+                  <div className="text-lg font-semibold">{statusData.equipmentStatus.maintenance}</div>
                   <div className="text-xs text-muted-foreground">Maintenance</div>
                 </div>
                 <div>
-                  <div className="text-lg font-semibold">{statusData.fleetStatus.totalVessels}</div>
-                  <div className="text-xs text-muted-foreground">Total Fleet</div>
+                  <div className="text-lg font-semibold">{statusData.equipmentStatus.totalEquipment}</div>
+                  <div className="text-xs text-muted-foreground">Total Equipment</div>
                 </div>
               </div>
               <div className="pt-2">
                 <div className="flex justify-between text-sm mb-1">
-                  <span>Fleet Utilization</span>
-                  <span>{Math.round((statusData.fleetStatus.inUse / statusData.fleetStatus.totalVessels) * 100)}%</span>
+                  <span>Equipment Utilization</span>
+                  <span>{Math.round((statusData.equipmentStatus.inUse / statusData.equipmentStatus.totalEquipment) * 100)}%</span>
                 </div>
                 <div className="w-full bg-muted rounded-full h-2">
                   <div
                     className="bg-blue-500 rounded-full h-2"
                     style={{ 
-                      width: `${(statusData.fleetStatus.inUse / statusData.fleetStatus.totalVessels) * 100}%` 
+                      width: `${(statusData.equipmentStatus.inUse / statusData.equipmentStatus.totalEquipment) * 100}%` 
                     }}
                   />
                 </div>
@@ -234,9 +248,6 @@ export default function MarineStatusOverview() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Weather Information */}
-      <WeatherWidget />
     </div>
   );
 }

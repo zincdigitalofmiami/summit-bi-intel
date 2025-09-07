@@ -1,6 +1,5 @@
 import {
   AverageTicketsCreated,
-  Conversions,
   CustomerSatisfication,
   Metrics,
   TicketByChannels,
@@ -12,9 +11,73 @@ import MarineStatusOverview from "@/components/marine-status";
 export default function Home() {
   return (
     <div className="space-y-6">
-      {/* Quick Actions Section - Mobile First */}
+      {/* Marine Weather & Conditions - CRITICAL TOP PRIORITY */}
       <div className="border-b border-border">
-        <Container className="py-6">
+        <Container className="py-4">
+          <MarineStatusOverview />
+        </Container>
+      </div>
+
+      {/* AI Insights - HIGH PRIORITY */}
+      <div className="border-b border-border">
+        <Container className="py-4">
+          <h2 className="text-lg font-semibold mb-4">AI-Powered Marine Intelligence</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            {/* SnapJacket Innovation Opportunity */}
+            <div className="p-4 bg-emerald-50 dark:bg-emerald-950/20 rounded-lg border border-emerald-200 dark:border-emerald-800">
+              <h3 className="font-medium text-emerald-900 dark:text-emerald-100 mb-2">🚀 Innovation Opportunity</h3>
+              <p className="text-sm text-emerald-700 dark:text-emerald-300">
+                SnapJacket dock piling repair technology could give Summit a 40% time advantage over Panama City competitors. Early adoption window closing.
+              </p>
+            </div>
+
+            {/* Competitive Intelligence */}
+            <div className="p-4 bg-purple-50 dark:bg-purple-950/20 rounded-lg border border-purple-200 dark:border-purple-800">
+              <h3 className="font-medium text-purple-900 dark:text-purple-100 mb-2">🎯 Competitive Edge</h3>
+              <p className="text-sm text-purple-700 dark:text-purple-300">
+                Bay County Marine hasn&apos;t updated seawall methods since 2019. Their backlog suggests capacity issues - opportunity for urgent projects.
+              </p>
+            </div>
+
+            {/* Weather-Based Timing */}
+            <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
+              <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-2">⚡ Timing Advantage</h3>
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                3-week weather window opening Nov 15th. Recommend scheduling Miracle Strip seawall project to beat winter storm season.
+              </p>
+            </div>
+
+            {/* Market Intelligence */}
+            <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800">
+              <h3 className="font-medium text-amber-900 dark:text-amber-100 mb-2">📊 Market Trend</h3>
+              <p className="text-sm text-amber-700 dark:text-amber-300">
+                New waterfront development at St. Andrews Bay = 25+ potential dock projects. Developers accepting bids through December.
+              </p>
+            </div>
+
+            {/* Resource Optimization */}
+            <div className="p-4 bg-rose-50 dark:bg-rose-950/20 rounded-lg border border-rose-200 dark:border-rose-800">
+              <h3 className="font-medium text-rose-900 dark:text-rose-100 mb-2">⚙️ Resource Alert</h3>
+              <p className="text-sm text-rose-700 dark:text-rose-300">
+                Marine equipment rental costs up 15% in Q4. Consider purchasing vs. leasing for Shell Island project.
+              </p>
+            </div>
+
+            {/* Industry Innovation */}
+            <div className="p-4 bg-cyan-50 dark:bg-cyan-950/20 rounded-lg border border-cyan-200 dark:border-cyan-800">
+              <h3 className="font-medium text-cyan-900 dark:text-cyan-100 mb-2">🔬 Tech Watch</h3>
+              <p className="text-sm text-cyan-700 dark:text-cyan-300">
+                New eco-friendly marine concrete reduces permitting time by 2 weeks. First in Panama City to adopt = competitive advantage.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </div>
+
+      {/* Quick Actions for Mobile */}
+      <div className="border-b border-border lg:hidden">
+        <Container className="py-4">
           <QuickActions />
         </Container>
       </div>
@@ -22,27 +85,19 @@ export default function Home() {
       {/* Key Metrics */}
       <Metrics />
 
-      {/* Marine Status Overview - New Section */}
-      <div className="border-b border-border">
-        <Container className="py-6">
-          <MarineStatusOverview />
+      {/* Charts Section - Mobile Optimized */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Container className="py-4">
+          <AverageTicketsCreated />
+        </Container>
+        <Container className="py-4">
+          <TicketByChannels />
         </Container>
       </div>
 
-      {/* Charts Section - Improved Grid */}
-      <div className="grid grid-cols-1 divide-y border-b border-border xl:grid-cols-3 xl:divide-x xl:divide-y-0 xl:divide-border">
-        <Container className="py-6 xl:col-span-1">
-          <Conversions />
-        </Container>
-        <Container className="py-6 xl:col-span-2">
-          <AverageTicketsCreated />
-        </Container>
-      </div>
-      <div className="grid grid-cols-1 divide-y border-b border-border lg:grid-cols-2 lg:divide-x lg:divide-y-0 lg:divide-border">
-        <Container className="py-6 lg:col-span-1">
-          <TicketByChannels />
-        </Container>
-        <Container className="py-6 lg:col-span-1">
+      {/* Customer Satisfaction - Full Width on Mobile */}
+      <div className="border-b border-border">
+        <Container className="py-4">
           <CustomerSatisfication />
         </Container>
       </div>
