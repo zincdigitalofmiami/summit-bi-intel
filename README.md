@@ -1,52 +1,53 @@
-# VisActor Next.js Dashboard Template
+# Summit Marine Development - Business Intelligence Dashboard
 
-A modern dashboard template built with [VisActor](https://visactor.io/) and Next.js, featuring a beautiful UI and rich data visualization components.
+A comprehensive business intelligence dashboard for Summit Marine Development, specializing in marine construction, seawalls, docks, and waterfront infrastructure projects. Built with modern web technologies and beautiful data visualizations.
 
-[Live Demo](https://visactor-next-template.vercel.app/)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-description=A%20modern%20dashboard%20with%20VisActor%20charts%2C%20dark%20mode%2C%20and%20data%20visualization%20for%20seamless%20analytics.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F646TLqKGSTOnp1CD1IUqoM%2Fa119adac1f5a844f9d42f807ddc075f5%2Fthumbnail.png&demo-title=VisActor%20Next.js%20Template&demo-url=https%3A%2F%2Fvisactor-next-template.vercel.app%2F&from=templates&project-name=VisActor%20Next.js%20Template&repository-name=visactor-nextjs-template&repository-url=https%3A%2F%2Fgithub.com%2Fmengxi-ream%2Fvisactor-next-template&skippable-integrations=1)
+**Developed by [ZINC Digital](https://zincdigital.com)** - Premium web development and digital solutions in Miami, Florida.
 
 ## Features
 
-- 📊 **Rich Visualizations** - Powered by VisActor, including bar charts, gauge charts, circle packing charts, and more
+- 📊 **Comprehensive Analytics** - Track leads, projects, revenue, and client satisfaction
+- 🏗️ **Marine Construction Focus** - Specialized for seawalls, docks, and waterfront projects
+- 📈 **Lead Management** - Complete lead-to-project conversion pipeline
+- 💼 **Client Dashboard** - Manage clients, proposals, and project status
 - 🌗 **Dark Mode** - Seamless dark/light mode switching with system preference support
 - 📱 **Responsive Design** - Fully responsive layout that works on all devices
-- 🎨 **Beautiful UI** - Modern and clean interface built with Tailwind CSS
-- ⚡️ **Next.js 15** - Built on the latest Next.js features and best practices
+- 🎨 **Modern UI** - Clean interface built with Tailwind CSS and Radix UI
+- ⚡️ **Next.js 15** - Built on the latest Next.js features and React 19 RC
 - 🔄 **State Management** - Efficient state management with Jotai
-- 📦 **Component Library** - Includes Shadcn components styled with Tailwind
+- �️ **Error Handling** - Robust error boundaries and form validation
+- 💾 **Data Persistence** - Safe localStorage with form persistence
 
 ## Tech Stack
 
-- [Next.js](https://nextjs.org/) - React framework
-- [VisActor](https://visactor.io/) - Visualization library
-- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
-- [Shadcn](https://ui.shadcn.com/) - UI components
-- [Jotai](https://jotai.org/) - State management
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Next.js 15](https://nextjs.org/) - React framework with App Router
+- [React 19 RC](https://react.dev/) - Latest React features
+- [VIS Actor](https://visactor.io/) - Data visualization and charting
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Radix UI](https://radix-ui.com/) - Headless UI components
+- [Jotai](https://jotai.org/) - Primitive and flexible state management
+- [Zod](https://zod.dev/) - TypeScript-first schema validation
+- [TypeScript](https://www.typescriptlang.org/) - Type safety and developer experience
 
 ## Quick Start
-
-You can deploy this template to Vercel by clicking the button above, or clone this repository and run it locally.
-
-[Github Repo](https://github.com/mengxi-ream/visactor-next-template)
 
 1. Clone this repository
 
 ```bash
-git clone https://github.com/mengxi-ream/visactor-next-template
+git clone https://github.com/zincdigitalofmiami/summit-bi-intel.git
+cd summit-bi-intel
 ```
 
 2. Install dependencies
 
 ```bash
-pnpm install
+npm install
 ```
 
 3. Run the development server
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -55,39 +56,69 @@ pnpm dev
 
 ```bash
 src/
-├── app/ # App router pages
-├── components/ # React components
-│ ├── chart-blocks/ # Chart components
-│ ├── nav/ # Navigation components
-│ └── ui/ # UI components
-├── config/ # Configuration files
-├── data/ # Sample data
-├── hooks/ # Custom hooks
-├── lib/ # Utility functions
-├── style/ # Global style
-└── types/ # TypeScript types
+├── app/                    # Next.js App Router pages
+│   ├── (dashboard)/       # Dashboard pages (leads, projects, clients, etc.)
+│   ├── layout.tsx         # Root layout
+│   └── providers.tsx      # App providers
+├── components/            # React components
+│   ├── chart-blocks/      # Analytics charts and visualizations
+│   ├── forms/             # Lead and project forms with validation
+│   ├── nav/               # Navigation components
+│   └── ui/                # Reusable UI components
+├── config/                # Configuration files
+├── data/                  # Demo data and business intelligence data
+├── hooks/                 # Custom React hooks for storage and async operations
+├── lib/                   # Utility functions and validation schemas
+├── style/                 # Global styles and CSS
+└── types/                 # TypeScript type definitions
 ```
 
-## Charts
+## Business Intelligence Features
 
-This template includes several chart examples:
+This dashboard provides comprehensive analytics for marine construction businesses:
 
-- Average Tickets Created (Bar Chart)
-- Ticket by Channels (Gauge Chart)
-- Conversions (Circle Packing Chart)
-- Customer Satisfaction (Linear Progress)
-- Metrics Overview
+### 📊 Analytics & Reporting
+- **Lead Generation Tracking** - Monitor lead sources and conversion rates
+- **Project Pipeline** - Track projects from lead to completion
+- **Revenue Analytics** - Regional revenue breakdown and trends
+- **Customer Satisfaction** - Client feedback and satisfaction metrics
 
-## Contributing
+### 💼 Business Management
+- **Lead Management** - Capture, qualify, and convert leads
+- **Project Tracking** - Monitor project status, timeline, and completion
+- **Client Portal** - Manage client relationships and communication
+- **Proposal System** - Create and track project proposals
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### 🏗️ Marine Construction Specific
+- **Service Catalog** - Seawalls, docks, marine repairs, and waterfront projects
+- **Regional Analytics** - Gulf Coast, Emerald Coast, and inland waterways
+- **Seasonal Trends** - Track construction activity by season
+- **Lead Sources** - Website, referrals, Google Ads, social media
+
+## Demo Content
+
+The dashboard includes realistic demo content for immediate evaluation:
+- Sample leads from Gulf Coast marina projects
+- Project data for seawalls, docks, and marine repairs
+- Client profiles with contact information
+- Analytics data showing seasonal construction trends
+
+All demo content can be easily cleared and replaced with real business data.
+
+## About ZINC Digital
+
+**[ZINC Digital](https://zincdigital.com)** is a premier web development and digital solutions company based in Miami, Florida. We specialize in creating custom business intelligence dashboards, e-commerce platforms, and digital experiences that drive business growth.
+
+### Our Services
+- 🖥️ **Custom Web Development** - Modern, responsive websites and applications
+- 📊 **Business Intelligence** - Data dashboards and analytics platforms  
+- 🛒 **E-commerce Solutions** - Complete online stores and marketplaces
+- 📱 **Mobile Development** - iOS and Android applications
+- 🎨 **UI/UX Design** - User-centered design and brand experiences
+- ☁️ **Cloud Infrastructure** - Scalable hosting and deployment solutions
+
+**Contact us:** [hello@zincdigital.com](mailto:hello@zincdigital.com) | [zincdigital.com](https://zincdigital.com)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-- [VisActor](https://visactor.io/) - For the amazing visualization library
-- [Vercel](https://vercel.com) - For the incredible deployment platform
-- [Next.js](https://nextjs.org/) - For the awesome React framework
+This project is proprietary software developed by ZINC Digital for Summit Marine Development.
