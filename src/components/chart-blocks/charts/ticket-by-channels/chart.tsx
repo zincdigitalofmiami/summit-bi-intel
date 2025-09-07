@@ -5,22 +5,16 @@ import {
   VChart,
 } from "@visactor/react-vchart";
 import type { Datum } from "@visactor/vchart/esm/typings";
-import { ticketByChannels } from "@/data/ticket-by-channels";
+import { leadSources } from "@/data/ticket-by-channels";
 import { addThousandsSeparator } from "@/lib/utils";
 
-const data = ticketByChannels.reduce(
-  (acc, curr) => {
-    acc.push({
-      type: curr.type,
-      value: curr.value + (acc[acc.length - 1]?.value || 0),
-      realValue: curr.value,
-    });
-    return acc;
-  },
-  [] as { type: string; value: number; realValue: number }[],
-);
+const data = leadSources.map(item => ({
+  type: item.name,
+  value: item.count,
+  percentage: item.percentage,
+}));
 
-const totalTickets = data.reduce((acc, curr) => acc + curr.value, 0);
+const totalLeads = data.reduce((acc, curr) => acc + curr.value, 0);
 
 const spec: IPieChartSpec = {
   type: "pie",
@@ -34,7 +28,7 @@ const spec: IPieChartSpec = {
   data: [
     {
       id: "id0",
-      values: ticketByChannels,
+      values: data,
     },
   ],
   valueField: "value",
@@ -60,7 +54,7 @@ const spec: IPieChartSpec = {
       content: [
         {
           key: (datum: Datum | undefined) => datum?.type,
-          value: (datum: Datum | undefined) => datum?.realValue,
+          value: (datum: Datum | undefined) => datum?.value,
         },
       ],
     },
@@ -71,7 +65,7 @@ const spec: IPieChartSpec = {
       offsetY: "40%",
       title: {
         style: {
-          text: "Total Active Tickets",
+          text: "Total Leads",
           fontSize: 16,
           opacity: 0.6,
         },
@@ -82,7 +76,7 @@ const spec: IPieChartSpec = {
       offsetY: "64%",
       title: {
         style: {
-          text: addThousandsSeparator(totalTickets),
+          text: addThousandsSeparator(totalLeads),
           fontSize: 28,
         },
       },

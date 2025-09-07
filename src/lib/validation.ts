@@ -44,7 +44,7 @@ export function validateFormData<T>(schema: z.ZodSchema<T>, data: unknown): {
       return { success: true, data: result.data };
     } else {
       const errors: Record<string, string> = {};
-      result.error.errors.forEach((err: z.ZodIssue) => {
+      result.error.issues.forEach((err: z.ZodIssue) => {
         const field = err.path.join('.');
         errors[field] = err.message;
       });

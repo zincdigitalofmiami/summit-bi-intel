@@ -85,17 +85,17 @@ export default function LeadsPage() {
     <ErrorBoundary>
       <div className="space-y-6">
       {/* Page Header */}
-      <Container className="py-6">
-        <div className="flex items-center justify-between">
+      <Container className="py-4 sm:py-6">
+        <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Lead Management</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Lead Management</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Track and manage potential clients for Summit Marine Development
             </p>
           </div>
           <button 
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto"
           >
             Add New Lead
           </button>
@@ -133,8 +133,8 @@ export default function LeadsPage() {
       )}
 
       {/* Lead Statistics */}
-      <Container className="py-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <Container className="py-4 sm:py-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Total Leads</h3>
             <p className="text-2xl font-bold">{displayLeads.length}</p>

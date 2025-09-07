@@ -18,8 +18,8 @@ export default function Convertions() {
 
 function Indicator() {
   return (
-    <div className="mt-3">
-      <span className="mr-1 text-2xl font-medium">
+    <div className="mt-3 mb-2">
+      <span className="mr-2 text-2xl font-medium">
         {addThousandsSeparator(
           conversionsData.reduce((acc, curr) => acc + curr.value, 0),
         )}

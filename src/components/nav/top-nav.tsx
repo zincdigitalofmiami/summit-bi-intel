@@ -5,8 +5,8 @@ import { ThemeToggle } from "../theme-toggle";
 
 export default function TopNav({ title }: { title: string }) {
   return (
-    <Container className="flex h-16 items-center justify-between border-b border-border">
-      <h1 className="text-2xl font-medium">{title}</h1>
+    <Container className="flex h-14 sm:h-16 items-center justify-between border-b border-border">
+      <h1 className="text-lg sm:text-2xl font-medium truncate">{title}</h1>
       <ThemeToggle />
     </Container>
   );
