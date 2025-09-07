@@ -1,31 +1,36 @@
 "use client";
 
 import { VChart } from "@visactor/react-vchart";
-import type { ICirclePackingChartSpec } from "@visactor/vchart";
-import { convertions } from "@/data/convertions";
+import type { IFunnelChartSpec } from "@visactor/vchart";
+import { conversionsData } from "@/data/convertions";
 import { addThousandsSeparator } from "@/lib/utils";
 
-const spec: ICirclePackingChartSpec = {
+const spec: IFunnelChartSpec = {
   data: [
     {
       id: "data",
-      values: convertions,
+      values: conversionsData.map(item => ({
+        name: item.stage,
+        value: item.value,
+        color: item.color,
+      })),
     },
   ],
-  type: "circlePacking",
+  type: "funnel",
   categoryField: "name",
   valueField: "value",
-  drill: true,
-  padding: 0,
-  layoutPadding: 5,
+  funnel: {
+    style: {
+      fill: (datum) => datum.color,
+    },
+  },
   label: {
+    visible: true,
     style: {
       fill: "white",
-      stroke: false,
-      visible: (d) => d.depth === 0,
-      text: (d) => addThousandsSeparator(d.value),
-      fontSize: (d) => d.radius / 2,
-      dy: (d) => d.radius / 8,
+      fontSize: 12,
+      fontWeight: "bold",
+      text: (d) => `${d.name}\n${addThousandsSeparator(d.value)}`,
     },
   },
   legends: [

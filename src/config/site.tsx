@@ -1,4 +1,14 @@
-import { Gauge, type LucideIcon, MessagesSquare } from "lucide-react";
+import { 
+  Gauge, 
+  type LucideIcon, 
+  Users, 
+  Building2, 
+  FileText, 
+  Target,
+  TrendingUp,
+  Mail,
+  Droplets
+} from "lucide-react";
 
 export type SiteConfig = typeof siteConfig;
 export type Navigation = {
@@ -8,8 +18,8 @@ export type Navigation = {
 };
 
 export const siteConfig = {
-  title: "VisActor Next Template",
-  description: "Template for VisActor and Next.js",
+  title: "Summit Marine Development - BI Dashboard",
+  description: "Business Intelligence Dashboard for Marine Construction Services",
 };
 
 export const navigations: Navigation[] = [
@@ -19,8 +29,38 @@ export const navigations: Navigation[] = [
     href: "/",
   },
   {
-    icon: MessagesSquare,
-    name: "Ticket",
-    href: "/ticket",
+    icon: Target,
+    name: "Leads",
+    href: "/leads",
+  },
+  {
+    icon: Building2,
+    name: "Projects",
+    href: "/projects",
+  },
+  {
+    icon: Users,
+    name: "Clients",
+    href: "/clients",
+  },
+  {
+    icon: FileText,
+    name: "Proposals",
+    href: "/proposals",
+  },
+  {
+    icon: TrendingUp,
+    name: "Analytics",
+    href: "/analytics",
+  },
+  {
+    icon: Mail,
+    name: "AI Assistant",
+    href: "/ai",
+  },
+  {
+    icon: Droplets,
+    name: "Services",
+    href: "/services",
   },
 ];

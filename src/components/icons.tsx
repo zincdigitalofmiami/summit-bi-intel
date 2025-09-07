@@ -21,3 +21,49 @@ export const VisActorLogo: React.FC<IconSvgProps> = ({
     ></path>
   </svg>
 );
+
+export const ZincFusionLogo: React.FC<IconSvgProps> = ({
+  size = 28,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    fill="none"
+    height={size || height}
+    viewBox="0 0 32 32"
+    width={size || width}
+    {...props}
+  >
+    {/* ZINC Fusion Logo - Modern tech design */}
+    <defs>
+      <linearGradient id="zincGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#0ea5e9" />
+        <stop offset="50%" stopColor="#3b82f6" />
+        <stop offset="100%" stopColor="#6366f1" />
+      </linearGradient>
+    </defs>
+    
+    {/* Outer circle */}
+    <circle
+      cx="16"
+      cy="16"
+      r="15"
+      stroke="url(#zincGradient)"
+      strokeWidth="2"
+      fill="none"
+    />
+    
+    {/* Inner Z shape */}
+    <path
+      d="M8 10 L24 10 L24 12 L12 12 L24 22 L24 24 L8 24 L8 22 L20 22 L8 12 Z"
+      fill="url(#zincGradient)"
+    />
+    
+    {/* Fusion dots */}
+    <circle cx="22" cy="8" r="1.5" fill="#0ea5e9" />
+    <circle cx="26" cy="12" r="1" fill="#3b82f6" />
+    <circle cx="10" cy="26" r="1.5" fill="#6366f1" />
+    <circle cx="6" cy="20" r="1" fill="#0ea5e9" />
+  </svg>
+);

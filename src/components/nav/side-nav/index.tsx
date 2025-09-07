@@ -5,7 +5,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Navigation from "./components/navigation";
 import User from "./components/user";
-import VisActor from "./components/visactor";
+import ZincFusion from "./components/zinc-fusion";
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +35,7 @@ export default function SideNav() {
       >
         <User />
         <Navigation />
-        <VisActor />
+        <ZincFusion />
       </aside>
     </>
   );

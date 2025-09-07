@@ -1,5 +1,5 @@
 import { CirclePercent } from "lucide-react";
-import { convertions } from "@/data/convertions";
+import { conversionsData } from "@/data/convertions";
 import { addThousandsSeparator } from "@/lib/utils";
 import ChartTitle from "../../components/chart-title";
 import Chart from "./chart";
@@ -7,7 +7,7 @@ import Chart from "./chart";
 export default function Convertions() {
   return (
     <section className="flex h-full flex-col gap-2">
-      <ChartTitle title="Conversions" icon={CirclePercent} />
+      <ChartTitle title="Lead Conversion Pipeline" icon={CirclePercent} />
       <Indicator />
       <div className="relative max-h-80 flex-grow">
         <Chart />
@@ -21,10 +21,10 @@ function Indicator() {
     <div className="mt-3">
       <span className="mr-1 text-2xl font-medium">
         {addThousandsSeparator(
-          convertions.reduce((acc, curr) => acc + curr.value, 0),
+          conversionsData.reduce((acc, curr) => acc + curr.value, 0),
         )}
       </span>
-      <span className="text-muted-foreground/60">Sales</span>
+      <span className="text-muted-foreground/60">Total Pipeline</span>
     </div>
   );
 }

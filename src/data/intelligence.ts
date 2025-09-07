@@ -1,0 +1,118 @@
+import type { WeatherData, CompetitorIntelligence, MarketIntelligence } from '@/types/types';
+
+export const mockWeatherData: WeatherData[] = [
+  {
+    id: 'weather-1',
+    location: 'Miami Beach',
+    date: new Date('2024-09-07'),
+    temperature: 85.2,
+    conditions: 'Partly Cloudy',
+    windSpeed: 12.5,
+    humidity: 78.0,
+    forecastHours: 24,
+    waveHeight: 2.1,
+    waterTemperature: 82.5,
+    tideConditions: 'High Tide at 3:45 PM',
+    precipitationProbability: 25.0,
+    createdAt: new Date('2024-09-07'),
+  },
+  {
+    id: 'weather-2',
+    location: 'Fort Lauderdale',
+    date: new Date('2024-09-07'),
+    temperature: 86.1,
+    conditions: 'Sunny',
+    windSpeed: 8.3,
+    humidity: 72.0,
+    forecastHours: 24,
+    waveHeight: 1.8,
+    waterTemperature: 81.9,
+    tideConditions: 'Low Tide at 9:30 AM',
+    precipitationProbability: 15.0,
+    createdAt: new Date('2024-09-07'),
+  },
+];
+
+export const mockCompetitorIntelligence: CompetitorIntelligence[] = [
+  {
+    id: 'comp-1',
+    competitorName: 'AquaShield Solutions',
+    dateRecorded: new Date('2024-09-05'),
+    source: 'industry_report',
+    intelligenceType: 'pricing_analysis',
+    details: 'AquaShield has increased their pool deck waterproofing rates by 8% for Q4 2024',
+    pricingStrategy: 'Premium pricing with 3-year warranty inclusion',
+    marketingChannels: ['Google Ads', 'Industry Magazines', 'Trade Shows'],
+    productOfferings: ['Residential Waterproofing', 'Commercial Services', 'Emergency Repairs'],
+    marketShareEstimate: 22.5,
+    strengths: ['Strong brand recognition', 'Established client base', 'Advanced equipment'],
+    weaknesses: ['Higher pricing', 'Limited emergency response', 'Slower project completion'],
+    recentMoves: 'Acquired smaller competitor in Tampa Bay area',
+    strategicRecommendations: 'Consider competitive pricing for large commercial projects. Emphasize our faster response times.',
+    createdAt: new Date('2024-09-05'),
+  },
+  {
+    id: 'comp-2',
+    competitorName: 'Coastal Waterproofing Pro',
+    dateRecorded: new Date('2024-09-03'),
+    source: 'customer_feedback',
+    intelligenceType: 'service_analysis',
+    details: 'Customer reports indicate Coastal WP has quality issues with recent balcony projects',
+    pricingStrategy: 'Low-cost leader with basic warranties',
+    marketingChannels: ['Facebook Ads', 'Local Radio', 'Direct Mail'],
+    productOfferings: ['Basic Waterproofing', 'Sealant Application'],
+    marketShareEstimate: 15.8,
+    strengths: ['Aggressive pricing', 'Quick turnaround'],
+    weaknesses: ['Quality concerns', 'Limited service range', 'Poor customer reviews'],
+    recentMoves: 'Launched aggressive pricing campaign for residential market',
+    strategicRecommendations: 'Opportunity to win over their dissatisfied customers by emphasizing quality and reliability.',
+    createdAt: new Date('2024-09-03'),
+  },
+];
+
+export const mockMarketIntelligence: MarketIntelligence[] = [
+  {
+    id: 'mi-1',
+    title: 'Florida Construction Market Growth Projected at 12% for 2025',
+    source: 'Florida Construction Industry Report',
+    datePublished: new Date('2024-09-01'),
+    category: 'market_trends',
+    summary: 'The Florida construction market is expected to grow significantly driven by population growth and commercial development. Waterproofing services demand is particularly strong in coastal areas.',
+    fullContentLink: 'https://example.com/florida-construction-report-2024',
+    createdAt: new Date('2024-09-02'),
+  },
+  {
+    id: 'mi-2',
+    title: 'New Building Codes Require Enhanced Waterproofing Standards',
+    source: 'Miami-Dade Building Department',
+    datePublished: new Date('2024-08-28'),
+    category: 'regulatory_changes',
+    summary: 'Updated building codes effective January 2025 will require enhanced waterproofing standards for all new construction and major renovations in coastal areas.',
+    fullContentLink: 'https://example.com/miami-dade-building-codes-2025',
+    createdAt: new Date('2024-08-29'),
+  },
+  {
+    id: 'mi-3',
+    title: 'Hurricane Season Preparation Drives Waterproofing Demand',
+    source: 'South Florida Business Journal',
+    datePublished: new Date('2024-08-25'),
+    category: 'seasonal_trends',
+    summary: 'Property owners are increasingly investing in preventive waterproofing measures ahead of hurricane season, creating opportunities for specialized service providers.',
+    fullContentLink: 'https://example.com/hurricane-season-waterproofing-trends',
+    createdAt: new Date('2024-08-26'),
+  },
+];
+
+// Analytics summary for dashboard display
+export const intelligenceSummary = {
+  totalCompetitors: 8,
+  marketGrowthRate: 12.0,
+  opportunityScore: 87.5,
+  threatLevel: 'Medium',
+  recommendedActions: [
+    'Capitalize on competitor quality issues',
+    'Prepare for new building code requirements',
+    'Expand hurricane season marketing',
+    'Consider acquisition opportunities',
+  ],
+};
