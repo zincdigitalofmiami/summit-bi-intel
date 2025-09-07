@@ -2,7 +2,7 @@
 
 A comprehensive business intelligence dashboard for Summit Marine Development, specializing in marine construction, seawalls, docks, and waterfront infrastructure projects. Built with modern web technologies and beautiful data visualizations.
 
-**Developed by [ZINC Digital](https://zincdigital.com)** - Premium web development and digital solutions in Miami, Florida.
+**Developed by [ZINC Digital](https://www.zincdigital.co)** - ZINC Digital operates as a fully agentic digital consultancy—built for enterprise outcomes, not agency platitudes. Every engagement starts with a senior strategist, rigorous discovery, and a roadmap mapped to business value. Clients partner with us for operational precision and sustained market advantage.
 
 ## Features
 
@@ -107,17 +107,43 @@ All demo content can be easily cleared and replaced with real business data.
 
 ## About ZINC Digital
 
-**[ZINC Digital](https://zincdigital.com)** is a premier web development and digital solutions company based in Miami, Florida. We specialize in creating custom business intelligence dashboards, e-commerce platforms, and digital experiences that drive business growth.
+## About ZINC Digital
 
-### Our Services
-- 🖥️ **Custom Web Development** - Modern, responsive websites and applications
-- 📊 **Business Intelligence** - Data dashboards and analytics platforms  
-- 🛒 **E-commerce Solutions** - Complete online stores and marketplaces
-- 📱 **Mobile Development** - iOS and Android applications
-- 🎨 **UI/UX Design** - User-centered design and brand experiences
-- ☁️ **Cloud Infrastructure** - Scalable hosting and deployment solutions
+**[ZINC Digital](https://www.zincdigital.co)** operates as a fully agentic digital consultancy—built for enterprise outcomes, not agency platitudes. Every engagement starts with a senior strategist, rigorous discovery, and a roadmap mapped to business value. Clients partner with us for operational precision and sustained market advantage.
 
-**Contact us:** [hello@zincdigital.com](mailto:hello@zincdigital.com) | [zincdigital.com](https://zincdigital.com)
+We architect enterprise solutions through intellectual rigor and proactive innovation. As integrated partners, our strategic discipline transforms potential into predictable excellence and a durable competitive advantage.
+
+### Proven Results
+- 📊 **18+ Years of Experience** - Deep expertise in digital transformation and growth
+- 🏢 **7+ Years in Business** - Established track record as ZINC Digital
+- 💰 **$235M+ in Client Revenues** - Measurable business impact and growth
+- 📞 **517 After-Hour Calls Answered** - Unmatched commitment to client success
+
+### Our Enterprise Services
+- 🔍 **SEO Services** - National SEO powered by cutting-edge AI and Big Query technology
+- 📱 **Mobile Apps** - Custom mobile solutions engineered for seamless user engagement and business growth
+- 📊 **Business Intelligence Platform** - Bespoke business intelligence dashboards that transform data into actionable strategic insights
+- 🎨 **Web Design** - User-first digital experiences that convert and eliminate dropoffs
+- 🏢 **Local Service Businesses** - Specialized solutions for local business growth and market dominance
+- 📈 **PPC & Social Media Advertising** - Precision-targeted campaigns that maximize ROI through strategic audience optimization
+
+### Proven Results
+- 📊 **18+ Years of Experience** - Deep expertise in digital transformation and growth
+- 💰 **$235M+ in Client Revenues** - Track record of driving measurable business impact
+- 🏆 **Award-Winning Agency** - Recognized for innovation and excellence
+- 📞 **517 After-Hour Calls Answered** - Commitment to client success and support
+
+### Our Enterprise Services
+- � **SEO & Digital Strategy** - Enterprise-level search optimization and strategic positioning
+- 📱 **App Development** - Custom applications for business automation and growth
+- 📊 **Business Intelligence** - Data dashboards and analytics platforms that drive decisions
+- 🤖 **AI Modeling** - Machine learning solutions for competitive advantage
+- 🎨 **Branding** - Complete brand strategy and visual identity systems
+- 🚀 **Digital Strategy** - Comprehensive digital transformation consulting
+
+**Contact us:** [hello@zincdigital.co](mailto:hello@zincdigital.co) | [(850) 270-8520](tel:(850) 270-8520) | [www.zincdigital.co](https://www.zincdigital.co)
+
+**Location:** 97 Oak Avenue, Suite 7, Panama City, FL 32401
 
 ## License
 
