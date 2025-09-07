@@ -6,24 +6,43 @@ import {
   TicketByChannels,
 } from "@/components/chart-blocks";
 import Container from "@/components/container";
+import QuickActions from "@/components/quick-actions";
+import MarineStatusOverview from "@/components/marine-status";
 
 export default function Home() {
   return (
-    <div>
+    <div className="space-y-6">
+      {/* Quick Actions Section - Mobile First */}
+      <div className="border-b border-border">
+        <Container className="py-6">
+          <QuickActions />
+        </Container>
+      </div>
+
+      {/* Key Metrics */}
       <Metrics />
+
+      {/* Marine Status Overview - New Section */}
+      <div className="border-b border-border">
+        <Container className="py-6">
+          <MarineStatusOverview />
+        </Container>
+      </div>
+
+      {/* Charts Section - Improved Grid */}
       <div className="grid grid-cols-1 divide-y border-b border-border xl:grid-cols-3 xl:divide-x xl:divide-y-0 xl:divide-border">
-        <Container className="py-4 xl:col-span-1">
+        <Container className="py-6 xl:col-span-1">
           <Conversions />
         </Container>
-        <Container className="py-4 xl:col-span-2">
+        <Container className="py-6 xl:col-span-2">
           <AverageTicketsCreated />
         </Container>
       </div>
       <div className="grid grid-cols-1 divide-y border-b border-border lg:grid-cols-2 lg:divide-x lg:divide-y-0 lg:divide-border">
-        <Container className="py-4 lg:col-span-1">
+        <Container className="py-6 lg:col-span-1">
           <TicketByChannels />
         </Container>
-        <Container className="py-4 lg:col-span-1">
+        <Container className="py-6 lg:col-span-1">
           <CustomerSatisfication />
         </Container>
       </div>

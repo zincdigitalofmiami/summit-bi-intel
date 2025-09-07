@@ -7,7 +7,8 @@ import {
   Target,
   TrendingUp,
   Mail,
-  Droplets
+  Droplets,
+  Phone
 } from "lucide-react";
 
 export type SiteConfig = typeof siteConfig;
@@ -42,6 +43,11 @@ export const navigations: Navigation[] = [
     icon: Users,
     name: "Clients",
     href: "/clients",
+  },
+  {
+    icon: Phone,
+    name: "Contacts",
+    href: "/contacts",
   },
   {
     icon: FileText,

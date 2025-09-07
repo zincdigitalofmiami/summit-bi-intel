@@ -1,4 +1,5 @@
 import { TopNav } from "@/components/nav";
+import MobileFloatingActions from "@/components/mobile-floating-actions";
 
 export default function DashboardLayout({
   children,
@@ -9,6 +10,7 @@ export default function DashboardLayout({
     <>
       <TopNav title="Dashboard" />
       <main>{children}</main>
+      <MobileFloatingActions />
     </>
   );
 }
