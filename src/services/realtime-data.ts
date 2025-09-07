@@ -29,7 +29,7 @@ const NOAATidesSchema = z.object({
 });
 
 // Marine construction industry data structure
-interface MarineIndustryData {
+interface _MarineIndustryData {
   materialPrices: {
     concrete: number;
     steel: number;

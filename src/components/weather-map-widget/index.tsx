@@ -14,7 +14,7 @@ import {
 export default function WeatherMapWidget() {
   const [isClient, setIsClient] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [_refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     setIsClient(true);

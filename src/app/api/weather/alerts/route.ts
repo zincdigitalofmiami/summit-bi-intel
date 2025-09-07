@@ -1,17 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
-interface NOAAAlert {
+// Type for weather alert
+interface WeatherAlert {
   id: string;
-  properties: {
-    headline: string;
-    description: string;
-    severity: 'minor' | 'moderate' | 'severe' | 'extreme';
-    urgency: 'immediate' | 'expected' | 'future';
-    certainty: 'observed' | 'likely' | 'possible';
-    areas: string[];
-    effective: string;
-    expires: string;
-  };
+  severity: string;
+  headline: string;
+  description: string;
+  areas: string[];
+  effective: string;
+  expires: string;
+  urgency: string;
+  certainty: string;
 }
 
 export async function GET(request: NextRequest) {
@@ -37,21 +37,21 @@ export async function GET(request: NextRequest) {
     const data = await response.json();
     
     // Transform NOAA data to our format
-    const alerts = data.features?.map((feature: NOAAAlert) => ({
-      id: feature.id,
-      severity: feature.properties.severity,
-      headline: feature.properties.headline,
-      description: feature.properties.description,
-      areas: feature.properties.areas || [],
-      effective: feature.properties.effective,
-      expires: feature.properties.expires,
-      urgency: feature.properties.urgency,
-      certainty: feature.properties.certainty,
-    })) || [];
+    const alerts = (data.features || []).map((feature: { properties: Record<string, unknown> }) => ({
+      id: feature.properties.id as string,
+      severity: feature.properties.severity as string,
+      headline: feature.properties.headline as string,
+      description: feature.properties.description as string,
+      areas: feature.properties.areas as string[] || [],
+      effective: feature.properties.effective as string,
+      expires: feature.properties.expires as string,
+      urgency: feature.properties.urgency as string,
+      certainty: feature.properties.certainty as string,
+    }));
 
     // Sort by severity (extreme first)
     const severityOrder = { extreme: 4, severe: 3, moderate: 2, minor: 1 };
-    alerts.sort((a: any, b: any) => 
+    alerts.sort((a: WeatherAlert, b: WeatherAlert) => 
       (severityOrder[b.severity as keyof typeof severityOrder] || 0) - 
       (severityOrder[a.severity as keyof typeof severityOrder] || 0)
     );

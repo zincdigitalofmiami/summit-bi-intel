@@ -99,8 +99,7 @@ export class WeatherService {
         barometricPressure: props.barometricPressure?.value || 0
       };
     } catch (error) {
-      console.error('Error fetching weather data:', error);
-      throw new Error('Failed to fetch weather data');
+      throw new Error(`Failed to fetch weather data: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
   
@@ -137,8 +136,8 @@ export class WeatherService {
         extremeHighToday: this.getTodayExtreme(predData.predictions, 'high'),
         extremeLowToday: this.getTodayExtreme(predData.predictions, 'low')
       };
-    } catch (error) {
-      console.error('Error fetching tide data:', error);
+    } catch {
+      // Return fallback data when API fails
       return {
         height: 2.5,
         status: 'Rising',
@@ -160,29 +159,28 @@ export class WeatherService {
       const forecastResponse = await fetch(pointData.properties.forecast);
       const forecastData = await forecastResponse.json();
       
-      return forecastData.properties.periods.slice(0, 8).map((period: any, index: number) => {
-        const windSpeed = this.extractWindSpeed(period.windSpeed);
+      return forecastData.properties.periods.slice(0, 8).map((period: Record<string, unknown>, index: number) => {
+        const windSpeed = this.extractWindSpeed(period.windSpeed as string);
         const waveHeight = this.calculateWaveHeight(this.mphToMps(windSpeed));
         
         return {
           day: index === 0 ? 'Today' : index === 1 ? 'Tomorrow' : 
-               new Date(period.startTime).toLocaleDateString('en-US', { weekday: 'short' }),
-          date: new Date(period.startTime).toLocaleDateString(),
-          high: period.temperature,
-          low: period.temperature - 8, // Estimate, NOAA doesn't provide low in this endpoint
-          condition: this.mapConditionToSimple(period.shortForecast),
-          conditionText: period.shortForecast,
+               new Date(period.startTime as string).toLocaleDateString('en-US', { weekday: 'short' }),
+          date: new Date(period.startTime as string).toLocaleDateString(),
+          high: period.temperature as number,
+          low: (period.temperature as number) - 8, // Estimate, NOAA doesn't provide low in this endpoint
+          condition: this.mapConditionToSimple(period.shortForecast as string),
+          conditionText: period.shortForecast as string,
           windSpeed: windSpeed,
-          windDirection: period.windDirection,
+          windDirection: period.windDirection as string,
           waveHeight: waveHeight,
           marineRisk: this.calculateMarineRisk(windSpeed, waveHeight),
-          workability: this.calculateWorkability(windSpeed, waveHeight, period.shortForecast),
-          chanceOfRain: this.extractRainChance(period.detailedForecast)
+          workability: this.calculateWorkability(windSpeed, waveHeight, period.shortForecast as string),
+          chanceOfRain: this.extractRainChance(period.detailedForecast as string)
         };
       });
     } catch (error) {
-      console.error('Error fetching forecast:', error);
-      throw new Error('Failed to fetch forecast data');
+      throw new Error(`Failed to fetch forecast data: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
   
@@ -194,15 +192,18 @@ export class WeatherService {
       const alertData = await response.json();
       
       return alertData.features
-        .filter((alert: any) => 
-          alert.properties.areaDesc.includes('Bay') || 
-          alert.properties.areaDesc.includes('Panama City') ||
-          alert.properties.event.includes('Marine')
-        )
-        .map((alert: any) => alert.properties.headline)
+        .filter((alert: Record<string, unknown>) => {
+          const props = alert.properties as Record<string, unknown>;
+          return (props.areaDesc as string)?.includes('Bay') || 
+                 (props.areaDesc as string)?.includes('Panama City') ||
+                 (props.event as string)?.includes('Marine');
+        })
+        .map((alert: Record<string, unknown>) => {
+          const props = alert.properties as Record<string, unknown>;
+          return props.headline as string;
+        })
         .slice(0, 3); // Limit to 3 most relevant alerts
-    } catch (error) {
-      console.error('Error fetching alerts:', error);
+    } catch {
       return [];
     }
   }
@@ -237,26 +238,26 @@ export class WeatherService {
     return "4+";
   }
   
-  private static calculateMarineCondition(weather: any, tide: TideData): string {
-    const windSpeed = this.mpsToMph(weather.windSpeed?.value || 0);
-    const visibility = this.metersToMiles(weather.visibility?.value || 16000);
+  private static calculateMarineCondition(weather: Record<string, unknown>, _tide: TideData): string {
+    const windSpeed = this.mpsToMph((weather.windSpeed as { value?: number })?.value || 0);
+    const visibility = this.metersToMiles((weather.visibility as { value?: number })?.value || 16000);
     
     if (windSpeed > 25 || visibility < 2) return "Poor";
     if (windSpeed > 15 || visibility < 5) return "Fair";
     return "Good";
   }
   
-  private static calculateTideStatus(predictions: any[], currentTime: Date): 'Rising' | 'Falling' | 'High' | 'Low' {
+  private static calculateTideStatus(_predictions: Record<string, unknown>[], _currentTime: Date): 'Rising' | 'Falling' | 'High' | 'Low' {
     // Simplified logic - would need more sophisticated analysis
     return 'Rising';
   }
   
-  private static getNextTideTime(predictions: any[], type: 'high' | 'low'): string {
+  private static getNextTideTime(predictions: Record<string, unknown>[], type: 'high' | 'low'): string {
     // Would implement proper tide prediction parsing
     return type === 'high' ? '2:30 PM' : '8:15 PM';
   }
   
-  private static getTodayExtreme(predictions: any[], type: 'high' | 'low'): number {
+  private static getTodayExtreme(predictions: Record<string, unknown>[], type: 'high' | 'low'): number {
     // Would implement proper extreme calculation
     return type === 'high' ? 4.2 : 0.8;
   }
