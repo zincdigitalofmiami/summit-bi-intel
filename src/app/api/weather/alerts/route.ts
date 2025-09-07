@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+import { weatherApiLimit } from '@/lib/rate-limit';
 
 // Type for weather alert
 interface WeatherAlert {
@@ -14,11 +15,47 @@ interface WeatherAlert {
   certainty: string;
 }
 
+// Validate zone parameter
+function validateZones(zones: string | null): string {
+  if (!zones) return 'FLZ112,FLZ134,FLZ230';
+  
+  // Only allow specific NOAA zone patterns
+  const validZonePattern = /^[A-Z]{2}Z\d{3}(,[A-Z]{2}Z\d{3})*$/;
+  if (!validZonePattern.test(zones)) {
+    throw new Error('Invalid zone format');
+  }
+  
+  // Limit to maximum 10 zones to prevent abuse
+  const zoneArray = zones.split(',');
+  if (zoneArray.length > 10) {
+    throw new Error('Too many zones requested');
+  }
+  
+  return zones;
+}
+
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const zones = searchParams.get('zones') || 'FLZ112,FLZ134,FLZ230'; // Panama City area zones
+  // Rate limiting
+  const rateLimitResult = weatherApiLimit.check(request);
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. Please try again later.' },
+      { 
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': '30',
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': rateLimitResult.resetTime.toString(),
+        }
+      }
+    );
+  }
 
   try {
+    const { searchParams } = new URL(request.url);
+    const rawZones = searchParams.get('zones');
+    const zones = validateZones(rawZones);
+
     // NOAA NWS API - Active Alerts
     const response = await fetch(
       `https://api.weather.gov/alerts/active?zone=${zones}`,
@@ -27,6 +64,7 @@ export async function GET(request: NextRequest) {
           'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
         },
         next: { revalidate: 300 }, // Cache for 5 minutes
+        signal: AbortSignal.timeout(10000), // 10 second timeout
       }
     );
 
@@ -63,6 +101,14 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
+    // Handle validation errors differently from API errors
+    if (error instanceof Error && (error.message.includes('Invalid zone') || error.message.includes('Too many zones'))) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 400 }
+      );
+    }
+
     // Return mock data for development or when API is down
     const mockAlert = {
       id: 'mock-alert-001',

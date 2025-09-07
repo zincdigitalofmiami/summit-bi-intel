@@ -23,12 +23,15 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log error to monitoring service in production
-    if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
-      console.error('Error caught by boundary:', error, errorInfo);
+    // Log to external service in production
+    if (process.env.NODE_ENV !== 'production') {
+      // Development-only logging - store in global for debugging
+      if (typeof window !== 'undefined') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).__devError = { error, errorInfo };
+      }
     }
-    // In production, send to error monitoring service
+    // TODO: In production, send to error tracking service like Sentry
   }
 
   render() {
