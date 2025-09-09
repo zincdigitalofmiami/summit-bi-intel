@@ -1,0 +1,18 @@
+# Global code owners - require review for all changes
+* @your-github-username
+
+# Critical infrastructure files require additional review
+/src/app/api/** @your-github-username
+/src/lib/** @your-github-username
+/.github/workflows/** @your-github-username
+/vercel.json @your-github-username
+/next.config.mjs @your-github-username
+/package.json @your-github-username
+
+# Database and environment configs
+/src/data/** @your-github-username
+/env.example @your-github-username
+
+# Security-sensitive files
+/src/middleware.ts @your-github-username
+/sentry.client.config.ts @your-github-username

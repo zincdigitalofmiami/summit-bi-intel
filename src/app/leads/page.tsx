@@ -95,7 +95,7 @@ export default function LeadsPage() {
           </div>
           <button 
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto"
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto"
           >
             Add New Lead
           </button>
@@ -105,7 +105,7 @@ export default function LeadsPage() {
       {/* Project Conversion Form Modal */}
       {showProjectForm && selectedLead && (
         <Container className="py-6">
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-border p-6">
+          <div className="bg-card rounded-lg border border-border p-6">
             <h2 className="text-xl font-semibold mb-6">Convert Lead to Project</h2>
             <ProjectForm
               onSubmit={handleCreateProject}
@@ -121,7 +121,7 @@ export default function LeadsPage() {
       )}
       {showForm && (
         <Container className="py-6">
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-border p-6">
+          <div className="bg-card rounded-lg border border-border p-6">
             <h2 className="text-xl font-semibold mb-6">Add New Lead</h2>
             <LeadForm
               onSubmit={handleCreateLead}
@@ -135,22 +135,22 @@ export default function LeadsPage() {
       {/* Lead Statistics */}
       <Container className="py-4 sm:py-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Total Leads</h3>
             <p className="text-2xl font-bold">{displayLeads.length}</p>
             <p className="text-xs text-muted-foreground">All time</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">New Leads</h3>
             <p className="text-2xl font-bold">{displayLeads.filter(l => l.status === 'new').length}</p>
             <p className="text-xs text-muted-foreground">This month</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Qualified</h3>
             <p className="text-2xl font-bold">{displayLeads.filter(l => l.status === 'qualified').length}</p>
             <p className="text-xs text-muted-foreground">Ready for proposals</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Conversion Rate</h3>
             <p className="text-2xl font-bold">
               {displayLeads.length > 0 ? Math.round((displayLeads.filter(l => l.status === 'converted').length / displayLeads.length) * 100) : 0}%
@@ -162,7 +162,7 @@ export default function LeadsPage() {
 
       {/* Leads List */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Recent Leads</h2>
             <p className="text-sm text-muted-foreground">
@@ -179,7 +179,7 @@ export default function LeadsPage() {
                 action={
                   <button 
                     onClick={() => setShowForm(true)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90"
                   >
                     Add Your First Lead
                   </button>
@@ -217,7 +217,7 @@ export default function LeadsPage() {
                           {lead.status === 'new' && (
                             <button
                               onClick={() => handleUpdateLeadStatus(lead.id, 'qualified')}
-                              className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700"
+                              className="px-3 py-1 text-xs bg-summit-light-blue text-white rounded hover:bg-summit-light-blue/90"
                             >
                               Mark Qualified
                             </button>
@@ -225,17 +225,17 @@ export default function LeadsPage() {
                           {lead.status === 'qualified' && (
                             <button
                               onClick={() => handleConvertToProject(lead)}
-                              className="px-3 py-1 text-xs bg-green-600 text-white rounded hover:bg-green-700"
+                              className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600"
                             >
                               Convert to Project
                             </button>
                           )}
                           <span className={`px-2 py-1 text-xs rounded ${
-                            lead.status === 'new' ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' :
-                            lead.status === 'qualified' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' :
-                            lead.status === 'proposal' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200' :
-                            lead.status === 'converted' ? 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200' :
-                            'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
+                            lead.status === 'new' ? 'bg-summit-light-blue text-white' :
+                            lead.status === 'qualified' ? 'bg-green-500 text-white' :
+                            lead.status === 'proposal' ? 'bg-federal-orange text-white' :
+                            lead.status === 'converted' ? 'bg-purple-500 text-white' :
+                            'bg-muted text-muted-foreground'
                           }`}>
                             {lead.status}
                           </span>

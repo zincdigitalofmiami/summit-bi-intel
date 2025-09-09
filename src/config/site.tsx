@@ -1,14 +1,15 @@
-import { 
-  Gauge, 
-  type LucideIcon, 
-  Users, 
-  Building2, 
-  FileText, 
+import {
+  Brain,
+  Building2,
+  Droplets,
+  FileText,
+  Gauge,
+  type LucideIcon,
+  Mail,
+  Phone,
   Target,
   TrendingUp,
-  Mail,
-  Droplets,
-  Phone
+  Users,
 } from "lucide-react";
 
 export type SiteConfig = typeof siteConfig;
@@ -20,7 +21,8 @@ export type Navigation = {
 
 export const siteConfig = {
   title: "Summit Marine Development - BI Dashboard",
-  description: "Business Intelligence Dashboard for Marine Construction Services",
+  description:
+    "Business Intelligence Dashboard for Marine Construction Services",
 };
 
 export const navigations: Navigation[] = [
@@ -58,6 +60,11 @@ export const navigations: Navigation[] = [
     icon: TrendingUp,
     name: "Analytics",
     href: "/analytics",
+  },
+  {
+    icon: Brain,
+    name: "Market Intelligence",
+    href: "/analytics/market-intelligence",
   },
   {
     icon: Mail,

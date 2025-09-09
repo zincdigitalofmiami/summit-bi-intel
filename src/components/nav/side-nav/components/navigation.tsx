@@ -8,25 +8,32 @@ import { cn } from "@/lib/utils";
 export default function Navigation() {
   const pathname = usePathname();
   return (
-    <nav className="flex flex-grow flex-col gap-y-1 p-2">
+    <nav className="flex flex-grow flex-col gap-y-0 p-0 mt-6">
       {navigations.map((navigation) => {
         const Icon = navigation.icon;
+        const isActive = pathname === navigation.href;
         return (
           <Link
             key={navigation.name}
             href={navigation.href}
             className={cn(
-              "flex items-center rounded-md px-2 py-1.5 hover:bg-slate-200 dark:hover:bg-slate-800",
-              pathname === navigation.href
-                ? "bg-slate-200 dark:bg-slate-800"
-                : "bg-transparent",
+              "flex items-center px-4 py-3 transition-colors duration-200",
+              "hover:bg-muted/50",
+              isActive
+                ? "bg-primary/10 text-primary border-r-2 border-primary"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
             <Icon
-              size={16}
-              className="mr-2 text-slate-800 dark:text-slate-200"
+              size={18}
+              className={cn(
+                "mr-3",
+                isActive
+                  ? "text-primary"
+                  : "text-muted-foreground"
+              )}
             />
-            <span className="text-sm text-slate-700 dark:text-slate-300">
+            <span className="text-base font-medium">
               {navigation.name}
             </span>
           </Link>

@@ -5,8 +5,8 @@ import {
   TicketByChannels,
 } from "@/components/chart-blocks";
 import Container from "@/components/container";
-import QuickActions from "@/components/quick-actions";
 import MarineStatusOverview from "@/components/marine-status";
+import QuickActions from "@/components/quick-actions";
 
 export default function Home() {
   return (

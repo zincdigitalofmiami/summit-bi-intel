@@ -12,7 +12,7 @@ export default function ServicesPage() {
               Marine construction services offered by Summit Marine Development
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             Add Service
           </button>
         </div>
@@ -21,22 +21,22 @@ export default function ServicesPage() {
       {/* Service Overview */}
       <Container className="py-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Total Services</h3>
             <p className="text-2xl font-bold">6</p>
             <p className="text-xs text-muted-foreground">Available services</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Most Popular</h3>
             <p className="text-2xl font-bold">-</p>
             <p className="text-xs text-muted-foreground">Based on projects</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Avg. Project Value</h3>
             <p className="text-2xl font-bold">$0</p>
             <p className="text-xs text-muted-foreground">All services</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Revenue YTD</h3>
             <p className="text-2xl font-bold">$0</p>
             <p className="text-xs text-muted-foreground">From all services</p>
@@ -46,7 +46,7 @@ export default function ServicesPage() {
 
       {/* Core Services */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Core Marine Construction Services</h2>
             <p className="text-sm text-muted-foreground">
@@ -205,7 +205,7 @@ export default function ServicesPage() {
 
       {/* Service Areas */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Service Areas</h2>
             <p className="text-sm text-muted-foreground">

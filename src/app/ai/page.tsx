@@ -13,7 +13,7 @@ export default function AIAssistantPage() {
               Get intelligent insights and recommendations for your business
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             New Chat
           </button>
         </div>
@@ -21,7 +21,7 @@ export default function AIAssistantPage() {
 
       {/* AI Suggestions */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Smart Recommendations</h2>
             <p className="text-sm text-muted-foreground">
@@ -41,7 +41,7 @@ export default function AIAssistantPage() {
 
       {/* Email Templates */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">AI Email Templates</h2>
             <p className="text-sm text-muted-foreground">
@@ -111,7 +111,7 @@ export default function AIAssistantPage() {
 
       {/* Business Intelligence */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Business Intelligence</h2>
             <p className="text-sm text-muted-foreground">
@@ -162,7 +162,7 @@ export default function AIAssistantPage() {
 
       {/* Generated Content History */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">AI Generated Content</h2>
             <p className="text-sm text-muted-foreground">

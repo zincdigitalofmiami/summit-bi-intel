@@ -12,7 +12,7 @@ export default function ClientsPage() {
               Manage relationships with residential and commercial waterfront property owners
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             Add New Client
           </button>
         </div>
@@ -21,22 +21,22 @@ export default function ClientsPage() {
       {/* Client Statistics */}
       <Container className="py-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Total Clients</h3>
             <p className="text-2xl font-bold">0</p>
             <p className="text-xs text-muted-foreground">All time</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Active Clients</h3>
             <p className="text-2xl font-bold">0</p>
             <p className="text-xs text-muted-foreground">Current projects</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Repeat Clients</h3>
             <p className="text-2xl font-bold">0</p>
             <p className="text-xs text-muted-foreground">Multiple projects</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Client Lifetime Value</h3>
             <p className="text-2xl font-bold">$0</p>
             <p className="text-xs text-muted-foreground">Average</p>
@@ -46,7 +46,7 @@ export default function ClientsPage() {
 
       {/* Client List */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Client Directory</h2>
             <p className="text-sm text-muted-foreground">
@@ -66,7 +66,7 @@ export default function ClientsPage() {
 
       {/* Client Types */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Client Categories</h2>
             <p className="text-sm text-muted-foreground">

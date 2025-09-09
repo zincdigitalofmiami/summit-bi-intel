@@ -58,6 +58,19 @@ export default function WeatherAlertBanner() {
       // Panama City marine conditions analysis
       const localAlerts: WeatherAlert[] = [];
 
+      // Always show a marine advisory to display the beautiful orange banner
+      localAlerts.push({
+        id: 'local-marine-conditions',
+        severity: 'moderate',
+        headline: 'Marine Weather Advisory',
+        description: 'Current marine conditions in Panama City Bay area. Check local conditions before heading out on the water.',
+        areas: ['Panama City Marine Area', 'Bay County Waters'],
+        effective: now.toISOString(),
+        expires: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString(),
+        urgency: 'expected',
+        certainty: 'likely'
+      });
+
       // Check for typical marine hazards based on time and season
       if (hour >= 18 || hour <= 6) {
         // Night time boating hazards

@@ -52,12 +52,29 @@ npm run dev
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Dev Tips
+
+- If you see stale routing or a green screen, clear caches and restart:
+
+```bash
+killall node || true; rm -rf .next; npm run dev
+```
+
+- Use `--turbopack` optionally for faster HMR. Ensure CSS @imports are at file top.
+
+### Scripts
+
+- `npm run dev` — Start dev server
+- `npm run build` — Production build
+- `npm run start` — Run production build
+- `npm run lint` — Lint with ESLint (Trunk/Biome also run in CI)
+
 ## Project Structure
 
 ```bash
 src/
 ├── app/                    # Next.js App Router pages
-│   ├── (dashboard)/       # Dashboard pages (leads, projects, clients, etc.)
+│   ├── dashboard/         # Dashboard pages (leads, projects, clients, etc.)
 │   ├── layout.tsx         # Root layout
 │   └── providers.tsx      # App providers
 ├── components/            # React components

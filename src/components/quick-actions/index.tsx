@@ -18,7 +18,7 @@ const quickActions = [
     id: "quote",
     label: "Create Quote",
     icon: Calculator,
-    color: "bg-blue-500 hover:bg-blue-600",
+    color: "bg-blue-500 hover:bg-primary",
     description: "Fast estimate generation"
   },
   {

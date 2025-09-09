@@ -12,7 +12,7 @@ export default function AnalyticsPage() {
               Analyze performance metrics and business insights
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             Generate Report
           </button>
         </div>
@@ -21,22 +21,22 @@ export default function AnalyticsPage() {
       {/* Key Performance Indicators */}
       <Container className="py-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Monthly Revenue</h3>
             <p className="text-2xl font-bold">$0</p>
             <p className="text-xs text-green-600">+0% from last month</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Projects Completed</h3>
             <p className="text-2xl font-bold">0</p>
             <p className="text-xs text-green-600">+0 from last month</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">New Clients</h3>
             <p className="text-2xl font-bold">0</p>
             <p className="text-xs text-green-600">+0 from last month</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Profit Margin</h3>
             <p className="text-2xl font-bold">0%</p>
             <p className="text-xs text-muted-foreground">Average</p>
@@ -46,7 +46,7 @@ export default function AnalyticsPage() {
 
       {/* Revenue Trends */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Revenue Trends</h2>
             <p className="text-sm text-muted-foreground">
@@ -66,7 +66,7 @@ export default function AnalyticsPage() {
 
       {/* Service Performance */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Service Performance</h2>
             <p className="text-sm text-muted-foreground">
@@ -102,7 +102,7 @@ export default function AnalyticsPage() {
 
       {/* Geographic Analysis */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Geographic Performance</h2>
             <p className="text-sm text-muted-foreground">
@@ -133,7 +133,7 @@ export default function AnalyticsPage() {
 
       {/* Seasonal Analysis */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Seasonal Trends</h2>
             <p className="text-sm text-muted-foreground">

@@ -1,5 +1,6 @@
-import { TopNav } from "@/components/nav";
 import MobileFloatingActions from "@/components/mobile-floating-actions";
+import Header from "@/components/nav/header";
+import WeatherAlertBanner from "@/components/weather-alert-banner";
 
 export default function DashboardLayout({
   children,
@@ -7,10 +8,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <TopNav title="Dashboard" />
-      <main>{children}</main>
+    <div className="flex min-h-screen flex-col">
+      <WeatherAlertBanner />
+      <Header title="Dashboard" />
+      <main className="flex-1">{children}</main>
       <MobileFloatingActions />
-    </>
+    </div>
   );
 }

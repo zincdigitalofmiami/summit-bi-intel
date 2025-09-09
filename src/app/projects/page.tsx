@@ -12,7 +12,7 @@ export default function ProjectsPage() {
               Track marine construction projects from start to completion
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             New Project
           </button>
         </div>
@@ -21,22 +21,22 @@ export default function ProjectsPage() {
       {/* Project Statistics */}
       <Container className="py-4 sm:py-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Active Projects</h3>
             <p className="text-2xl font-bold">0</p>
             <p className="text-xs text-muted-foreground">In progress</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Completed Projects</h3>
             <p className="text-2xl font-bold">0</p>
             <p className="text-xs text-muted-foreground">This year</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Total Revenue</h3>
             <p className="text-2xl font-bold">$0</p>
             <p className="text-xs text-muted-foreground">Year to date</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg border border-border">
+          <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Avg. Project Value</h3>
             <p className="text-2xl font-bold">$0</p>
             <p className="text-xs text-muted-foreground">All projects</p>
@@ -46,7 +46,7 @@ export default function ProjectsPage() {
 
       {/* Project Timeline */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Project Timeline</h2>
             <p className="text-sm text-muted-foreground">
@@ -66,7 +66,7 @@ export default function ProjectsPage() {
 
       {/* Project Types */}
       <Container className="py-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-border">
+        <div className="bg-card rounded-lg border border-border">
           <div className="p-6 border-b border-border">
             <h2 className="text-xl font-semibold">Project Types</h2>
             <p className="text-sm text-muted-foreground">
@@ -75,25 +75,25 @@ export default function ProjectsPage() {
           </div>
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                <h3 className="font-medium text-blue-900 dark:text-blue-100">Seawall Construction</h3>
-                <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">0</p>
-                <p className="text-xs text-blue-700 dark:text-blue-300">projects</p>
+              <div className="p-4 bg-summit-light-blue/10 rounded-lg border border-summit-light-blue/30">
+                <h3 className="font-medium text-summit-light-blue">Seawall Construction</h3>
+                <p className="text-2xl font-bold text-white">0</p>
+                <p className="text-xs text-muted-foreground">projects</p>
               </div>
-              <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
-                <h3 className="font-medium text-green-900 dark:text-green-100">Dock Construction</h3>
-                <p className="text-2xl font-bold text-green-900 dark:text-green-100">0</p>
-                <p className="text-xs text-green-700 dark:text-green-300">projects</p>
+              <div className="p-4 bg-green-500/10 rounded-lg border border-green-500/30">
+                <h3 className="font-medium text-green-400">Dock Construction</h3>
+                <p className="text-2xl font-bold text-white">0</p>
+                <p className="text-xs text-muted-foreground">projects</p>
               </div>
-              <div className="p-4 bg-purple-50 dark:bg-purple-950/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                <h3 className="font-medium text-purple-900 dark:text-purple-100">Retaining Walls</h3>
-                <p className="text-2xl font-bold text-purple-900 dark:text-purple-100">0</p>
-                <p className="text-xs text-purple-700 dark:text-purple-300">projects</p>
+              <div className="p-4 bg-purple-500/10 rounded-lg border border-purple-500/30">
+                <h3 className="font-medium text-purple-400">Retaining Walls</h3>
+                <p className="text-2xl font-bold text-white">0</p>
+                <p className="text-xs text-muted-foreground">projects</p>
               </div>
-              <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800">
-                <h3 className="font-medium text-amber-900 dark:text-amber-100">Repairs</h3>
-                <p className="text-2xl font-bold text-amber-900 dark:text-amber-100">0</p>
-                <p className="text-xs text-amber-700 dark:text-amber-300">projects</p>
+              <div className="p-4 bg-federal-orange/10 rounded-lg border border-federal-orange/30">
+                <h3 className="font-medium text-federal-orange">Repairs</h3>
+                <p className="text-2xl font-bold text-white">0</p>
+                <p className="text-xs text-muted-foreground">projects</p>
               </div>
             </div>
           </div>

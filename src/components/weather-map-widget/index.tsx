@@ -104,7 +104,7 @@ export default function WeatherMapWidget() {
               <div className="bg-black/70 text-white px-2 py-1 rounded-full text-xs font-medium">
                 Live Radar
               </div>
-              <div className="bg-blue-600/90 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+              <div className="bg-primary/90 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
                 <Waves className="h-3 w-3" />
                 Marine
               </div>

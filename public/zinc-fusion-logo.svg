@@ -1,0 +1,29 @@
+<svg width="240" height="120" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- ZINC Fusion AI Head Logo -->
+  <circle cx="60" cy="60" r="50" fill="white" stroke="none"/>
+  
+  <!-- AI Head Profile -->
+  <path d="M30 60C30 40 46 24 66 24C86 24 102 40 102 60C102 70 98 79 92 86H88V75H82C78 75 75 72 75 68C75 64 78 61 82 61H88V55H82C74 55 67 62 67 70C67 78 74 85 82 85H88V90C82 93 75 96 67 96C47 96 30 79 30 60Z" fill="#1a1a2e"/>
+  
+  <!-- Circuit patterns inside head -->
+  <circle cx="45" cy="45" r="2" fill="#ff8c00"/>
+  <circle cx="55" cy="50" r="1.5" fill="#15728e"/>
+  <circle cx="48" cy="55" r="1" fill="#ff8c00"/>
+  <line x1="45" y1="45" x2="55" y2="50" stroke="#15728e" stroke-width="1"/>
+  <line x1="55" y1="50" x2="48" y2="55" stroke="#ff8c00" stroke-width="1"/>
+  
+  <!-- Digital elements -->
+  <rect x="65" y="40" width="8" height="2" fill="#15728e"/>
+  <rect x="65" y="45" width="6" height="2" fill="#ff8c00"/>
+  <rect x="65" y="50" width="10" height="2" fill="#15728e"/>
+  
+  <!-- Text -->
+  <text x="130" y="45" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">MARKET</text>
+  <text x="130" y="70" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white">INTELLIGENCE</text>
+  <text x="130" y="95" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white">PLATFORM</text>
+  
+  <!-- Powered by text -->
+  <text x="60" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#888">POWERED BY</text>
+  <text x="30" y="125" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">ZINC</text>
+  <text x="70" y="125" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ff8c00">FUSION</text>
+</svg>
