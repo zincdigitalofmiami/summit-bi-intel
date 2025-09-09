@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+import { randomUUID } from 'crypto';
 import { weatherApiLimit } from '@/lib/rate-limit';
 
 // Type for weather alert
@@ -62,8 +63,9 @@ export async function GET(request: NextRequest) {
       {
         headers: {
           'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+          'Accept': 'application/geo+json',
         },
-        next: { revalidate: 300 }, // Cache for 5 minutes
+        // next: { revalidate: 300 }, // Cache for 5 minutes (Next.js runtime)
         signal: AbortSignal.timeout(10000), // 10 second timeout
       }
     );
@@ -75,23 +77,27 @@ export async function GET(request: NextRequest) {
     const data = await response.json();
     
     // Transform NOAA data to our format
-    const alerts = (data.features || []).map((feature: { properties: Record<string, unknown> }) => ({
-      id: feature.properties.id as string,
-      severity: feature.properties.severity as string,
-      headline: feature.properties.headline as string,
-      description: feature.properties.description as string,
-      areas: feature.properties.areas as string[] || [],
-      effective: feature.properties.effective as string,
-      expires: feature.properties.expires as string,
-      urgency: feature.properties.urgency as string,
-      certainty: feature.properties.certainty as string,
-    }));
+    const alerts = (data.features || []).map((feature: { id?: string; properties: Record<string, unknown> }) => {
+      const props = feature.properties || {};
+      const areaDesc = (props.areaDesc as string) || '';
+      return {
+        id: (feature.id as string) || (props.id as string) || randomUUID(),
+        severity: (props.severity as string) || 'unknown',
+        headline: (props.headline as string) || 'Weather Alert',
+        description: (props.description as string) || '',
+        areas: areaDesc ? areaDesc.split(';').map((s) => s.trim()).filter(Boolean) : [],
+        effective: (props.effective as string) || new Date().toISOString(),
+        expires: (props.expires as string) || new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+        urgency: (props.urgency as string) || 'unknown',
+        certainty: (props.certainty as string) || 'unknown',
+      };
+    });
 
     // Sort by severity (extreme first)
-    const severityOrder = { extreme: 4, severe: 3, moderate: 2, minor: 1 };
-    alerts.sort((a: WeatherAlert, b: WeatherAlert) => 
-      (severityOrder[b.severity as keyof typeof severityOrder] || 0) - 
-      (severityOrder[a.severity as keyof typeof severityOrder] || 0)
+    const severityOrder = { extreme: 4, severe: 3, moderate: 2, minor: 1 } as const;
+    const normalize = (s: string) => (s || '').toLowerCase() as keyof typeof severityOrder;
+    alerts.sort((a: WeatherAlert, b: WeatherAlert) =>
+      (severityOrder[normalize(b.severity)] || 0) - (severityOrder[normalize(a.severity)] || 0)
     );
 
     return NextResponse.json({

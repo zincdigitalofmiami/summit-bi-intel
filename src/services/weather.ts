@@ -59,16 +59,33 @@ export class WeatherService {
     try {
       // Get current conditions from NOAA
       const response = await fetch(
-        `${this.NOAA_API_BASE}/points/${PANAMA_CITY_LAT},${PANAMA_CITY_LON}`
+        `${this.NOAA_API_BASE}/points/${PANAMA_CITY_LAT},${PANAMA_CITY_LON}`,
+        {
+          headers: {
+            'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+            'Accept': 'application/geo+json',
+          },
+        }
       );
       const pointData = await response.json();
       
-      const stationsResponse = await fetch(pointData.properties.observationStations);
+      const stationsResponse = await fetch(pointData.properties.observationStations, {
+        headers: {
+          'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+          'Accept': 'application/geo+json',
+        },
+      });
       const stations = await stationsResponse.json();
       const nearestStation = stations.features[0].id;
       
       const weatherResponse = await fetch(
-        `${this.NOAA_API_BASE}/stations/${nearestStation}/observations/latest`
+        `${this.NOAA_API_BASE}/stations/${nearestStation}/observations/latest`,
+        {
+          headers: {
+            'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+            'Accept': 'application/geo+json',
+          },
+        }
       );
       const weatherData = await weatherResponse.json();
       
@@ -109,7 +126,13 @@ export class WeatherService {
       const dateStr = now.toISOString().split('T')[0].replace(/-/g, '');
       
       const response = await fetch(
-        `${this.NOAA_TIDES_BASE}?date=${dateStr}&station=${NOAA_STATION_ID}&product=water_level&datum=MLLW&time_zone=lst_ldt&units=english&format=json`
+        `${this.NOAA_TIDES_BASE}?date=${dateStr}&station=${NOAA_STATION_ID}&product=water_level&datum=MLLW&time_zone=lst_ldt&units=english&format=json`,
+        {
+          headers: {
+            'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+            'Accept': 'application/json',
+          },
+        }
       );
       const data = await response.json();
       
@@ -122,7 +145,13 @@ export class WeatherService {
       
       // Get predictions for tide status
       const predResponse = await fetch(
-        `${this.NOAA_TIDES_BASE}?date=${dateStr}&station=${NOAA_STATION_ID}&product=predictions&datum=MLLW&time_zone=lst_ldt&units=english&format=json`
+        `${this.NOAA_TIDES_BASE}?date=${dateStr}&station=${NOAA_STATION_ID}&product=predictions&datum=MLLW&time_zone=lst_ldt&units=english&format=json`,
+        {
+          headers: {
+            'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+            'Accept': 'application/json',
+          },
+        }
       );
       const predData = await predResponse.json();
       
@@ -152,11 +181,22 @@ export class WeatherService {
   static async getForecast(): Promise<ForecastDay[]> {
     try {
       const response = await fetch(
-        `${this.NOAA_API_BASE}/points/${PANAMA_CITY_LAT},${PANAMA_CITY_LON}`
+        `${this.NOAA_API_BASE}/points/${PANAMA_CITY_LAT},${PANAMA_CITY_LON}`,
+        {
+          headers: {
+            'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+            'Accept': 'application/geo+json',
+          },
+        }
       );
       const pointData = await response.json();
       
-      const forecastResponse = await fetch(pointData.properties.forecast);
+      const forecastResponse = await fetch(pointData.properties.forecast, {
+        headers: {
+          'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+          'Accept': 'application/geo+json',
+        },
+      });
       const forecastData = await forecastResponse.json();
       
       return forecastData.properties.periods.slice(0, 8).map((period: Record<string, unknown>, index: number) => {
@@ -187,7 +227,13 @@ export class WeatherService {
   static async getWeatherAlerts(): Promise<string[]> {
     try {
       const response = await fetch(
-        `${this.NOAA_API_BASE}/alerts/active?area=FL`
+        `${this.NOAA_API_BASE}/alerts/active?area=FL`,
+        {
+          headers: {
+            'User-Agent': 'Summit Marine Development Dashboard (contact@summitmarine.dev)',
+            'Accept': 'application/geo+json',
+          },
+        }
       );
       const alertData = await response.json();
       
