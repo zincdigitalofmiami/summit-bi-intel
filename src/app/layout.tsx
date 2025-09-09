@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Gabarito } from "next/font/google";
 import { SideNav } from "@/components/nav";
 import Header from "@/components/nav/header";
-import WeatherAlertBanner from "@/components/weather-alert-banner";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import "@/style/globals.css";
@@ -37,7 +36,6 @@ export default function RootLayout({
           <div className="flex min-h-[100dvh]">
             <SideNav />
             <div className="flex-grow overflow-auto flex min-h-screen flex-col">
-              <WeatherAlertBanner />
               <Header title="Summit Intelligence" />
               <main className="flex-1">{children}</main>
             </div>

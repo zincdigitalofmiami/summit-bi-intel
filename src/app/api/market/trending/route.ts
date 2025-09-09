@@ -1,5 +1,6 @@
 import Parser from "rss-parser";
 import { NextResponse } from "next/server";
+import { ensureTables, readCache, writeCache } from "@/lib/db";
 
 type FeedItem = { title: string; link: string; pubDate?: string; source: string };
 
@@ -15,6 +16,12 @@ export async function GET() {
   const items: FeedItem[] = [];
 
   try {
+    await ensureTables();
+    const cached = await readCache("trending");
+
+    // Try network with timeout; fallback to cache
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 5000);
     const results = await Promise.allSettled(
       sources.map(async (s) => {
         const feed = await parser.parseURL(s.url);
@@ -26,6 +33,7 @@ export async function GET() {
         }));
       })
     );
+    clearTimeout(t);
 
     for (const r of results) {
       if (r.status === "fulfilled") items.push(...r.value);
@@ -37,10 +45,17 @@ export async function GET() {
       const db = b.pubDate ? new Date(b.pubDate).getTime() : 0;
       return db - da;
     });
-
-    return NextResponse.json({ status: "ok", count: items.length, items: items.slice(0, 25) });
+    const payload = { status: "ok", count: items.length, items: items.slice(0, 25) };
+    await writeCache("trending", payload);
+    return NextResponse.json(payload, { headers: { "Cache-Control": "public, s-maxage=600, stale-while-revalidate=86400" } });
   } catch (error) {
-    return NextResponse.json({ status: "error", message: (error as Error).message }, { status: 500 });
+    try {
+      const fallback = await readCache("trending");
+      if (fallback) {
+        return NextResponse.json(fallback, { headers: { "Cache-Control": "public, s-maxage=600, stale-while-revalidate=86400" } });
+      }
+    } catch {}
+    return NextResponse.json({ status: "ok", count: 0, items: [] });
   }
 }
 

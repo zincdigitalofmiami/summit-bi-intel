@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:single": "killall node || true; rm -rf .next; PORT=3000 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
@@ -14,6 +15,7 @@
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@tailwindcss/postcss": "^4.1.13",
+    "@vercel/postgres": "^0.8.0",
     "axios": "^1.11.0",
     "cheerio": "^1.1.2",
     "class-variance-authority": "^0.7.1",

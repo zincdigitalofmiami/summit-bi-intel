@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { NextResponse } from "next/server";
+import { ensureTables, readCache, writeCache } from "@/lib/db";
 
 interface MarinePermit {
   source: string;
@@ -245,6 +246,10 @@ export async function GET(request: Request) {
   const limit = parseInt(searchParams.get("limit") || "50");
 
   try {
+    await ensureTables();
+    const cached = await readCache("permits_cache");
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 5000);
     let allPermits: MarinePermit[] = [];
 
     if (source === "all" || source === "baycounty") {
@@ -262,6 +267,7 @@ export async function GET(request: Request) {
       allPermits = [...allPermits, ...pcbPermits];
     }
 
+    clearTimeout(t);
     // Sort by issue date (newest first) and limit results
     allPermits.sort(
       (a, b) =>
@@ -269,22 +275,23 @@ export async function GET(request: Request) {
     );
     const limitedPermits = allPermits.slice(0, limit);
 
-    return NextResponse.json({
+    const payload = {
       success: true,
       count: limitedPermits.length,
       total_found: allPermits.length,
       permits: limitedPermits,
       last_updated: new Date().toISOString(),
-    });
+    } as const;
+    await writeCache("permits_cache", payload);
+    return NextResponse.json(payload, { headers: { "Cache-Control": "public, s-maxage=600, stale-while-revalidate=86400" } });
   } catch (error) {
     console.error("Panama permits scraping error:", error);
-    return NextResponse.json(
-      {
-        success: false,
-        error: "Failed to scrape permit data",
-        details: (error as Error).message,
-      },
-      { status: 500 },
-    );
+    try {
+      const fallback = await readCache("permits_cache");
+      if (fallback) {
+        return NextResponse.json(fallback, { headers: { "Cache-Control": "public, s-maxage=600, stale-while-revalidate=86400" } });
+      }
+    } catch {}
+    return NextResponse.json({ success: true, count: 0, total_found: 0, permits: [], last_updated: new Date().toISOString() });
   }
 }

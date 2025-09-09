@@ -2,15 +2,25 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
 import { competitors as staticCompetitors } from "@/data/competitors";
+import { ensureTables, readCache, writeCache } from "@/lib/db";
 
 export async function GET() {
   try {
+    await ensureTables();
+    const cached = await readCache("competitors_cache");
+
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 5000);
     const kbCompetitors = await parseCompetitorsFromKnowledgeBase();
+    clearTimeout(t);
+
     const merged = mergeCompetitors(staticCompetitors, kbCompetitors);
-    return NextResponse.json({ status: "ok", count: merged.length, competitors: merged });
+    const payload = { status: "ok", count: merged.length, competitors: merged };
+    await writeCache("competitors_cache", payload);
+    return NextResponse.json(payload, { headers: { "Cache-Control": "public, s-maxage=600, stale-while-revalidate=86400" } });
   } catch (error) {
-    // Fallback to static on error
-    return NextResponse.json({ status: "ok", count: staticCompetitors.length, competitors: staticCompetitors });
+    const payload = { status: "ok", count: staticCompetitors.length, competitors: staticCompetitors };
+    return NextResponse.json(payload, { headers: { "Cache-Control": "public, s-maxage=600, stale-while-revalidate=86400" } });
   }
 }
 
