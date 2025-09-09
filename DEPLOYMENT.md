@@ -1,4 +1,4 @@
-# Summit BI Intel - Enterprise Deployment Guide
+# Summit BI Intel - Vercel Deployment Guide
 
 ## 🚀 Deployment Architecture
 
@@ -11,7 +11,14 @@
 
 ## 🔧 Environment Setup
 
-### 1. Vercel Configuration
+### 1. Connect to Vercel & Install CLI
+First, connect your Git repository (e.g., GitHub) to Vercel to enable automated CI/CD.
+
+1.  Go to the [Vercel Dashboard](https://vercel.com/new) and import the project from your Git provider.
+2.  Vercel will automatically detect that it's a Next.js project.
+3.  During setup, you can configure the environment variables listed in `env.example`.
+
+For local development and CLI usage, install the Vercel CLI and link your project.
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -19,11 +26,8 @@ npm i -g vercel
 # Link project to Vercel
 vercel link
 
-# Set environment variables
-vercel env add GOOGLE_CLIENT_ID
-vercel env add GOOGLE_CLIENT_SECRET
-vercel env add POSTGRES_URL
-vercel env add JWT_SECRET
+# Pull down environment variables for local use
+vercel env pull .env.local
 ```
 
 ### 2. Required Environment Variables

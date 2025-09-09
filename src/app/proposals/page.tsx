@@ -1,18 +1,35 @@
 "use client";
 
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { useMemo, useState } from "react";
 import Container from "@/components/container";
 import ProposalForm from "@/components/forms/proposal-form";
 import { Button } from "@/components/ui/button";
 import {
   calculateTotal,
-  deleteProposal,
+  deleteProposal as deleteProposalLocal,
   encodeSignToken,
   getAllProposals,
-  saveProposal,
+  saveProposal as saveProposalLocal,
+  type ProposalLineItem,
   type ProposalRecord,
 } from "@/lib/proposals";
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
-import { useMemo, useState } from "react";
+
+function toProposalRecordFromApi(api: any): ProposalRecord {
+  const items: ProposalLineItem[] = (api.lineItems || []).map((li: any) => ({
+    description: String(li.description ?? ""),
+    amount: Number(li.amount ?? 0),
+  }));
+  return {
+    id: String(api.id),
+    clientName: String(api.clientName ?? ""),
+    clientEmail: String(api.clientEmail ?? ""),
+    projectName: String(api.projectName ?? ""),
+    notes: api.notes ? String(api.notes) : undefined,
+    lineItems: items,
+    createdAt: new Date(api.createdAt ?? Date.now()).toISOString(),
+  };
+}
 
 export default function ProposalsPage() {
   const [showForm, setShowForm] = useState(false);
@@ -24,13 +41,41 @@ export default function ProposalsPage() {
     [proposals],
   );
 
-  const createProposal = (data: Omit<ProposalRecord, "id" | "createdAt">) => {
+  const createProposal = async (
+    data: Omit<ProposalRecord, "id" | "createdAt">
+  ) => {
+    // Try API first
+    try {
+      const res = await fetch("/api/proposals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientName: data.clientName,
+          clientEmail: data.clientEmail,
+          projectName: data.projectName,
+          notes: data.notes,
+          lineItems: data.lineItems.map((li) => ({
+            description: li.description,
+            amount: Number(li.amount) || 0,
+          })),
+        }),
+      });
+      if (res.ok) {
+        const json = await res.json();
+        const created = toProposalRecordFromApi(json.proposal);
+        setProposals((prev) => [created, ...prev]);
+        setShowForm(false);
+        return;
+      }
+    } catch {}
+
+    // Fallback to local storage
     const record: ProposalRecord = {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       ...data,
     };
-    saveProposal(record);
+    saveProposalLocal(record);
     setProposals(getAllProposals());
     setShowForm(false);
   };
@@ -103,6 +148,27 @@ export default function ProposalsPage() {
     a.click();
     URL.revokeObjectURL(url);
   };
+
+  // Load from API on mount; fallback to local storage
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/proposals", { cache: "no-store" });
+        if (!res.ok) return;
+        const json = await res.json();
+        if (Array.isArray(json.proposals)) {
+          const mapped = json.proposals.map(toProposalRecordFromApi);
+          if (!cancelled) setProposals(mapped);
+        }
+      } catch {
+        // ignore; keep localStorage data
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -209,8 +275,18 @@ export default function ProposalsPage() {
                       </Button>
                       <Button
                         variant="destructive"
-                        onClick={() => {
-                          deleteProposal(p.id);
+                        onClick={async () => {
+                          try {
+                            const res = await fetch(`/api/proposals/${p.id}`, {
+                              method: "DELETE",
+                            });
+                            if (res.ok) {
+                              setProposals((prev) => prev.filter((x) => x.id !== p.id));
+                              return;
+                            }
+                          } catch {}
+                          // Fallback to local
+                          deleteProposalLocal(p.id);
                           setProposals(getAllProposals());
                         }}
                       >

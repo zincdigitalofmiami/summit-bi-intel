@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+model Proposal {
+  id          String             @id @default(uuid())
+  clientName  String
+  clientEmail String
+  projectName String
+  notes       String?
+  createdAt   DateTime           @default(now())
+  lineItems   ProposalLineItem[]
+}
+
+model ProposalLineItem {
+  id          String   @id @default(uuid())
+  description String
+  amount      Decimal  @db.Decimal(12, 2)
+  proposalId  String
+  proposal    Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+}
+
+

@@ -31,6 +31,22 @@ export const projectSchema = z.object({
 
 export type ProjectFormData = z.infer<typeof projectSchema>;
 
+// Proposal validation schemas
+export const proposalLineItemSchema = z.object({
+  description: z.string().min(1, 'Description is required').max(500, 'Too long'),
+  amount: z.number().nonnegative('Amount must be >= 0'),
+});
+
+export const proposalSchema = z.object({
+  clientName: z.string().min(1, 'Client name is required').max(200, 'Too long'),
+  clientEmail: z.string().email('Invalid email format'),
+  projectName: z.string().min(1, 'Project name is required').max(200, 'Too long'),
+  notes: z.string().optional(),
+  lineItems: z.array(proposalLineItemSchema).min(1, 'At least one line item is required'),
+});
+
+export type ProposalFormData = z.infer<typeof proposalSchema>;
+
 // Utility function for safe validation
 export function validateFormData<T>(schema: z.ZodSchema<T>, data: unknown): {
   success: boolean;
