@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:single": "killall node || true; rm -rf .next; PORT=3000 next dev",
-    "build": "prisma migrate deploy && next build",
+    "build": "sh -c 'if [ -n \"$POSTGRES_PRISMA_URL\" ]; then prisma migrate deploy; else echo \"Skipping Prisma migrate: POSTGRES_PRISMA_URL not set\"; fi; next build'",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix"
