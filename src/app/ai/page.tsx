@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/components/container";
 
 export default function AIAssistantPage() {
@@ -13,7 +15,7 @@ export default function AIAssistantPage() {
               Get intelligent insights and recommendations for your business
             </p>
           </div>
-          <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
+          <button type="button" className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             New Chat
           </button>
         </div>
@@ -29,11 +31,31 @@ export default function AIAssistantPage() {
             </p>
           </div>
           <div className="p-6">
-            <div className="text-center py-8">
+            <div className="flex flex-col items-center gap-3 py-8">
               <p className="text-muted-foreground">No AI recommendations available</p>
-              <p className="text-sm text-muted-foreground mt-2">
+              <p className="text-sm text-muted-foreground">
                 Add project data and client information to receive personalized insights
               </p>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  className="px-3 py-2 bg-summit-light-blue text-black rounded-md hover:opacity-90 text-sm"
+                  onClick={async () => {
+                    await fetch("/api/knowledge/sync", { method: "POST" });
+                  }}
+                >
+                  Sync Knowledge
+                </button>
+                <button
+                  type="button"
+                  className="px-3 py-2 bg-primary text-white rounded-md hover:bg-primary/90 text-sm"
+                  onClick={async () => {
+                    await fetch("/api/agent/insights");
+                  }}
+                >
+                  Generate Insights
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -55,7 +77,7 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Professional follow-up emails for new marine construction leads
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button type="button" className="text-blue-600 hover:text-blue-700 text-sm">
                   Create Email →
                 </button>
               </div>
@@ -64,7 +86,7 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Keep clients informed about seawall and dock construction progress
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button type="button" className="text-blue-600 hover:text-blue-700 text-sm">
                   Create Email →
                 </button>
               </div>
@@ -73,7 +95,7 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Professional proposal delivery with marine construction details
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button type="button" className="text-blue-600 hover:text-blue-700 text-sm">
                   Create Email →
                 </button>
               </div>
@@ -82,7 +104,7 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Celebrate completed projects and request reviews
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button type="button" className="text-blue-600 hover:text-blue-700 text-sm">
                   Create Email →
                 </button>
               </div>
@@ -91,7 +113,7 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Schedule annual maintenance for seawalls and docks
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button type="button" className="text-blue-600 hover:text-blue-700 text-sm">
                   Create Email →
                 </button>
               </div>
@@ -100,7 +122,7 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Quick response templates for storm damage and urgent repairs
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button type="button" className="text-blue-600 hover:text-blue-700 text-sm">
                   Create Email →
                 </button>
               </div>

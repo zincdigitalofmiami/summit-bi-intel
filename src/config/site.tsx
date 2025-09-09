@@ -62,6 +62,11 @@ export const navigations: Navigation[] = [
     href: "/analytics",
   },
   {
+    icon: Gauge,
+    name: "Performance",
+    href: "/performance",
+  },
+  {
     icon: Brain,
     name: "Market Intelligence",
     href: "/analytics/market-intelligence",

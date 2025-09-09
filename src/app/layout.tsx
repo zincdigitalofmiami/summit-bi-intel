@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Gabarito } from "next/font/google";
 import { SideNav } from "@/components/nav";
+import Header from "@/components/nav/header";
+import WeatherAlertBanner from "@/components/weather-alert-banner";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import "@/style/globals.css";
@@ -11,6 +13,16 @@ const gabarito = Gabarito({ subsets: ["latin"], variable: "--font-gabarito" });
 export const metadata: Metadata = {
   title: siteConfig.title,
   description: siteConfig.description,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-white.png", type: "image/png" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [
+      { url: "/favicon-white.png", sizes: "180x180" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -24,7 +36,11 @@ export default function RootLayout({
         <Providers>
           <div className="flex min-h-[100dvh]">
             <SideNav />
-            <div className="flex-grow overflow-auto">{children}</div>
+            <div className="flex-grow overflow-auto flex min-h-screen flex-col">
+              <WeatherAlertBanner />
+              <Header title="Summit Intelligence" />
+              <main className="flex-1">{children}</main>
+            </div>
           </div>
         </Providers>
       </body>

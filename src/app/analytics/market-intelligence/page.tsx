@@ -30,7 +30,52 @@ import {
 	XCircle,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { competitors, type Competitor } from "@/data/competitors";
+
+function TrendingFeed() {
+  const [items, setItems] = useState<Array<{ title: string; link: string; pubDate?: string; source: string }>>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/market/trending")
+      .then((r) => r.json())
+      .then((d) => setItems(Array.isArray(d.items) ? d.items : []))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <RefreshCw className="h-4 w-4 animate-spin" /> Loading trending topics...
+      </div>
+    );
+  }
+
+  if (!items.length) {
+    return <div className="text-sm text-muted-foreground">No trending items found right now.</div>;
+  }
+
+  return (
+    <div className="space-y-3">
+      {items.slice(0, 15).map((it, idx) => (
+        <div key={idx} className="flex items-start justify-between gap-4 rounded border p-3 hover:bg-muted/50">
+          <div className="space-y-1">
+            <a href={it.link} target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:underline">
+              {it.title}
+            </a>
+            <div className="text-xs text-muted-foreground">
+              {it.source} {it.pubDate ? `• ${new Date(it.pubDate).toLocaleDateString()}` : ""}
+            </div>
+          </div>
+          <a href={it.link} target="_blank" rel="noopener noreferrer" className="text-xs text-summit-light-blue">
+            Open ↗
+          </a>
+        </div>
+      ))}
+    </div>
+  );
+}
+import { type Competitor } from "@/data/competitors";
 
 // Types from your existing implementation
 interface MarinePermit {
@@ -106,6 +151,7 @@ export default function MarketIntelligencePage() {
 	const [loading, setLoading] = useState(false);
 	const [lastUpdated, setLastUpdated] = useState<string>("");
 	const [error, setError] = useState<string>("");
+	const [competitors, setCompetitors] = useState<Competitor[]>([]);
 
 	const getLicenseStatusColor = (status: string) => {
 		switch (status) {
@@ -197,6 +243,14 @@ export default function MarketIntelligencePage() {
 
 	useEffect(() => {
 		fetchPermits();
+		// Load competitors from API (merges KB + static)
+		void (async () => {
+			try {
+				const res = await fetch("/api/competitors", { cache: "no-store" });
+				const data = await res.json();
+				if (Array.isArray(data.competitors)) setCompetitors(data.competitors);
+			} catch {}
+		})();
 	}, []);
 
 	const getStatusColor = (status: string) => {
@@ -278,6 +332,7 @@ export default function MarketIntelligencePage() {
 					<TabsTrigger value="permits">Permits</TabsTrigger>
 					<TabsTrigger value="competitors">Competitors</TabsTrigger>
 					<TabsTrigger value="trends">Trends</TabsTrigger>
+					<TabsTrigger value="trending">Trending</TabsTrigger>
 					<TabsTrigger value="opportunities">Opportunities</TabsTrigger>
 				</TabsList>
 
@@ -320,10 +375,8 @@ export default function MarketIntelligencePage() {
 								<Users className="h-4 w-4 text-muted-foreground" />
 							</CardHeader>
 							<CardContent>
-								<div className="text-2xl font-bold">12</div>
-								<p className="text-xs text-muted-foreground">
-									2 new this month
-								</p>
+								<div className="text-2xl font-bold">{competitors.length}</div>
+								<p className="text-xs text-muted-foreground">Total tracked competitors</p>
 							</CardContent>
 						</Card>
 						<Card>
@@ -685,6 +738,19 @@ export default function MarketIntelligencePage() {
 							</Card>
 						))}
 					</div>
+				</TabsContent>
+
+				{/* Trending Tab */}
+				<TabsContent value="trending" className="space-y-4">
+					<Card>
+						<CardHeader>
+							<CardTitle>Trending Topics</CardTitle>
+							<CardDescription>Marine construction, docks, seawalls, Panama City</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<TrendingFeed />
+						</CardContent>
+					</Card>
 				</TabsContent>
 
 				{/* Opportunities Tab */}
