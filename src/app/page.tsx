@@ -1,6 +1,6 @@
-// Root renders Market Intelligence directly (no redirects)
-import MarketIntelligencePage from "@/app/analytics/market-intelligence/page";
+// Root renders Dashboard directly (no redirects)
+import DashboardPage from "@/app/dashboard/page";
 
 export default function Home() {
-  return <MarketIntelligencePage />;
+  return <DashboardPage />;
 }
