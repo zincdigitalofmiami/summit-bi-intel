@@ -9,13 +9,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
   const existingAdmin = await prisma.user.findFirst({ where: { role: Role.ADMIN } });
-  if (existingAdmin) return NextResponse.json({ error: "seed_disabled" }, { status: 403 });
-  await prisma.user.upsert({
-    where: { email: "jose@summitmarinedevelopment.com" },
-    create: { email: "jose@summitmarinedevelopment.com", name: "Jose Morales", role: Role.ADMIN },
-    update: { role: Role.ADMIN },
-  });
-  return NextResponse.json({ ok: true });
+  if (existingAdmin) {
+    return NextResponse.json({ error: "seed_disabled" }, { status: 403 });
+  }
+  try {
+    await prisma.user.upsert({
+      where: { email: "jose@summitmarinedevelopment.com" },
+      create: { email: "jose@summitmarinedevelopment.com", name: "Jose Morales", role: Role.ADMIN },
+      update: { role: Role.ADMIN },
+    });
+    return NextResponse.json({ ok: true });
+  } catch (err: any) {
+    console.error("Admin seed POST failed:", err);
+    return NextResponse.json({ error: "seed_failed", detail: String(err?.message || err) }, { status: 500 });
+  }
 }
 
 export async function GET(request: Request) {
@@ -32,13 +39,20 @@ export async function GET(request: Request) {
     if (!isPreview) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
   const existingAdmin = await prisma.user.findFirst({ where: { role: Role.ADMIN } });
-  if (existingAdmin) return NextResponse.json({ error: "seed_disabled" }, { status: 403 });
-  await prisma.user.upsert({
-    where: { email: "jose@summitmarinedevelopment.com" },
-    create: { email: "jose@summitmarinedevelopment.com", name: "Jose Morales", role: Role.ADMIN },
-    update: { role: Role.ADMIN },
-  });
-  return NextResponse.json({ ok: true });
+  if (existingAdmin) {
+    return NextResponse.json({ error: "seed_disabled" }, { status: 403 });
+  }
+  try {
+    await prisma.user.upsert({
+      where: { email: "jose@summitmarinedevelopment.com" },
+      create: { email: "jose@summitmarinedevelopment.com", name: "Jose Morales", role: Role.ADMIN },
+      update: { role: Role.ADMIN },
+    });
+    return NextResponse.json({ ok: true });
+  } catch (err: any) {
+    console.error("Admin seed GET failed:", err);
+    return NextResponse.json({ error: "seed_failed", detail: String(err?.message || err) }, { status: 500 });
+  }
 }
 
 
