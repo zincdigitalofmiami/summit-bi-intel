@@ -55,12 +55,17 @@ export default function LoginPage() {
                       const res = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
                       if (res.ok) {
                         const data = await res.json().catch(() => ({}));
-                        if (data?.fallback && data?.loginUrl) {
-                          setFallbackUrl(data.loginUrl);
-                        }
+                        if (data?.loginUrl) setFallbackUrl(data.loginUrl);
                         setSent(true);
+                      } else {
+                        const data = await res.json().catch(() => ({}));
+                        if (data?.loginUrl) {
+                          setFallbackUrl(data.loginUrl);
+                          setSent(true);
+                        } else {
+                          setErr("Failed to send link");
+                        }
                       }
-                      else setErr("Failed to send link");
                     }}
                   >
                     Send Magic Link
