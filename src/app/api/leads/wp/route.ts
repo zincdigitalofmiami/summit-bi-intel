@@ -1,6 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { createRateLimit } from "@/lib/rate-limit";
 
-export async function POST(request: Request) {
+const wpLeadLimit = createRateLimit({ interval: 60 * 1000, uniqueTokenPerInterval: 50 });
+
+export async function POST(request: NextRequest) {
+  const rateLimitResult = wpLeadLimit.check(request);
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. Please try again later.' },
+      { status: 429, headers: { 'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0' } }
+    );
+  }
   try {
     const contentType = request.headers.get("content-type") || "";
     let body: any = {};
