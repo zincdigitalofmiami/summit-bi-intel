@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -33,8 +32,6 @@ import { ThemeToggle } from "../../theme-toggle";
 
 export default function Header({ title }: { title: string }) {
 	const [searchQuery, setSearchQuery] = useState("");
-	const { theme } = useTheme();
-	const isDark = theme === "dark";
 
 	const notifications = [
 		{
@@ -227,22 +224,30 @@ export default function Header({ title }: { title: string }) {
 						<DropdownMenuContent align="end" className="w-56">
 							<DropdownMenuLabel>My Account</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem>
-								<User className="mr-2 h-4 w-4" />
-								Profile
+							<DropdownMenuItem asChild>
+								<Link href="/account">
+									<User className="mr-2 h-4 w-4" />
+									Profile
+								</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
 								<Mail className="mr-2 h-4 w-4" />
 								Messages
 							</DropdownMenuItem>
-							<DropdownMenuItem>
-								<Settings className="mr-2 h-4 w-4" />
-								Settings
+							<DropdownMenuItem asChild>
+								<Link href="/account/security">
+									<Settings className="mr-2 h-4 w-4" />
+									Security
+								</Link>
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem className="text-red-500">
-								<LogOut className="mr-2 h-4 w-4" />
-								Log out
+							<DropdownMenuItem className="text-red-500" asChild>
+								<form action="/api/auth/logout" method="post">
+									<button type="submit" className="flex w-full items-center">
+										<LogOut className="mr-2 h-4 w-4" />
+										Log out
+									</button>
+								</form>
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
