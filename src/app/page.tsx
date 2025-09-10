@@ -1,5 +1,6 @@
-import { redirect } from 'next/navigation';
+// Root renders Market Intelligence directly (no redirects)
+import MarketIntelligencePage from "@/app/analytics/market-intelligence/page";
 
 export default function Home() {
-  redirect('/analytics/market-intelligence');
+  return <MarketIntelligencePage />;
 }
