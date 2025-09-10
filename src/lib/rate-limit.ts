@@ -75,3 +75,8 @@ export class RateLimit {
 // Pre-configured rate limiters
 export const weatherApiLimit = new RateLimit(30, 60000); // 30 requests per minute
 export const generalApiLimit = new RateLimit(100, 60000); // 100 requests per minute
+
+// Factory function for creating rate limiters
+export function createRateLimit(options: { interval: number; uniqueTokenPerInterval: number }) {
+  return new RateLimit(options.uniqueTokenPerInterval, options.interval);
+}
