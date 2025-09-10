@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Container from "@/components/container";
 import { LeadForm } from '@/components/forms/lead-form';
 import { ProjectForm } from '@/components/forms/project-form';
@@ -17,6 +17,20 @@ export default function LeadsPage() {
   const [leads, setLeads] = useLocalStorage<Lead[]>('summit-leads', []);
   const { loading: isLoading, execute: executeAsync } = useAsyncOperation<Lead | void>();
 
+  async function loadLeads() {
+    try {
+      const res = await fetch('/api/leads', { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data?.leads)) setLeads(data.leads);
+      }
+    } catch {}
+  }
+
+  useEffect(() => {
+    loadLeads();
+  }, []);
+
   // Use demo data if no real leads exist
   const displayLeads = useMemo(() => {
     return leads.length > 0 ? leads : demoLeads;
@@ -25,22 +39,25 @@ export default function LeadsPage() {
   const handleCreateLead = async (leadData: Partial<Lead>) => {
     try {
       await executeAsync(async () => {
-        // Here you would typically save to a database
-        const newLead: Lead = {
-          id: Math.random().toString(36).substr(2, 9),
-          name: leadData.name || '',
-          contactPerson: leadData.contactPerson || leadData.name || '',
-          contactEmail: leadData.contactEmail || '',
-          status: leadData.status || 'new',
-          source: leadData.source || 'website',
-          createdAt: new Date(),
-          contactPhone: leadData.contactPhone,
-          companyName: leadData.companyName,
-          notes: leadData.notes,
-        };
-        setLeads(prev => [newLead, ...prev]);
-        setShowForm(false);
-        return newLead;
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: leadData.name,
+            contactEmail: leadData.contactEmail,
+            contactPhone: leadData.contactPhone,
+            companyName: leadData.companyName,
+            status: (leadData.status as any) || 'NEW',
+            source: leadData.source || 'website',
+            notes: leadData.notes,
+          }),
+        });
+        if (res.ok) {
+          await loadLeads();
+          setShowForm(false);
+        } else {
+          throw new Error('Create lead failed');
+        }
       });
     } catch {
       // Handle error - in a real app, you'd show a user-friendly message
@@ -56,19 +73,17 @@ export default function LeadsPage() {
   const handleCreateProject = async (_projectData: Partial<Project>) => {
     try {
       await executeAsync(async () => {
-        // Here you would typically save to a database and update the lead status
         if (selectedLead) {
-          // Update lead status to converted
-          setLeads(prev => prev.map(lead => 
-            lead.id === selectedLead.id 
-              ? { ...lead, status: 'converted', conversionDate: new Date() }
-              : lead
-          ));
+          await fetch('/api/projects', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: selectedLead.name, client: selectedLead.companyName || selectedLead.name, type: 'OTHER' }),
+          });
         }
         setShowProjectForm(false);
         setSelectedLead(null);
-        // In a real app, you'd also save the project and redirect to projects page
-        alert('Project created successfully! Lead has been converted.');
+        await loadLeads();
+        alert('Project created successfully!');
       });
     } catch {
       alert('Error creating project. Please try again.');

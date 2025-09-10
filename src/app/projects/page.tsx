@@ -1,6 +1,30 @@
+"use client";
+import { useEffect, useState } from "react";
 import Container from "@/components/container";
 
+type Project = { id: string; name: string; client?: string | null; type?: string; status?: string; };
+
 export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ name: "", client: "", type: "OTHER" });
+
+  async function load() {
+    const res = await fetch("/api/projects", { cache: "no-store" });
+    const data = await res.json().catch(() => ({}));
+    if (data?.projects) setProjects(data.projects);
+  }
+  useEffect(() => { load(); }, []);
+
+  async function createProject() {
+    if (!form.name.trim()) return;
+    const res = await fetch("/api/projects", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+    if (res.ok) {
+      setShowForm(false);
+      setForm({ name: "", client: "", type: "OTHER" });
+      await load();
+    }
+  }
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -12,7 +36,7 @@ export default function ProjectsPage() {
               Track marine construction projects from start to completion
             </p>
           </div>
-          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
+          <button onClick={() => setShowForm(true)} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             New Project
           </button>
         </div>
@@ -54,12 +78,24 @@ export default function ProjectsPage() {
             </p>
           </div>
           <div className="p-6">
-            <div className="text-center py-8">
-              <p className="text-muted-foreground">No active projects</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Create your first project to start tracking progress
-              </p>
-            </div>
+            {projects.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">No active projects</p>
+                <p className="text-sm text-muted-foreground mt-2">Create your first project to start tracking progress</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {projects.map(p => (
+                  <div key={p.id} className="flex items-center justify-between rounded border border-border p-4">
+                    <div>
+                      <p className="font-semibold">{p.name}</p>
+                      <p className="text-sm text-muted-foreground">{p.client || "—"}</p>
+                    </div>
+                    <div className="text-right text-xs text-muted-foreground">{p.type || "OTHER"}</div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </Container>
@@ -99,6 +135,29 @@ export default function ProjectsPage() {
           </div>
         </div>
       </Container>
+
+      {showForm && (
+        <Container className="py-6">
+          <div className="bg-card rounded-lg border border-border p-6 max-w-xl">
+            <h2 className="text-xl font-semibold mb-4">New Project</h2>
+            <div className="grid gap-3">
+              <input className="w-full rounded border border-border bg-background p-2" placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              <input className="w-full rounded border border-border bg-background p-2" placeholder="Client" value={form.client} onChange={(e) => setForm({ ...form, client: e.target.value })} />
+              <select className="w-full rounded border border-border bg-background p-2" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
+                <option value="SEAWALL">Seawall</option>
+                <option value="DOCK">Dock</option>
+                <option value="RETAINING">Retaining</option>
+                <option value="REPAIR">Repair</option>
+                <option value="OTHER">Other</option>
+              </select>
+              <div className="flex gap-2 pt-2">
+                <button onClick={createProject} className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90">Save</button>
+                <button onClick={() => setShowForm(false)} className="px-4 py-2 border rounded">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </Container>
+      )}
     </div>
   );
 }
