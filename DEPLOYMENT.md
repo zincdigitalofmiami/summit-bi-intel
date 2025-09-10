@@ -1,5 +1,7 @@
 # Summit BI Intel - Vercel Deployment Guide
 
+Note: Admin seed endpoint available at `/api/admin/seed` (GET with `?token=...` or POST with `x-seed-token`).
+
 ## 🚀 Deployment Architecture
 
 ### Production Environment

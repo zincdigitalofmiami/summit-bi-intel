@@ -8,6 +8,8 @@ export async function POST(request: Request) {
   if (!tokenEnv || tokenHeader !== tokenEnv) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
+  const existingAdmin = await prisma.user.findFirst({ where: { role: Role.ADMIN } });
+  if (existingAdmin) return NextResponse.json({ error: "seed_disabled" }, { status: 403 });
   await prisma.user.upsert({
     where: { email: "jose@summitmarinedevelopment.com" },
     create: { email: "jose@summitmarinedevelopment.com", name: "Jose Morales", role: Role.ADMIN },
@@ -23,6 +25,8 @@ export async function GET(request: Request) {
   if (!tokenEnv || tokenQuery !== tokenEnv) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
+  const existingAdmin = await prisma.user.findFirst({ where: { role: Role.ADMIN } });
+  if (existingAdmin) return NextResponse.json({ error: "seed_disabled" }, { status: 403 });
   await prisma.user.upsert({
     where: { email: "jose@summitmarinedevelopment.com" },
     create: { email: "jose@summitmarinedevelopment.com", name: "Jose Morales", role: Role.ADMIN },
