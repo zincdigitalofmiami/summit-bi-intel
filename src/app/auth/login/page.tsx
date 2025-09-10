@@ -9,6 +9,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState<"password" | "magic">("password");
   const [sent, setSent] = useState(false);
+  const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-sky-50 to-emerald-50 dark:from-slate-900 dark:to-slate-800">
@@ -50,15 +51,28 @@ export default function LoginPage() {
                     className="w-full"
                     onClick={async () => {
                       setErr(null);
+                      setFallbackUrl(null);
                       const res = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
-                      if (res.ok) setSent(true);
+                      if (res.ok) {
+                        const data = await res.json().catch(() => ({}));
+                        if (data?.fallback && data?.loginUrl) {
+                          setFallbackUrl(data.loginUrl);
+                        }
+                        setSent(true);
+                      }
                       else setErr("Failed to send link");
                     }}
                   >
                     Send Magic Link
                   </Button>
                 )}
-                {sent && <p className="text-sm text-emerald-700">Check your inbox for the sign-in link.</p>}
+                {sent && !fallbackUrl && <p className="text-sm text-emerald-700">Check your inbox for the sign-in link.</p>}
+                {fallbackUrl && (
+                  <div className="space-y-2">
+                    <p className="text-sm text-amber-700">Email isn’t configured yet. You can sign in directly:</p>
+                    <a className="block w-full rounded-md bg-emerald-600 px-3 py-2 text-center text-white hover:bg-emerald-700" href={fallbackUrl}>Open Magic Link</a>
+                  </div>
+                )}
                 {err && <p className="text-sm text-red-600">{err}</p>}
               </div>
               <p className="mt-6 text-xs text-muted-foreground">By continuing you agree to internal use. Unauthorized access prohibited.</p>

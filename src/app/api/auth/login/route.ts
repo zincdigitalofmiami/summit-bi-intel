@@ -22,12 +22,22 @@ export async function POST(request: Request) {
   base.search = `token=${token}`;
   const link = base.toString();
 
-  await sendMail({
-    to: email,
-    subject: "Your login link",
-    html: `<p>Click to sign in: <a href="${link}">Sign in</a>. Link expires in 15 minutes.</p>`,
-  });
-  return NextResponse.json({ ok: true });
+  try {
+    await sendMail({
+      to: email,
+      subject: "Your login link",
+      html: `<p>Click to sign in: <a href="${link}">Sign in</a>. Link expires in 15 minutes.</p>`,
+    });
+    return NextResponse.json({ ok: true });
+  } catch (err: any) {
+    // Fallback: if email isn't configured, return the login URL for manual click
+    const fallback = !process.env.RESEND_API_KEY && !process.env.SMTP_HOST;
+    if (fallback) {
+      return NextResponse.json({ ok: true, loginUrl: link, fallback: true });
+    }
+    console.error("Magic link send failed:", err);
+    return NextResponse.json({ error: "send_failed" }, { status: 500 });
+  }
 }
 
 
