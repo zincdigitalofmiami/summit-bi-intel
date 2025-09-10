@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:single": "killall node || true; rm -rf .next; PORT=3000 next dev",
-    "build": "sh -c 'export POSTGRES_PRISMA_URL=\"${POSTGRES_PRISMA_URL:-${DATABASE_URL:-${POSTGRES_URL:-${PRISMA_DATABASE_URL}}}}\"; if [ -n \"$POSTGRES_PRISMA_URL\" ]; then prisma migrate deploy; else echo \"Skipping Prisma migrate: POSTGRES_PRISMA_URL not set\"; fi; next build'",
+    "build": "sh -c 'export POSTGRES_PRISMA_URL=\"${POSTGRES_PRISMA_URL:-${DATABASE_URL:-${POSTGRES_URL:-${PRISMA_DATABASE_URL}}}}\"; if [ -n \"$POSTGRES_PRISMA_URL\" ]; then prisma db push; else echo \"Skipping Prisma sync: POSTGRES_PRISMA_URL not set\"; fi; next build'",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
