@@ -1,6 +1,6 @@
 import { exec } from "child_process";
-import { promisify } from "util";
 import { NextRequest, NextResponse } from "next/server";
+import { promisify } from "util";
 import { diagnosticAgent } from "@/lib/auto-diagnostics";
 
 const execAsync = promisify(exec);
@@ -77,7 +77,7 @@ async function performHealthCheck(request: NextRequest) {
 		if (isDev) {
 			checks.routes = true;
 		} else {
-			const routes = ["/dashboard", "/leads", "/analytics/market-intelligence"];
+			const routes = ["/dashboard", "/leads", "/market-intelligence"];
 			const routeChecks = await Promise.all(
 				routes.map(async (route) => {
 					try {

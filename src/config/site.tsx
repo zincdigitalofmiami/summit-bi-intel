@@ -69,7 +69,7 @@ export const navigations: Navigation[] = [
   {
     icon: Brain,
     name: "Market Intelligence",
-    href: "/analytics/market-intelligence",
+    href: "/market-intelligence",
   },
   {
     icon: Mail,

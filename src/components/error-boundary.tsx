@@ -34,7 +34,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
     // Store in global for debugging in development
     if (process.env.NODE_ENV !== 'production') {
       if (typeof window !== 'undefined') {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         (window as any).__devError = { error, errorInfo };
       }
     }

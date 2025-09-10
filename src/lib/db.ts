@@ -5,7 +5,7 @@ type CacheTable = "trending" | "permits_cache" | "competitors_cache";
 function tableRaw(name: CacheTable) {
   // @vercel/postgres: use raw to inject identifiers safely
   // The set of names is constrained by the CacheTable union
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   return (sql as any).raw ? (sql as any).raw(name) : name as unknown as TemplateStringsArray;
 }
 

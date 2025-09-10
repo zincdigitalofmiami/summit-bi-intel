@@ -8,7 +8,8 @@
     "build": "sh -c 'if [ -n \"$POSTGRES_PRISMA_URL\" ]; then prisma migrate deploy; else echo \"Skipping Prisma migrate: POSTGRES_PRISMA_URL not set\"; fi; next build'",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix"
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "seed": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -22,9 +23,11 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "jotai": "^2.10.1",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.542.0",
     "next": "^15.5.2",
     "next-themes": "^0.4.6",
+    "nodemailer": "^7.0.6",
     "pdf-lib": "^1.17.1",
     "react": "^19.1.1",
     "react-day-picker": "^9.9.0",
@@ -47,6 +50,7 @@
     "prettier-plugin-tailwindcss": "^0.6.14",
     "prisma": "^5.22.0",
     "tailwindcss": "^3.4.17",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
   "pnpm": {

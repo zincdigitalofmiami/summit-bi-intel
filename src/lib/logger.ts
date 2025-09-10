@@ -22,19 +22,19 @@ class Logger {
 
     switch (level) {
       case 'debug':
-        // eslint-disable-next-line no-console
+         
         console.debug(formattedMessage, data);
         break;
       case 'info':
-        // eslint-disable-next-line no-console
+         
         console.info(formattedMessage, data);
         break;
       case 'warn':
-        // eslint-disable-next-line no-console
+         
         console.warn(formattedMessage, data);
         break;
       case 'error':
-        // eslint-disable-next-line no-console
+         
         console.error(formattedMessage, data);
         break;
     }
@@ -101,7 +101,7 @@ class Logger {
       }
     } catch (monitoringError) {
       // Silent fail for monitoring to avoid infinite loops
-      // eslint-disable-next-line no-console
+       
       console.error('Error monitoring service failed:', monitoringError);
     }
   }

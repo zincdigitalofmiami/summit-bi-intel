@@ -1,8 +1,12 @@
+import jwt from 'jsonwebtoken';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-export function middleware(_request: NextRequest) {
+export function middleware(request: NextRequest) {
   // Add security headers
+  const { pathname } = request.nextUrl;
+  const isApi = pathname.startsWith('/api/');
+  const isPublic = pathname.startsWith('/auth/login') || pathname === '/favicon.ico' || pathname.startsWith('/_next');
   const response = NextResponse.next();
   
   // Content Security Policy
@@ -24,6 +28,20 @@ export function middleware(_request: NextRequest) {
   response.headers.set('X-DNS-Prefetch-Control', 'off');
   response.headers.set('X-Download-Options', 'noopen');
   response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+
+  // Auth gate for app pages (not API, not public login)
+  if (!isApi && !isPublic) {
+    const token = request.cookies.get('auth')?.value;
+    const secret = process.env.JWT_SECRET || 'dev_secret_change_me';
+    try {
+      if (!token) throw new Error('missing');
+      jwt.verify(token, secret);
+    } catch {
+      const url = new URL('/auth/login', request.url);
+      return NextResponse.redirect(url);
+    }
+  }
   
   return response;
 }
