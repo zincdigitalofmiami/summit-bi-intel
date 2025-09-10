@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
@@ -33,11 +32,7 @@ export function middleware(request: NextRequest) {
   // Auth gate for app pages (not API, not public login)
   if (!isApi && !isPublic) {
     const token = request.cookies.get('auth')?.value;
-    const secret = process.env.JWT_SECRET || 'dev_secret_change_me';
-    try {
-      if (!token) throw new Error('missing');
-      jwt.verify(token, secret);
-    } catch {
+    if (!token) {
       const url = new URL('/auth/login', request.url);
       return NextResponse.redirect(url);
     }
