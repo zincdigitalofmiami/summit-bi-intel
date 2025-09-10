@@ -1,4 +1,6 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
@@ -9,11 +11,16 @@ export async function POST(request: Request) {
     const { currentPassword, newPassword } = (await request.json()) as { currentPassword?: string; newPassword?: string };
     if (!newPassword) return NextResponse.json({ error: "newPassword required" }, { status: 400 });
 
-    const authCookie = (request.headers.get("cookie") || "").split("; ").find((c) => c.startsWith("auth="));
-    if (!authCookie) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-    // In this simplified implementation we only check cookie presence; in a full JWT, decode user id/email.
-    // Fallback: require email in header for now (keeps scope minimal while auth system matures).
-    const email = request.headers.get("x-user-email");
+    // Decode JWT from auth cookie to get user context
+    const auth = (await cookies()).get("auth")?.value;
+    if (!auth) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    let email: string | null = null;
+    try {
+      const decoded = jwt.verify(auth, process.env.JWT_SECRET || "dev_secret_change_me") as any;
+      email = decoded?.sub || null;
+    } catch {
+      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    }
     if (!email) return NextResponse.json({ error: "missing user context" }, { status: 400 });
 
     const user = await prisma.user.findUnique({ where: { email } });
