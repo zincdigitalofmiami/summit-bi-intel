@@ -25,12 +25,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const hasAuth = cookies().has("auth");
+  const cookieStore = await cookies();
+  const hasAuth = Boolean(cookieStore.get("auth")?.value);
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("bg-background font-sans", gabarito.variable)}>
