@@ -16,4 +16,19 @@ export async function POST(request: Request) {
   return NextResponse.json({ ok: true });
 }
 
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const tokenQuery = url.searchParams.get("token") || "";
+  const tokenEnv = process.env.ADMIN_SEED_TOKEN || "";
+  if (!tokenEnv || tokenQuery !== tokenEnv) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+  await prisma.user.upsert({
+    where: { email: "jose@summitmarinedevelopment.com" },
+    create: { email: "jose@summitmarinedevelopment.com", name: "Jose Morales", role: Role.ADMIN },
+    update: { role: Role.ADMIN },
+  });
+  return NextResponse.json({ ok: true });
+}
+
 
