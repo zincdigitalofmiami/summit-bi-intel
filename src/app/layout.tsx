@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Gabarito } from "next/font/google";
+import { cookies } from "next/headers";
+import "@/style/globals.css";
 import { SideNav } from "@/components/nav";
 import Header from "@/components/nav/header";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import "@/style/globals.css";
 import { Providers } from "./providers";
 
 const gabarito = Gabarito({ subsets: ["latin"], variable: "--font-gabarito" });
@@ -29,14 +30,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const hasAuth = cookies().has("auth");
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("bg-background font-sans", gabarito.variable)}>
         <Providers>
           <div className="flex min-h-[100dvh]">
-            <SideNav />
+            {hasAuth && <SideNav />}
             <div className="flex-grow overflow-auto flex min-h-screen flex-col">
-              <Header title="Summit Intelligence" />
+              {hasAuth && <Header title="Summit Intelligence" />}
               <main className="flex-1">{children}</main>
             </div>
           </div>

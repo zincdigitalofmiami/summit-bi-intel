@@ -12,12 +12,12 @@ export default function LoginPage() {
   const [err, setErr] = useState<string | null>(null);
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-sky-50 to-emerald-50 dark:from-slate-900 dark:to-slate-800">
-      <div className="absolute inset-0 bg-[url('/logos/Primary Summit Logo.png')] bg-contain bg-center bg-no-repeat opacity-5" />
+      <div className="absolute inset-0 bg-[url('/logos/Primary%20Summit%20Logo.png')] bg-contain bg-center bg-no-repeat opacity-5" />
       <Container className="relative z-10 py-16">
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
           <div className="flex flex-col justify-center">
             <h1 className="text-4xl font-bold tracking-tight">Summit Fusion</h1>
-            <p className="mt-4 text-lg text-muted-foreground">CRM, PM, and Market Intelligence for marine construction. Secure access only.</p>
+            <p className="mt-4 text-lg text-muted-foreground">Hand built and coded specifically for Jose Morales at Summit Marine Development</p>
             <div className="mt-8 rounded-xl border border-emerald-200 bg-white/80 p-6 backdrop-blur-md dark:border-emerald-800 dark:bg-slate-900/70">
               <div className="mb-4 flex gap-2">
                 <Button variant={mode === "password" ? "default" : "secondary"} onClick={() => setMode("password")}>Password</Button>
@@ -66,7 +66,7 @@ export default function LoginPage() {
           </div>
           <div className="hidden items-center justify-center md:flex">
             <div className="rounded-2xl border border-border bg-card/70 p-8 backdrop-blur-md">
-              <img src="/logos/Primary Summit Logo.png" alt="Summit Marine Development" className="mx-auto w-64" />
+              <img src="/logos/Primary%20Summit%20Logo.png" alt="Summit Marine Development" className="mx-auto w-64" />
               <p className="mt-6 max-w-sm text-center text-muted-foreground">Secure portal for Summit Marine Development. If you need access, contact admin.</p>
             </div>
           </div>
