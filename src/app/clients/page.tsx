@@ -1,6 +1,69 @@
+"use client";
+import { useEffect, useMemo, useState } from "react";
 import Container from "@/components/container";
 
+type Client = {
+  id: string;
+  name: string;
+  email?: string | null;
+  phone?: string | null;
+  location?: string | null;
+  type?: "RESIDENTIAL" | "COMMERCIAL" | "MARINA";
+  createdAt: string;
+};
+
 export default function ClientsPage() {
+  const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", phone: "", location: "", type: "RESIDENTIAL" });
+
+  async function loadClients() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/clients", { cache: "no-store" });
+      const data = await res.json();
+      if (data?.clients) setClients(data.clients);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadClients();
+  }, []);
+
+  async function createClient() {
+    if (!form.name.trim()) return;
+    setLoading(true);
+    try {
+      const res = await fetch("/api/clients", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email || undefined,
+          phone: form.phone || undefined,
+          location: form.location || undefined,
+          type: form.type,
+        }),
+      });
+      if (res.ok) {
+        setShowForm(false);
+        setForm({ name: "", email: "", phone: "", location: "", type: "RESIDENTIAL" });
+        await loadClients();
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const stats = useMemo(() => {
+    const total = clients.length;
+    const active = 0;
+    const repeat = 0;
+    return { total, active, repeat };
+  }, [clients]);
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -12,7 +75,7 @@ export default function ClientsPage() {
               Manage relationships with residential and commercial waterfront property owners
             </p>
           </div>
-          <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
+          <button onClick={() => setShowForm(true)} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             Add New Client
           </button>
         </div>
@@ -23,17 +86,17 @@ export default function ClientsPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Total Clients</h3>
-            <p className="text-2xl font-bold">0</p>
+            <p className="text-2xl font-bold">{stats.total}</p>
             <p className="text-xs text-muted-foreground">All time</p>
           </div>
           <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Active Clients</h3>
-            <p className="text-2xl font-bold">0</p>
+            <p className="text-2xl font-bold">{stats.active}</p>
             <p className="text-xs text-muted-foreground">Current projects</p>
           </div>
           <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Repeat Clients</h3>
-            <p className="text-2xl font-bold">0</p>
+            <p className="text-2xl font-bold">{stats.repeat}</p>
             <p className="text-xs text-muted-foreground">Multiple projects</p>
           </div>
           <div className="bg-card p-6 rounded-lg border border-border">
@@ -54,12 +117,28 @@ export default function ClientsPage() {
             </p>
           </div>
           <div className="p-6">
-            <div className="text-center py-8">
-              <p className="text-muted-foreground">No clients found</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Add your first client to start building your customer base
-              </p>
-            </div>
+            {loading ? (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">Loading…</p>
+              </div>
+            ) : clients.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">No clients found</p>
+                <p className="text-sm text-muted-foreground mt-2">Add your first client to start building your customer base</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {clients.map((c) => (
+                  <div key={c.id} className="flex items-center justify-between rounded border border-border p-4">
+                    <div>
+                      <p className="font-semibold">{c.name}</p>
+                      <p className="text-sm text-muted-foreground">{c.email || "—"}{c.phone ? ` · ${c.phone}` : ""}</p>
+                    </div>
+                    <div className="text-right text-xs text-muted-foreground">{c.type || "RESIDENTIAL"}</div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </Container>
@@ -128,6 +207,29 @@ export default function ClientsPage() {
           </div>
         </div>
       </Container>
+
+      {showForm && (
+        <Container className="py-6">
+          <div className="bg-card rounded-lg border border-border p-6 max-w-xl">
+            <h2 className="text-xl font-semibold mb-4">Add New Client</h2>
+            <div className="grid gap-3">
+              <input className="w-full rounded border border-border bg-background p-2" placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              <input className="w-full rounded border border-border bg-background p-2" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <input className="w-full rounded border border-border bg-background p-2" placeholder="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              <input className="w-full rounded border border-border bg-background p-2" placeholder="Location" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
+              <select className="w-full rounded border border-border bg-background p-2" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
+                <option value="RESIDENTIAL">Residential</option>
+                <option value="COMMERCIAL">Commercial</option>
+                <option value="MARINA">Marina</option>
+              </select>
+              <div className="flex gap-2 pt-2">
+                <button disabled={loading} onClick={createClient} className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90">Save</button>
+                <button onClick={() => setShowForm(false)} className="px-4 py-2 border rounded">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </Container>
+      )}
     </div>
   );
 }
