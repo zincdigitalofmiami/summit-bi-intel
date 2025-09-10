@@ -2,6 +2,8 @@ import { Role } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+export const runtime = "nodejs";
+
 export async function POST(request: Request) {
   const tokenHeader = request.headers.get("x-seed-token") || "";
   const tokenEnv = process.env.ADMIN_SEED_TOKEN || "";
