@@ -38,6 +38,7 @@ model User {
   role        Role     @default(USER)
   onboarded   Boolean  @default(false)
   lastLoginAt DateTime?
+  passwordHash String?
   createdAt   DateTime @default(now())
 }
 
@@ -49,6 +50,15 @@ model MagicLinkToken {
   used       Boolean  @default(false)
   createdAt  DateTime @default(now())
   // Optional relation to user by email (not enforced)
+}
+
+model PasswordResetToken {
+  id         String   @id @default(uuid())
+  email      String
+  token      String   @unique
+  expiresAt  DateTime
+  used       Boolean  @default(false)
+  createdAt  DateTime @default(now())
 }
 
 

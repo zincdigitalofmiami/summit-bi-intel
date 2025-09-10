@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("jose@summitmarinedevelopment.com");
+  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState<"password" | "magic">("password");
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   return (
@@ -17,21 +19,45 @@ export default function LoginPage() {
             <h1 className="text-4xl font-bold tracking-tight">Summit Fusion</h1>
             <p className="mt-4 text-lg text-muted-foreground">CRM, PM, and Market Intelligence for marine construction. Secure access only.</p>
             <div className="mt-8 rounded-xl border border-emerald-200 bg-white/80 p-6 backdrop-blur-md dark:border-emerald-800 dark:bg-slate-900/70">
+              <div className="mb-4 flex gap-2">
+                <Button variant={mode === "password" ? "default" : "secondary"} onClick={() => setMode("password")}>Password</Button>
+                <Button variant={mode === "magic" ? "default" : "secondary"} onClick={() => setMode("magic")}>Magic Link</Button>
+              </div>
               <h2 className="mb-2 text-xl font-semibold">Sign in</h2>
-              <p className="mb-4 text-sm text-muted-foreground">We’ll email you a secure sign-in link.</p>
+              <p className="mb-4 text-sm text-muted-foreground">{mode === "magic" ? "We’ll email you a secure sign-in link." : "Use your email and password."}</p>
               <div className="space-y-3">
                 <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@example.com" />
-                <Button
-                  className="w-full"
-                  onClick={async () => {
-                    setErr(null);
-                    const res = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
-                    if (res.ok) setSent(true);
-                    else setErr("Failed to send link");
-                  }}
-                >
-                  Send Magic Link
-                </Button>
+                {mode === "password" ? (
+                  <>
+                    <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="••••••••" />
+                    <Button
+                      className="w-full"
+                      onClick={async () => {
+                        setErr(null);
+                        const res = await fetch("/api/auth/password", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
+                        if (res.ok) window.location.href = "/dashboard";
+                        else setErr("Invalid credentials");
+                      }}
+                    >
+                      Sign In
+                    </Button>
+                    <div className="text-right">
+                      <a className="text-sm text-emerald-700 hover:underline" href="/auth/forgot">Forgot password?</a>
+                    </div>
+                  </>
+                ) : (
+                  <Button
+                    className="w-full"
+                    onClick={async () => {
+                      setErr(null);
+                      const res = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
+                      if (res.ok) setSent(true);
+                      else setErr("Failed to send link");
+                    }}
+                  >
+                    Send Magic Link
+                  </Button>
+                )}
                 {sent && <p className="text-sm text-emerald-700">Check your inbox for the sign-in link.</p>}
                 {err && <p className="text-sm text-red-600">{err}</p>}
               </div>

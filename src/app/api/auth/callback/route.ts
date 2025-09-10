@@ -12,11 +12,17 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Invalid or expired token" }, { status: 400 });
   }
 
+  // Ensure token is for a registered user only
+  const existing = await prisma.user.findUnique({ where: { email: record.email } });
+  if (!existing) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   // mark used
   await prisma.magicLinkToken.update({ where: { token }, data: { used: true } });
 
   // ensure user exists
-  const user = await prisma.user.upsert({ where: { email: record.email }, create: { email: record.email }, update: { lastLoginAt: new Date() } });
+  const user = await prisma.user.update({ where: { email: record.email }, data: { lastLoginAt: new Date() } });
 
   const secret = process.env.JWT_SECRET || "dev_secret_change_me";
   const auth = jwt.sign({ sub: record.email, role: user.role }, secret, { expiresIn: "30d" });

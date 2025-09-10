@@ -7,6 +7,12 @@ export async function POST(request: Request) {
   const { email } = (await request.json()) as { email?: string };
   if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
 
+  // Only allow registered users to receive magic links
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const token = crypto.randomBytes(24).toString("hex");
   const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
   await prisma.magicLinkToken.create({ data: { email, token, expiresAt } });

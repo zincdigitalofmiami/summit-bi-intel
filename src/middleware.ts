@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   // Add security headers
   const { pathname } = request.nextUrl;
   const isApi = pathname.startsWith('/api/');
-  const isPublic = pathname.startsWith('/auth/login') || pathname === '/favicon.ico' || pathname.startsWith('/_next');
+  const isPublic = pathname.startsWith('/auth/login') || pathname.startsWith('/auth/forgot') || pathname.startsWith('/auth/reset') || pathname === '/favicon.ico' || pathname.startsWith('/_next');
   const response = NextResponse.next();
   
   // Content Security Policy
