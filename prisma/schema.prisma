@@ -61,4 +61,66 @@ model PasswordResetToken {
   createdAt  DateTime @default(now())
 }
 
+// CRM / PM core models
+enum ClientType {
+  RESIDENTIAL
+  COMMERCIAL
+  MARINA
+}
+
+model Client {
+  id        String     @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  location  String?
+  type      ClientType @default(RESIDENTIAL)
+  createdAt DateTime   @default(now())
+}
+
+enum LeadStatus {
+  NEW
+  QUALIFIED
+  PROPOSAL
+  CONVERTED
+  LOST
+}
+
+model Lead {
+  id             String     @id @default(uuid())
+  name           String
+  contactEmail   String?
+  contactPhone   String?
+  companyName    String?
+  status         LeadStatus @default(NEW)
+  source         String?
+  notes          String?
+  createdAt      DateTime   @default(now())
+  conversionDate DateTime?
+}
+
+enum ProjectType {
+  SEAWALL
+  DOCK
+  RETAINING
+  REPAIR
+  OTHER
+}
+
+enum ProjectStatus {
+  ACTIVE
+  COMPLETED
+  ON_HOLD
+}
+
+model Project {
+  id        String        @id @default(uuid())
+  name      String
+  client    String?
+  type      ProjectType  @default(OTHER)
+  status    ProjectStatus @default(ACTIVE)
+  budget    Decimal?      @db.Decimal(12, 2)
+  createdAt DateTime      @default(now())
+}
+
 
