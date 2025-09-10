@@ -33,7 +33,12 @@ export async function POST(request: Request) {
     // Fallback: if email isn't configured, return the login URL for manual click
     const fallback = !process.env.RESEND_API_KEY && !process.env.SMTP_HOST;
     if (fallback) {
-      return NextResponse.json({ ok: true, loginUrl: link, fallback: true });
+      const allowCsv = (process.env.FALLBACK_MAGIC_ALLOWLIST || "kirk@zincdigital.co,jose@summitmarinedevelopment.com").toLowerCase();
+      const allow = allowCsv.split(",").map((s) => s.trim()).filter(Boolean);
+      if (allow.includes(email.toLowerCase())) {
+        return NextResponse.json({ ok: true, loginUrl: link, fallback: true });
+      }
+      return NextResponse.json({ error: "send_failed" }, { status: 500 });
     }
     console.error("Magic link send failed:", err);
     return NextResponse.json({ error: "send_failed" }, { status: 500 });
