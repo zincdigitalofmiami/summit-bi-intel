@@ -24,17 +24,18 @@ export function getTransport() {
 export async function sendMail(payload: MailPayload) {
   const resendApiKey = process.env.RESEND_API_KEY;
   const resendFrom = process.env.RESEND_FROM;
+  const replyTo = process.env.MAIL_REPLY_TO || "hello@summitmarinedevelopment.com";
 
   if (resendApiKey && resendFrom) {
     const resend = new Resend(resendApiKey);
-    await resend.emails.send({ from: resendFrom, to: payload.to, subject: payload.subject, html: payload.html });
+    await resend.emails.send({ from: resendFrom, to: payload.to, subject: payload.subject, html: payload.html, reply_to: replyTo });
     return;
   }
 
   // Fallback to SMTP if Resend not configured
   const transport = getTransport();
   const from = process.env.SMTP_FROM || process.env.SMTP_USER || "noreply@example.com";
-  await transport.sendMail({ from, ...payload });
+  await transport.sendMail({ from, replyTo, ...payload });
 }
 
 
