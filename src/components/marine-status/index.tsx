@@ -3,9 +3,6 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import WeatherWidget from "@/components/weather-widget";
-import WeatherMapWidget from "@/components/weather-map-widget";
-import WeatherAlertBanner from "@/components/weather-alert-banner";
 import {
   CheckCircle,
   Clock,
@@ -15,10 +12,10 @@ import {
   Anchor,
   Waves,
   Thermometer,
-  Wind
+  Wind,
 } from "lucide-react";
 
-// Dynamic marine status data
+// Dynamic marine status data (static for now; live weather removed)
 const useMarineStatusData = () => {
   const [marineConditions, setMarineConditions] = useState({
     tideHeight: "2.3 ft",
@@ -26,35 +23,15 @@ const useMarineStatusData = () => {
     waveHeight: "1-2 ft",
     windSpeed: "12 mph NE",
     visibility: "10+ miles",
-    temperature: "78°F"
+    temperature: "78°F",
   });
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMarineData = async () => {
-      try {
-        const response = await fetch('/api/weather/current');
-        if (response.ok) {
-          const data = await response.json();
-          setMarineConditions({
-            tideHeight: `${data.tideHeight.toFixed(1)} ft`,
-            tideStatus: data.tideStatus,
-            waveHeight: data.waveHeight,
-            windSpeed: `${data.windSpeed} mph ${data.windDirection}`,
-            visibility: `${data.visibility}+ miles`,
-            temperature: `${data.temperature}°F`
-          });
-        }
-      } catch (error) {
-        console.warn('Failed to fetch marine conditions:', error);
-        // Keep default values on error
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMarineData();
+    // Live weather disabled. Keep defaults and mark as loaded.
+    setMarineConditions((prev) => ({ ...prev }));
+    setIsLoading(false);
   }, []);
 
   return { marineConditions, isLoading };
@@ -68,7 +45,7 @@ const activeProjects = [
     status: "In Progress",
     completion: 75,
     crew: "Team Alpha",
-    dueDate: "Dec 15, 2025"
+    dueDate: "Dec 15, 2025",
   },
   {
     id: "pier-repair",
@@ -77,7 +54,7 @@ const activeProjects = [
     status: "Starting Soon",
     completion: 0,
     crew: "Team Beta",
-    dueDate: "Dec 20, 2025"
+    dueDate: "Dec 20, 2025",
   },
   {
     id: "seawall",
@@ -86,15 +63,15 @@ const activeProjects = [
     status: "Planning",
     completion: 10,
     crew: "Team Gamma",
-    dueDate: "Jan 5, 2026"
-  }
+    dueDate: "Jan 5, 2026",
+  },
 ];
 
 const equipmentStatus = {
   available: 4,
   inUse: 2,
   maintenance: 1,
-  totalEquipment: 7
+  totalEquipment: 7,
 };
 
 export default function MarineStatusOverview() {
@@ -128,13 +105,6 @@ export default function MarineStatusOverview() {
 
   return (
     <div className="space-y-6">
-      {/* Marine Weather Map - RIGHT SIDEBAR ONLY */}
-      <div className="flex justify-end mb-6">
-        <div className="w-full xl:w-80">
-          <WeatherMapWidget />
-        </div>
-      </div>
-
       {/* Today's Tasks & Active Projects */}
       <Card>
         <CardHeader>
@@ -261,7 +231,14 @@ export default function MarineStatusOverview() {
                   <span className="font-medium">{marineConditions.temperature}</span>
                 </div>
                 <div className="text-center mt-3">
-                  <Badge variant="outline" className={isLoading ? "bg-gray-50 text-gray-500" : "bg-green-50 text-green-700 dark:bg-green-900 dark:text-green-300"}>
+                  <Badge
+                    variant="outline"
+                    className={
+                      isLoading
+                        ? "bg-gray-50 text-gray-500"
+                        : "bg-green-50 text-green-700 dark:bg-green-900 dark:text-green-300"
+                    }
+                  >
                     {isLoading ? "Loading..." : "Live Conditions"}
                   </Badge>
                 </div>
@@ -302,13 +279,17 @@ export default function MarineStatusOverview() {
               <div className="pt-2">
                 <div className="flex justify-between text-sm mb-1">
                   <span>Equipment Utilization</span>
-                  <span>{Math.round((equipmentStatus.inUse / equipmentStatus.totalEquipment) * 100)}%</span>
+                  <span>
+                    {Math.round(
+                      (equipmentStatus.inUse / equipmentStatus.totalEquipment) * 100,
+                    )}%
+                  </span>
                 </div>
                 <div className="w-full bg-muted rounded-full h-2">
                   <div
                     className="bg-blue-500 rounded-full h-2"
                     style={{
-                      width: `${(equipmentStatus.inUse / equipmentStatus.totalEquipment) * 100}%`
+                      width: `${(equipmentStatus.inUse / equipmentStatus.totalEquipment) * 100}%`,
                     }}
                   />
                 </div>
