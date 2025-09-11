@@ -18,7 +18,7 @@ export async function GET() {
     environment: process.env.NODE_ENV || "development",
     services: {
       database: dbStatus,
-      weather_api: "operational",
+      weather_api: "removed",
       market_intelligence: "operational",
       proposals: "operational"
     },

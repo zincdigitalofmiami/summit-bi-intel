@@ -47,7 +47,7 @@ export default function AIAgent({ context }: { context?: AIContext }) {
         "What's my best opportunity today?",
         "Analyze my current pipeline",
         "Suggest pricing strategy for new lead",
-        "Weather impact on today's schedule"
+        "Prioritize today's schedule"
       ];
     } else if (context?.page === 'crm') {
       return [
@@ -60,7 +60,7 @@ export default function AIAgent({ context }: { context?: AIContext }) {
       return [
         "Schedule optimization for today",
         "Resource allocation recommendations",
-        "Weather impact assessment",
+        "Risk assessment for active jobs",
         "Progress update suggestions"
       ];
     } else if (context?.page === 'proposals') {
@@ -155,9 +155,7 @@ export default function AIAgent({ context }: { context?: AIContext }) {
       if (lowerMessage.includes('pricing')) {
         return "💰 For new leads, I suggest starting at $1,850/sq ft (your current competitive advantage). Consider premium pricing at $2,200/sq ft for eco-friendly materials.";
       }
-      if (lowerMessage.includes('weather')) {
-        return "⛅ Today's conditions show good workability with 1-2 ft waves and 12 mph winds. The 3-week weather window opens November 15th for major projects.";
-      }
+      // Weather references removed
     }
 
     if (context?.page === 'crm') {
@@ -165,13 +163,13 @@ export default function AIAgent({ context }: { context?: AIContext }) {
         return "✅ Lead qualification criteria: Budget > $50K, Timeline within 3 months, Decision maker confirmed. This lead scores 8/10 - high potential.";
       }
       if (lowerMessage.includes('email')) {
-        return "📧 I recommend a personalized follow-up email highlighting your competitive pricing ($1,850/sq ft vs $2,100 market average) and 3-week weather window advantage.";
+        return "📧 I recommend a personalized follow-up email highlighting your competitive pricing ($1,850/sq ft vs $2,100 market average) and schedule reliability advantage.";
       }
     }
 
     if (context?.page === 'projects') {
       if (lowerMessage.includes('schedule')) {
-        return "📅 Optimal schedule: Start Biscayne Bay deck (75% complete), then transition to Key Largo pier repair. Weather window closes in 2 weeks.";
+        return "📅 Optimal schedule: Start Biscayne Bay deck (75% complete), then transition to Key Largo pier repair. Account for crew availability and permit timelines.";
       }
       if (lowerMessage.includes('resources')) {
         return "⚙️ Current utilization: 75% capacity. Recommend allocating Team Alpha to high-priority projects. Equipment availability: 4/7 units ready.";

@@ -2,12 +2,7 @@
 const nextConfig = {
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'radar.weather.gov',
-        port: '',
-        pathname: '/ridge/standard/**',
-      },
+      // Removed weather radar domain
       {
         protocol: 'https',
         hostname: 'www.zincdigital.co',

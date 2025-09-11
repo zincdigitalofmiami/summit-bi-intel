@@ -2,32 +2,11 @@ import axios from 'axios';
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
 
-// NOAA Weather Service for Panama City
-const NOAAWeatherSchema = z.object({
-  properties: z.object({
-    periods: z.array(z.object({
-      name: z.string(),
-      temperature: z.number(),
-      temperatureUnit: z.string(),
-      windSpeed: z.string(),
-      windDirection: z.string(),
-      shortForecast: z.string(),
-      detailedForecast: z.string(),
-      isDaytime: z.boolean()
-    }))
-  })
-});
+// Weather removed
+const NOAAWeatherSchema = z.object({ properties: z.object({ periods: z.array(z.any()) }) });
 
-// NOAA Tides and Currents for Panama City
-const NOAATidesSchema = z.object({
-  data: z.array(z.object({
-    t: z.string(), // time
-    v: z.string(), // value (water level)
-    s: z.string().optional(), // sigma
-    f: z.string().optional(), // flags
-    q: z.string().optional() // quality
-  }))
-});
+// Tides removed
+const NOAATidesSchema = z.object({ data: z.array(z.any()) });
 
 // Marine construction industry data structure
 interface _MarineIndustryData {
@@ -109,36 +88,11 @@ class RealTimeDataService {
     }
   }
 
-  // Panama City Weather (NOAA)
-  async getPanamaCityWeather() {
-    return this.getCachedOrFetch('panama-city-weather', async () => {
-      // Panama City coordinates: 30.1588, -85.6602
-      const response = await axios.get(
-        'https://api.weather.gov/gridpoints/TAE/47,35/forecast',
-        {
-          headers: {
-            'User-Agent': '(summit-marine-development, contact@summitmarine.com)'
-          }
-        }
-      );
-      
-      const validated = NOAAWeatherSchema.parse(response.data);
-      return this.processWeatherData(validated);
-    }, 30); // Cache for 30 minutes
-  }
+  // Weather disabled
+  async getPanamaCityWeather() { return {}; }
 
-  // St. Andrews Bay Tides (NOAA Station 8729840)
-  async getStAndrewsBayTides() {
-    return this.getCachedOrFetch('st-andrews-tides', async () => {
-      const response = await axios.get(
-        `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?` +
-        `date=today&station=8729840&product=water_level&datum=MLLW&time_zone=lst_ldt&units=english&format=json`
-      );
-      
-      const validated = NOAATidesSchema.parse(response.data);
-      return this.processTideData(validated);
-    }, 15); // Cache for 15 minutes
-  }
+  // Tides disabled
+  async getStAndrewsBayTides() { return {}; }
 
   // Marine Construction Industry Intelligence
   async getMarineIndustryIntelligence() {
@@ -260,85 +214,21 @@ class RealTimeDataService {
   }
 
   // Process weather data for marine work conditions
-  private processWeatherData(data: z.infer<typeof NOAAWeatherSchema>) {
-    const current = data.properties.periods[0];
-    const forecast = data.properties.periods.slice(1, 5);
-
-    // Calculate marine work suitability
-    const getWorkSuitability = (period: WeatherPeriod) => {
-      const windSpeed = parseInt(period.windSpeed.split(' ')[0] || '0');
-      const hasRain = period.shortForecast.toLowerCase().includes('rain') || 
-                     period.shortForecast.toLowerCase().includes('storm');
-      
-      if (hasRain || windSpeed > 25) return 'poor';
-      if (windSpeed > 15) return 'fair';
-      if (windSpeed > 10) return 'good';
-      return 'excellent';
-    };
-
-    return {
-      current: {
-        temperature: current.temperature,
-        temperatureUnit: current.temperatureUnit,
-        windSpeed: current.windSpeed,
-        windDirection: current.windDirection,
-        condition: current.shortForecast,
-        workSuitability: getWorkSuitability(current),
-        isDaytime: current.isDaytime
-      },
-      forecast: forecast.map(period => ({
-        day: period.name,
-        temperature: period.temperature,
-        windSpeed: period.windSpeed,
-        condition: period.shortForecast,
-        workSuitability: getWorkSuitability(period)
-      })),
-      lastUpdated: new Date().toISOString()
-    };
-  }
+  private processWeatherData(_: z.infer<typeof NOAAWeatherSchema>) { return {}; }
 
   // Process tide data for marine work planning
-  private processTideData(data: z.infer<typeof NOAATidesSchema>) {
-    const readings = data.data.slice(-6); // Last 6 readings
-    const latest = readings[readings.length - 1];
-    
-    // Determine tide trend
-    const earlier = readings[0];
-    const trend = parseFloat(latest.v) > parseFloat(earlier.v) ? 'Rising' : 'Falling';
-    
-    return {
-      currentLevel: parseFloat(latest.v),
-      trend,
-      unit: 'feet MLLW',
-      lastReading: latest.t,
-      readings: readings.map(r => ({
-        time: r.t,
-        level: parseFloat(r.v)
-      }))
-    };
-  }
+  private processTideData(_: z.infer<typeof NOAATidesSchema>) { return {}; }
 
   // Generate AI-powered competitive insights
   async generateCompetitiveInsights() {
     try {
-      const [weather, tides, industry] = await Promise.all([
-        this.getPanamaCityWeather(),
-        this.getStAndrewsBayTides(),
+      const [industry] = await Promise.all([
         this.getMarineIndustryIntelligence()
       ]);
 
       const insights = [];
 
-      // Weather-based insights
-      if (weather?.current?.workSuitability === 'poor') {
-        insights.push({
-          type: 'weather_opportunity',
-          title: 'Weather Window Opportunity',
-          message: `Current conditions unsuitable for marine work. Ideal time for client consultations and project planning. Next good weather window in ${this.findNextGoodWeather(weather.forecast)} days.`,
-          priority: 'medium',
-          actionable: true
-        });
-      }
+      // Weather-based insights removed
 
       // Material cost alerts
       if (industry?.materialPrices) {
@@ -385,16 +275,7 @@ class RealTimeDataService {
         });
       }
 
-      // Tide-based operational insights
-      if (tides?.trend === 'Rising' && tides.currentLevel < 2.0) {
-        insights.push({
-          type: 'operational_timing',
-          title: 'Optimal Work Window',
-          message: `Rising tide at ${tides.currentLevel}ft provides excellent access for seawall inspection and dock foundation work. Window closes in ~3 hours.`,
-          priority: 'medium',
-          actionable: true
-        });
-      }
+      // Tide-based insights removed
 
       return insights;
     } catch {
@@ -402,12 +283,7 @@ class RealTimeDataService {
     }
   }
 
-  private findNextGoodWeather(forecast: Array<{ workSuitability: string }>): number {
-    const goodDay = forecast.findIndex(day => 
-      day.workSuitability === 'excellent' || day.workSuitability === 'good'
-    );
-    return goodDay === -1 ? 7 : goodDay + 1;
-  }
+  // Removed findNextGoodWeather
 }
 
 export default RealTimeDataService;
