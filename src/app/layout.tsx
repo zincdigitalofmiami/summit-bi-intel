@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
-import { Gabarito } from "next/font/google";
-import { cookies } from "next/headers";
-import "@/style/globals.css";
-import { SideNav } from "@/components/nav";
-import Header from "@/components/nav/header";
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
-import { Providers } from "./providers";
+import "./globals.css";
 
-const gabarito = Gabarito({ subsets: ["latin"], variable: "--font-gabarito" });
+import Header from "@/components/nav/header";
+import SideNav from "@/components/nav/side-nav";
+import { cn } from "@/lib/utils";
+import { gabarito } from "./fonts";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
+  title: "Summit Marine Development - BI Dashboard",
+  description: "Business Intelligence Dashboard for Marine Construction Services",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -30,8 +27,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const hasAuth = Boolean(cookieStore.get("auth")?.value);
+  // TEMP: force authenticated UI visible while app is public
+  const hasAuth = true;
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("bg-background font-sans", gabarito.variable)}>
