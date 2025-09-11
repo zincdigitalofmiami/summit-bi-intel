@@ -46,6 +46,7 @@ model User {
   lastLoginAt DateTime?
   passwordHash String?
   createdAt   DateTime @default(now())
+  magicLinkTokens MagicLinkToken[]
 
   @@index([createdAt])
 }
