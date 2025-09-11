@@ -1,251 +1,276 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Setup Users - Summit Marine Development</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-        }
-        .info-box {
-            background: #f0f4ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        .credentials {
-            background: #fff;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .user-cred {
-            margin: 15px 0;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 6px;
-        }
-        .user-cred h3 {
-            margin: 0 0 10px 0;
-            color: #667eea;
-        }
-        .field {
-            display: flex;
-            margin: 8px 0;
-        }
-        .field label {
-            font-weight: bold;
-            width: 100px;
-            color: #666;
-        }
-        .field span {
-            font-family: 'Courier New', monospace;
-            background: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        button {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 20px 0;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #5a67d8;
-        }
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-        .success {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-        .error {
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-        .login-info {
-            background: #e8f5e9;
-            border: 2px solid #4caf50;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .login-info h3 {
-            color: #2e7d32;
-            margin-top: 0;
-        }
-        .hidden {
-            display: none;
-        }
-        input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 300px;
-            margin: 10px 0;
-        }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+      .container {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 10px;
+      }
+      .info-box {
+        background: #f0f4ff;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+      .credentials {
+        background: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+      .user-cred {
+        margin: 15px 0;
+        padding: 15px;
+        background: #f9f9f9;
+        border-radius: 6px;
+      }
+      .user-cred h3 {
+        margin: 0 0 10px 0;
+        color: #667eea;
+      }
+      .field {
+        display: flex;
+        margin: 8px 0;
+      }
+      .field label {
+        font-weight: bold;
+        width: 100px;
+        color: #666;
+      }
+      .field span {
+        font-family: "Courier New", monospace;
+        background: #fff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+      }
+      button {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 20px 0;
+        transition: background 0.3s;
+      }
+      button:hover {
+        background: #5a67d8;
+      }
+      button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+      .success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .error {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .login-info {
+        background: #e8f5e9;
+        border: 2px solid #4caf50;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .login-info h3 {
+        color: #2e7d32;
+        margin-top: 0;
+      }
+      .hidden {
+        display: none;
+      }
+      input {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 300px;
+        margin: 10px 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>🔐 Setup User Accounts</h1>
-        
-        <div class="info-box">
-            <strong>⚠️ Important:</strong> This will create/update user accounts with the passwords shown below.
-            Make sure to save these credentials securely!
+      <h1>🔐 Setup User Accounts</h1>
+
+      <div class="info-box">
+        <strong>⚠️ Important:</strong> This will create/update user accounts
+        with the passwords shown below. Make sure to save these credentials
+        securely!
+      </div>
+
+      <div class="credentials">
+        <h2>User Credentials (Will Be Created)</h2>
+
+        <div class="user-cred">
+          <h3>👤 Jose Morales</h3>
+          <div class="field">
+            <label>Email:</label>
+            <span>jose@summitmarinedevelopment.com</span>
+          </div>
+          <div class="field">
+            <label>Password:</label>
+            <span>Summit2025!Marine</span>
+          </div>
+          <div class="field">
+            <label>Role:</label>
+            <span>ADMIN</span>
+          </div>
         </div>
 
-        <div class="credentials">
-            <h2>User Credentials (Will Be Created)</h2>
-            
-            <div class="user-cred">
-                <h3>👤 Jose Morales</h3>
-                <div class="field">
-                    <label>Email:</label>
-                    <span>jose@summitmarinedevelopment.com</span>
-                </div>
-                <div class="field">
-                    <label>Password:</label>
-                    <span>Summit2025!Marine</span>
-                </div>
-                <div class="field">
-                    <label>Role:</label>
-                    <span>ADMIN</span>
-                </div>
-            </div>
-
-            <div class="user-cred">
-                <h3>👤 Kirk</h3>
-                <div class="field">
-                    <label>Email:</label>
-                    <span>kirk@zincdigital.co</span>
-                </div>
-                <div class="field">
-                    <label>Password:</label>
-                    <span>Zinc2025!Digital</span>
-                </div>
-                <div class="field">
-                    <label>Role:</label>
-                    <span>ADMIN</span>
-                </div>
-            </div>
+        <div class="user-cred">
+          <h3>👤 Kirk</h3>
+          <div class="field">
+            <label>Email:</label>
+            <span>kirk@zincdigital.co</span>
+          </div>
+          <div class="field">
+            <label>Password:</label>
+            <span>Zinc2025!Digital</span>
+          </div>
+          <div class="field">
+            <label>Role:</label>
+            <span>ADMIN</span>
+          </div>
         </div>
+      </div>
 
-        <div>
-            <label for="apiUrl">API URL:</label><br>
-            <input type="text" id="apiUrl" value="https://fusion.summitmarinedevelopment.com/api/admin/setup-passwords" />
-        </div>
+      <div>
+        <label for="apiUrl">API URL:</label><br />
+        <input
+          type="text"
+          id="apiUrl"
+          value="https://fusion.summitmarinedevelopment.com/api/admin/setup-passwords"
+        />
+      </div>
 
-        <div>
-            <label for="adminToken">Admin Token (if required):</label><br>
-            <input type="password" id="adminToken" placeholder="Enter admin token if configured" />
-        </div>
+      <div>
+        <label for="adminToken">Admin Token (if required):</label><br />
+        <input
+          type="password"
+          id="adminToken"
+          placeholder="Enter admin token if configured"
+        />
+      </div>
 
-        <button id="setupBtn" onclick="setupUsers()">🚀 Create/Update Users</button>
+      <button id="setupBtn" onclick="setupUsers()">
+        🚀 Create/Update Users
+      </button>
 
-        <div id="result" class="hidden"></div>
+      <div id="result" class="hidden"></div>
 
-        <div class="login-info">
-            <h3>📱 Login Methods</h3>
-            <p>After setup, users can login at: <strong>https://fusion.summitmarinedevelopment.com/auth/login</strong></p>
-            <ul>
-                <li><strong>Password Login:</strong> Use email and password shown above</li>
-                <li><strong>Magic Link:</strong> Enter email to receive a secure login link</li>
-            </ul>
-        </div>
+      <div class="login-info">
+        <h3>📱 Login Methods</h3>
+        <p>
+          After setup, users can login at:
+          <strong>https://fusion.summitmarinedevelopment.com/auth/login</strong>
+        </p>
+        <ul>
+          <li>
+            <strong>Password Login:</strong> Use email and password shown above
+          </li>
+          <li>
+            <strong>Magic Link:</strong> Enter email to receive a secure login
+            link
+          </li>
+        </ul>
+      </div>
     </div>
 
     <script>
-        async function setupUsers() {
-            const btn = document.getElementById('setupBtn');
-            const resultDiv = document.getElementById('result');
-            const apiUrl = document.getElementById('apiUrl').value;
-            const adminToken = document.getElementById('adminToken').value;
-            
-            btn.disabled = true;
-            btn.textContent = '⏳ Setting up users...';
-            resultDiv.className = 'hidden';
-            
-            try {
-                const headers = {
-                    'Content-Type': 'application/json',
-                };
-                
-                if (adminToken) {
-                    headers['x-admin-token'] = adminToken;
-                }
-                
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: headers,
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok) {
-                    let html = '<h3>✅ Setup Complete!</h3>';
-                    html += '<h4>Results:</h4><ul>';
-                    
-                    data.results.forEach(result => {
-                        if (result.success) {
-                            html += `<li>✅ <strong>${result.email}</strong> - Password: <code>${result.password}</code></li>`;
-                        } else {
-                            html += `<li>❌ <strong>${result.email}</strong> - Error: ${result.error}</li>`;
-                        }
-                    });
-                    
-                    html += '</ul>';
-                    html += '<p><strong>Login URL:</strong> <a href="' + data.loginInstructions.url + '" target="_blank">' + data.loginInstructions.url + '</a></p>';
-                    
-                    resultDiv.innerHTML = html;
-                    resultDiv.className = 'success';
-                } else {
-                    resultDiv.innerHTML = `<h3>❌ Error</h3><p>${data.error || 'Setup failed'}</p><p>${data.detail || ''}</p>`;
-                    resultDiv.className = 'error';
-                }
-            } catch (error) {
-                resultDiv.innerHTML = `<h3>❌ Network Error</h3><p>${error.message}</p>`;
-                resultDiv.className = 'error';
-            } finally {
-                btn.disabled = false;
-                btn.textContent = '🚀 Create/Update Users';
-            }
+      async function setupUsers() {
+        const btn = document.getElementById("setupBtn");
+        const resultDiv = document.getElementById("result");
+        const apiUrl = document.getElementById("apiUrl").value;
+        const adminToken = document.getElementById("adminToken").value;
+
+        btn.disabled = true;
+        btn.textContent = "⏳ Setting up users...";
+        resultDiv.className = "hidden";
+
+        try {
+          const headers = {
+            "Content-Type": "application/json",
+          };
+
+          if (adminToken) {
+            headers["x-admin-token"] = adminToken;
+          }
+
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: headers,
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            let html = "<h3>✅ Setup Complete!</h3>";
+            html += "<h4>Results:</h4><ul>";
+
+            data.results.forEach((result) => {
+              if (result.success) {
+                html += `<li>✅ <strong>${result.email}</strong> - Password: <code>${result.password}</code></li>`;
+              } else {
+                html += `<li>❌ <strong>${result.email}</strong> - Error: ${result.error}</li>`;
+              }
+            });
+
+            html += "</ul>";
+            html +=
+              '<p><strong>Login URL:</strong> <a href="' +
+              data.loginInstructions.url +
+              '" target="_blank">' +
+              data.loginInstructions.url +
+              "</a></p>";
+
+            resultDiv.innerHTML = html;
+            resultDiv.className = "success";
+          } else {
+            resultDiv.innerHTML = `<h3>❌ Error</h3><p>${data.error || "Setup failed"}</p><p>${data.detail || ""}</p>`;
+            resultDiv.className = "error";
+          }
+        } catch (error) {
+          resultDiv.innerHTML = `<h3>❌ Network Error</h3><p>${error.message}</p>`;
+          resultDiv.className = "error";
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "🚀 Create/Update Users";
         }
+      }
     </script>
-</body>
+  </body>
 </html>

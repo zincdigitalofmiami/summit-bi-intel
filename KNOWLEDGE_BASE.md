@@ -1,7 +1,9 @@
 # Summit Marine Development - BI Dashboard Knowledge Base
+
 ## Project Overview & Research Documentation
 
 ### Project Context
+
 - **Company**: Summit Marine Development (Jose's marine construction company)
 - **Primary Services**: Seawall construction & repair, boat dock construction & repair
 - **Location**: Panama City, FL (key competitive market)
@@ -10,6 +12,7 @@
 ### Key Research Findings
 
 #### Marine Contractor BI Platform Analysis
+
 1. **BuilderTrend** - Construction workflow leader
    - Mobile-first design philosophy
    - Weather integration critical for marine work
@@ -32,6 +35,7 @@
    - Dark/light theme consistency
 
 #### Critical Mobile vs Desktop Insights
+
 - **Mobile dashboards look COMPLETELY different from desktop**
 - **Weather must be at the very top** for marine contractors
 - **Quick actions should be mobile-only** (floating buttons)
@@ -41,12 +45,14 @@
 ### Marine Construction Industry Intelligence
 
 #### Panama City Market Dynamics
+
 - **Primary Competitors**: [Need to research local seawall/dock contractors]
 - **Seasonal Patterns**: Hurricane season impact on marine construction
 - **Regulatory Environment**: Florida coastal construction permits
 - **Material Suppliers**: Local marine construction supply chains
 
 #### Emerging Technologies & Trends
+
 1. **SnapJacket Dock Piling Repair System**
    - Revolutionary new dock repair technology
    - Faster installation than traditional methods
@@ -62,6 +68,7 @@
    - Eco-friendly construction practices
 
 #### Data Sources to Implement
+
 1. **Weather APIs**
    - NOAA Marine Weather API
    - Tide data from NOAA CO-OPS
@@ -85,6 +92,7 @@
 ### Technical Architecture Notes
 
 #### Mobile-First Design Principles
+
 - **Breakpoints**: Mobile-first, then tablet, then desktop
 - **Navigation**: Collapsible sidebar, floating actions
 - **Content Prioritization**: Weather > Projects > Insights > Analytics
@@ -92,6 +100,7 @@
 - **Performance**: Lazy loading, optimized images
 
 #### Data Integration Strategy
+
 - **Real-time weather**: Direct API integration
 - **Competitive monitoring**: Web scraping + API aggregation
 - **Industry trends**: RSS feeds + news APIs
@@ -100,6 +109,7 @@
 ### AI Insights Framework
 
 #### Required AI Behaviors
+
 - **Dig deeper**: Don't accept surface-level data
 - **Question assumptions**: Challenge conventional wisdom
 - **Be curious**: Explore adjacent opportunities
@@ -108,6 +118,7 @@
 - **Proactive suggestions**: Anticipate needs
 
 #### Example AI Insight Types
+
 1. **Competitive Advantage Opportunities**
    - "SnapJacket technology adoption could give 30% time advantage over Traditional Dock Repair Inc."
    - "Competitor weakness detected: ABC Marine hasn't updated dock repair methods in 5 years"
@@ -123,6 +134,7 @@
 ### Next Development Priorities
 
 #### Immediate Fixes (This Session)
+
 1. **Remove mobile-hostile funnel chart**
 2. **Move weather to very top of dashboard**
 3. **Restructure for mobile-first experience**
@@ -130,6 +142,7 @@
 5. **Enhance AI insights with industry trends**
 
 #### Future Enhancements
+
 1. **Real-time data integration**
 2. **Competitive monitoring dashboard**
 3. **Industry trend tracking**
@@ -137,6 +150,7 @@
 5. **Mobile app development**
 
 ### Key Success Metrics
+
 - **Weather accuracy**: Critical for work planning
 - **Competitive intelligence**: Actionable insights on rivals
 - **Industry trends**: Early identification of opportunities
@@ -144,5 +158,6 @@
 - **AI relevance**: Insights that drive business decisions
 
 ---
-*Last Updated: September 7, 2025*
-*This knowledge base should be referenced for all future dashboard development*
+
+_Last Updated: September 7, 2025_
+_This knowledge base should be referenced for all future dashboard development_

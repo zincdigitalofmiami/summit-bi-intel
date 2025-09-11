@@ -5,6 +5,7 @@ A comprehensive business intelligence platform specifically designed for marine 
 ## 🚀 Features
 
 ### Core Functionality
+
 - **User Authentication**: Magic link and password authentication with role-based access (Admin/User)
 - **Project Management**: Full CRM system for managing marine construction projects
 - **Lead Management**: Advanced lead tracking with enrichment capabilities
@@ -12,23 +13,27 @@ A comprehensive business intelligence platform specifically designed for marine 
 - **Proposal System**: Automated proposal generation and e-signature workflows
 
 ### AI & Intelligence Features
+
 - **AI Agent**: Intelligent business insights and recommendations based on your data
 - **Lead Enrichment**: Automatic contact information enrichment using mock Clearbit-style data
 - **Smart Analytics**: AI-powered analysis of business performance and market trends
 - **Knowledge Base**: Sync and analyze business documentation
 
 ### Google Integrations
+
 - **Google Analytics**: Website traffic and conversion tracking
 - **Google Search Console**: SEO performance and search rankings
 - **Google Ads**: PPC campaign performance and optimization insights
 
 ### Market Intelligence
+
 - **Weather Monitoring**: Real-time NOAA weather data for Panama City, FL
 - **Permit Tracking**: Panama City marine construction permit monitoring
 - **Competitor Analysis**: Market intelligence and competitor tracking
 - **WordPress Integration**: Blog content and lead generation from website
 
 ### Data Visualization
+
 - **Interactive Charts**: Beautiful, responsive charts using Recharts
 - **Dashboard Analytics**: Comprehensive business metrics and KPIs
 - **Weather Maps**: Marine weather visualization
@@ -47,22 +52,26 @@ A comprehensive business intelligence platform specifically designed for marine 
 ## 📦 Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd summit-bi-intel
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Setup**
+
    ```bash
    cp env.example .env.local
    ```
 
    Configure the following critical variables:
+
    ```env
    # Database
    POSTGRES_PRISMA_URL=your_postgres_connection_string
@@ -83,6 +92,7 @@ A comprehensive business intelligence platform specifically designed for marine 
    ```
 
 4. **Database Setup**
+
    ```bash
    npx prisma generate
    npx prisma db push
@@ -103,6 +113,7 @@ A comprehensive business intelligence platform specifically designed for marine 
 
 2. **Environment Variables**
    Set the following in Vercel dashboard:
+
    ```env
    POSTGRES_PRISMA_URL=your_production_database_url
    JWT_SECRET=your_secure_jwt_secret
@@ -132,12 +143,14 @@ A comprehensive business intelligence platform specifically designed for marine 
 ## 📊 API Endpoints
 
 ### Authentication
+
 - `POST /api/auth/login` - Send magic link
 - `POST /api/auth/password` - Password authentication
 - `GET /api/auth/me` - Get current user info
 - `POST /api/auth/logout` - Logout
 
 ### Business Data
+
 - `GET /api/projects` - Project management
 - `GET /api/clients` - Client database
 - `GET /api/leads` - Lead management
@@ -145,15 +158,18 @@ A comprehensive business intelligence platform specifically designed for marine 
 - `GET /api/proposals` - Proposal management
 
 ### AI & Analytics
+
 - `GET /api/agent/insights` - AI business insights
 - `POST /api/knowledge/sync` - Knowledge base sync
 
 ### Google Integrations
+
 - `GET /api/google/analytics` - Google Analytics data
 - `GET /api/google/search-console` - Search Console data
 - `GET /api/google/ads` - Google Ads performance
 
 ### Weather & Market Data
+
 - `GET /api/weather/current` - Current weather
 - `GET /api/weather/forecast` - Weather forecast
 - `GET /api/market/panama-permits` - Permit tracking
@@ -171,6 +187,7 @@ A comprehensive business intelligence platform specifically designed for marine 
 ## 🎨 User Interface
 
 ### Dashboard Features
+
 - **Real-time Metrics**: Live business KPIs
 - **Interactive Charts**: Responsive data visualization
 - **Weather Integration**: Marine weather monitoring
@@ -178,6 +195,7 @@ A comprehensive business intelligence platform specifically designed for marine 
 - **Project Timeline**: Construction project tracking
 
 ### Admin Features
+
 - **User Management**: Admin panel for user administration
 - **System Monitoring**: Health checks and diagnostics
 - **Data Management**: Database seeding and management
@@ -186,12 +204,14 @@ A comprehensive business intelligence platform specifically designed for marine 
 ## 🤖 AI Features
 
 ### Business Intelligence
+
 - **Project Analysis**: Automated project performance insights
 - **Lead Scoring**: AI-powered lead qualification
 - **Market Trends**: Predictive market analysis
 - **Competitor Monitoring**: Automated competitor analysis
 
 ### Lead Enrichment
+
 - **Contact Information**: Automatic contact data enrichment
 - **Company Intelligence**: Business information lookup
 - **Social Media**: LinkedIn and social profile detection
@@ -207,6 +227,7 @@ A comprehensive business intelligence platform specifically designed for marine 
 ## 🔧 Development
 
 ### Available Scripts
+
 ```bash
 npm run dev          # Development server
 npm run build        # Production build
@@ -216,6 +237,7 @@ npm run lint:fix     # Auto-fix linting issues
 ```
 
 ### Code Quality
+
 - **TypeScript**: Full type safety
 - **ESLint**: Code quality enforcement
 - **Prettier**: Consistent code formatting
@@ -233,12 +255,14 @@ npm run lint:fix     # Auto-fix linting issues
 ### Common Issues
 
 **Database Connection Issues**
+
 ```bash
 # Check database connection
 npx prisma studio
 ```
 
 **Build Failures**
+
 ```bash
 # Clear cache and rebuild
 rm -rf .next node_modules/.cache
@@ -247,6 +271,7 @@ npm run build
 ```
 
 **Weather Data Not Loading**
+
 - NOAA API may have CORS restrictions
 - Check network connectivity
 - Verify API endpoints are accessible

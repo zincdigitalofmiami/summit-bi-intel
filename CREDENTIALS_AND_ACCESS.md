@@ -7,12 +7,14 @@
 ## 🔐 USER CREDENTIALS
 
 ### Jose Morales (ADMIN)
+
 ```
 Email: jose@summitmarinedevelopment.com
 Password: SummitMarine2025!
 ```
 
 ### Kirk (ADMIN)
+
 ```
 Email: kirk@zincdigital.co
 Password: ZincDigital2025!
@@ -31,6 +33,7 @@ If the users haven't been created yet, visit this URL once:
 **https://fusion.summitmarinedevelopment.com/api/admin/init-users**
 
 This will:
+
 - Create both user accounts
 - Set their passwords
 - Show a confirmation page
@@ -60,24 +63,29 @@ This will:
 ## 🆘 TROUBLESHOOTING
 
 ### If login fails:
+
 1. Make sure you're using the exact password shown above
 2. Passwords are case-sensitive
 3. Try the setup URL first: https://fusion.summitmarinedevelopment.com/api/admin/init-users
 
 ### If you forgot the password:
+
 1. Use the "Forgot password?" link on the login page
 2. Or use the Magic Link option to login without password
 
 ### Emergency Access:
+
 If all else fails, the login page will attempt to create your user account automatically when you use the correct default password.
 
 ## 📞 SUPPORT
 
 For any issues, the system has multiple fallback mechanisms:
+
 1. Auto-create users on first login attempt with correct password
 2. Magic link fallback shows link directly if email isn't configured
 3. Setup endpoint can be accessed anytime to reset users
 
 ---
+
 **Last Updated:** January 2025
 **Status:** ✅ FULLY OPERATIONAL

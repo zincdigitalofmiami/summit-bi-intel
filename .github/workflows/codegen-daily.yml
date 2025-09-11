@@ -2,100 +2,100 @@ name: Daily Codegen Safety Scan
 
 on:
   schedule:
-    - cron: '0 9 * * *' # Daily at 9 AM UTC
+    - cron: "0 9 * * *" # Daily at 9 AM UTC
   workflow_dispatch: # Manual trigger
 
 jobs:
   codegen-scan:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Pre-scan safety check
-      run: |
-        # Ensure we're on main branch
-        git checkout main
-        git pull origin main
-        
-        # Create safety branch
-        git checkout -b codegen-safety-scan-$(date +%Y%m%d)
-        
-    - name: Run Codegen analysis (READ-ONLY)
-      run: |
-        # Codegen safety scan - no modifications yet
-        echo "Running Codegen analysis..."
-        
-        # Check for potential improvements
-        npm run lint > codegen-lint-report.txt || true
-        npm audit --audit-level=moderate > codegen-security-report.txt || true
-        
-        # Type checking
-        npx tsc --noEmit > codegen-type-report.txt || true
-        
-    - name: Generate safety report
-      run: |
-        echo "# 🤖 Codegen Daily Safety Scan Report" > CODEGEN_REPORT.md
-        echo "Date: $(date)" >> CODEGEN_REPORT.md
-        echo "" >> CODEGEN_REPORT.md
-        
-        echo "## 🔍 Lint Issues Found:" >> CODEGEN_REPORT.md
-        if [ -s codegen-lint-report.txt ]; then
-          echo '```' >> CODEGEN_REPORT.md
-          head -20 codegen-lint-report.txt >> CODEGEN_REPORT.md
-          echo '```' >> CODEGEN_REPORT.md
-        else
-          echo "✅ No linting issues found" >> CODEGEN_REPORT.md
-        fi
-        echo "" >> CODEGEN_REPORT.md
-        
-        echo "## 🛡️ Security Audit:" >> CODEGEN_REPORT.md
-        if [ -s codegen-security-report.txt ]; then
-          echo '```' >> CODEGEN_REPORT.md
-          head -20 codegen-security-report.txt >> CODEGEN_REPORT.md
-          echo '```' >> CODEGEN_REPORT.md
-        else
-          echo "✅ No security issues found" >> CODEGEN_REPORT.md
-        fi
-        echo "" >> CODEGEN_REPORT.md
-        
-        echo "## 📝 Recommendations:" >> CODEGEN_REPORT.md
-        echo "- Review linting issues above" >> CODEGEN_REPORT.md
-        echo "- Update dependencies if needed" >> CODEGEN_REPORT.md
-        echo "- Consider performance optimizations" >> CODEGEN_REPORT.md
-        
-    - name: Create safe PR (if issues found)
-      run: |
-        if [ -s codegen-lint-report.txt ] || [ -s codegen-security-report.txt ]; then
-          git add CODEGEN_REPORT.md
-          git commit -m "🤖 Codegen: Daily safety scan report $(date +%Y-%m-%d)"
-          
-          # Push branch and create PR
-          git push origin codegen-safety-scan-$(date +%Y%m%d)
-          
-          # Create PR via GitHub CLI (if available) or API
-          echo "Creating PR for Codegen safety recommendations..."
-        else
-          echo "✅ No issues found - no PR needed"
-        fi
-        
-    - name: Cleanup
-      if: always()
-      run: |
-        # Clean up temporary files
-        rm -f codegen-*.txt
-        
-        # Return to main branch
-        git checkout main || true
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Pre-scan safety check
+        run: |
+          # Ensure we're on main branch
+          git checkout main
+          git pull origin main
+
+          # Create safety branch
+          git checkout -b codegen-safety-scan-$(date +%Y%m%d)
+
+      - name: Run Codegen analysis (READ-ONLY)
+        run: |
+          # Codegen safety scan - no modifications yet
+          echo "Running Codegen analysis..."
+
+          # Check for potential improvements
+          npm run lint > codegen-lint-report.txt || true
+          npm audit --audit-level=moderate > codegen-security-report.txt || true
+
+          # Type checking
+          npx tsc --noEmit > codegen-type-report.txt || true
+
+      - name: Generate safety report
+        run: |
+          echo "# 🤖 Codegen Daily Safety Scan Report" > CODEGEN_REPORT.md
+          echo "Date: $(date)" >> CODEGEN_REPORT.md
+          echo "" >> CODEGEN_REPORT.md
+
+          echo "## 🔍 Lint Issues Found:" >> CODEGEN_REPORT.md
+          if [ -s codegen-lint-report.txt ]; then
+            echo '```' >> CODEGEN_REPORT.md
+            head -20 codegen-lint-report.txt >> CODEGEN_REPORT.md
+            echo '```' >> CODEGEN_REPORT.md
+          else
+            echo "✅ No linting issues found" >> CODEGEN_REPORT.md
+          fi
+          echo "" >> CODEGEN_REPORT.md
+
+          echo "## 🛡️ Security Audit:" >> CODEGEN_REPORT.md
+          if [ -s codegen-security-report.txt ]; then
+            echo '```' >> CODEGEN_REPORT.md
+            head -20 codegen-security-report.txt >> CODEGEN_REPORT.md
+            echo '```' >> CODEGEN_REPORT.md
+          else
+            echo "✅ No security issues found" >> CODEGEN_REPORT.md
+          fi
+          echo "" >> CODEGEN_REPORT.md
+
+          echo "## 📝 Recommendations:" >> CODEGEN_REPORT.md
+          echo "- Review linting issues above" >> CODEGEN_REPORT.md
+          echo "- Update dependencies if needed" >> CODEGEN_REPORT.md
+          echo "- Consider performance optimizations" >> CODEGEN_REPORT.md
+
+      - name: Create safe PR (if issues found)
+        run: |
+          if [ -s codegen-lint-report.txt ] || [ -s codegen-security-report.txt ]; then
+            git add CODEGEN_REPORT.md
+            git commit -m "🤖 Codegen: Daily safety scan report $(date +%Y-%m-%d)"
+            
+            # Push branch and create PR
+            git push origin codegen-safety-scan-$(date +%Y%m%d)
+            
+            # Create PR via GitHub CLI (if available) or API
+            echo "Creating PR for Codegen safety recommendations..."
+          else
+            echo "✅ No issues found - no PR needed"
+          fi
+
+      - name: Cleanup
+        if: always()
+        run: |
+          # Clean up temporary files
+          rm -f codegen-*.txt
+
+          # Return to main branch
+          git checkout main || true

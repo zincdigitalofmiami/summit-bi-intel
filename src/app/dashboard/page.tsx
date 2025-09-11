@@ -8,18 +8,11 @@ import {
   TicketByChannels,
 } from "@/components/chart-blocks";
 import Container from "@/components/container";
-import MarineStatusOverview from "@/components/marine-status";
 import QuickActions from "@/components/quick-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+// Removed dialog components for Marine Weather popup
 import {
   AlertTriangle,
   Anchor,
@@ -32,19 +25,17 @@ import {
   FileText,
   Hammer,
   MapPin,
-  Plus,
   Receipt,
   Waves,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+// Removed local state previously used for Marine Weather modal
 
 export default function Home() {
-  const [weatherModalOpen, setWeatherModalOpen] = useState(false);
 
   return (
     <div className="space-y-6">
-      {/* Header with Greeting and Compact Weather */}
+      {/* Header with Greeting only */}
       <div className="border-b border-border">
         <Container className="py-4">
           <div className="flex items-center justify-between">
@@ -52,29 +43,7 @@ export default function Home() {
               <h1 className="text-2xl font-bold">Good morning, Jose</h1>
               <p className="text-muted-foreground">Monday, {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
-            <div className="flex items-center gap-4">
-              {/* Compact Weather Map */}
-              <Dialog open={weatherModalOpen} onOpenChange={setWeatherModalOpen}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" size="sm" className="flex items-center gap-2">
-                    <Waves className="h-4 w-4" />
-                    <span className="hidden sm:inline">Marine Weather</span>
-                    <span className="sm:hidden">Weather</span>
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>Marine Weather & Conditions</DialogTitle>
-                  </DialogHeader>
-                  <MarineStatusOverview />
-                </DialogContent>
-              </Dialog>
-
-              <Button className="hidden lg:flex">
-                <Plus className="h-4 w-4 mr-2" />
-                Create
-              </Button>
-            </div>
+            {/* Actions removed: Marine Weather and Create button */}
           </div>
         </Container>
       </div>

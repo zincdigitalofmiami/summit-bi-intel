@@ -8,13 +8,11 @@ import {
   Mail,
   Phone,
   Plus,
-  Waves
 } from "lucide-react";
-
 import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 interface QuickAction {
   id: string;
@@ -37,7 +35,7 @@ export default function QuickActions() {
       icon: Plus,
       color: "bg-blue-500 hover:bg-blue-600",
       action: () => alert("New lead form would open"),
-      priority: "high"
+      priority: "high",
     },
     {
       id: "call-client",
@@ -45,7 +43,7 @@ export default function QuickActions() {
       description: "Quick dial recent client",
       icon: Phone,
       color: "bg-green-500 hover:bg-green-600",
-      action: () => window.open("tel:+18505550123", "_self")
+      action: () => window.open("tel:+18505550123", "_self"),
     },
     {
       id: "send-email",
@@ -53,7 +51,7 @@ export default function QuickActions() {
       description: "Compose professional email",
       icon: Mail,
       color: "bg-purple-500 hover:bg-purple-600",
-      action: () => window.open("mailto:client@example.com", "_blank")
+      action: () => window.open("mailto:client@example.com", "_blank"),
     },
     {
       id: "schedule-site",
@@ -61,7 +59,7 @@ export default function QuickActions() {
       description: "Schedule property inspection",
       icon: Calendar,
       color: "bg-orange-500 hover:bg-orange-600",
-      action: () => alert("Calendar would open")
+      action: () => alert("Calendar would open"),
     },
     {
       id: "take-photos",
@@ -69,7 +67,7 @@ export default function QuickActions() {
       description: "Document project progress",
       icon: Camera,
       color: "bg-teal-500 hover:bg-teal-600",
-      action: () => alert("Camera would open")
+      action: () => alert("Camera would open"),
     },
     {
       id: "generate-quote",
@@ -77,15 +75,7 @@ export default function QuickActions() {
       description: "Generate project estimate",
       icon: DollarSign,
       color: "bg-emerald-500 hover:bg-emerald-600",
-      action: () => alert("Quote generator would open")
-    },
-    {
-      id: "weather-check",
-      title: "Weather Check",
-      description: "Marine conditions",
-      icon: Waves,
-      color: "bg-cyan-500 hover:bg-cyan-600",
-      action: () => window.open("/api/weather/current", "_blank")
+      action: () => alert("Quote generator would open"),
     },
     {
       id: "emergency-contact",
@@ -94,33 +84,35 @@ export default function QuickActions() {
       icon: Anchor,
       color: "bg-red-500 hover:bg-red-600",
       action: () => window.open("tel:911", "_self"),
-      priority: "high"
-    }
+      priority: "high",
+    },
   ];
 
-  const urgentActions = actions.filter(action => action.priority === "high");
-  const regularActions = actions.filter(action => action.priority !== "high");
+  const urgentActions = actions.filter((action) => action.priority === "high");
+  const regularActions = actions.filter((action) => action.priority !== "high");
 
   return (
     <div className="fixed bottom-4 right-4 z-50 md:bottom-6 md:right-6">
       {/* Main FAB */}
       <Button
         size="lg"
-        className="rounded-full w-14 h-14 shadow-lg bg-blue-600 hover:bg-blue-700"
+        className="h-14 w-14 rounded-full bg-blue-600 shadow-lg hover:bg-blue-700"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <Plus className={`h-6 w-6 transition-transform ${isExpanded ? 'rotate-45' : ''}`} />
+        <Plus
+          className={`h-6 w-6 transition-transform ${isExpanded ? "rotate-45" : ""}`}
+        />
       </Button>
 
       {/* Expanded Actions */}
       {isExpanded && (
         <div className="absolute bottom-16 right-0 mb-2">
-          <Card className="w-80 md:w-96 shadow-xl border-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md">
+          <Card className="w-80 border-0 bg-white/95 shadow-xl backdrop-blur-md dark:bg-slate-900/95 md:w-96">
             <CardContent className="p-4">
               {/* Urgent Actions */}
               {urgentActions.length > 0 && (
                 <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="mb-2 flex items-center gap-2">
                     <Badge variant="destructive" className="text-xs">
                       Urgent
                     </Badge>
@@ -131,11 +123,13 @@ export default function QuickActions() {
                         key={action.id}
                         variant="outline"
                         size="sm"
-                        className="h-16 flex flex-col gap-1 p-2"
+                        className="flex h-16 flex-col gap-1 p-2"
                         onClick={action.action}
                       >
                         <action.icon className="h-5 w-5" />
-                        <span className="text-xs font-medium">{action.title}</span>
+                        <span className="text-xs font-medium">
+                          {action.title}
+                        </span>
                       </Button>
                     ))}
                   </div>
@@ -149,7 +143,7 @@ export default function QuickActions() {
                     key={action.id}
                     variant="outline"
                     size="sm"
-                    className="h-16 flex flex-col gap-1 p-2 hover:bg-blue-50 dark:hover:bg-blue-950/20"
+                    className="flex h-16 flex-col gap-1 p-2 hover:bg-blue-50 dark:hover:bg-blue-950/20"
                     onClick={action.action}
                   >
                     <action.icon className="h-5 w-5" />
@@ -158,24 +152,7 @@ export default function QuickActions() {
                 ))}
               </div>
 
-              {/* Marine Conditions Quick View */}
-              <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Waves className="h-4 w-4 text-blue-600" />
-                    <span className="text-sm font-medium">Marine Conditions</span>
-                  </div>
-                  <Badge variant="outline" className="text-xs">
-                    Good
-                  </Badge>
-                </div>
-                <div className="mt-2 text-xs text-muted-foreground">
-                  <div className="flex justify-between">
-                    <span>Tide: Rising</span>
-                    <span>Wind: 12 mph NE</span>
-                  </div>
-                </div>
-              </div>
+              {/* Marine Conditions Quick View removed */}
 
               {/* Close Button */}
               <div className="mt-3 flex justify-center">
@@ -197,10 +174,10 @@ export default function QuickActions() {
       {isExpanded && (
         <button
           type="button"
-          className="fixed inset-0 bg-black/20 -z-10 md:hidden"
+          className="fixed inset-0 -z-10 bg-black/20 md:hidden"
           onClick={() => setIsExpanded(false)}
           onKeyDown={(e) => {
-            if (e.key === 'Escape') {
+            if (e.key === "Escape") {
               setIsExpanded(false);
             }
           }}

@@ -5,11 +5,13 @@
 The following user accounts have been configured:
 
 ### 1. Jose Morales
+
 - **Email:** jose@summitmarinedevelopment.com
 - **Password:** Summit2025!Marine
 - **Role:** ADMIN
 
 ### 2. Kirk
+
 - **Email:** kirk@zincdigital.co
 - **Password:** Zinc2025!Digital
 - **Role:** ADMIN
@@ -19,12 +21,14 @@ The following user accounts have been configured:
 Users can login at: **https://fusion.summitmarinedevelopment.com/auth/login**
 
 ### Method 1: Password Login
+
 1. Go to the login page
 2. Click "Password" tab
 3. Enter email and password from above
 4. Click "Sign In"
 
 ### Method 2: Magic Link (Passwordless)
+
 1. Go to the login page
 2. Click "Magic Link" tab
 3. Enter your email
@@ -40,6 +44,7 @@ Users can login at: **https://fusion.summitmarinedevelopment.com/auth/login**
 2. **Configure Email Service (for Magic Links)**
 
    Option A - Using Resend (Recommended):
+
    ```
    RESEND_API_KEY=your_resend_api_key
    RESEND_FROM=Summit Marine <noreply@summitmarinedevelopment.com>
@@ -47,6 +52,7 @@ Users can login at: **https://fusion.summitmarinedevelopment.com/auth/login**
    ```
 
    Option B - Using SMTP:
+
    ```
    SMTP_HOST=smtp.gmail.com
    SMTP_PORT=587
@@ -65,6 +71,7 @@ Users can login at: **https://fusion.summitmarinedevelopment.com/auth/login**
 ### Fallback Mode (No Email Service)
 
 If email is not configured, the system will work in fallback mode for allowed emails:
+
 - jose@summitmarinedevelopment.com
 - kirk@zincdigital.co
 
@@ -87,6 +94,7 @@ In fallback mode, the magic link URL will be displayed directly on the login pag
 ## Environment Variables Summary
 
 Required for production:
+
 ```env
 # Database
 POSTGRES_PRISMA_URL=your_database_url
@@ -113,7 +121,7 @@ FALLBACK_MAGIC_ALLOWLIST=jose@summitmarinedevelopment.com,kirk@zincdigital.co
 
 ## Security Notes
 
-1. **Passwords are secure:** 
+1. **Passwords are secure:**
    - Contains uppercase, lowercase, numbers, and special characters
    - Stored as bcrypt hashes in the database
 
@@ -130,16 +138,19 @@ FALLBACK_MAGIC_ALLOWLIST=jose@summitmarinedevelopment.com,kirk@zincdigital.co
 ## Troubleshooting
 
 ### Magic Link Not Sending
+
 1. Check email service configuration in Vercel environment variables
 2. Verify RESEND_API_KEY or SMTP credentials are correct
 3. Check allowed emails list if in fallback mode
 
 ### Password Login Not Working
+
 1. Ensure users were created using setup-users.html
 2. Verify database connection is working
 3. Check browser console for errors
 
 ### Forgot Password
+
 - Use the "Forgot password?" link on the login page
 - Requires email service to be configured
 
