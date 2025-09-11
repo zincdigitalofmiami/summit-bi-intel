@@ -9,6 +9,7 @@ import {
   X
 } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const mobileQuickActions = [
   {
@@ -33,10 +34,15 @@ const mobileQuickActions = [
 
 export default function MobileFloatingActions() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const handleAction = (actionId: string) => {
     if (actionId === "emergency") {
       window.open("tel:911", "_self");
+    } else if (actionId === "quote") {
+      router.push("/proposals");
+    } else if (actionId === "schedule") {
+      router.push("/projects");
     }
     setIsOpen(false);
   };

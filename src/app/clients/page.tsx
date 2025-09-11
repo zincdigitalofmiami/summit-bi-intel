@@ -1,6 +1,16 @@
+'use client';
+
 import Container from "@/components/container";
+import { useState } from "react";
 
 export default function ClientsPage() {
+  const [showAddClient, setShowAddClient] = useState(false);
+
+  const handleAddClient = () => {
+    // For now, just show an alert - could be expanded to open a modal or navigate to a form
+    alert('Add Client functionality will be implemented here. This could open a form modal or navigate to a client creation page.');
+    setShowAddClient(true);
+  };
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -12,7 +22,10 @@ export default function ClientsPage() {
               Manage relationships with residential and commercial waterfront property owners
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button 
+            onClick={handleAddClient}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto"
+          >
             Add New Client
           </button>
         </div>
