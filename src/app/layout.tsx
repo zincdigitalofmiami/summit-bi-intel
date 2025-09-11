@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../style/globals.css";
 
 import Header from "@/components/nav/header";
 import SideNav from "@/components/nav/side-nav";
 import { cn } from "@/lib/utils";
-import { gabarito } from "./fonts";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
@@ -31,7 +30,7 @@ export default async function RootLayout({
   const hasAuth = true;
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("bg-background font-sans", gabarito.variable)}>
+      <body className={cn("bg-background font-sans") }>
         <Providers>
           <div className="flex min-h-[100dvh]">
             {hasAuth && <SideNav />}
