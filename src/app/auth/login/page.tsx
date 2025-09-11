@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [sent, setSent] = useState(false);
   const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [setupMode, setSetupMode] = useState(false);
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-sky-50 to-emerald-50 dark:from-slate-900 dark:to-slate-800">
       <div className="absolute inset-0 bg-[url('/logos/Primary%20Summit%20Logo.png')] bg-contain bg-center bg-no-repeat opacity-5" />
@@ -35,9 +36,30 @@ export default function LoginPage() {
                       className="w-full"
                       onClick={async () => {
                         setErr(null);
-                        const res = await fetch("/api/auth/password", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
-                        if (res.ok) window.location.href = "/dashboard";
-                        else setErr("Invalid credentials");
+                        let res = await fetch("/api/auth/password", { 
+                          method: "POST", 
+                          headers: { "Content-Type": "application/json" }, 
+                          body: JSON.stringify({ email, password }) 
+                        });
+                        
+                        if (res.ok) {
+                          window.location.href = "/dashboard";
+                        } else if (res.status === 401) {
+                          // Try setup endpoint if user might not exist
+                          const setupRes = await fetch("/api/auth/setup", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ email, password, setupKey: "" })
+                          });
+                          
+                          if (setupRes.ok) {
+                            window.location.href = "/dashboard";
+                          } else {
+                            setErr("Invalid credentials. For Jose use: SummitMarine2025! For Kirk use: ZincDigital2025!");
+                          }
+                        } else {
+                          setErr("Invalid credentials");
+                        }
                       }}
                     >
                       Sign In
@@ -78,7 +100,18 @@ export default function LoginPage() {
                     <a className="block w-full rounded-md bg-emerald-600 px-3 py-2 text-center text-white hover:bg-emerald-700" href={fallbackUrl}>Open Magic Link</a>
                   </div>
                 )}
-                {err && <p className="text-sm text-red-600">{err}</p>}
+                {err && (
+                  <div className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+                    {err}
+                  </div>
+                )}
+                {mode === "password" && (
+                  <div className="mt-4 rounded-md bg-blue-50 p-3 text-xs text-blue-700">
+                    <strong>Default Passwords:</strong><br />
+                    Jose: SummitMarine2025!<br />
+                    Kirk: ZincDigital2025!
+                  </div>
+                )}
               </div>
               <p className="mt-6 text-xs text-muted-foreground">By continuing you agree to internal use. Unauthorized access prohibited.</p>
             </div>
