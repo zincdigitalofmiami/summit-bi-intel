@@ -39,7 +39,7 @@ class Logger {
         break;
     }
 
-    // In production, send critical errors to monitoring service
+    // In production, send critical errors to server logging API
     if (!this.isDevelopment && level === 'error') {
       this.sendToMonitoringService({ level, message, data, context: _context });
     }
@@ -69,7 +69,7 @@ class Logger {
     this.log('error', message, data, _context);
   }
 
-  private sendToMonitoringService(logData: { level: LogLevel; message: string; data?: unknown; context?: string }) {
+  private async sendToMonitoringService(logData: { level: LogLevel; message: string; data?: unknown; context?: string }) {
     // Framework for error monitoring integration
     // Replace with actual monitoring service implementation (Sentry, LogRocket, etc.)
 
@@ -82,22 +82,23 @@ class Logger {
       //   });
       // }
 
-      // For now, store critical errors in localStorage as fallback
+      // Send to server API (best-effort)
       if (typeof window !== 'undefined' && logData.level === 'error') {
-        const errorLogs = JSON.parse(localStorage.getItem('error_logs') || '[]');
-        errorLogs.push({
-          ...logData,
-          timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent,
-          url: window.location.href
-        });
-
-        // Keep only last 10 errors to prevent storage bloat
-        if (errorLogs.length > 10) {
-          errorLogs.shift();
+        try {
+          await fetch('/api/logs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...logData,
+              timestamp: new Date().toISOString(),
+              userAgent: navigator.userAgent,
+              url: window.location.href,
+            }),
+            keepalive: true,
+          });
+        } catch {
+          // swallow errors
         }
-
-        localStorage.setItem('error_logs', JSON.stringify(errorLogs));
       }
     } catch (monitoringError) {
       // Silent fail for monitoring to avoid infinite loops

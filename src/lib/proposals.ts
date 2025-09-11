@@ -13,32 +13,7 @@ export interface ProposalRecord {
   createdAt: string; // ISO string
 }
 
-// Very small helper using localStorage for demo purposes. In production, replace with Postgres/Blob.
-const STORAGE_KEY = "summit-proposals";
-
-export function getAllProposals(): ProposalRecord[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as ProposalRecord[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-export function saveProposal(record: ProposalRecord): void {
-  if (typeof window === "undefined") return;
-  const existing = getAllProposals();
-  const next = [record, ...existing.filter(p => p.id !== record.id)];
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-}
-
-export function deleteProposal(id: string): void {
-  if (typeof window === "undefined") return;
-  const existing = getAllProposals();
-  const next = existing.filter(p => p.id !== id);
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-}
+// All proposal persistence is server-backed via /api/proposals
 
 // Token helpers: pack minimal data into URL-safe base64 for a public sign link.
 export interface SignTokenPayload {

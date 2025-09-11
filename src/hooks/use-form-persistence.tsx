@@ -1,7 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
-import { useLocalStorage } from './use-safe-storage';
+import { useCallback, useState } from 'react';
 
 interface UseFormPersistenceOptions {
   key: string;
@@ -11,11 +10,8 @@ interface UseFormPersistenceOptions {
 export function useFormPersistence<T extends Record<string, unknown>>(
   options: UseFormPersistenceOptions
 ) {
-  const { key, clearOnSubmit = true } = options;
-  const [persistedData, setPersistedData, clearPersistedData] = useLocalStorage<T | null>(
-    `form-${key}`,
-    null
-  );
+  const { clearOnSubmit = true } = options;
+  const [persistedData, setPersistedData] = useState<T | null>(null);
 
   // Save form data
   const saveFormData = useCallback((data: T) => {
@@ -24,8 +20,8 @@ export function useFormPersistence<T extends Record<string, unknown>>(
 
   // Clear persisted data
   const clearPersistence = useCallback(() => {
-    clearPersistedData();
-  }, [clearPersistedData]);
+    setPersistedData(null);
+  }, []);
 
   // Submit handler that optionally clears persistence
   const handleSubmit = useCallback((submitCallback: () => void | Promise<void>) => {

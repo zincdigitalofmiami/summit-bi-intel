@@ -7,14 +7,14 @@ import { LeadForm } from '@/components/forms/lead-form';
 import { ProjectForm } from '@/components/forms/project-form';
 import { EmptyState, LoadingState } from '@/components/ui/loading';
 import { demoLeads } from '@/data/demo-leads';
-import { useAsyncOperation, useLocalStorage } from '@/hooks/use-safe-storage';
+import { useAsyncOperation } from '@/hooks/use-safe-storage';
 import type { Lead, Project } from '@/types/types';
 
 export default function LeadsPage() {
   const [showForm, setShowForm] = useState(false);
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
-  const [leads, setLeads] = useLocalStorage<Lead[]>('summit-leads', []);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const { loading: isLoading, execute: executeAsync } = useAsyncOperation<Lead | void>();
 
   async function loadLeads() {
@@ -303,21 +303,7 @@ export default function LeadsPage() {
                             <>
                               <button
                                 type="button"
-                                onClick={() => {
-                                  // Navigate to proposals page with pre-filled lead data
-                                  const proposalData = {
-                                    clientName: lead.name,
-                                    clientEmail: lead.contactEmail,
-                                    clientPhone: lead.contactPhone,
-                                    companyName: lead.companyName,
-                                    projectType: (lead as any).projectType,
-                                    location: (lead as any).location,
-                                    notes: lead.notes
-                                  };
-                                  // Store in sessionStorage for pre-filling
-                                  sessionStorage.setItem('proposalFromLead', JSON.stringify(proposalData));
-                                  window.location.href = '/proposals';
-                                }}
+                                onClick={() => { window.location.href = '/proposals'; }}
                                 className="px-3 py-1 text-xs bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors"
                                 disabled={isLoading}
                               >
