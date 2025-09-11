@@ -13,9 +13,9 @@ export function middleware(request: NextRequest) {
     "default-src 'self'",
     "script-src 'self' 'unsafe-eval' 'unsafe-inline'", // VChart needs unsafe-eval
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: https://radar.weather.gov https://www.zincdigital.co",
+    "img-src 'self' data: https://www.zincdigital.co",
     "font-src 'self'",
-    "connect-src 'self' https://api.weather.gov https://api.tidesandcurrents.noaa.gov",
+    "connect-src 'self'",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
