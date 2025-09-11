@@ -4,7 +4,7 @@ import "../style/globals.css";
 import Header from "@/components/nav/header";
 import SideNav from "@/components/nav/side-nav";
 import { cn } from "@/lib/utils";
-import Providers from "./providers";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Summit Marine Development - BI Dashboard",
