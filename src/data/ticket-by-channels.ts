@@ -1,4 +1,5 @@
-export const ticketByChannels = [
+// Note: These are fallback values. Real data is fetched from /api/dashboard/lead-sources
+export const fallbackTicketByChannels = [
   {
     type: "Website Form",
     value: 45,
@@ -20,6 +21,9 @@ export const ticketByChannels = [
     value: 12,
   },
 ];
+
+// Export fallback as default for backward compatibility
+export const ticketByChannels = fallbackTicketByChannels;
 
 // Lead sources data aligned with business schema
 export const leadSources = [

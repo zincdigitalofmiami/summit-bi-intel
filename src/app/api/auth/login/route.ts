@@ -1,9 +1,9 @@
 import crypto from "node:crypto";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { sendMail } from "@/lib/mailer";
 import { prisma } from "@/lib/prisma";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const { email } = (await request.json()) as { email?: string };
   if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
 

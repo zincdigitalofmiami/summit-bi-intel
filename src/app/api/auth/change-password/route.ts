@@ -1,12 +1,12 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const { currentPassword, newPassword } = (await request.json()) as { currentPassword?: string; newPassword?: string };
     if (!newPassword) return NextResponse.json({ error: "newPassword required" }, { status: 400 });

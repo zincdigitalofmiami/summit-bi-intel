@@ -4,13 +4,15 @@ import type { DateRange } from "react-day-picker";
 import { averageTicketsCreated } from "@/data/average-tickets-created";
 import type { TicketMetric } from "@/types/types";
 
-const defaultStartDate = new Date(2023, 11, 18);
+const defaultStartDate = new Date();
+defaultStartDate.setDate(defaultStartDate.getDate() - 7); // Last 7 days by default
 
 export const dateRangeAtom = atom<DateRange | undefined>({
   from: defaultStartDate,
-  to: addDays(defaultStartDate, 6),
+  to: new Date(),
 });
 
+// Fallback atom using static data
 export const ticketChartDataAtom = atom((get) => {
   const dateRange = get(dateRangeAtom);
 
@@ -40,4 +42,38 @@ export const ticketChartDataAtom = atom((get) => {
       ];
       return res;
     });
+});
+
+// New atom that fetches real data from API
+export const realTicketChartDataAtom = atom(async (get) => {
+  const dateRange = get(dateRangeAtom);
+
+  if (!dateRange?.from || !dateRange?.to) return [];
+
+  try {
+    const startDate = dateRange.from.toISOString().split('T')[0];
+    const endDate = dateRange.to.toISOString().split('T')[0];
+
+    const response = await fetch(`/api/dashboard/activity?start=${startDate}&end=${endDate}`);
+    if (response.ok) {
+      const data = await response.json();
+      return data.activity.flatMap((item: any) => [
+        {
+          date: item.date,
+          type: "resolved" as const,
+          count: item.resolved,
+        },
+        {
+          date: item.date,
+          type: "created" as const,
+          count: item.created,
+        },
+      ]);
+    }
+  } catch (error) {
+    console.warn('Failed to fetch real activity data, using fallback:', error);
+  }
+
+  // Fallback to static data if API fails
+  return get(ticketChartDataAtom);
 });

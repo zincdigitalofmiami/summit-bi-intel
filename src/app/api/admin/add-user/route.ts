@@ -1,5 +1,5 @@
 import { Role } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
@@ -37,7 +37,7 @@ function verifyToken(tokenProvided: string | null) {
   return Boolean(tokenProvided);
 }
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const token = searchParams.get("token");
@@ -62,7 +62,7 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const tokenHeader = request.headers.get("x-seed-token");
     if (!verifyToken(tokenHeader)) {

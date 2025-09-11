@@ -1,13 +1,13 @@
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Container from "@/components/container";
+import { ErrorBoundary } from '@/components/error-boundary';
 import { LeadForm } from '@/components/forms/lead-form';
 import { ProjectForm } from '@/components/forms/project-form';
-import { ErrorBoundary } from '@/components/error-boundary';
-import { LoadingState, EmptyState } from '@/components/ui/loading';
-import { useLocalStorage, useAsyncOperation } from '@/hooks/use-safe-storage';
+import { EmptyState, LoadingState } from '@/components/ui/loading';
 import { demoLeads } from '@/data/demo-leads';
+import { useAsyncOperation, useLocalStorage } from '@/hooks/use-safe-storage';
 import type { Lead, Project } from '@/types/types';
 
 export default function LeadsPage() {
@@ -70,30 +70,78 @@ export default function LeadsPage() {
     setShowProjectForm(true);
   };
 
-  const handleCreateProject = async (_projectData: Partial<Project>) => {
+  const handleCreateProject = async (projectData: Partial<Project>) => {
     try {
       await executeAsync(async () => {
         if (selectedLead) {
-          await fetch('/api/projects', {
+          const response = await fetch('/api/projects', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: selectedLead.name, client: selectedLead.companyName || selectedLead.name, type: 'OTHER' }),
+            body: JSON.stringify({
+              name: projectData.name || `${selectedLead.name} - Marine Construction Project`,
+              client: selectedLead.companyName || selectedLead.name,
+              type: (projectData as any).serviceType || 'OTHER',
+              status: projectData.status || 'ACTIVE',
+              budget: (projectData as any).estimatedBudget ? parseFloat((projectData as any).estimatedBudget.replace(/[^0-9.-]+/g, '')) : 0
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to create project');
+          }
+
+          // Update the lead status to 'converted'
+          await fetch(`/api/leads/${selectedLead.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: 'converted' }),
           });
         }
         setShowProjectForm(false);
         setSelectedLead(null);
         await loadLeads();
-        alert('Project created successfully!');
+        alert('Project created successfully! Lead has been marked as converted.');
       });
-    } catch {
+    } catch (error) {
+      console.error('Error creating project:', error);
       alert('Error creating project. Please try again.');
     }
   };
 
-  const handleUpdateLeadStatus = (leadId: string, newStatus: string) => {
-    setLeads(prev => prev.map(lead => 
-      lead.id === leadId ? { ...lead, status: newStatus } : lead
-    ));
+  const handleUpdateLeadStatus = async (leadId: string, newStatus: string) => {
+    try {
+      await executeAsync(async () => {
+        const response = await fetch(`/api/leads/${leadId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus }),
+        });
+
+        if (response.ok) {
+          // Update local state
+          setLeads(prev => prev.map(lead => 
+            lead.id === leadId ? { ...lead, status: newStatus } : lead
+          ));
+
+          // Show success message
+          const statusMessages = {
+            'qualified': 'Lead marked as qualified!',
+            'proposal': 'Lead moved to proposal stage!',
+            'converted': 'Lead converted to project!',
+            'lost': 'Lead marked as lost.',
+          };
+
+          if (statusMessages[newStatus as keyof typeof statusMessages]) {
+            alert(statusMessages[newStatus as keyof typeof statusMessages]);
+          }
+        } else {
+          throw new Error('Failed to update lead status');
+        }
+      });
+    } catch (error) {
+      console.error('Error updating lead status:', error);
+      alert('Error updating lead status. Please try again.');
+    }
   };
 
   return (
@@ -109,6 +157,7 @@ export default function LeadsPage() {
             </p>
           </div>
           <button 
+            type="button"
             onClick={() => setShowForm(true)}
             className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto"
           >
@@ -193,6 +242,7 @@ export default function LeadsPage() {
                 description="Start capturing leads from your website, referrals, and marketing efforts."
                 action={
                   <button 
+                    type="button"
                     onClick={() => setShowForm(true)}
                     className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90"
                   >
@@ -200,7 +250,7 @@ export default function LeadsPage() {
                   </button>
                 }
                 icon={
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                   </svg>
                 }
@@ -230,34 +280,108 @@ export default function LeadsPage() {
                       <div className="text-right">
                         <div className="flex items-center gap-2 mb-2">
                           {lead.status === 'new' && (
-                            <button
-                              onClick={() => handleUpdateLeadStatus(lead.id, 'qualified')}
-                              className="px-3 py-1 text-xs bg-summit-light-blue text-white rounded hover:bg-summit-light-blue/90"
-                            >
-                              Mark Qualified
-                            </button>
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateLeadStatus(lead.id, 'qualified')}
+                                className="px-3 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                                disabled={isLoading}
+                              >
+                                Mark Qualified
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateLeadStatus(lead.id, 'lost')}
+                                className="px-3 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
+                                disabled={isLoading}
+                              >
+                                Mark Lost
+                              </button>
+                            </>
                           )}
                           {lead.status === 'qualified' && (
-                            <button
-                              onClick={() => handleConvertToProject(lead)}
-                              className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600"
-                            >
-                              Convert to Project
-                            </button>
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  // Navigate to proposals page with pre-filled lead data
+                                  const proposalData = {
+                                    clientName: lead.name,
+                                    clientEmail: lead.contactEmail,
+                                    clientPhone: lead.contactPhone,
+                                    companyName: lead.companyName,
+                                    projectType: (lead as any).projectType,
+                                    location: (lead as any).location,
+                                    notes: lead.notes
+                                  };
+                                  // Store in sessionStorage for pre-filling
+                                  sessionStorage.setItem('proposalFromLead', JSON.stringify(proposalData));
+                                  window.location.href = '/proposals';
+                                }}
+                                className="px-3 py-1 text-xs bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors"
+                                disabled={isLoading}
+                              >
+                                Create Proposal
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleConvertToProject(lead)}
+                                className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+                                disabled={isLoading}
+                              >
+                                Convert to Project
+                              </button>
+                            </>
+                          )}
+                          {lead.status === 'proposal' && (
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => handleConvertToProject(lead)}
+                                className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+                                disabled={isLoading}
+                              >
+                                Convert to Project
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateLeadStatus(lead.id, 'lost')}
+                                className="px-3 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
+                                disabled={isLoading}
+                              >
+                                Mark Lost
+                              </button>
+                            </>
+                          )}
+                          {lead.status === 'converted' && (
+                            <span className="px-3 py-1 text-xs bg-purple-500 text-white rounded">
+                              ✓ Converted
+                            </span>
+                          )}
+                          {lead.status === 'lost' && (
+                            <span className="px-3 py-1 text-xs bg-gray-500 text-white rounded">
+                              ✗ Lost
+                            </span>
                           )}
                           <span className={`px-2 py-1 text-xs rounded ${
-                            lead.status === 'new' ? 'bg-summit-light-blue text-white' :
-                            lead.status === 'qualified' ? 'bg-green-500 text-white' :
-                            lead.status === 'proposal' ? 'bg-federal-orange text-white' :
-                            lead.status === 'converted' ? 'bg-purple-500 text-white' :
+                            lead.status === 'new' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' :
+                            lead.status === 'qualified' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                            lead.status === 'proposal' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200' :
+                            lead.status === 'converted' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' :
+                            lead.status === 'lost' ? 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200' :
                             'bg-muted text-muted-foreground'
                           }`}>
-                            {lead.status}
+                            {lead.status.charAt(0).toUpperCase() + lead.status.slice(1)}
                           </span>
                         </div>
                         <p className="text-xs text-muted-foreground">
-                          {lead.source}
+                          Source: {lead.source}
                         </p>
+                        {(lead as any).projectType && (
+                          <p className="text-xs text-muted-foreground">
+                            Type: {(lead as any).projectType.replace('-', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                          </p>
+                        )}
                       </div>
                     </div>
                     {lead.notes && (

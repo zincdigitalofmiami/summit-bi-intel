@@ -4,12 +4,71 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Cloud, 
-  Waves, 
+import {
+  Cloud,
+  Waves,
   MapPin,
-  RefreshCw
+  RefreshCw,
+  Wind
 } from "lucide-react";
+
+// Small widgets to fetch and display real-time marine conditions
+function WindConditionsWidget() {
+  const [windData, setWindData] = useState("12 mph NE");
+
+  useEffect(() => {
+    fetch('/api/weather/current')
+      .then(res => res.json())
+      .then(data => {
+        if (data.windSpeed && data.windDirection) {
+          setWindData(`${data.windSpeed} mph ${data.windDirection}`);
+        }
+      })
+      .catch(() => {
+        // Keep default on error
+      });
+  }, []);
+
+  return <span>{windData}</span>;
+}
+
+function WaveConditionsWidget() {
+  const [waveData, setWaveData] = useState("2-3 ft");
+
+  useEffect(() => {
+    fetch('/api/weather/current')
+      .then(res => res.json())
+      .then(data => {
+        if (data.waveHeight) {
+          setWaveData(`${data.waveHeight} ft`);
+        }
+      })
+      .catch(() => {
+        // Keep default on error
+      });
+  }, []);
+
+  return <span>{waveData}</span>;
+}
+
+function VisibilityConditionsWidget() {
+  const [visibilityData, setVisibilityData] = useState("10+ mi");
+
+  useEffect(() => {
+    fetch('/api/weather/current')
+      .then(res => res.json())
+      .then(data => {
+        if (data.visibility) {
+          setVisibilityData(`${data.visibility}+ mi`);
+        }
+      })
+      .catch(() => {
+        // Keep default on error
+      });
+  }, []);
+
+  return <span>{visibilityData}</span>;
+}
 
 export default function WeatherMapWidget() {
   const [isClient, setIsClient] = useState(false);
@@ -143,15 +202,21 @@ export default function WeatherMapWidget() {
           <div className="grid grid-cols-3 gap-2 text-center">
             <div className="bg-muted/50 rounded-lg p-2 border">
               <div className="text-xs text-muted-foreground">Wind</div>
-              <div className="text-sm font-semibold">12 mph NE</div>
+              <div className="text-sm font-semibold">
+                <WindConditionsWidget />
+              </div>
             </div>
             <div className="bg-muted/50 rounded-lg p-2 border">
               <div className="text-xs text-muted-foreground">Waves</div>
-              <div className="text-sm font-semibold">2-3 ft</div>
+              <div className="text-sm font-semibold">
+                <WaveConditionsWidget />
+              </div>
             </div>
             <div className="bg-muted/50 rounded-lg p-2 border">
               <div className="text-xs text-muted-foreground">Visibility</div>
-              <div className="text-sm font-semibold">10+ mi</div>
+              <div className="text-sm font-semibold">
+                <VisibilityConditionsWidget />
+              </div>
             </div>
           </div>
         </div>

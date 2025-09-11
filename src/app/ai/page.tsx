@@ -56,6 +56,66 @@ export default function AIAssistantPage() {
                   Generate Insights
                 </button>
               </div>
+
+              {/* Lead Enrichment Section */}
+              <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+                <h4 className="font-medium mb-2">Lead Enrichment</h4>
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    placeholder="Enter lead email"
+                    className="flex-1 px-3 py-2 text-sm border rounded-md"
+                    id="enrich-email"
+                  />
+                  <button
+                    type="button"
+                    className="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm"
+                    onClick={async () => {
+                      const email = (document.getElementById('enrich-email') as HTMLInputElement)?.value;
+                      if (!email) return alert('Please enter an email');
+
+                      const response = await fetch('/api/leads/enrich', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                      });
+
+                      const result = await response.json();
+                      alert(result.enriched ? 'Lead enriched successfully!' : 'Basic enrichment completed');
+                    }}
+                  >
+                    Enrich Lead
+                  </button>
+                </div>
+              </div>
+
+              {/* Google Integrations Section */}
+              <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+                <h4 className="font-medium mb-2">Google Integrations</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    className="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm"
+                    onClick={() => window.open('/api/google/analytics', '_blank')}
+                  >
+                    View Analytics
+                  </button>
+                  <button
+                    type="button"
+                    className="px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm"
+                    onClick={() => window.open('/api/google/search-console', '_blank')}
+                  >
+                    Search Console
+                  </button>
+                  <button
+                    type="button"
+                    className="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm"
+                    onClick={() => window.open('/api/google/ads', '_blank')}
+                  >
+                    Google Ads
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

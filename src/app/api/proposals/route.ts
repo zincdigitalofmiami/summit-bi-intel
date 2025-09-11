@@ -1,42 +1,74 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { type ProposalFormData, proposalSchema } from "@/lib/validation";
+import { generalApiLimit } from "@/lib/rate-limit";
 
-export async function GET() {
-  try {
-    const proposals = await prisma.proposal.findMany({
-      orderBy: { createdAt: "desc" },
-      include: { lineItems: true },
-    });
-    return NextResponse.json({ status: "ok", count: proposals.length, proposals });
-  } catch (error) {
-    return NextResponse.json({ status: "error", message: "Failed to fetch proposals" }, { status: 500 });
+export const runtime = "nodejs";
+
+export async function GET(request: NextRequest) {
+  const rateLimitResult = generalApiLimit.check(request);
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. Please try again later.' },
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': '100',
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': rateLimitResult.resetTime.toString(),
+        },
+      }
+    );
   }
+  
+  // Parse pagination parameters
+  const { searchParams } = new URL(request.url);
+  const page = parseInt(searchParams.get('page') || '1');
+  const limit = parseInt(searchParams.get('limit') || '20');
+  const skip = (page - 1) * limit;
+  
+  // Get paginated proposals and total count
+  const [proposals, total] = await Promise.all([
+    prisma.proposal.findMany({
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: limit,
+    }),
+    prisma.proposal.count(),
+  ]);
+  
+  return NextResponse.json({
+    ok: true,
+    proposals,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const rateLimitResult = generalApiLimit.check(request);
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. Please try again later.' },
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': '100',
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': rateLimitResult.resetTime.toString(),
+        },
+      }
+    );
+  }
   try {
     const body = await request.json();
-    const parsed = proposalSchema.safeParse(body as ProposalFormData);
-    if (!parsed.success) {
-      return NextResponse.json({ status: "error", errors: parsed.error.flatten() }, { status: 400 });
-    }
-    const data = parsed.data;
-    const created = await prisma.proposal.create({
-      data: {
-        clientName: data.clientName,
-        clientEmail: data.clientEmail,
-        projectName: data.projectName,
-        notes: data.notes,
-        lineItems: {
-          create: data.lineItems.map((li) => ({ description: li.description, amount: li.amount })),
-        },
-      },
-      include: { lineItems: true },
-    });
-    return NextResponse.json({ status: "ok", proposal: created }, { status: 201 });
-  } catch (error) {
-    return NextResponse.json({ status: "error", message: "Failed to create proposal" }, { status: 500 });
+    const proposal = await prisma.proposal.create({ data: body });
+    return NextResponse.json({ ok: true, proposal });
+  } catch (err: any) {
+    return NextResponse.json({ error: "internal_server_error", detail: String(err?.message || err) }, { status: 500 });
   }
 }
 

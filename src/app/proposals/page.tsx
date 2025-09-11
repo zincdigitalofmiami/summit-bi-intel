@@ -91,8 +91,35 @@ export default function ProposalsPage() {
     });
     const url = `${window.location.origin}/proposals/sign/${token}`;
     navigator.clipboard.writeText(url);
-    // simple toast substitute
     alert("Sign link copied to clipboard");
+  };
+
+  const sendProposalEmail = async (p: ProposalRecord) => {
+    if (!confirm(`Send proposal to ${p.clientEmail}?`)) return;
+
+    try {
+      const response = await fetch('/api/proposals/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          proposalId: p.id,
+          recipientEmail: p.clientEmail,
+          recipientName: p.clientName,
+          customMessage: `Thank you for choosing Summit Marine Development. We're excited to provide you with our competitive pricing and expert marine construction services.`
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert(`✅ Proposal sent successfully to ${p.clientEmail}!\n\nSign link: ${result.signUrl}`);
+      } else {
+        alert(`⚠️ Email service unavailable, but you can still use the sign link:\n${result.signUrl}`);
+      }
+    } catch (error) {
+      console.error('Failed to send proposal:', error);
+      alert('Failed to send proposal. Please try again.');
+    }
   };
 
   const downloadPdf = async (p: ProposalRecord) => {
@@ -265,6 +292,13 @@ export default function ProposalsPage() {
                       </div>
                     </div>
                     <div className="flex gap-2">
+                      <Button
+                        variant="default"
+                        onClick={() => sendProposalEmail(p)}
+                        className="bg-blue-600 hover:bg-blue-700"
+                      >
+                        📧 Send Email
+                      </Button>
                       <Button variant="outline" onClick={() => copySignLink(p)}>
                         Copy Sign Link
                       </Button>

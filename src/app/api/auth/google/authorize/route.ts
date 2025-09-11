@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { buildGoogleAuthorizeUrl } from "@/lib/google-oauth";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const provider = (searchParams.get("provider") || "ga4") as any;
   const state = searchParams.get("state") || undefined;

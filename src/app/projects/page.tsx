@@ -1,13 +1,35 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Container from "@/components/container";
 
-type Project = { id: string; name: string; client?: string | null; type?: string; status?: string; };
+type Project = {
+  id: string;
+  name: string;
+  client?: string | null;
+  type?: string;
+  status?: string;
+  budget?: number | null;
+};
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ name: "", client: "", type: "OTHER" });
+
+  // Calculate real project statistics
+  const stats = useMemo(() => {
+    const activeProjects = projects.filter(p => p.status === 'ACTIVE' || p.status === 'PLANNING').length;
+    const completedProjects = projects.filter(p => p.status === 'COMPLETED').length;
+    const totalRevenue = projects.reduce((sum, p) => sum + (Number(p.budget) || 0), 0);
+    const avgProjectValue = projects.length > 0 ? Math.round(totalRevenue / projects.length) : 0;
+
+    return {
+      activeProjects,
+      completedProjects,
+      totalRevenue,
+      avgProjectValue
+    };
+  }, [projects]);
 
   async function load() {
     const res = await fetch("/api/projects", { cache: "no-store" });
@@ -47,22 +69,22 @@ export default function ProjectsPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Active Projects</h3>
-            <p className="text-2xl font-bold">0</p>
+            <p className="text-2xl font-bold">{stats.activeProjects}</p>
             <p className="text-xs text-muted-foreground">In progress</p>
           </div>
           <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Completed Projects</h3>
-            <p className="text-2xl font-bold">0</p>
+            <p className="text-2xl font-bold">{stats.completedProjects}</p>
             <p className="text-xs text-muted-foreground">This year</p>
           </div>
           <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Total Revenue</h3>
-            <p className="text-2xl font-bold">$0</p>
+            <p className="text-2xl font-bold">${stats.totalRevenue.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">Year to date</p>
           </div>
           <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Avg. Project Value</h3>
-            <p className="text-2xl font-bold">$0</p>
+            <p className="text-2xl font-bold">${stats.avgProjectValue.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">All projects</p>
           </div>
         </div>

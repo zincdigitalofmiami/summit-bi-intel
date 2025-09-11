@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import jwt from "jsonwebtoken";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const cookie = request.headers.get("cookie") || "";
   const match = cookie.match(/auth=([^;]+)/);
   if (!match) return NextResponse.json({ error: "unauthorized" }, { status: 401 });

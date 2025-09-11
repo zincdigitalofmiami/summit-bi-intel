@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import * as cheerio from "cheerio";
 import { createRateLimit } from "@/lib/rate-limit";
 
+export const runtime = "nodejs";
+export const maxDuration = 30; // 30 seconds for web scraping operations
+
 const scrapeLimit = createRateLimit({ interval: 60 * 1000, uniqueTokenPerInterval: 100 });
 
 export async function GET(request: NextRequest) {

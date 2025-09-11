@@ -1,6 +1,7 @@
 import type { MetricData, GoogleAnalyticsData, FacebookAnalyticsData, GoogleBusinessAnalyticsData } from '@/types/types';
 
-export const metrics = [
+// Note: These are fallback values. Real data is fetched from /api/dashboard/metrics
+export const fallbackMetrics = [
   {
     title: "Total Revenue",
     value: "$125,450",
@@ -22,6 +23,9 @@ export const metrics = [
     change: -0.021,
   },
 ];
+
+// Export fallback as default for backward compatibility
+export const metrics = fallbackMetrics;
 
 export const metricsData: MetricData[] = [
   {

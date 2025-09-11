@@ -1,10 +1,25 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { competitors as staticCompetitors } from "@/data/competitors";
 import { ensureTables, readCache, writeCache } from "@/lib/db";
+import { generalApiLimit } from "@/lib/rate-limit";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const rateLimitResult = generalApiLimit.check(request);
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. Please try again later.' },
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': '100',
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': rateLimitResult.resetTime.toString(),
+        },
+      }
+    );
+  }
   try {
     await ensureTables();
     const cached = await readCache("competitors_cache");

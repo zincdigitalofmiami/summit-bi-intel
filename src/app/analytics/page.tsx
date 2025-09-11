@@ -12,7 +12,7 @@ export default function AnalyticsPage() {
               Analyze performance metrics and business insights
             </p>
           </div>
-          <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
+          <button type="button" className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
             Generate Report
           </button>
         </div>

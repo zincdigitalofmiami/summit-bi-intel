@@ -1,3 +1,8 @@
 {
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "trunk.addToolsToPath": true,
+  "geminicodeassist.agentDebugMode": true,
+  "geminicodeassist.agentYoloMode": false,
+  "geminicodeassist.codeGenerationPaneViewEnabled": true,
+  "git.autoStash": true
 }

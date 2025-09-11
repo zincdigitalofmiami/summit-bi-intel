@@ -10,6 +10,7 @@ import {
   Target,
   TrendingUp,
   Users,
+  Database,
 } from "lucide-react";
 
 export type SiteConfig = typeof siteConfig;
@@ -32,24 +33,9 @@ export const navigations: Navigation[] = [
     href: "/dashboard",
   },
   {
-    icon: Target,
-    name: "Leads",
-    href: "/leads",
-  },
-  {
-    icon: Building2,
-    name: "Projects",
-    href: "/projects",
-  },
-  {
-    icon: Users,
-    name: "Clients",
-    href: "/clients",
-  },
-  {
-    icon: Phone,
-    name: "Contacts",
-    href: "/contacts",
+    icon: Database,
+    name: "CRM",
+    href: "/crm",
   },
   {
     icon: FileText,
@@ -70,11 +56,6 @@ export const navigations: Navigation[] = [
     icon: Brain,
     name: "Market Intelligence",
     href: "/market-intelligence",
-  },
-  {
-    icon: Mail,
-    name: "AI Assistant",
-    href: "/ai",
   },
   {
     icon: Droplets,

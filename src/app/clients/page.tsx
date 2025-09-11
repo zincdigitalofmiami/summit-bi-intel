@@ -16,7 +16,7 @@ export default function ClientsPage() {
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", location: "", type: "RESIDENTIAL" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", type: "RESIDENTIAL" });
 
   async function loadClients() {
     setLoading(true);
@@ -44,13 +44,13 @@ export default function ClientsPage() {
           name: form.name.trim(),
           email: form.email || undefined,
           phone: form.phone || undefined,
-          location: form.location || undefined,
+          address: form.address || undefined,
           type: form.type,
         }),
       });
       if (res.ok) {
         setShowForm(false);
-        setForm({ name: "", email: "", phone: "", location: "", type: "RESIDENTIAL" });
+        setForm({ name: "", email: "", phone: "", address: "", type: "RESIDENTIAL" });
         await loadClients();
       }
     } finally {
@@ -58,12 +58,101 @@ export default function ClientsPage() {
     }
   }
 
+  const [projects, setProjects] = useState<any[]>([]);
+
+  // Load projects data to calculate client statistics
+  useEffect(() => {
+    async function loadProjects() {
+      try {
+        const res = await fetch("/api/projects", { cache: "no-store" });
+        const data = await res.json();
+        if (data?.projects) setProjects(data.projects);
+      } catch (error) {
+        console.warn('Failed to load projects:', error);
+      }
+    }
+    loadProjects();
+  }, []);
+
   const stats = useMemo(() => {
     const total = clients.length;
-    const active = 0;
-    const repeat = 0;
-    return { total, active, repeat };
-  }, [clients]);
+
+    // Calculate active clients (have active/ongoing projects)
+    const activeClientIds = new Set(
+      projects
+        .filter(p => p.status === 'ACTIVE')
+        .map(p => p.client)
+        .filter(client => client) // Remove null/undefined values
+    );
+    const active = activeClientIds.size;
+
+    // Calculate repeat clients (have completed projects and current/ongoing projects)
+    const completedProjectClients = new Set(
+      projects
+        .filter(p => p.status === 'COMPLETED')
+        .map(p => p.client)
+        .filter(client => client) // Remove null/undefined values
+    );
+    const repeat = [...activeClientIds].filter(id => completedProjectClients.has(id)).length;
+
+    // Calculate average lifetime value
+    const clientProjectValues: { [key: string]: number } = {};
+    projects.forEach(project => {
+      if (project.client) { // Only process projects with a client
+        if (!clientProjectValues[project.client]) {
+          clientProjectValues[project.client] = 0;
+        }
+        clientProjectValues[project.client] += Number(project.budget) || 0;
+      }
+    });
+
+    const totalLifetimeValue = Object.values(clientProjectValues).reduce((sum, value) => sum + value, 0);
+    const averageLifetimeValue = total > 0 ? Math.round(totalLifetimeValue / total) : 0;
+
+    // Calculate client categories
+    const residential = clients.filter(c => c.type === 'RESIDENTIAL').length;
+    const commercial = clients.filter(c => c.type === 'COMMERCIAL').length;
+    const marina = clients.filter(c => c.type === 'MARINA').length;
+
+    // Calculate location-based stats
+    const panamaCity = clients.filter(c => c.location?.toLowerCase().includes('panama city')).length;
+    const panamaCityBeach = clients.filter(c => c.location?.toLowerCase().includes('beach')).length;
+    const surrounding = clients.filter(c =>
+      c.location &&
+      !c.location.toLowerCase().includes('panama city') &&
+      !c.location.toLowerCase().includes('beach')
+    ).length;
+
+    // Calculate project history stats
+    const firstTimeClients = clients.filter(c =>
+      !projects.some(p => p.client === c.id && p.status === 'COMPLETED')
+    ).length;
+
+    const repeatClients = clients.filter(c =>
+      projects.some(p => p.client === c.id && p.status === 'COMPLETED')
+    ).length;
+
+    return {
+      total,
+      active,
+      repeat,
+      averageLifetimeValue,
+      categories: {
+        residential,
+        commercial,
+        marina,
+        locations: {
+          panamaCity,
+          panamaCityBeach,
+          surrounding
+        },
+        history: {
+          firstTime: firstTimeClients,
+          repeat: repeatClients
+        }
+      }
+    };
+  }, [clients, projects]);
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -101,7 +190,7 @@ export default function ClientsPage() {
           </div>
           <div className="bg-card p-6 rounded-lg border border-border">
             <h3 className="text-sm font-medium text-muted-foreground">Client Lifetime Value</h3>
-            <p className="text-2xl font-bold">$0</p>
+            <p className="text-2xl font-bold">${stats.averageLifetimeValue.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">Average</p>
           </div>
         </div>
@@ -159,15 +248,15 @@ export default function ClientsPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
                     <span className="text-sm">Residential Waterfront</span>
-                    <span className="font-bold">0</span>
+                    <span className="font-bold">{stats.categories.residential}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-green-50 dark:bg-green-950/20 rounded-lg">
                     <span className="text-sm">Commercial Properties</span>
-                    <span className="font-bold">0</span>
+                    <span className="font-bold">{stats.categories.commercial}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-purple-50 dark:bg-purple-950/20 rounded-lg">
                     <span className="text-sm">Marinas</span>
-                    <span className="font-bold">0</span>
+                    <span className="font-bold">{stats.categories.marina}</span>
                   </div>
                 </div>
               </div>
@@ -177,15 +266,15 @@ export default function ClientsPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center p-3 bg-orange-50 dark:bg-orange-950/20 rounded-lg">
                     <span className="text-sm">Panama City</span>
-                    <span className="font-bold">0</span>
+                    <span className="font-bold">{stats.categories.locations.panamaCity}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-teal-50 dark:bg-teal-950/20 rounded-lg">
                     <span className="text-sm">Panama City Beach</span>
-                    <span className="font-bold">0</span>
+                    <span className="font-bold">{stats.categories.locations.panamaCityBeach}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-pink-50 dark:bg-pink-950/20 rounded-lg">
                     <span className="text-sm">Surrounding Areas</span>
-                    <span className="font-bold">0</span>
+                    <span className="font-bold">{stats.categories.locations.surrounding}</span>
                   </div>
                 </div>
               </div>
@@ -195,11 +284,11 @@ export default function ClientsPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center p-3 bg-emerald-50 dark:bg-emerald-950/20 rounded-lg">
                     <span className="text-sm">First Time Clients</span>
-                    <span className="font-bold">0</span>
+                    <span className="font-bold">{stats.categories.history.firstTime}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg">
                     <span className="text-sm">Repeat Clients</span>
-                    <span className="font-bold">0</span>
+                    <span className="font-bold">{stats.categories.history.repeat}</span>
                   </div>
                 </div>
               </div>
@@ -216,7 +305,7 @@ export default function ClientsPage() {
               <input className="w-full rounded border border-border bg-background p-2" placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
               <input className="w-full rounded border border-border bg-background p-2" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
               <input className="w-full rounded border border-border bg-background p-2" placeholder="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-              <input className="w-full rounded border border-border bg-background p-2" placeholder="Location" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
+              <input className="w-full rounded border border-border bg-background p-2" placeholder="Address" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
               <select className="w-full rounded border border-border bg-background p-2" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
                 <option value="RESIDENTIAL">Residential</option>
                 <option value="COMMERCIAL">Commercial</option>

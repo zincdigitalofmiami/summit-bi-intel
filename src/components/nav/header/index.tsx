@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
 	Bell,
@@ -15,6 +14,7 @@ import {
 	Settings,
 	User,
 	Users as UsersIcon,
+	Shield,
 } from "lucide-react";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
@@ -30,8 +30,34 @@ import { Input } from "../../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { ThemeToggle } from "../../theme-toggle";
 
+interface User {
+	email: string;
+	role: 'ADMIN' | 'USER';
+	name?: string;
+}
+
 export default function Header({ title }: { title: string }) {
 	const [searchQuery, setSearchQuery] = useState("");
+	const [user, setUser] = useState<User | null>(null);
+	const [loading, setLoading] = useState(true);
+
+	// Decode JWT token to get user information
+	useEffect(() => {
+		async function getUserInfo() {
+			try {
+				const response = await fetch('/api/auth/me');
+				if (response.ok) {
+					const userData = await response.json();
+					setUser(userData);
+				}
+			} catch (error) {
+				console.warn('Failed to get user info:', error);
+			} finally {
+				setLoading(false);
+			}
+		}
+		getUserInfo();
+	}, []);
 
 	const notifications = [
 		{
@@ -201,20 +227,27 @@ export default function Header({ title }: { title: string }) {
 								variant="ghost"
 								className="flex items-center gap-2"
 								size="sm"
+								disabled={loading}
 							>
 								<div className="flex items-center gap-2">
 									<div className="relative h-8 w-8">
-										<Image
-											src="/avatar.png"
-											alt="User"
-											className="rounded-full"
-											fill
-										/>
+										{user?.role === 'ADMIN' ? (
+											<div className="flex h-full w-full items-center justify-center rounded-full bg-blue-500">
+												<Shield className="h-4 w-4 text-white" />
+											</div>
+										) : (
+											<div className="flex h-full w-full items-center justify-center rounded-full bg-gray-400">
+												<User className="h-4 w-4 text-white" />
+											</div>
+										)}
 									</div>
 									<div className="hidden text-left md:block">
-										<p className="text-sm font-medium">Jose Medina</p>
-										<p className="text-xs text-muted-foreground">
-											Summit Marine Development
+										<p className="text-sm font-medium">
+											{loading ? "Loading..." : (user?.name || user?.email?.split('@')[0] || "User")}
+										</p>
+										<p className="text-xs text-muted-foreground flex items-center gap-1">
+											{user?.role === 'ADMIN' && <Shield className="h-3 w-3" />}
+											{user?.role === 'ADMIN' ? 'Administrator' : 'User'}
 										</p>
 									</div>
 								</div>
@@ -222,7 +255,14 @@ export default function Header({ title }: { title: string }) {
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end" className="w-56">
-							<DropdownMenuLabel>My Account</DropdownMenuLabel>
+							<DropdownMenuLabel>
+								<div className="flex flex-col">
+									<span>My Account</span>
+									<span className="text-xs font-normal text-muted-foreground">
+										{user?.email}
+									</span>
+								</div>
+							</DropdownMenuLabel>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem asChild>
 								<Link href="/account">
@@ -240,6 +280,17 @@ export default function Header({ title }: { title: string }) {
 									Security
 								</Link>
 							</DropdownMenuItem>
+							{user?.role === 'ADMIN' && (
+								<>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem asChild>
+										<Link href="/admin">
+											<Shield className="mr-2 h-4 w-4" />
+											Admin Panel
+										</Link>
+									</DropdownMenuItem>
+								</>
+							)}
 							<DropdownMenuSeparator />
 							<DropdownMenuItem className="text-red-500" asChild>
 								<form action="/api/auth/logout" method="post">

@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
+import {
   Cloud,
   Sun,
   CloudRain,
@@ -10,13 +10,50 @@ import {
   Thermometer,
   Eye,
   Waves,
-  AlertTriangle
+  AlertTriangle,
+  RefreshCw
 } from "lucide-react";
+import { useState, useEffect } from "react";
 
-const currentWeather = {
-  location: "Miami, FL",
+interface WeatherData {
+  location: string;
+  temperature: number;
+  condition: string;
+  humidity: number;
+  windSpeed: number;
+  windDirection: string;
+  visibility: number;
+  uvIndex: number;
+  waveHeight: string;
+  tideStatus: string;
+  tideHeight: number;
+  marineCondition: string;
+  alerts: string[];
+  dewPoint: number;
+  barometricPressure: number;
+  lastUpdated: string;
+  source: string;
+}
+
+interface ForecastDay {
+  day: string;
+  date: string;
+  high: number;
+  low: number;
+  condition: string;
+  conditionText: string;
+  windSpeed: number;
+  windDirection: string;
+  waveHeight: string;
+  marineRisk: 'low' | 'medium' | 'high';
+  workability: 'excellent' | 'good' | 'fair' | 'poor';
+  chanceOfRain: number;
+}
+
+const fallbackWeather: WeatherData = {
+  location: "Panama City, FL",
   temperature: 78,
-  condition: "Partly Cloudy",
+  condition: "Clear",
   humidity: 68,
   windSpeed: 12,
   windDirection: "NE",
@@ -24,45 +61,111 @@ const currentWeather = {
   uvIndex: 7,
   waveHeight: "1-2",
   tideStatus: "Rising",
-  marineCondition: "Good"
+  tideHeight: 2.3,
+  marineCondition: "Good",
+  alerts: [],
+  dewPoint: 72,
+  barometricPressure: 30.15,
+  lastUpdated: new Date().toISOString(),
+  source: "Fallback Data"
 };
 
-const forecast = [
+const fallbackForecast: ForecastDay[] = [
   {
     day: "Today",
+    date: new Date().toLocaleDateString(),
     high: 82,
     low: 75,
     condition: "sunny",
+    conditionText: "Sunny",
+    windSpeed: 12,
+    windDirection: "NE",
+    waveHeight: "1-2",
     marineRisk: "low",
-    workability: "excellent"
+    workability: "excellent",
+    chanceOfRain: 10
   },
   {
     day: "Tomorrow",
+    date: new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleDateString(),
     high: 79,
     low: 73,
     condition: "cloudy",
-    marineRisk: "low", 
-    workability: "good"
+    conditionText: "Partly Cloudy",
+    windSpeed: 15,
+    windDirection: "E",
+    waveHeight: "2-3",
+    marineRisk: "medium",
+    workability: "good",
+    chanceOfRain: 20
   },
   {
     day: "Friday",
+    date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toLocaleDateString(),
     high: 85,
     low: 77,
     condition: "sunny",
+    conditionText: "Sunny",
+    windSpeed: 10,
+    windDirection: "N",
+    waveHeight: "1-2",
     marineRisk: "low",
-    workability: "excellent"
+    workability: "excellent",
+    chanceOfRain: 5
   },
   {
     day: "Saturday",
+    date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString(),
     high: 76,
     low: 70,
     condition: "rainy",
+    conditionText: "Showers",
+    windSpeed: 20,
+    windDirection: "S",
+    waveHeight: "3-4",
     marineRisk: "high",
-    workability: "poor"
+    workability: "poor",
+    chanceOfRain: 80
   }
 ];
 
 export default function WeatherWidget() {
+  const [currentWeather, setCurrentWeather] = useState<WeatherData>(fallbackWeather);
+  const [forecast, setForecast] = useState<ForecastDay[]>(fallbackForecast);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchWeatherData = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      // Fetch current weather and forecast in parallel
+      const [currentResponse, forecastResponse] = await Promise.all([
+        fetch('/api/weather/current'),
+        fetch('/api/weather/forecast')
+      ]);
+
+      if (currentResponse.ok) {
+        const currentData = await currentResponse.json();
+        setCurrentWeather(currentData);
+      }
+
+      if (forecastResponse.ok) {
+        const forecastData = await forecastResponse.json();
+        setForecast(forecastData.forecast);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch weather data');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchWeatherData();
+  }, []);
+
   const getConditionIcon = (condition: string) => {
     switch (condition) {
       case "sunny":
@@ -109,10 +212,37 @@ export default function WeatherWidget() {
       {/* Current Conditions */}
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Waves className="h-5 w-5" />
-            Marine Weather - {currentWeather.location}
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Waves className="h-5 w-5" />
+              Marine Weather - {currentWeather.location}
+            </CardTitle>
+            <div className="flex items-center gap-2">
+              {error && (
+                <Badge variant="outline" className="text-red-600 dark:text-red-400">
+                  <AlertTriangle className="h-3 w-3 mr-1" />
+                  Error
+                </Badge>
+              )}
+              <button
+                onClick={fetchWeatherData}
+                disabled={isLoading}
+                className="p-1 hover:bg-muted rounded disabled:opacity-50"
+                title="Refresh weather data"
+              >
+                <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+              </button>
+            </div>
+          </div>
+          {error && (
+            <p className="text-sm text-red-600 dark:text-red-400 mt-2">
+              {error}
+            </p>
+          )}
+          <p className="text-xs text-muted-foreground">
+            Last updated: {new Date(currentWeather.lastUpdated).toLocaleTimeString()}
+            {currentWeather.source && ` • ${currentWeather.source}`}
+          </p>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">

@@ -1,16 +1,16 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
-import { leadSources } from "@/data/ticket-by-channels";
+import { fallbackTicketByChannels } from "@/data/ticket-by-channels";
 import { addThousandsSeparator } from "@/lib/utils";
 
-const data = leadSources.map(item => ({
-  name: item.name,
-  value: item.count,
-  percentage: item.percentage,
+// Fallback data for when API fails
+const fallbackData = fallbackTicketByChannels.map((item, index) => ({
+  name: item.type,
+  value: item.value,
+  percentage: Math.round((item.value / fallbackTicketByChannels.reduce((sum, i) => sum + i.value, 0)) * 100),
 }));
-
-const totalLeads = data.reduce((acc, curr) => acc + curr.value, 0);
 
 // Custom colors for each channel
 const COLORS = [
@@ -33,38 +33,39 @@ const renderCustomizedLabel = ({
   outerRadius,
   percent,
 }: {
-  cx?: number;
-  cy?: number;
-  midAngle?: number;
-  innerRadius?: number;
-  outerRadius?: number;
+  cx?: string | number;
+  cy?: string | number;
+  midAngle?: string | number;
+  innerRadius?: string | number;
+  outerRadius?: string | number;
   percent?: number;
 }) => {
-  if (!cx || !cy || midAngle === undefined || !innerRadius || !outerRadius || !percent) {
+  // Cast to number for calculations
+  const nCx = Number(cx);
+  const nCy = Number(cy);
+  const nMidAngle = Number(midAngle);
+  const nInnerRadius = Number(innerRadius);
+  const nOuterRadius = Number(outerRadius);
+  if (!nCx || !nCy || isNaN(nMidAngle) || !nInnerRadius || !nOuterRadius || !percent) {
     return null;
   }
-
   const RADIAN = Math.PI / 180;
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  if (percent > 0.05) { // Only show label if slice is > 5%
-    return (
-      <text 
-        x={x} 
-        y={y} 
-        fill="white" 
-        textAnchor={x > cx ? 'start' : 'end'} 
-        dominantBaseline="central"
-        fontSize={12}
-        fontWeight="bold"
-      >
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  }
-  return null;
+  const radius = nInnerRadius + (nOuterRadius - nInnerRadius) * 0.5;
+  const x = nCx + radius * Math.cos(-nMidAngle * RADIAN);
+  const y = nCy + radius * Math.sin(-nMidAngle * RADIAN);
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="#333"
+      textAnchor={x > nCx ? 'start' : 'end'}
+      dominantBaseline="central"
+      fontSize={14}
+      fontWeight={600}
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
 };
 
 // Custom tooltip
@@ -101,6 +102,44 @@ const CustomTooltip = ({
 };
 
 export default function Chart() {
+  const [data, setData] = useState(fallbackData);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLeadSources = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/dashboard/lead-sources');
+        if (response.ok) {
+          const result = await response.json();
+          const formattedData = result.leadSources.map((item: any) => ({
+            name: item.type,
+            value: item.value,
+            percentage: item.percentage,
+          }));
+          setData(formattedData);
+        }
+      } catch (error) {
+        console.warn('Failed to fetch lead sources:', error);
+        // Keep fallback data on error
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchLeadSources();
+  }, []);
+
+  const totalLeads = data.reduce((acc, curr) => acc + curr.value, 0);
+
+  if (isLoading) {
+    return (
+      <div className="h-[400px] w-full relative flex items-center justify-center">
+        <div className="text-muted-foreground">Loading lead sources...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-[400px] w-full relative">
       <ResponsiveContainer width="100%" height="100%">
@@ -122,14 +161,14 @@ export default function Chart() {
             ))}
           </Pie>
           <Tooltip content={<CustomTooltip />} />
-          <Legend 
-            verticalAlign="bottom" 
+          <Legend
+            verticalAlign="bottom"
             height={36}
             wrapperStyle={{ paddingTop: '20px' }}
           />
         </PieChart>
       </ResponsiveContainer>
-      
+
       {/* Center Total Display */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="text-center" style={{ marginTop: '-40px' }}>

@@ -1,157 +1,275 @@
-# Summit Marine Development - Business Intelligence Dashboard
+# Summit BI Intel - Marine Construction Business Intelligence Platform
 
-A comprehensive business intelligence dashboard for Summit Marine Development, specializing in marine construction, seawalls, docks, and waterfront infrastructure projects. Built with modern web technologies and beautiful data visualizations.
+A comprehensive business intelligence platform specifically designed for marine construction companies, with a focus on the Panama City, FL market.
 
-**Developed by [ZINC Digital](https://www.zincdigital.co)** - ZINC Digital operates as a fully agentic digital consultancy—built for enterprise outcomes, not agency platitudes. Every engagement starts with a senior strategist, rigorous discovery, and a roadmap mapped to business value. Clients partner with us for operational precision and sustained market advantage.
+## 🚀 Features
 
-## Features
+### Core Functionality
+- **User Authentication**: Magic link and password authentication with role-based access (Admin/User)
+- **Project Management**: Full CRM system for managing marine construction projects
+- **Lead Management**: Advanced lead tracking with enrichment capabilities
+- **Client Management**: Comprehensive client database with analytics
+- **Proposal System**: Automated proposal generation and e-signature workflows
 
-- **Comprehensive Analytics** - Track leads, projects, revenue, and client satisfaction
-- **Marine Construction Focus** - Specialized for seawalls, docks, and waterfront projects
-- **Lead Management** - Complete lead-to-project conversion pipeline
-- **Client Dashboard** - Manage clients, proposals, and project status
-- **Dark Mode** - Seamless dark/light mode switching with system preference support
-- **Responsive Design** - Fully responsive layout that works on all devices
-- **Modern UI** - Clean interface built with Tailwind CSS and Radix UI
-- **Next.js 15** - Built on the latest Next.js features and React 19 RC
-- **State Management** - Efficient state management with Jotai
-- **Error Handling** - Robust error boundaries and form validation
-- **Data Persistence** - Safe localStorage with form persistence
+### AI & Intelligence Features
+- **AI Agent**: Intelligent business insights and recommendations based on your data
+- **Lead Enrichment**: Automatic contact information enrichment using mock Clearbit-style data
+- **Smart Analytics**: AI-powered analysis of business performance and market trends
+- **Knowledge Base**: Sync and analyze business documentation
 
-## Tech Stack
+### Google Integrations
+- **Google Analytics**: Website traffic and conversion tracking
+- **Google Search Console**: SEO performance and search rankings
+- **Google Ads**: PPC campaign performance and optimization insights
 
-- [Next.js 15](https://nextjs.org/) - React framework with App Router
-- [React 19 RC](https://react.dev/) - Latest React features
-- [VIS Actor](https://visactor.io/) - Data visualization and charting
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [Radix UI](https://radix-ui.com/) - Headless UI components
-- [Jotai](https://jotai.org/) - Primitive and flexible state management
-- [Zod](https://zod.dev/) - TypeScript-first schema validation
-- [TypeScript](https://www.typescriptlang.org/) - Type safety and developer experience
+### Market Intelligence
+- **Weather Monitoring**: Real-time NOAA weather data for Panama City, FL
+- **Permit Tracking**: Panama City marine construction permit monitoring
+- **Competitor Analysis**: Market intelligence and competitor tracking
+- **WordPress Integration**: Blog content and lead generation from website
 
-## Quick Start
+### Data Visualization
+- **Interactive Charts**: Beautiful, responsive charts using Recharts
+- **Dashboard Analytics**: Comprehensive business metrics and KPIs
+- **Weather Maps**: Marine weather visualization
+- **Performance Tracking**: Real-time business performance monitoring
 
-1. Clone this repository
+## 🛠️ Technology Stack
 
+- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL (Vercel Postgres)
+- **Authentication**: JWT with magic links
+- **Charts**: Recharts library
+- **Styling**: Tailwind CSS with Radix UI components
+- **Deployment**: Vercel with automatic CI/CD
+
+## 📦 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd summit-bi-intel
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Setup**
+   ```bash
+   cp env.example .env.local
+   ```
+
+   Configure the following critical variables:
+   ```env
+   # Database
+   POSTGRES_PRISMA_URL=your_postgres_connection_string
+
+   # Authentication
+   JWT_SECRET=your_secure_jwt_secret
+
+   # Google OAuth (for integrations)
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
+
+   # Email (for magic links)
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_USER=your_email@gmail.com
+   SMTP_PASS=your_app_password
+   ```
+
+4. **Database Setup**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Development**
+   ```bash
+   npm run dev
+   ```
+
+## 🚀 Deployment
+
+### Vercel Deployment (Recommended)
+
+1. **Connect Repository**
+   - Import your GitHub repository to Vercel
+   - Vercel will automatically detect Next.js configuration
+
+2. **Environment Variables**
+   Set the following in Vercel dashboard:
+   ```env
+   POSTGRES_PRISMA_URL=your_production_database_url
+   JWT_SECRET=your_secure_jwt_secret
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   GOOGLE_REDIRECT_URI=https://yourdomain.com/api/auth/google/callback
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_USER=your_email@gmail.com
+   SMTP_PASS=your_app_password
+   ADMIN_SEED_TOKEN=your_admin_seed_token
+   ```
+
+3. **Deploy**
+   ```bash
+   vercel --prod
+   ```
+
+### Production Features
+
+- **Automatic SSL**: HTTPS enabled by default
+- **Global CDN**: Fast content delivery worldwide
+- **Serverless Functions**: Optimized API performance
+- **Database**: Vercel Postgres for reliability
+- **Analytics**: Built-in Vercel Analytics
+
+## 📊 API Endpoints
+
+### Authentication
+- `POST /api/auth/login` - Send magic link
+- `POST /api/auth/password` - Password authentication
+- `GET /api/auth/me` - Get current user info
+- `POST /api/auth/logout` - Logout
+
+### Business Data
+- `GET /api/projects` - Project management
+- `GET /api/clients` - Client database
+- `GET /api/leads` - Lead management
+- `POST /api/leads/enrich` - Lead enrichment
+- `GET /api/proposals` - Proposal management
+
+### AI & Analytics
+- `GET /api/agent/insights` - AI business insights
+- `POST /api/knowledge/sync` - Knowledge base sync
+
+### Google Integrations
+- `GET /api/google/analytics` - Google Analytics data
+- `GET /api/google/search-console` - Search Console data
+- `GET /api/google/ads` - Google Ads performance
+
+### Weather & Market Data
+- `GET /api/weather/current` - Current weather
+- `GET /api/weather/forecast` - Weather forecast
+- `GET /api/market/panama-permits` - Permit tracking
+- `GET /api/competitors` - Competitor data
+
+## 🔒 Security Features
+
+- **JWT Authentication**: Secure token-based authentication
+- **Rate Limiting**: API rate limiting on all endpoints
+- **CORS Protection**: Configured cross-origin policies
+- **CSP Headers**: Content Security Policy implementation
+- **Input Validation**: Zod schema validation
+- **SQL Injection Protection**: Prisma ORM safeguards
+
+## 🎨 User Interface
+
+### Dashboard Features
+- **Real-time Metrics**: Live business KPIs
+- **Interactive Charts**: Responsive data visualization
+- **Weather Integration**: Marine weather monitoring
+- **Lead Pipeline**: Visual lead management
+- **Project Timeline**: Construction project tracking
+
+### Admin Features
+- **User Management**: Admin panel for user administration
+- **System Monitoring**: Health checks and diagnostics
+- **Data Management**: Database seeding and management
+- **Integration Setup**: Google OAuth and API configuration
+
+## 🤖 AI Features
+
+### Business Intelligence
+- **Project Analysis**: Automated project performance insights
+- **Lead Scoring**: AI-powered lead qualification
+- **Market Trends**: Predictive market analysis
+- **Competitor Monitoring**: Automated competitor analysis
+
+### Lead Enrichment
+- **Contact Information**: Automatic contact data enrichment
+- **Company Intelligence**: Business information lookup
+- **Social Media**: LinkedIn and social profile detection
+- **Industry Classification**: Automated industry categorization
+
+## 📱 Mobile Responsive
+
+- **Responsive Design**: Works on all device sizes
+- **Touch Optimized**: Mobile-friendly interactions
+- **Progressive Web App**: Installable on mobile devices
+- **Offline Capability**: Basic offline functionality
+
+## 🔧 Development
+
+### Available Scripts
 ```bash
-git clone https://github.com/zincdigitalofmiami/summit-bi-intel.git
-cd summit-bi-intel
+npm run dev          # Development server
+npm run build        # Production build
+npm run start        # Production server
+npm run lint         # Code linting
+npm run lint:fix     # Auto-fix linting issues
 ```
 
-2. Install dependencies
+### Code Quality
+- **TypeScript**: Full type safety
+- **ESLint**: Code quality enforcement
+- **Prettier**: Consistent code formatting
+- **Husky**: Pre-commit hooks (if configured)
 
+## 📈 Performance
+
+- **Next.js Optimization**: Automatic code splitting and optimization
+- **Image Optimization**: Built-in Next.js image optimization
+- **API Optimization**: Efficient database queries with Prisma
+- **Caching**: Strategic caching for improved performance
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Database Connection Issues**
 ```bash
+# Check database connection
+npx prisma studio
+```
+
+**Build Failures**
+```bash
+# Clear cache and rebuild
+rm -rf .next node_modules/.cache
 npm install
+npm run build
 ```
 
-3. Run the development server
+**Weather Data Not Loading**
+- NOAA API may have CORS restrictions
+- Check network connectivity
+- Verify API endpoints are accessible
 
-```bash
-npm run dev
-```
+## 📚 Additional Resources
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [Vercel Documentation](https://vercel.com/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs)
 
-### Dev Tips
+## 🤝 Contributing
 
-- If you see stale routing or a green screen, clear caches and restart:
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-```bash
-killall node || true; rm -rf .next; npm run dev
-```
+## 📄 License
 
-- Use `--turbopack` optionally for faster HMR. Ensure CSS @imports are at file top.
+This project is proprietary software developed for Summit Marine Development.
 
-### Scripts
+---
 
-- `npm run dev` — Start dev server
-- `npm run build` — Production build
-- `npm run start` — Run production build
-- `npm run lint` — Lint with ESLint (Trunk/Biome also run in CI)
-
-## Project Structure
-
-```bash
-src/
-├── app/                    # Next.js App Router pages
-│   ├── dashboard/         # Dashboard pages (leads, projects, clients, etc.)
-│   ├── layout.tsx         # Root layout
-│   └── providers.tsx      # App providers
-├── components/            # React components
-│   ├── chart-blocks/      # Analytics charts and visualizations
-│   ├── forms/             # Lead and project forms with validation
-│   ├── nav/               # Navigation components
-│   └── ui/                # Reusable UI components
-├── config/                # Configuration files
-├── data/                  # Demo data and business intelligence data
-├── hooks/                 # Custom React hooks for storage and async operations
-├── lib/                   # Utility functions and validation schemas
-├── style/                 # Global styles and CSS
-└── types/                 # TypeScript type definitions
-```
-
-## Business Intelligence Features
-
-This dashboard provides comprehensive analytics for marine construction businesses:
-
-### Analytics & Reporting
-- **Lead Generation Tracking** - Monitor lead sources and conversion rates
-- **Project Pipeline** - Track projects from lead to completion
-- **Revenue Analytics** - Regional revenue breakdown and trends
-- **Customer Satisfaction** - Client feedback and satisfaction metrics
-
-### Business Management
-- **Lead Management** - Capture, qualify, and convert leads
-- **Project Tracking** - Monitor project status, timeline, and completion
-- **Client Portal** - Manage client relationships and communication
-- **Proposal System** - Create and track project proposals
-
-### Marine Construction Specific
-- **Service Catalog** - Seawalls, docks, marine repairs, and waterfront projects
-- **Regional Analytics** - Gulf Coast, Emerald Coast, and inland waterways
-- **Seasonal Trends** - Track construction activity by season
-- **Lead Sources** - Website, referrals, Google Ads, social media
-
-## Demo Content
-
-The dashboard includes realistic demo content for immediate evaluation:
-- Sample leads from Gulf Coast marina projects
-- Project data for seawalls, docks, and marine repairs
-- Client profiles with contact information
-- Analytics data showing seasonal construction trends
-
-All demo content can be easily cleared and replaced with real business data.
-
-## About ZINC Digital
-
-**[ZINC Digital](https://www.zincdigital.co)** operates as a fully agentic digital consultancy—built for enterprise outcomes, not agency platitudes. Every engagement starts with a senior strategist, rigorous discovery, and a roadmap mapped to business value. Clients partner with us for operational precision and sustained market advantage.
-
-We architect enterprise solutions through intellectual rigor and proactive innovation. As integrated partners, our strategic discipline transforms potential into predictable excellence and a durable competitive advantage.
-
-### Proven Results
-- **18+ Years of Experience** - Deep expertise in digital transformation and growth
-- **7+ Years in Business** - Established track record as ZINC Digital
-- **$235M+ in Client Revenues** - Measurable business impact and growth
-- **517 After-Hour Calls Answered** - Unmatched commitment to client success
-
-### Our Enterprise Services
-- **SEO Services** - National SEO powered by cutting-edge AI and Big Query technology
-- **Mobile Apps** - Custom mobile solutions engineered for seamless user engagement and business growth
-- **Business Intelligence Platform** - Bespoke business intelligence dashboards that transform data into actionable strategic insights
-- **Web Design** - User-first digital experiences that convert and eliminate dropoffs
-- **Local Service Businesses** - Specialized solutions for local business growth and market dominance
-- **PPC & Social Media Advertising** - Precision-targeted campaigns that maximize ROI through strategic audience optimization
-
-**Contact us:** [hello@zincdigital.co](mailto:hello@zincdigital.co) | [(850) 270-8520](tel:(850) 270-8520) | [www.zincdigital.co](https://www.zincdigital.co)
-
-**Locations:**
-
-**Miami, FL**  
-1900 North Bayshore Drive, Miami, FL 33132
-
-**Panama City, FL**  
-97 Oak Avenue, Suite 7, Panama City, FL 32401
-
-## License
-
-This project is proprietary software developed by ZINC Digital for Summit Marine Development.
+**Built with ❤️ for Summit Marine Development - Panama City, FL**

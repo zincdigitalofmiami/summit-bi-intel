@@ -1,8 +1,7 @@
 "use client";
 
-import { useAtomValue } from "jotai";
+import { useState, useEffect } from "react";
 import { FilePlus2 } from "lucide-react";
-import { ticketChartDataAtom } from "@/lib/atoms";
 import type { TicketMetric } from "@/types/types";
 import ChartTitle from "../../components/chart-title";
 import Chart from "./chart";
@@ -21,7 +20,49 @@ const calMetricCardValue = (
 };
 
 export default function AverageTicketsCreated() {
-  const ticketChartData = useAtomValue(ticketChartDataAtom);
+  const [ticketChartData, setTicketChartData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const { searchParams } = new URL(window.location.href);
+        const start = searchParams.get('start');
+        const end = searchParams.get('end');
+
+        const url = start && end
+          ? `/api/dashboard/activity?start=${start}&end=${end}`
+          : '/api/dashboard/activity?days=30';
+
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          const formattedData = data.activity.flatMap((item: any) => [
+            {
+              date: item.date,
+              type: "resolved",
+              count: item.resolved,
+            },
+            {
+              date: item.date,
+              type: "created",
+              count: item.created,
+            },
+          ]);
+          setTicketChartData(formattedData);
+        }
+      } catch (error) {
+        console.warn('Failed to fetch activity data:', error);
+        // Keep empty state on error
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const avgCreated = calMetricCardValue(ticketChartData, "created");
   const avgResolved = calMetricCardValue(ticketChartData, "resolved");
 

@@ -18,6 +18,21 @@
     },
     "src/app/api/market/panama-permits/route.ts": {
       "maxDuration": 45
+    },
+    "src/app/api/google/analytics/route.ts": {
+      "maxDuration": 10
+    },
+    "src/app/api/google/search-console/route.ts": {
+      "maxDuration": 10
+    },
+    "src/app/api/google/ads/route.ts": {
+      "maxDuration": 10
+    },
+    "src/app/api/leads/enrich/route.ts": {
+      "maxDuration": 15
+    },
+    "src/app/api/agent/insights/route.ts": {
+      "maxDuration": 20
     }
   },
   "headers": [
