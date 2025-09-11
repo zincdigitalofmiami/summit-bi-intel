@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generalApiLimit } from "@/lib/rate-limit";
+// Note: Prisma decimal fields accept string or number; the client will coerce appropriately.
 
 export const runtime = "nodejs";
 
@@ -32,6 +33,7 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: "desc" },
       skip,
       take: limit,
+      include: { lineItems: true },
     }),
     prisma.proposal.count(),
   ]);
@@ -65,8 +67,31 @@ export async function POST(request: NextRequest) {
   }
   try {
     const body = await request.json();
-    const proposal = await prisma.proposal.create({ data: body });
-    return NextResponse.json({ ok: true, proposal });
+
+    const lineItemsInput = Array.isArray(body?.lineItems)
+      ? body.lineItems.map((li: any) => ({
+          description: String(li?.description ?? ""),
+          amount:
+            typeof li?.amount === "number" || typeof li?.amount === "string"
+              ? li.amount
+              : 0,
+        }))
+      : [];
+
+    const created = await prisma.proposal.create({
+      data: {
+        clientName: String(body?.clientName ?? ""),
+        clientEmail: String(body?.clientEmail ?? ""),
+        projectName: String(body?.projectName ?? ""),
+        notes: body?.notes ? String(body.notes) : undefined,
+        lineItems: {
+          create: lineItemsInput,
+        },
+      },
+      include: { lineItems: true },
+    });
+
+    return NextResponse.json({ ok: true, proposal: created });
   } catch (err: any) {
     return NextResponse.json({ error: "internal_server_error", detail: String(err?.message || err) }, { status: 500 });
   }

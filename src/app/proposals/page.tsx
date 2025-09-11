@@ -6,14 +6,13 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import Container from "@/components/container";
 import ProposalForm from "@/components/forms/proposal-form";
 import { Button } from "@/components/ui/button";
+import type { ProposalLineItem, ProposalRecord } from "@/lib/proposals";
 import {
   calculateTotal,
   deleteProposal as deleteProposalLocal,
   encodeSignToken,
   getAllProposals,
   saveProposal as saveProposalLocal,
-  type ProposalLineItem,
-  type ProposalRecord,
 } from "@/lib/proposals";
 
 function toProposalRecordFromApi(api: any): ProposalRecord {
@@ -177,9 +176,10 @@ export default function ProposalsPage() {
     URL.revokeObjectURL(url);
   };
 
-  // Load from API on mount; fallback to local storage
+  // Load from API on mount; merge with local storage to avoid flicker
   useEffect(() => {
     let cancelled = false;
+    const localAtMount = getAllProposals();
     (async () => {
       try {
         const res = await fetch("/api/proposals", { cache: "no-store" });
@@ -187,7 +187,13 @@ export default function ProposalsPage() {
         const json = await res.json();
         if (Array.isArray(json.proposals)) {
           const mapped = json.proposals.map(toProposalRecordFromApi);
-          if (!cancelled) setProposals(mapped);
+          const byId = new Map<string, ProposalRecord>();
+          for (const p of localAtMount) byId.set(p.id, p);
+          for (const p of mapped) byId.set(p.id, p);
+          const merged = Array.from(byId.values()).sort(
+            (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          );
+          if (!cancelled) setProposals(merged);
         }
       } catch {
         // ignore; keep localStorage data

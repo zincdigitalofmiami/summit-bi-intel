@@ -38,27 +38,27 @@ enum Role {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  email       String   @unique
-  name        String?
-  role        Role     @default(USER)
-  onboarded   Boolean  @default(false)
-  lastLoginAt DateTime?
-  passwordHash String?
-  createdAt   DateTime @default(now())
+  id              String           @id @default(uuid())
+  email           String           @unique
+  name            String?
+  role            Role             @default(USER)
+  onboarded       Boolean          @default(false)
+  lastLoginAt     DateTime?
+  passwordHash    String?
+  createdAt       DateTime         @default(now())
   magicLinkTokens MagicLinkToken[]
 
   @@index([createdAt])
 }
 
 model MagicLinkToken {
-  id         String   @id @default(uuid())
-  email      String
-  token      String   @unique
-  expiresAt  DateTime
-  used       Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  user       User?    @relation(fields: [email], references: [email])
+  id        String   @id @default(uuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [email], references: [email])
 
   @@index([email])
   @@index([createdAt])
@@ -66,12 +66,12 @@ model MagicLinkToken {
 }
 
 model PasswordResetToken {
-  id         String   @id @default(uuid())
-  email      String
-  token      String   @unique
-  expiresAt  DateTime
-  used       Boolean  @default(false)
-  createdAt  DateTime @default(now())
+  id        String   @id @default(uuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
 
   @@index([email])
   @@index([createdAt])
@@ -141,7 +141,7 @@ model Project {
   id        String        @id @default(uuid())
   name      String
   client    String?
-  type      ProjectType  @default(OTHER)
+  type      ProjectType   @default(OTHER)
   status    ProjectStatus @default(ACTIVE)
   budget    Decimal?      @db.Decimal(12, 2)
   createdAt DateTime      @default(now())
