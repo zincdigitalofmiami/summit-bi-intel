@@ -1,6 +1,18 @@
+'use client';
+
 import Container from "@/components/container";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ProposalsPage() {
+  const [showCreateProposal, setShowCreateProposal] = useState(false);
+  const router = useRouter();
+
+  const handleCreateProposal = () => {
+    // For now, just show an alert - could be expanded to open a modal or navigate to a form
+    alert('Create Proposal functionality will be implemented here. This could open a proposal form modal or navigate to a proposal creation page.');
+    setShowCreateProposal(true);
+  };
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -12,7 +24,10 @@ export default function ProposalsPage() {
               Create and track proposals for marine construction projects
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button 
+            onClick={handleCreateProposal}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto"
+          >
             Create Proposal
           </button>
         </div>

@@ -1,6 +1,19 @@
+'use client';
+
 import Container from "@/components/container";
+import { useState } from "react";
 
 export default function AIAssistantPage() {
+  const [showNewChat, setShowNewChat] = useState(false);
+
+  const handleNewChat = () => {
+    alert('New Chat functionality will be implemented here. This could open an AI chat interface or navigate to a chat page.');
+    setShowNewChat(true);
+  };
+
+  const handleCreateEmail = (templateType: string) => {
+    alert(`${templateType} email template will be implemented here. This could open an email composer with the selected template.`);
+  };
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -13,7 +26,10 @@ export default function AIAssistantPage() {
               Get intelligent insights and recommendations for your business
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button 
+            onClick={handleNewChat}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto"
+          >
             New Chat
           </button>
         </div>
@@ -55,7 +71,10 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Professional follow-up emails for new marine construction leads
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button 
+                  onClick={() => handleCreateEmail('Lead Follow-up')}
+                  className="text-blue-600 hover:text-blue-700 text-sm"
+                >
                   Create Email →
                 </button>
               </div>
@@ -64,7 +83,10 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Keep clients informed about seawall and dock construction progress
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button 
+                  onClick={() => handleCreateEmail('Lead Follow-up')}
+                  className="text-blue-600 hover:text-blue-700 text-sm"
+                >
                   Create Email →
                 </button>
               </div>
@@ -73,7 +95,10 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Professional proposal delivery with marine construction details
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button 
+                  onClick={() => handleCreateEmail('Lead Follow-up')}
+                  className="text-blue-600 hover:text-blue-700 text-sm"
+                >
                   Create Email →
                 </button>
               </div>
@@ -82,7 +107,10 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Celebrate completed projects and request reviews
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button 
+                  onClick={() => handleCreateEmail('Lead Follow-up')}
+                  className="text-blue-600 hover:text-blue-700 text-sm"
+                >
                   Create Email →
                 </button>
               </div>
@@ -91,7 +119,10 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Schedule annual maintenance for seawalls and docks
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button 
+                  onClick={() => handleCreateEmail('Lead Follow-up')}
+                  className="text-blue-600 hover:text-blue-700 text-sm"
+                >
                   Create Email →
                 </button>
               </div>
@@ -100,7 +131,10 @@ export default function AIAssistantPage() {
                 <p className="text-sm text-muted-foreground mb-3">
                   Quick response templates for storm damage and urgent repairs
                 </p>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
+                <button 
+                  onClick={() => handleCreateEmail('Lead Follow-up')}
+                  className="text-blue-600 hover:text-blue-700 text-sm"
+                >
                   Create Email →
                 </button>
               </div>

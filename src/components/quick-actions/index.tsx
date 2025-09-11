@@ -11,6 +11,7 @@ import {
   Users,
   Anchor
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { logger } from "@/lib/logger";
 
 const quickActions = [
@@ -73,41 +74,38 @@ const quickActions = [
 ];
 
 export default function QuickActions() {
+  const router = useRouter();
+  
   const handleAction = (actionId: string) => {
     logger.info(`Quick action triggered: ${actionId}`);
     
     // Handle quick actions based on action ID
     switch (actionId) {
       case 'quote':
-        // Navigate to quote creation or open modal
-        logger.info('Quote creation action - implementation needed');
+        router.push('/proposals');
         break;
       case 'schedule':
-        // Navigate to scheduling or open calendar
-        logger.info('Schedule job action - implementation needed');
+        router.push('/projects');
         break;
       case 'contact':
-        // Navigate to contacts or open contact modal
-        logger.info('Contact client action - implementation needed');
+        router.push('/contacts');
         break;
       case 'weather':
-        // Navigate to weather page or open weather modal
-        logger.info('Marine weather action - implementation needed');
+        // Open weather in a new tab
+        window.open('https://marine.weather.gov/MapClick.php?lon=-85.6602&lat=30.1588', '_blank');
         break;
       case 'projects':
-        // Navigate to active projects
-        logger.info('Active projects action - implementation needed');
+        router.push('/projects');
         break;
       case 'crew':
-        // Navigate to crew status
-        logger.info('Crew status action - implementation needed');
+        router.push('/contacts');
         break;
       case 'equipment':
-        // Navigate to equipment/fleet management
-        logger.info('Equipment management action - implementation needed');
+        router.push('/projects');
         break;
       case 'emergency':
-        // Trigger emergency protocols
+        // Trigger emergency call
+        window.open('tel:911', '_self');
         logger.warn('Emergency action triggered - immediate attention required');
         break;
       default:

@@ -1,6 +1,15 @@
+'use client';
+
 import Container from "@/components/container";
+import { useState } from "react";
 
 export default function ProjectsPage() {
+  const [showNewProject, setShowNewProject] = useState(false);
+
+  const handleNewProject = () => {
+    alert('New Project functionality will be implemented here. This could open a project creation form or navigate to a project setup page.');
+    setShowNewProject(true);
+  };
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -12,7 +21,10 @@ export default function ProjectsPage() {
               Track marine construction projects from start to completion
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button 
+            onClick={handleNewProject}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto"
+          >
             New Project
           </button>
         </div>

@@ -1,6 +1,15 @@
+'use client';
+
 import Container from "@/components/container";
+import { useState } from "react";
 
 export default function AnalyticsPage() {
+  const [showGenerateReport, setShowGenerateReport] = useState(false);
+
+  const handleGenerateReport = () => {
+    alert('Generate Report functionality will be implemented here. This could create a downloadable analytics report.');
+    setShowGenerateReport(true);
+  };
   return (
     <div className="space-y-6">
             {/* Page Header */}
@@ -12,7 +21,10 @@ export default function AnalyticsPage() {
               Analyze performance metrics and business insights
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button 
+            onClick={handleGenerateReport}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto"
+          >
             Generate Report
           </button>
         </div>

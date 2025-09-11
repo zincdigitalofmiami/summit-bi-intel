@@ -1,6 +1,15 @@
+'use client';
+
 import Container from "@/components/container";
+import { useState } from "react";
 
 export default function ServicesPage() {
+  const [showAddService, setShowAddService] = useState(false);
+
+  const handleAddService = () => {
+    alert('Add Service functionality will be implemented here. This could open a service creation form.');
+    setShowAddService(true);
+  };
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -12,7 +21,10 @@ export default function ServicesPage() {
               Marine construction services offered by Summit Marine Development
             </p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto">
+          <button 
+            onClick={handleAddService}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base self-start sm:self-auto"
+          >
             Add Service
           </button>
         </div>
