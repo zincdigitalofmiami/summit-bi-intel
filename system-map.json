@@ -200,14 +200,12 @@
     { "route": "/contacts", "purpose": "Contact management UI", "linkedComponents": ["Container", "ContactManagement"], "connectedAPI": [] },
     { "route": "/performance", "purpose": "Performance dashboard", "linkedComponents": ["Card", "Tabs"], "connectedAPI": [] },
     { "route": "/services", "purpose": "Services listing UI", "linkedComponents": ["Container"], "connectedAPI": [] },
-    { "route": "/projects", "purpose": "See above" , "linkedComponents": ["Container"], "connectedAPI": [{"route":"/api/projects","methods":["GET","POST"]}] },
     { "route": "/market-intelligence", "purpose": "Alternate entry for market intelligence", "linkedComponents": [], "connectedAPI": [] },
     { "route": "/account", "purpose": "Account home", "linkedComponents": [], "connectedAPI": [] },
     { "route": "/account/sessions", "purpose": "Account sessions", "linkedComponents": [], "connectedAPI": [] },
     { "route": "/account/security", "purpose": "Change password form", "linkedComponents": [], "connectedAPI": [{"route":"/api/auth/change-password","methods":["POST"]}] },
     { "route": "/analytics", "purpose": "Analytics overview", "linkedComponents": ["Container"], "connectedAPI": [] },
-    { "route": "/contacts", "purpose": "Contacts management", "linkedComponents": ["Container","ContactManagement"], "connectedAPI": [] },
-    { "route": "/page", "purpose": "App root landing", "linkedComponents": [], "connectedAPI": [] }
+    { "route": "/", "purpose": "App root landing", "linkedComponents": [], "connectedAPI": [] }
   ],
   "api": [
     { "route": "/api/health", "purpose": "Health probe", "connectedModels": [], "knownIssues": [] },
