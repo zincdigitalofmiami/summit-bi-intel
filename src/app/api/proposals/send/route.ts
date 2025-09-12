@@ -1,161 +1,92 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
-import { calculateTotal, type ProposalRecord } from '@/lib/proposals';
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
-
-interface SendProposalRequest {
-  proposalId: string;
-  recipientEmail: string;
-  recipientName: string;
-  customMessage?: string;
+// Optional: use fetch to Resend instead of importing the SDK to reduce build deps.
+async function sendEmailViaResend({ apiKey, from, to, subject, html }: { apiKey: string; from: string; to: string; subject: string; html: string; }) {
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ from, to, subject, html }),
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`Resend failed: ${res.status} ${res.statusText} ${text}`);
+  }
+  return res.json();
 }
 
-export async function POST(request: NextRequest) {
+function getBaseUrl(req: Request) {
+  const envUrl = process.env.APP_URL;
+  if (envUrl && envUrl.startsWith("http")) {
+    return envUrl.replace(/\/+$/, "");
+  }
   try {
-    const { proposalId, recipientEmail, recipientName, customMessage }: SendProposalRequest = await request.json();
-
-    // Get proposal details (in production, fetch from database)
-    // For now, create a sample proposal
-    const sampleProposal: ProposalRecord = {
-      id: proposalId,
-      clientName: recipientName,
-      clientEmail: recipientEmail,
-      projectName: "Marine Construction Project",
-      lineItems: [
-        { description: "Dock Construction (200 sq ft)", amount: 370000 },
-        { description: "Seawall Installation (150 lf)", amount: 330000 },
-        { description: "Equipment & Materials", amount: 75000 },
-        { description: "Permitting & Engineering", amount: 25000 }
-      ],
-      notes: "Complete marine construction package with 2-year warranty",
-      createdAt: new Date().toISOString()
-    };
-
-    const total = calculateTotal(sampleProposal.lineItems);
-    const signToken = `sign_${Date.now()}_${proposalId}`;
-    const signUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/proposals/sign/${signToken}`;
-
-    // Generate PDF (simplified for demo)
-    const pdfContent = generateProposalPDF(sampleProposal, total, signUrl);
-
-    // Email content
-    const emailHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h1 style="color: #1e40af;">Summit Marine Development Proposal</h1>
-
-        <p>Dear ${recipientName},</p>
-
-        ${customMessage ? `<p>${customMessage}</p>` : ''}
-
-        <p>Thank you for considering Summit Marine Development for your marine construction project. We're excited about the opportunity to work with you on "${sampleProposal.projectName}".</p>
-
-        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="margin-top: 0;">Project Summary</h3>
-          <p><strong>Client:</strong> ${sampleProposal.clientName}</p>
-          <p><strong>Project:</strong> ${sampleProposal.projectName}</p>
-          <p><strong>Total Amount:</strong> $${total.toLocaleString()}</p>
-        </div>
-
-        <p>Please review the attached proposal and sign electronically using the link below:</p>
-
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${signUrl}" style="background: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
-            Review & Sign Proposal
-          </a>
-        </div>
-
-        <p>If you have any questions, please don't hesitate to contact us at (850) 555-0123 or reply to this email.</p>
-
-        <p>Best regards,<br/>
-        Summit Marine Development Team</p>
-
-        <hr style="margin: 40px 0; border: none; border-top: 1px solid #e5e7eb;" />
-
-        <p style="font-size: 12px; color: #6b7280;">
-          This proposal is valid for 30 days. Electronic signatures are legally binding and secure.
-        </p>
-      </div>
-    `;
-
-    try {
-      if (!resend) {
-        // Email service not configured - return sign link only
-        return NextResponse.json({
-          success: false,
-          error: 'Email service not configured',
-          signUrl,
-          fallback: true,
-          message: 'Email service not configured. Use the sign link below to send manually.'
-        });
-      }
-
-      // Send email with Resend
-      const emailResponse = await resend.emails.send({
-        from: 'Summit Marine <proposals@summitmarine.com>',
-        to: recipientEmail,
-        subject: `Summit Marine Proposal - ${sampleProposal.projectName} - $${total.toLocaleString()}`,
-        html: emailHtml,
-        attachments: [
-          {
-            filename: `Summit-Proposal-${proposalId}.pdf`,
-            content: Buffer.from(pdfContent).toString('base64')
-          }
-        ]
-      });
-
-      return NextResponse.json({
-        success: true,
-        messageId: emailResponse.data?.id,
-        recipient: recipientEmail,
-        signUrl,
-        sentAt: new Date().toISOString()
-      });
-    } catch (emailError) {
-      console.error('Email sending failed:', emailError);
-
-      // Fallback response if email service fails
-      return NextResponse.json({
-        success: false,
-        error: 'Email service temporarily unavailable',
-        signUrl,
-        fallback: true
-      });
-    }
-  } catch (error) {
-    console.error('Proposal send API error:', error);
-    return NextResponse.json(
-      { error: 'Failed to send proposal' },
-      { status: 500 }
-    );
+    const url = new URL(req.url);
+    const proto = req.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+    const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || url.host;
+    return `${proto}://${host}`.replace(/\/+$/, "");
+  } catch {
+    return "http://localhost:3000";
   }
 }
 
-function generateProposalPDF(proposal: ProposalRecord, total: number, signUrl: string): string {
-  // Simplified PDF content (in production, use pdf-lib or similar)
-  const pdfContent = `
-    SUMMIT MARINE DEVELOPMENT
-    MARINE CONSTRUCTION PROPOSAL
+export async function POST(req: Request) {
+  try {
+    const { proposalId } = await req.json();
 
-    Client: ${proposal.clientName}
-    Project: ${proposal.projectName}
-    Date: ${new Date().toLocaleDateString()}
+    if (!proposalId) {
+      return NextResponse.json({ error: "proposalId is required" }, { status: 400 });
+    }
 
-    LINE ITEMS:
-    ${proposal.lineItems.map(item =>
-      `${item.description}: $${item.amount.toLocaleString()}`
-    ).join('\n')}
+    // Pull proposal with client for email details
+    const proposal = await prisma.proposal.findUnique({
+      where: { id: proposalId },
+      include: { client: true, lineItems: true },
+    });
 
-    TOTAL: $${total.toLocaleString()}
+    if (!proposal) {
+      return NextResponse.json({ error: "Proposal not found" }, { status: 404 });
+    }
 
-    NOTES: ${proposal.notes || 'N/A'}
+    const baseUrl = getBaseUrl(req);
 
-    Electronic Signature Required: ${signUrl}
+    // If you have a token encoder util, swap this line to use it.
+    const signPath = `/proposals/sign/${proposal.id}`;
+    const signUrl = `${baseUrl}${signPath}`;
 
-    This proposal is valid for 30 days.
-    Summit Marine Development - Excellence in Marine Construction
-  `;
+    const apiKey = process.env.RESEND_API_KEY || "";
+    const from = process.env.EMAIL_FROM || "proposals@no-reply.local";
+    const to = proposal.client?.email || process.env.FALLBACK_TO_EMAIL || "";
+    const subject = `Proposal: ${proposal.projectName || "Project"} — Review & Sign`;
 
-  // Convert to base64 (simplified)
-  return Buffer.from(pdfContent).toString('base64');
+    const greetingName = proposal.client?.name ? ` ${proposal.client.name}` : "";
+    const html = [
+      '<div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial">',
+      '<h2>Proposal ready to sign</h2>',
+      `<p>Hello${greetingName},</p>`,
+      '<p>Your proposal is ready. Click the button below to review and sign.</p>',
+      `<p><a href="${signUrl}" style="display:inline-block;padding:10px 16px;background:#0ea5e9;color:#fff;text-decoration:none;border-radius:6px">Review & Sign</a></p>`,
+      `<p>If the button doesn’t work, paste this into your browser:<br/><code>${signUrl}</code></p>`,
+      '</div>'
+    ].join("");
+
+    if (apiKey && to) {
+      await sendEmailViaResend({ apiKey, from, to, subject, html });
+      return NextResponse.json({ ok: true, sent: true, signUrl });
+    }
+
+    // Graceful fallback: no API key or no recipient
+    return NextResponse.json({
+      ok: true,
+      sent: false,
+      reason: !apiKey ? "RESEND_API_KEY missing" : "No recipient email",
+      signUrl,
+    });
+  } catch (err: any) {
+    console.error("send proposal failed:", err);
+    return NextResponse.json({ error: "Internal error", detail: String(err?.message || err) }, { status: 500 });
+  }
 }
