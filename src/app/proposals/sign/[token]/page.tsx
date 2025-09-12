@@ -6,12 +6,14 @@ import SignaturePad from "@/components/ui/signature-pad";
 import { decodeSignToken } from "@/lib/proposals";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignProposalPage({
   params,
 }: {
   params: Promise<{ token: string }>;
 }) {
+  const router = useRouter();
   const [resolvedParams, setResolvedParams] = useState<{ token: string } | null>(null);
   
   useEffect(() => {
@@ -24,6 +26,7 @@ export default function SignProposalPage({
   }, [resolvedParams]);
   const [sig, setSig] = useState<string | null>(null);
   const [signed, setSigned] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleDownload = useCallback(async () => {
     if (!payload) return;
@@ -78,6 +81,31 @@ export default function SignProposalPage({
     setSigned(true);
   }, [payload, sig]);
 
+  const handleSubmitSignature = useCallback(async () => {
+    if (!payload || !sig) return;
+    try {
+      setSubmitting(true);
+      // We don't have proposalId in token; add proposalId to token payload to avoid lookup.
+      // For now assume token.id is the proposalId per encodeSignToken implementation.
+      const res = await fetch("/api/proposals/sign", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ proposalId: payload.id, signature: sig }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json?.projectId) {
+        router.push(`/projects/${json.projectId}`);
+      } else {
+        alert(json?.error ? `Failed to submit signature: ${json.error}` : "Failed to submit signature");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Unexpected error submitting signature");
+    } finally {
+      setSubmitting(false);
+    }
+  }, [payload, sig, router]);
+
   if (!payload) {
     return (
       <Container className="py-10">
@@ -108,6 +136,9 @@ export default function SignProposalPage({
         <div className="mt-4 flex gap-3">
           <Button disabled={!sig} onClick={handleDownload}>
             Download Signed PDF
+          </Button>
+          <Button disabled={!sig || submitting} onClick={handleSubmitSignature}>
+            {submitting ? "Submitting..." : "Submit Signature"}
           </Button>
           {signed && (
             <span className="text-sm text-emerald-600">

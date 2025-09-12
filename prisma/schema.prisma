@@ -9,15 +9,15 @@ datasource db {
 
 model Proposal {
   id          String             @id @default(uuid())
-  clientName  String
-  clientEmail String
+  clientId    String?
+  client      Client?            @relation(fields: [clientId], references: [id])
   projectName String
   notes       String?
+  signature   Json?
   createdAt   DateTime           @default(now())
   lineItems   ProposalLineItem[]
 
-  @@index([clientEmail])
-  @@index([clientName])
+  @@index([clientId])
   @@index([createdAt])
 }
 
@@ -140,7 +140,8 @@ enum ProjectStatus {
 model Project {
   id        String        @id @default(uuid())
   name      String
-  client    String?
+  clientId  String?
+  client    Client?       @relation(fields: [clientId], references: [id])
   type      ProjectType   @default(OTHER)
   status    ProjectStatus @default(ACTIVE)
   budget    Decimal?      @db.Decimal(12, 2)
@@ -149,4 +150,41 @@ model Project {
   @@index([status])
   @@index([type])
   @@index([createdAt])
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+}
+
+model Invoice {
+  id         String        @id @default(uuid())
+  clientId   String?
+  client     Client?       @relation(fields: [clientId], references: [id])
+  projectId  String?
+  project    Project?      @relation(fields: [projectId], references: [id])
+  proposalId String?
+  proposal   Proposal?     @relation(fields: [proposalId], references: [id])
+  status     InvoiceStatus @default(DRAFT)
+  total      Decimal       @db.Decimal(12, 2)
+  notes      String?
+  createdAt  DateTime      @default(now())
+  lineItems  InvoiceLineItem[]
+
+  @@index([clientId])
+  @@index([projectId])
+  @@index([proposalId])
+  @@index([createdAt])
+}
+
+model InvoiceLineItem {
+  id         String   @id @default(uuid())
+  description String
+  amount      Decimal  @db.Decimal(12, 2)
+  invoiceId   String
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
 }

@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Container from "@/components/container";
 
 export default function AIAssistantPage() {
+  const [starting, setStarting] = useState(false);
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -15,8 +17,18 @@ export default function AIAssistantPage() {
               Get intelligent insights and recommendations for your business
             </p>
           </div>
-          <button type="button" className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto">
-            New Chat
+          <button type="button" className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm sm:text-base self-start sm:self-auto" onClick={async () => {
+            try {
+              setStarting(true);
+              await fetch('/api/agent/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: 'Start', context: { action: 'new_chat' }, page: 'ai' }) });
+              alert('Chat session initialized.');
+            } catch {
+              alert('Failed to initialize chat.');
+            } finally {
+              setStarting(false);
+            }
+          }}>
+            {starting ? 'Starting…' : 'New Chat'}
           </button>
         </div>
       </Container>

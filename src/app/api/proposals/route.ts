@@ -33,14 +33,16 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: "desc" },
       skip,
       take: limit,
-      include: { lineItems: true },
+      include: { lineItems: true, client: true },
     }),
     prisma.proposal.count(),
   ]);
   
+  const proposalsResponse = proposals.map((p: any) => ({ ...p, clientName: p.client?.name ?? null, clientEmail: p.client?.email ?? null }));
+
   return NextResponse.json({
     ok: true,
-    proposals,
+    proposals: proposalsResponse,
     pagination: {
       page,
       limit,
@@ -78,20 +80,50 @@ export async function POST(request: NextRequest) {
         }))
       : [];
 
+    // Prefer relational client if provided; otherwise derive from name/email
+    let clientId: string | undefined = body?.clientId || undefined;
+    if (!clientId) {
+      const candidateEmail = body?.clientEmail ? String(body.clientEmail) : undefined;
+      const candidateName = body?.clientName ? String(body.clientName) : undefined;
+      if (candidateEmail || candidateName) {
+        const existing = await prisma.client.findFirst({
+          where: {
+            OR: [
+              candidateEmail ? { email: candidateEmail } : undefined,
+              candidateName ? { name: candidateName } : undefined,
+            ].filter(Boolean) as any,
+          },
+          select: { id: true },
+        });
+        if (existing) {
+          clientId = existing.id;
+        } else if (candidateName) {
+          const createdClient = await prisma.client.create({
+            data: { name: candidateName, email: candidateEmail },
+            select: { id: true },
+          });
+          clientId = createdClient.id;
+        }
+      }
+    }
     const created = await prisma.proposal.create({
       data: {
-        clientName: String(body?.clientName ?? ""),
-        clientEmail: String(body?.clientEmail ?? ""),
+        clientId,
         projectName: String(body?.projectName ?? ""),
         notes: body?.notes ? String(body.notes) : undefined,
-        lineItems: {
-          create: lineItemsInput,
-        },
+        lineItems: { create: lineItemsInput },
       },
-      include: { lineItems: true },
+      include: { lineItems: true, client: true },
     });
 
-    return NextResponse.json({ ok: true, proposal: created });
+    // Back-compat: derive denormalized fields for UI using existing expectations
+    const responseProposal: any = {
+      ...created,
+      clientName: created.client?.name ?? String(body?.clientName ?? ""),
+      clientEmail: created.client?.email ?? String(body?.clientEmail ?? ""),
+    };
+
+    return NextResponse.json({ ok: true, proposal: responseProposal });
   } catch (err: any) {
     return NextResponse.json({ error: "internal_server_error", detail: String(err?.message || err) }, { status: 500 });
   }

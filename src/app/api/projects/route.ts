@@ -32,6 +32,7 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: "desc" },
       skip,
       take: limit,
+      include: { client: true },
     }),
     prisma.project.count(),
   ]);
@@ -65,7 +66,16 @@ export async function POST(request: NextRequest) {
   }
   try {
     const body = await request.json();
-    const project = await prisma.project.create({ data: body });
+    const project = await prisma.project.create({
+      data: {
+        name: String(body?.name ?? ""),
+        clientId: body?.clientId || undefined,
+        type: body?.type ?? "OTHER",
+        status: body?.status ?? "ACTIVE",
+        budget: typeof body?.budget === "number" || typeof body?.budget === "string" ? body?.budget : undefined,
+      },
+      include: { client: true },
+    });
     return NextResponse.json({ ok: true, project });
   } catch (err: any) {
     return NextResponse.json({ error: "internal_server_error", detail: String(err?.message || err) }, { status: 500 });

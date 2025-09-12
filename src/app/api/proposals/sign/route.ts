@@ -7,8 +7,8 @@ export const runtime = "nodejs";
  * POST /api/proposals/sign
  * Body: { proposalId: string, signature: unknown }
  * Behavior (schema-aligned):
- * 1) Update Proposal: embed {signed:true, signature, signedAt} into Proposal.notes (serialized JSON) since no status/signature fields exist.
- * 2) If a Project with matching (name=proposal.projectName, client=proposal.clientName) does not exist, create it.
+ * 1) Update Proposal.signature Json
+ * 2) If a Project with matching (name=proposal.projectName, clientId=proposal.clientId) does not exist, create it.
  *    - budget is computed from ProposalLineItem amounts
  * 3) Respond { message, projectId }
  */
@@ -44,30 +44,17 @@ export async function POST(request: NextRequest) {
 			0,
 		);
 
-		// Serialize signing info into notes (since schema has no dedicated status/signature)
-		let existingNotes: any = {};
-		try {
-			if (proposal.notes) existingNotes = JSON.parse(proposal.notes);
-		} catch {
-			existingNotes = { _raw: proposal.notes };
-		}
-		const updatedNotes = JSON.stringify({
-			...existingNotes,
-			signed: true,
-			signedAt: new Date().toISOString(),
-			signature,
-		});
-
+		// Store signature JSON
 		await prisma.proposal.update({
 			where: { id: proposal.id },
-			data: { notes: updatedNotes },
+			data: { signature: signature ?? { signed: true, at: new Date().toISOString() } },
 		});
 
-		// Best-effort project existence check via denormalized fields
+		// Ensure project exists using relational clientId
 		const existingProject = await prisma.project.findFirst({
 			where: {
 				name: proposal.projectName,
-				client: proposal.clientName,
+				clientId: proposal.clientId ?? undefined,
 			},
 			select: { id: true },
 		});
@@ -77,7 +64,7 @@ export async function POST(request: NextRequest) {
 			const created = await prisma.project.create({
 				data: {
 					name: proposal.projectName,
-					client: proposal.clientName,
+					clientId: proposal.clientId ?? undefined,
 					status: "ACTIVE",
 					type: "OTHER",
 					budget: total || 0,
@@ -86,8 +73,6 @@ export async function POST(request: NextRequest) {
 			});
 			projectId = created.id;
 		}
-
-		// Optional: Invoice creation is skipped due to absent Invoice schema
 
 		return NextResponse.json({
 			message: "Proposal signed and project ensured",
