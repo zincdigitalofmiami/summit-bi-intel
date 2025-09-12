@@ -16,6 +16,7 @@ model Proposal {
   signature   Json?
   createdAt   DateTime           @default(now())
   lineItems   ProposalLineItem[]
+  invoices    Invoice[]
 
   @@index([clientId])
   @@index([createdAt])
@@ -93,6 +94,9 @@ model Client {
   location  String?
   type      ClientType @default(RESIDENTIAL)
   createdAt DateTime   @default(now())
+  proposals Proposal[]
+  projects  Project[]
+  invoices  Invoice[]
 
   @@index([name])
   @@index([type])
@@ -146,6 +150,7 @@ model Project {
   status    ProjectStatus @default(ACTIVE)
   budget    Decimal?      @db.Decimal(12, 2)
   createdAt DateTime      @default(now())
+  invoices  Invoice[]
 
   @@index([status])
   @@index([type])
