@@ -1,0 +1,346 @@
+{
+  "pages": [
+    {
+      "route": "/dashboard",
+      "purpose": "Main BI dashboard for marine operations KPIs and widgets",
+      "linkedComponents": ["AIAgent", "QuickActions", "ChartBlocks", "Container", "Badge", "Button", "Card"],
+      "connectedAPI": []
+    },
+    {
+      "route": "/crm",
+      "purpose": "CRM overview with tabs and AI insights",
+      "linkedComponents": ["Container", "Card", "Tabs", "QuickActions", "AIInsightsWidget", "AIAgent"],
+      "connectedAPI": []
+    },
+    {
+      "route": "/proposals",
+      "purpose": "Create, list, email, and manage proposals",
+      "linkedComponents": ["Container", "ProposalForm", "Button"],
+      "connectedAPI": [
+        { "route": "/api/proposals", "methods": ["GET", "POST"] },
+        { "route": "/api/proposals/send", "methods": ["POST"] },
+        { "route": "/api/proposals/[id]", "methods": ["DELETE"] }
+      ],
+      "buttons": [
+        { "label": "Create Proposal", "action": "toggle form" },
+        { "label": "📧 Send Email", "action": "POST /api/proposals/send" },
+        { "label": "Copy Sign Link", "action": "encodeSignToken → clipboard" },
+        { "label": "Download PDF", "action": "client-side PDF generation" },
+        { "label": "Delete", "action": "DELETE /api/proposals/[id]" }
+      ],
+      "forms": [
+        { "name": "ProposalForm", "submit": "POST /api/proposals" }
+      ]
+    },
+    {
+      "route": "/proposals/sign/[token]",
+      "purpose": "Client proposal signing page (generates signed PDF)",
+      "linkedComponents": ["Container", "SignaturePad", "Button"],
+      "connectedAPI": [],
+      "buttons": [
+        { "label": "Download Signed PDF", "action": "client-side PDF generation" }
+      ],
+      "forms": [],
+      "deadActions": ["Signature collected but not submitted to backend. Consider POST /api/proposals/sign"]
+    },
+    {
+      "route": "/leads",
+      "purpose": "Lead management: CRUD and convert to project",
+      "linkedComponents": ["Container", "ErrorBoundary", "LeadForm", "ProjectForm", "LoadingState", "EmptyState"],
+      "connectedAPI": [
+        { "route": "/api/leads", "methods": ["GET", "POST"] },
+        { "route": "/api/leads/[id]", "methods": ["PATCH", "GET"] },
+        { "route": "/api/projects", "methods": ["POST"] }
+      ],
+      "buttons": [
+        { "label": "Add New Lead", "action": "toggle form" },
+        { "label": "Mark Qualified", "action": "PATCH /api/leads/[id]" },
+        { "label": "Mark Lost", "action": "PATCH /api/leads/[id]" },
+        { "label": "Create Proposal", "action": "navigate /proposals" },
+        { "label": "Convert to Project", "action": "toggle project form" }
+      ],
+      "forms": [
+        { "name": "LeadForm", "submit": "POST /api/leads" },
+        { "name": "ProjectForm", "submit": "POST /api/projects; then PATCH /api/leads/[id]" }
+      ]
+    },
+    {
+      "route": "/projects",
+      "purpose": "Project management with stats and creation form",
+      "linkedComponents": ["Container"],
+      "connectedAPI": [
+        { "route": "/api/projects", "methods": ["GET", "POST"] }
+      ],
+      "buttons": [
+        { "label": "New Project", "action": "toggle form" },
+        { "label": "Save", "action": "POST /api/projects" },
+        { "label": "Cancel", "action": "close form" }
+      ],
+      "forms": [
+        { "name": "Inline Project Form", "submit": "POST /api/projects" }
+      ]
+    },
+    {
+      "route": "/clients",
+      "purpose": "Client management with creation form and stats",
+      "linkedComponents": ["Container"],
+      "connectedAPI": [
+        { "route": "/api/clients", "methods": ["GET", "POST"] },
+        { "route": "/api/projects", "methods": ["GET"] }
+      ],
+      "buttons": [
+        { "label": "Add New Client", "action": "toggle form" },
+        { "label": "Save", "action": "POST /api/clients" },
+        { "label": "Cancel", "action": "close form" }
+      ],
+      "forms": [
+        { "name": "Inline Client Form", "submit": "POST /api/clients" }
+      ]
+    },
+    {
+      "route": "/auth/login",
+      "purpose": "Authentication: password and magic link login (Auth gate disabled in middleware)",
+      "linkedComponents": ["Container", "Button", "Input"],
+      "connectedAPI": [
+        { "route": "/api/auth/password", "methods": ["POST"] },
+        { "route": "/api/auth/setup", "methods": ["POST"] },
+        { "route": "/api/auth/login", "methods": ["POST"] }
+      ],
+      "buttons": [
+        { "label": "Sign In", "action": "POST /api/auth/password (fallback /api/auth/setup)" },
+        { "label": "Send Magic Link", "action": "POST /api/auth/login" }
+      ],
+      "forms": []
+    },
+    {
+      "route": "/auth/forgot",
+      "purpose": "Forgot password flow",
+      "linkedComponents": ["Container", "Button", "Input"],
+      "connectedAPI": [
+        { "route": "/api/auth/forgot", "methods": ["POST"] }
+      ],
+      "buttons": [
+        { "label": "Send reset link", "action": "POST /api/auth/forgot" }
+      ],
+      "forms": []
+    },
+    {
+      "route": "/auth/reset",
+      "purpose": "Reset password form",
+      "linkedComponents": ["Container", "Button", "Input"],
+      "connectedAPI": [
+        { "route": "/api/auth/reset", "methods": ["POST"] }
+      ],
+      "buttons": [
+        { "label": "Reset password", "action": "POST /api/auth/reset" }
+      ],
+      "forms": []
+    },
+    {
+      "route": "/auth/welcome",
+      "purpose": "Welcome page post-auth with navigation shortcuts",
+      "linkedComponents": ["Container", "Button"],
+      "connectedAPI": [],
+      "buttons": [
+        { "label": "Go to Dashboard", "action": "navigate /dashboard" },
+        { "label": "Review Settings", "action": "navigate /settings" }
+      ],
+      "forms": []
+    },
+    {
+      "route": "/ai",
+      "purpose": "AI assistant utilities and integrations",
+      "linkedComponents": ["Container"],
+      "connectedAPI": [
+        { "route": "/api/knowledge/sync", "methods": ["POST"] },
+        { "route": "/api/agent/insights", "methods": ["GET"] },
+        { "route": "/api/leads/enrich", "methods": ["POST"] },
+        { "route": "/api/google/analytics", "methods": ["GET"] },
+        { "route": "/api/google/search-console", "methods": ["GET"] },
+        { "route": "/api/google/ads", "methods": ["GET"] }
+      ],
+      "buttons": [
+        { "label": "New Chat", "action": "none" },
+        { "label": "Sync Knowledge", "action": "POST /api/knowledge/sync" },
+        { "label": "Generate Insights", "action": "GET /api/agent/insights" },
+        { "label": "Enrich Lead", "action": "POST /api/leads/enrich" },
+        { "label": "View Analytics", "action": "open /api/google/analytics in new tab" },
+        { "label": "Search Console", "action": "open /api/google/search-console in new tab" },
+        { "label": "Google Ads", "action": "open /api/google/ads in new tab" }
+      ],
+      "forms": [
+        { "name": "Lead Enrichment Email Input", "submit": "POST /api/leads/enrich" }
+      ],
+      "deadActions": ["New Chat has no handler"]
+    },
+    {
+      "route": "/analytics/market-intelligence",
+      "purpose": "Market permits, competitors, trends, and opportunities",
+      "linkedComponents": ["Badge", "Button", "Card", "Tabs"],
+      "connectedAPI": [
+        { "route": "/api/market/panama-permits/demo", "methods": ["GET"] },
+        { "route": "/api/dashboard/market-trends", "methods": ["GET"] },
+        { "route": "/api/dashboard/opportunities", "methods": ["GET"] },
+        { "route": "/api/competitors", "methods": ["GET"] }
+      ],
+      "buttons": [
+        { "label": "Refresh Data", "action": "refetch all linked APIs" },
+        { "label": "Bay County", "action": "GET /api/market/panama-permits/demo?source=baycounty" },
+        { "label": "Panama City", "action": "GET /api/market/panama-permits/demo?source=panamacity" },
+        { "label": "PCB", "action": "GET /api/market/panama-permits/demo?source=pcb" }
+      ],
+      "forms": []
+    },
+    {
+      "route": "/settings",
+      "purpose": "User/app settings shell",
+      "linkedComponents": ["Container"],
+      "connectedAPI": []
+    },
+    { "route": "/contacts", "purpose": "Contact management UI", "linkedComponents": ["Container", "ContactManagement"], "connectedAPI": [] },
+    { "route": "/performance", "purpose": "Performance dashboard", "linkedComponents": ["Card", "Tabs"], "connectedAPI": [] },
+    { "route": "/services", "purpose": "Services listing UI", "linkedComponents": ["Container"], "connectedAPI": [] },
+    { "route": "/projects", "purpose": "See above" , "linkedComponents": ["Container"], "connectedAPI": [{"route":"/api/projects","methods":["GET","POST"]}] },
+    { "route": "/market-intelligence", "purpose": "Alternate entry for market intelligence", "linkedComponents": [], "connectedAPI": [] },
+    { "route": "/account", "purpose": "Account home", "linkedComponents": [], "connectedAPI": [] },
+    { "route": "/account/sessions", "purpose": "Account sessions", "linkedComponents": [], "connectedAPI": [] },
+    { "route": "/account/security", "purpose": "Change password form", "linkedComponents": [], "connectedAPI": [{"route":"/api/auth/change-password","methods":["POST"]}] },
+    { "route": "/analytics", "purpose": "Analytics overview", "linkedComponents": ["Container"], "connectedAPI": [] },
+    { "route": "/contacts", "purpose": "Contacts management", "linkedComponents": ["Container","ContactManagement"], "connectedAPI": [] },
+    { "route": "/page", "purpose": "App root landing", "linkedComponents": [], "connectedAPI": [] }
+  ],
+  "api": [
+    { "route": "/api/health", "purpose": "Health probe", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/proposals", "purpose": "List/Create proposals", "connectedModels": ["Proposal", "ProposalLineItem"], "knownIssues": ["Formatter warnings present"] },
+    { "route": "/api/proposals/send", "purpose": "Send proposal via email (Resend); fallback returns signUrl", "connectedModels": [], "knownIssues": ["Uses sample proposal not DB data if email not configured"] },
+    { "route": "/api/proposals/sign", "purpose": "Mark proposal signed and ensure Project", "connectedModels": ["Proposal", "Project"], "knownIssues": ["Notes JSON used to store signing info; no dedicated schema"] },
+    { "route": "/api/proposals/[id]", "purpose": "Delete proposal (used in UI)", "connectedModels": ["Proposal"], "knownIssues": [] },
+    { "route": "/api/leads", "purpose": "List/Create leads (paginated)", "connectedModels": ["Lead"], "knownIssues": ["Trailing whitespace/formatter errors"] },
+    { "route": "/api/leads/[id]", "purpose": "Get/Update single lead", "connectedModels": ["Lead"], "knownIssues": ["Formatter warning"] },
+    { "route": "/api/projects", "purpose": "List/Create projects (paginated)", "connectedModels": ["Project"], "knownIssues": ["Trailing whitespace/formatter errors"] },
+    { "route": "/api/clients", "purpose": "List/Create clients (paginated)", "connectedModels": ["Client"], "knownIssues": ["Trailing whitespace/formatter errors"] },
+    { "route": "/api/agent/insights", "purpose": "AI insights stub", "connectedModels": [], "knownIssues": ["Formatter error"] },
+    { "route": "/api/knowledge/sync", "purpose": "Sync knowledge base stub", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/competitors", "purpose": "Competitor list (merged KB)", "connectedModels": [], "knownIssues": ["Unused vars warnings"] },
+    { "route": "/api/dashboard/metrics", "purpose": "Dashboard metrics", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/dashboard/lead-sources", "purpose": "Lead sources chart data", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/dashboard/market-trends", "purpose": "Market trends data", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/dashboard/opportunities", "purpose": "Opportunities data", "connectedModels": [], "knownIssues": ["Formatter error"] },
+    { "route": "/api/market/panama-permits", "purpose": "Live permits integration", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/market/panama-permits/demo", "purpose": "Demo permits data", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/market/trending", "purpose": "Trending topics RSS", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/market/scrape", "purpose": "Scraping endpoint", "connectedModels": [], "knownIssues": ["Import order lint error"] },
+    { "route": "/api/google/analytics", "purpose": "Proxy to Google Analytics", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/google/search-console", "purpose": "Proxy to Google Search Console", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/google/ads", "purpose": "Proxy to Google Ads", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/auth/password", "purpose": "Password login", "connectedModels": ["User"], "knownIssues": [] },
+    { "route": "/api/auth/login", "purpose": "Magic link login", "connectedModels": ["MagicLinkToken"], "knownIssues": [] },
+    { "route": "/api/auth/callback", "purpose": "Auth callback handler", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/auth/forgot", "purpose": "Send reset link", "connectedModels": ["PasswordResetToken"], "knownIssues": [] },
+    { "route": "/api/auth/reset", "purpose": "Reset password", "connectedModels": ["PasswordResetToken", "User"], "knownIssues": [] },
+    { "route": "/api/auth/change-password", "purpose": "Authenticated change password", "connectedModels": ["User"], "knownIssues": ["Formatter warning"] },
+    { "route": "/api/auth/setup", "purpose": "Bootstrap users if missing", "connectedModels": ["User"], "knownIssues": ["Import order lint error"] },
+    { "route": "/api/auth/onboard", "purpose": "Onboarding", "connectedModels": ["User"], "knownIssues": ["Import order lint error"] },
+    { "route": "/api/auth/logout", "purpose": "Logout", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/auth/me", "purpose": "Current user info", "connectedModels": ["User"], "knownIssues": ["Import order lint error"] },
+    { "route": "/api/admin/seed", "purpose": "Seed data", "connectedModels": [], "knownIssues": [] },
+    { "route": "/api/admin/init-users", "purpose": "Initialize users", "connectedModels": ["User"], "knownIssues": ["Import order lint error"] },
+    { "route": "/api/admin/setup-passwords", "purpose": "Set default passwords", "connectedModels": ["User"], "knownIssues": ["Import order lint error"] },
+    { "route": "/api/admin/magic-link", "purpose": "Generate magic link", "connectedModels": ["MagicLinkToken"], "knownIssues": ["Formatter error"] },
+    { "route": "/api/admin/reset-link", "purpose": "Generate reset link", "connectedModels": ["PasswordResetToken"], "knownIssues": ["Formatter error"] },
+    { "route": "/api/diagnostics", "purpose": "Diagnostics endpoint", "connectedModels": [], "knownIssues": ["Formatter error"] },
+    { "route": "/api/logs", "purpose": "App logs", "connectedModels": [], "knownIssues": [] },
+    { "route": "/robots.txt", "purpose": "Robots", "connectedModels": [], "knownIssues": [] }
+  ],
+  "prismaModels": [
+    {
+      "model": "Proposal",
+      "fields": ["id:String@id", "clientName:String", "clientEmail:String", "projectName:String", "notes:String?", "createdAt:DateTime@default(now())"],
+      "relations": ["lineItems: ProposalLineItem[]"],
+      "notes": ["Indexes on clientEmail, clientName, createdAt"]
+    },
+    {
+      "model": "ProposalLineItem",
+      "fields": ["id:String@id", "description:String", "amount:Decimal(12,2)", "proposalId:String"],
+      "relations": ["proposal: Proposal @relation(fields:[proposalId])"],
+      "notes": ["Index on proposalId"]
+    },
+    { "model": "User", "fields": ["id", "email@unique", "name?", "role:Role@default(USER)", "onboarded:Boolean@default(false)", "lastLoginAt?", "passwordHash?", "createdAt@default(now())"], "relations": ["magicLinkTokens: MagicLinkToken[]"], "notes": ["Index on createdAt"] },
+    { "model": "MagicLinkToken", "fields": ["id", "email", "token@unique", "expiresAt", "used@default(false)", "createdAt@default(now())"], "relations": ["user: User? @relation(fields:[email], references:[email])"], "notes": ["Indexes on email, createdAt, expiresAt"] },
+    { "model": "PasswordResetToken", "fields": ["id", "email", "token@unique", "expiresAt", "used@default(false)", "createdAt@default(now())"], "relations": [], "notes": ["Indexes on email, createdAt, expiresAt"] },
+    { "model": "Client", "fields": ["id", "name", "email?", "phone?", "location?", "type:ClientType@default(RESIDENTIAL)", "createdAt@default(now())"], "relations": [], "notes": ["Indexes on name, type, createdAt"] },
+    { "model": "Lead", "fields": ["id", "name", "contactEmail?", "contactPhone?", "companyName?", "status:LeadStatus@default(NEW)", "source?", "notes?", "createdAt@default(now())", "conversionDate?"], "relations": [], "notes": ["Indexes on status, createdAt"] },
+    { "model": "Project", "fields": ["id", "name", "client?", "type:ProjectType@default(OTHER)", "status:ProjectStatus@default(ACTIVE)", "budget:Decimal? (12,2)", "createdAt@default(now())"], "relations": [], "notes": ["Indexes on status, type, createdAt"] },
+    { "model": "Enums", "fields": ["Role(ADMIN|USER)", "ClientType(RESIDENTIAL|COMMERCIAL|MARINA)", "LeadStatus(NEW|QUALIFIED|PROPOSAL|CONVERTED|LOST)", "ProjectType(SEAWALL|DOCK|RETAINING|REPAIR|OTHER)", "ProjectStatus(ACTIVE|COMPLETED|ON_HOLD)"] , "relations": [], "notes": [] }
+  ],
+  "components": [
+    { "name": "Container", "file": "src/components/container.tsx", "purpose": "Layout wrapper", "usedByPages": ["/dashboard","/crm","/proposals","/leads","/projects","/clients","/auth/*","/ai","/settings","/contacts","/analytics","/services"] },
+    { "name": "ProposalForm", "file": "src/components/forms/proposal-form.tsx", "purpose": "Create proposal payload", "usedByPages": ["/proposals"] },
+    { "name": "LeadForm", "file": "src/components/forms/lead-form.tsx", "purpose": "Create lead", "usedByPages": ["/leads"] },
+    { "name": "ProjectForm", "file": "src/components/forms/project-form.tsx", "purpose": "Create project (optionally from lead)", "usedByPages": ["/leads"] },
+    { "name": "SignaturePad", "file": "src/components/ui/signature-pad.tsx", "purpose": "Capture signature as data URL", "usedByPages": ["/proposals/sign/[token]"] },
+    { "name": "SideNav", "file": "src/components/nav/side-nav/index.tsx", "purpose": "Sidebar shell with navigation", "usedByPages": ["layout"] },
+    { "name": "Navigation", "file": "src/components/nav/side-nav/components/navigation.tsx", "purpose": "Render links from config/site.tsx", "usedByPages": ["layout"] },
+    { "name": "TopNav", "file": "src/components/nav/top-nav.tsx", "purpose": "Header with Settings link and theme toggle", "usedByPages": ["header"] },
+    { "name": "AIAgent", "file": "src/components/ai-agent/index.tsx", "purpose": "AI assistant widget", "usedByPages": ["/dashboard","/crm"] },
+    { "name": "AIInsightsWidget", "file": "src/components/ai-insights-widget/index.tsx", "purpose": "AI insights cards", "usedByPages": ["/crm"] }
+  ],
+  "hooks": [
+    { "name": "useAsyncOperation", "file": "src/hooks/use-safe-storage.tsx", "purpose": "Run async actions with loading/error state", "usedBy": ["/leads"] },
+    { "name": "useFormPersistence", "file": "src/hooks/use-form-persistence.tsx", "purpose": "In-memory form persistence helper", "usedBy": [] },
+    { "name": "useHydration", "file": "src/hooks/use-hydration.tsx", "purpose": "Detect client hydration", "usedBy": [] }
+  ],
+  "navigation": {
+    "sidebar": [
+      { "name": "Dashboard", "href": "/dashboard" },
+      { "name": "CRM", "href": "/crm" },
+      { "name": "Proposals", "href": "/proposals" },
+      { "name": "Analytics", "href": "/analytics" },
+      { "name": "Performance", "href": "/performance" },
+      { "name": "Market Intelligence", "href": "/market-intelligence" },
+      { "name": "Services", "href": "/services" }
+    ],
+    "topNav": [
+      { "name": "Settings", "href": "/settings" }
+    ],
+    "brokenLinks": []
+  },
+  "errors": [
+    { "file": "src/app/proposals/sign/[token]/page.tsx", "line": 3, "message": "Imports not sorted" },
+    { "file": "src/app/api/admin/add-user/route.ts", "line": 59, "message": "Formatter would have printed content" },
+    { "file": "src/app/api/admin/magic-link/route.ts", "line": 35, "message": "Formatter would have printed content" },
+    { "file": "src/app/api/admin/reset-link/route.ts", "line": 33, "message": "Formatter would have printed content" },
+    { "file": "src/app/api/auth/change-password/route.ts", "line": 19, "message": "Formatter would have printed content" },
+    { "file": "src/app/api/leads/wp/route.ts", "line": 16, "message": "Callback in forEach should not return" },
+    { "file": "src/app/api/leads/wp/route.ts", "line": 21, "message": "Assignment should not be in expression" },
+    { "file": "src/components/chart-blocks/charts/average-tickets-created/index.tsx", "line": 41, "message": "Imports not sorted" },
+    { "file": "src/app/analytics/market-intelligence/page.tsx", "line": 14, "message": "Imports not sorted and array index keys used" },
+    { "file": "src/components/chart-blocks/charts/metrics/index.tsx", "line": 3, "message": "Imports not sorted" },
+    { "file": "src/components/chart-blocks/charts/ticket-by-channels/chart.tsx", "line": 115, "message": "Imports not sorted" },
+    { "file": "src/app/projects/page.tsx", "line": 2, "message": "Imports not sorted; missing type on button" },
+    { "file": "src/app/api/auth/me/route.ts", "line": 16, "message": "Imports not sorted" },
+    { "file": "src/app/api/agent/insights/route.ts", "line": 134, "message": "Formatter would have printed content" },
+    { "file": "src/components/ui/progress.tsx", "line": 3, "message": "Imports not sorted" },
+    { "file": "src/components/project-timeline/index.tsx", "line": 3, "message": "Imports not sorted" },
+    { "file": "src/components/ai-insights-widget/index.tsx", "line": 3, "message": "Imports not sorted; array index keys used" },
+    { "file": "src/components/ai-agent/index.tsx", "line": 32, "message": "Imports not sorted; array index keys used" },
+    { "file": "src/app/crm/page.tsx", "line": 3, "message": "Imports not sorted; array index keys used" },
+    { "file": "src/components/ui/dialog.tsx", "line": 3, "message": "Imports not sorted" },
+    { "file": "src/app/api/leads/[id]/route.ts", "line": 20, "message": "Formatter would have printed content" },
+    { "file": "src/app/clients/page.tsx", "line": 61, "message": "Missing type=\"\" on button; other button type issues" },
+    { "file": "src/app/api/clients/route.ts", "line": 25, "message": "Formatter/trailing whitespace" },
+    { "file": "src/app/api/leads/route.ts", "line": 25, "message": "Formatter/trailing whitespace" },
+    { "file": "src/app/api/projects/route.ts", "line": 25, "message": "Formatter/trailing whitespace" },
+    { "file": "src/app/api/market/scrape/route.ts", "line": 1, "message": "Imports not sorted" },
+    { "file": "src/lib/error-handler.ts", "line": 1, "message": "Imports not sorted" },
+    { "file": "src/app/api/auth/setup/route.ts", "line": 87, "message": "Imports not sorted" },
+    { "file": "src/components/forms/proposal-form.tsx", "line": 8, "message": "Imports not sorted; unused imports" },
+    { "file": "src/app/services/page.tsx", "line": 8, "message": "Imports not sorted; unused state" },
+    { "file": "src/components/mobile-floating-actions/index.tsx", "line": 3, "message": "Imports not sorted; unused symbols" },
+    { "file": "src/components/quick-actions/index.tsx", "line": 21, "message": "Formatter would have printed content" },
+    { "file": "src/app/api/diagnostics/route.ts", "line": 1, "message": "Formatter would have printed content" },
+    { "file": "src/services/realtime-data.ts", "line": 1, "message": "Formatter/unused symbols" },
+    { "file": "src/app/api/proposals/route.ts", "line": 26, "message": "Formatter would have printed content" },
+    { "file": "src/app/proposals/page.tsx", "line": 11, "message": "Imports not sorted" }
+  ]
+}
