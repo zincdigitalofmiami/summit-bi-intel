@@ -28,7 +28,9 @@ async function buildInsights() {
 
   try {
     // Get real data from database
-    const projects = await prisma.project.findMany();
+    const projects = await prisma.project.findMany({
+      include: { client: true },
+    });
 
     const leads = await prisma.lead.findMany();
     const proposals = await prisma.proposal.findMany({
@@ -103,18 +105,29 @@ async function buildInsights() {
     }
 
     // 4. Client Insights
-    const uniqueClients = new Set(projects.map(p => p.client).filter(Boolean));
-    const repeatClients = projects.filter(p => p.client && projects.filter(op => op.client === p.client).length > 1).length;
+    const uniqueClients = new Set(
+      projects.map(p => p.client?.name ?? p.clientId).filter(Boolean)
+    );
+
+    const repeatClients = projects.filter(p => {
+      const id = p.client?.name ?? p.clientId;
+      return (
+        id &&
+        projects.filter(op => (op.client?.name ?? op.clientId) === id).length > 1
+      );
+    }).length;
 
     if (uniqueClients.size > 0 && repeatClients / uniqueClients.size < 0.3) {
-      items.push({
-        title: "Client Retention Opportunity",
-        detail: `Only ${((repeatClients / uniqueClients.size) * 100).toFixed(1)}% of clients are repeat customers. Focus on customer satisfaction.`,
-        severity: "medium",
-        category: "Customer Success",
-        actionable: true,
-        confidence: 80
-      });
+      items.push(
+        {
+          title: "Client Retention Opportunity",
+          detail: "Most of your clients are one-time, consider building long-term relationships.",
+          severity: "medium",
+          category: "Customer Success",
+          actionable: true,
+          confidence: 80
+        }
+      );
     }
 
     // 5. Competitor Insights (from existing data)
